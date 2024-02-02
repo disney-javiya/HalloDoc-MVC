@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "PatientLogin";
+}
+
+
+
+        <div class="main d-flex justify-content-center align-items-center">
+            <div class="row row-cols-1 justify-content-center align-items-center width ">
+                <div class="col">
+            <a class="back-link" asp-controller="Home" asp-action="patientSite">< Back</a>
+                </div>
+                <div class="col">
+                    <h3 class="login-msg">Login To Your Account</h3>
+                </div>
+                <div class="col">
+                    <div class="form-floating position-relative mb-3">
+                            
+                        <input type="email" class="form-control email shadow-none " id="floatingInput" placeholder="" >
+                        <label for="floatingInput" class=" email-text">Email address </label>
+                        <i class="fa-regular fa-user position-absolute user-icon" style="color: #828487;"></i>
+                    
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating position-relative">
+                        <input type="password" class="form-control password shadow-none" id="floatingPassword" placeholder="Password">
+                        <label for="floatingPassword" class=" password-text">Password</label>
+                        <i class="fa-regular fa-eye  position-absolute eye-icon" style="color: #828487;"></i>
+                    </div>
+                </div>
+                <div class="col gy-2">
+                    <button class="btn login-btn w-100">Log In</button>
+                </div>
+                <div class="col">
+                    <a href="forgot-password.html" class="forgot-link d-flex justify-content-center">Forgot Password?</a>
+                </div>
+               
+            </div>
+        </div> 
+      

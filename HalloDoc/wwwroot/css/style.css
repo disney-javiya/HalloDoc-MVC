@@ -1,0 +1,450 @@
+/*Index Page*/
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main-content{
+    background-color: #F9F9F9;
+}
+
+.dark-icon{
+    font-size: 22px;
+    border: 1px solid #01BCE9;
+    border-radius: 2px;
+    color: #01BCE9;
+}
+.dark-icon:hover{
+    background: rgba(1, 188, 233, 0.5);
+    color: whitesmoke;
+}
+.logo{
+    height: 125px;
+    width: 240px;
+}
+.forgot-link{
+    
+}
+.back-link, .forgot-link{
+    text-decoration: none;
+    color: #01BCE9;
+    font-weight: 500;
+}
+
+.back-link:hover{
+    color: #86B6F6;
+} 
+.login-msg{
+    color: #434946;
+
+    text-align: center;
+}
+.login-btn{
+    background-color: #01BCE9;
+    color: white;
+  
+}
+.login-btn:hover{
+    background-color: #86B6F6;
+}
+.forgot-link:hover{
+    color: #86B6F6;
+}
+
+.email, .password{
+ background: transparent;
+ border: 1px solid #E3E3E3;
+
+ 
+}
+.email-text, .password-text{
+    color: grey;    
+}
+
+.email:focus, .password:focus{
+    border: 1.5px solid #01BCE9;
+    background: transparent;
+
+}
+.terms-link:hover , .privacy-link:hover{
+  background-color: rgba(67, 73, 70, 0.1);
+}
+.terms-link, .privacy-link{
+    color: #434946;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+
+.user-icon, .eye-icon{
+    top: 35%;
+    left: 92%;
+    cursor: pointer;
+}
+
+/* .main-content{
+    background: url(/images/7768657_3763028.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+} */
+
+/* .patient-login-main,.patient-reset-main{
+    background: url(/images/11116016_415-modified.jpg);
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+} */
+
+
+
+/*
+Forgot-password-page
+*/
+
+.reset-msg{
+    color: #434946;
+    text-align: center;
+}
+
+.username{
+    background: transparent;
+    border: 1px solid #E3E3E3;
+    
+}
+.username-text{
+    color: grey;  
+}
+
+.username:focus{
+    border: 1.5px solid #01BCE9;
+    background: transparent;
+}
+
+.reset-btn{
+    background-color: #01BCE9;
+    color: white;  
+}
+
+.reset-btn:hover{
+    background-color: #86B6F6;
+}
+
+.back-to-login-link{
+    text-decoration: none;
+    color: #01BCE9;
+    font-weight: 500;
+}
+
+.back-to-login-link:hover{
+    color: #86B6F6;
+}
+
+
+
+
+
+
+/*Patient Site*/
+.container-fluid{
+    background-color: #F9F9F9;
+
+}
+.submitrequest-btn{
+    background-color: #01BCE9;
+    color: white;
+    font-weight: 498;
+    font-size: 1.3rem;
+}
+.registered-btn{
+    background-color: #0D1556;
+    color: white;
+    font-weight: 498;
+    font-size: 1.3rem;
+}
+.submitrequest-btn:hover , .registered-btn:hover{
+    background-color: #86B6F6;
+}
+.width{
+    width: 400px;
+}
+
+/*Patient submit request page*/
+
+.header{
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.main-col{
+    background-color: #F9F9F9;
+}
+.footer-patient-submit{
+    background-color: #272727;
+}
+.logo-patient-submit{
+    height: 100px;
+    width: 210px;
+}
+
+.patient-submit-main{
+    background-color: #F9F9F9;
+}
+.back-btn{
+    border: 1px solid #01BCE9;
+    color: #01BCE9;
+}
+.back-btn:hover{
+    background-color: rgba(1, 188, 233, 0.1);
+    border: 1px solid #01BCE9;
+    color: #86B6F6;
+}
+.patient-btn{
+    border: 1px solid #616BA8;
+    background-color: rgba(97, 107, 168, 0.2);
+    color: #616BA8;
+    font-weight: 500;
+
+}
+.family-btn{
+    border: 1px solid #01BCE9;
+    background-color: rgba(1, 188, 233, 0.2);
+    color: #01BCE9;
+    font-weight: 500;
+
+}
+.concierge-btn{
+    border: 1px solid #457A4C;
+    background-color:rgba(69, 122, 76, 0.2);
+    color: #457A4C;
+    font-weight: 500;
+   
+}
+.bussiness-btn{
+    border: 1px solid #A02E72;
+    background-color:rgba(160, 46, 114, 0.2);
+    color: #A02E72;
+    font-weight: 500;
+   
+}
+.patient-btn:hover, .family-btn:hover, .concierge-btn:hover, .bussiness-btn:hover{
+    border: 1px solid #616BA8;
+    color: black;
+}
+
+.terms-link-patient-request:hover , .privacy-link-patient-request:hover{
+    color: whitesmoke;
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+.terms-link-patient-request , .privacy-link-patient-request, .vr {
+    text-decoration: none;
+      color: whitesmoke;
+      text-decoration: none;
+      font-weight: 400;
+}
+
+/*Create Patient Request*/
+.create-patient-req-main{
+    background-color: #F9F9F9;
+}
+.logo-create-patient-req-main{
+    height: 100px;
+    width: 210px;
+}
+.header-create-patient-req{
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.create-patient-req-footer{
+    background-color: #272727;
+}
+.terms-link-create-patient-req , .privacy-link-create-patient-req{
+    text-decoration: none;
+    color: whitesmoke;
+    text-decoration: none;
+    font-weight: 400;
+} 
+.terms-link-create-patient-req:hover, .privacy-link-create-patient-req:hover{
+    background-color: rgba(255, 255, 255, 0.3);
+    color: whitesmoke;
+}
+.width-create-patient-req{
+    width: 700px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.symptoms-create-patient-text, .first-name-create-patient-text ,.last-name-create-patient-text, .dob-create-patient-text, .email-create-patient-text, .contact-create-patient-text, .street-create-patient-text, .city-create-patient-text, .state-create-patient-text, .zipcode-create-patient-text, .room-create-patient-text, .select-file-create-patient-text{
+    color: #434946;
+    border: 1px solid #434946;
+    
+}
+.symptoms-create-patient:focus, .first-name-create-patient:focus ,.last-name-create-patient:focus, .dob-create-patient:focus, .email-create-patient:focus, .contact-create-patient:focus, .street-create-patient:focus, .city-create-patient:focus, .state-create-patient:focus, .zipcode-create-patient:focus, .room-create-patient:focus, .select-file-create-patient:focus{
+
+    border: 1px solid #01BCE9;
+   
+}
+.upload-btn-create-patient{
+    background-color: #01BCE9;
+    color: white;
+
+}
+.submit-btn-create-patient{
+    background-color: #01BCE9;
+    color: white;
+}
+.cancel-btn-create-patient{
+    background-color: white;
+    color: #01BCE9;
+    border: 1px solid #01BCE9;
+}
+.upload-btn-create-patient:hover , .submit-btn-create-patient:hover{
+    background-color: rgba(1, 188, 233, 0.3);
+    color: #616BA8;
+}
+.cancel-btn-create-patient:hover{
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #01BCE9;
+}
+
+
+.iti{
+    display: block!important;
+}
+
+
+/* Family Create Request Page*/
+.family-first-name-create-patient:focus, .family-last-name-create-patient:focus, .family-contact-create-patient:focus, .family-email-create-patient:focus, .family-relation-create-patient:focus{
+    border: 1px solid #01BCE9;
+}
+
+.family-first-name-create-patient-text, .family-last-name-create-patient-text, .family-contact-create-patient-text, .family-email-create-patient-text, .family-relation-create-patient-text{
+    color: #434946;
+    border: 1px solid #434946;
+}
+
+/*Concierge Create Request Page*/
+
+.concierge-first-name-create-patient:focus, .concierge-last-name-create-patient:focus, .concierge-contact-create-patient:focus, .concierge-email-create-patient:focus, .concierge-property-create-patient:focus, .concierge-street-create-patient:focus, .concierge-city-create-patient:focus, .concierge-state-create-patient:focus, .concierge-zipcode-create:focus, .business-case-create-patient:focus{
+    border: 1px solid #01BCE9;
+}
+.concierge-first-name-create-patient-text, .concierge-last-name-create-patient-text, .concierge-contact-create-patient-text, .concierge-email-create-patient-text, .concierge-property-create-patient-text, .concierge-street-create-patient-text, .concierge-city-create-patient-text, .concierge-state-create-patient-text, .concierge-zipcode-create-text, .business-case-create-patient-text{
+    color: #434946;
+    border: 1px solid #434946;
+}
+
+/*Business Create Request Page*/
+.business-first-name-create-patient:focus, .business-last-name-create-patient:focus, .business-contact-create-patient:focus, .business-email-create-patient:focus, .business-property-create-patient:focus{
+    border: 1px solid #01BCE9;
+}
+.business-first-name-create-patient-text, .business-last-name-create-patient-text, .business-contact-create-patient-text, .business-email-create-patient-text, .business-property-create-patient-text{
+    color: #434946;
+    border: 1px solid #434946;
+}
+
+
+/* Dark mode CSS*/
+.dark-mode {
+    background-color: black;
+    .patient-submit-main, .header, .footer-patient-submit{
+        background-color: black;
+    }
+    .create-patient-req-main, .header-create-patient-req{
+        background-color: black;
+    }
+    .width-create-patient-req{
+        background-color: rgba(211,211,211,0.3);
+    }
+    .symptoms-create-patient, .first-name-create-patient ,.last-name-create-patient, .dob-create-patient, .email-create-patient, .contact-create-patient, .street-create-patient, .city-create-patient, .state-create-patient, .zipcode-create-patient, .room-create-patient, .select-file-create-patient, .family-first-name-create-patient, .family-last-name-create-patient, .family-contact-create-patient, .family-email-create-patient, .family-relation-create-patient, .concierge-first-name-create-patient, .concierge-last-name-create-patient, .concierge-contact-create-patient, .concierge-email-create-patient, .concierge-property-create-patient, .concierge-street-create-patient, .concierge-city-create-patient, .concierge-state-create-patient, .concierge-zipcode-create-patient, .business-first-name-create-patient, .business-last-name-create-patient, .business-contact-create-patient, .business-email-create-patient, .business-property-create-patient, .business-case-create-patient{
+
+       background-color: transparent;
+       
+    }
+    .symptoms-create-patient-text, .first-name-create-patient-text ,.last-name-create-patient-text, .dob-create-patient-text, .email-create-patient-text, .contact-create-patient-text, .street-create-patient-text, .city-create-patient-text, .state-create-patient-text, .zipcode-create-patient-text, .room-create-patient-text, .select-file-create-patient-text, .family-first-name-create-patient-text, .family-last-name-create-patient-text, .family-contact-create-patient-text, .family-email-create-patient-text, .family-relation-create-patient-text, .concierge-first-name-create-patient-text, .concierge-last-name-create-patient-text, .concierge-contact-create-patient-text, .concierge-email-create-patient-text, .concierge-property-create-patient-text, .concierge-street-create-patient-text, .concierge-city-create-patient-text, .concierge-state-create-patient-text, .concierge-zipcode-create-patient-text, .business-first-name-create-patient-text, .business-last-name-create-patient-text, .business-contact-create-patient-text, .business-email-create-patient-text, .business-property-create-patient-text, .business-case-create-patient-text
+    {
+        color: whitesmoke;
+        
+    }
+    h5{
+        color: whitesmoke;
+    }
+    .heading{
+        color: white;
+    }
+    .patient-site-main{
+        background-color: black;
+    }
+    .patient-btn:hover, .family-btn:hover, .concierge-btn:hover, .bussiness-btn:hover{
+        border: 1px solid #616BA8;
+        color: white;
+    }
+    .login-msg, .reset-msg{
+        color: whitesmoke;
+    }
+    .email,.password, .username{
+        border: 1px solid whitesmoke;
+        color: whitesmoke;
+    }
+    .email-text, .password-text, .username-text{
+        color: whitesmoke;    
+    }
+
+    .email:focus, .password:focus, .username-focus{
+        border: 1.5px solid #01BCE9;
+        background: transparent;
+    
+    }
+    .terms-link, .privacy-link, .vr{
+        color: whitesmoke;
+
+    }
+    .terms-link:hover , .privacy-link:hover{
+        background-color: rgba(67, 73, 70, 0.3);
+    }
+    
+}
+
+
+/* Media Queries CSS*/
+@media (max-width: 576px){
+    .email,.password, .login-btn, .login-msg, .forgot-link, .username, .reset-btn, .reset-msg,.back-to-login-link , .patient-btn, .family-btn, .concierge-btn, .bussiness-btn{
+        width: 100%;
+    }
+    .logo{
+        visibility: hidden;
+    }
+    .logo-patient-submit{
+        height: 96px;
+        width: 190px;
+    }
+    .patient-login-main, .patient-site-main, .patient-reset-main{
+        background: url(/images/11116016_415-modified.jpg);
+        background-repeat: no-repeat;
+        background-size: 100vw 100vh;
+    }
+    
+.user-icon, .eye-icon{
+    top: 32%;
+    left: 85%;
+}
+
+}
+
+@media(min-width:577px) and (max-width:1111px){
+    .logo{
+        height: 100px;
+        width: 210px;
+    }
+    .patient-btn, .family-btn, .concierge-btn, .bussiness-btn{
+        width: 100%;
+    }
+}
+
+@media (max-width: 360px){
+    .symptoms-create-patient-text, .first-name-create-patient-text ,.last-name-create-patient-text, .dob-create-patient-text, .email-create-patient-text, .contact-create-patient-text, .street-create-patient-text, .city-create-patient-text, .state-create-patient-text, .zipcode-create-patient-text, .room-create-patient-text, .select-file-create-patient-text, .family-first-name-create-patient-text, .family-last-name-create-patient-text, .family-contact-create-patient-text, .family-email-create-patient-text, .family-relation-create-patient-text{
+        font-size: 12px;
+    }
+    .width-create-patient-req{
+        width: 100%;
+       
+    }
+    
+}
