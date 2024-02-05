@@ -77,11 +77,13 @@
 }
 
 
-.user-icon, .eye-icon{
+.user-icon, .eye-icon, .eye-icon1 {
     top: 35%;
+
     left: 92%;
     cursor: pointer;
 }
+
 
 /* .main-content{
     background: url(/images/7768657_3763028.jpg);
