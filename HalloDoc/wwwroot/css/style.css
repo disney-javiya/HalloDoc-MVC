@@ -34,38 +34,33 @@
 
 .back-link:hover{
     color: #86B6F6;
-} 
-.login-msg{
+}
+.login-msg, .signup-msg {
     color: #434946;
-
     text-align: center;
 }
-.login-btn{
+.login-btn, .signup-btn {
     background-color: #01BCE9;
     color: white;
-  
 }
-.login-btn:hover{
-    background-color: #86B6F6;
-}
+    .login-btn:hover, .signup-btn:hover {
+        background-color: #86B6F6;
+    }
 .forgot-link:hover{
     color: #86B6F6;
 }
 
-.email, .password{
- background: transparent;
- border: 1px solid #E3E3E3;
-
- 
+.email, .password, .password1 {
+    background: transparent;
+    border: 1px solid #E3E3E3;
 }
 .email-text, .password-text{
     color: grey;    
 }
 
-.email:focus, .password:focus{
+.email:focus, .password:focus, .password1:focus {
     border: 1.5px solid #01BCE9;
     background: transparent;
-
 }
 .terms-link:hover , .privacy-link:hover{
   background-color: rgba(67, 73, 70, 0.1);
@@ -378,22 +373,21 @@ Forgot-password-page
         border: 1px solid #616BA8;
         color: white;
     }
-    .login-msg, .reset-msg{
-        color: whitesmoke;
-    }
-    .email,.password, .username{
-        border: 1px solid whitesmoke;
-        color: whitesmoke;
-    }
+.login-msg, .reset-msg, .signup-msg {
+    color: whitesmoke;
+}
+.email, .password, .username, .password1 {
+    border: 1px solid whitesmoke;
+    color: whitesmoke;
+}
     .email-text, .password-text, .username-text{
         color: whitesmoke;    
     }
 
-    .email:focus, .password:focus, .username-focus{
-        border: 1.5px solid #01BCE9;
-        background: transparent;
-    
-    }
+.email:focus, .password:focus, .username-focus, .password1:focus {
+    border: 1.5px solid #01BCE9;
+    background: transparent;
+}
     .terms-link, .privacy-link, .vr{
         color: whitesmoke;
 
@@ -407,7 +401,7 @@ Forgot-password-page
 
 /* Media Queries CSS*/
 @media (max-width: 576px){
-    .email,.password, .login-btn, .login-msg, .forgot-link, .username, .reset-btn, .reset-msg,.back-to-login-link , .patient-btn, .family-btn, .concierge-btn, .bussiness-btn{
+    .email, .password, .password1, .login-btn, .signup-btn, .login-msg, .signup-msg, .forgot-link, .username, .reset-btn, .reset-msg, .back-to-login-link, .patient-btn, .family-btn, .concierge-btn, .bussiness-btn {
         width: 100%;
     }
     .logo{
@@ -417,7 +411,7 @@ Forgot-password-page
         height: 96px;
         width: 190px;
     }
-    .patient-login-main, .patient-site-main, .patient-reset-main{
+    .patient-login-main, .patient-create-account-main, .patient-site-main, .patient-reset-main {
         background: url(/images/11116016_415-modified.jpg);
         background-repeat: no-repeat;
         background-size: 100vw 100vh;

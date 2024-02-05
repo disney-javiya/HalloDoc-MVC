@@ -25,6 +25,10 @@ namespace HalloDoc.Controllers
         {
             return View();
         }
+        public IActionResult createPatientAccount()
+        {
+            return View();
+        }
         [Route("~/")]
         [Route("/patient-site.html")]
         public IActionResult patientSite()
