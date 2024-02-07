@@ -1,4 +1,4 @@
-﻿
+﻿@model AspNetUser
 @{
     ViewData["Title"] = "PatientLogin";
     Layout = null;
@@ -27,10 +27,13 @@
                 <div class="col">
                     <h3 class="login-msg">Login To Your Account</h3>
                 </div>
+                <form method="post">
+
+
                 <div class="col">
                     <div class="form-floating position-relative mb-3">
 
-                        <input type="email" class="form-control email shadow-none " id="floatingInput" placeholder="">
+                        <input asp-for="Email" type="email" class="form-control email shadow-none " id="floatingInput" placeholder="">
                         <label for="floatingInput" class=" email-text">Email address </label>
                         <i class="fa-regular fa-user position-absolute user-icon" style="color: #828487;"></i>
 
@@ -38,17 +41,19 @@
                 </div>
                 <div class="col">
                     <div class="form-floating position-relative">
-                        <input type="password" class="form-control password shadow-none" id="floatingPassword" placeholder="Password">
+                        <input asp-for="PasswordHash" type="password" class="form-control password shadow-none" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword" class=" password-text">Password</label>
                         <i class="fa-regular fa-eye  position-absolute eye-icon" style="color: #828487;"></i>
                     </div>
                 </div>
                 <div class="col gy-2">
-                    <button class="btn login-btn w-100">Log In</button>
+                    <button class="btn login-btn w-100" type="submit">Log In</button>
                 </div>
                 <div class="col">
-                    <a href="/forgot-password.html" class="forgot-link d-flex justify-content-center">Forgot Password?</a>
+                    <a class="forgot-link d-flex justify-content-center" asp-controller="Home" asp-action="forgotPassword">Forgot Password?</a>
                 </div>
+                   </form>
+
 
             </div>
         </div>

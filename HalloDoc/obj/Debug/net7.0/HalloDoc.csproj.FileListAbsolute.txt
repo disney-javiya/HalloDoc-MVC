@@ -230,3 +230,7 @@ C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Mono.TextTemplati
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Npgsql.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.CodeDom.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\HalloDoc.DataAccessLayer.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Repository.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\HalloDoc.DataAccessLayer.pdb
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Repository.pdb
