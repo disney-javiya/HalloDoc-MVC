@@ -269,15 +269,12 @@ Forgot-password-page
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-.symptoms-create-patient-text, .first-name-create-patient-text ,.last-name-create-patient-text, .dob-create-patient-text, .email-create-patient-text, .contact-create-patient-text, .street-create-patient-text, .city-create-patient-text, .state-create-patient-text, .zipcode-create-patient-text, .room-create-patient-text, .select-file-create-patient-text{
+.symptoms-create-patient-text, .first-name-create-patient-text, .last-name-create-patient-text, .dob-create-patient-text, .email-create-patient-text, .contact-create-patient-text, .street-create-patient-text, .city-create-patient-text, .state-create-patient-text, .zipcode-create-patient-text, .room-create-patient-text, .select-file-create-patient-text, .password-create-patient-text, .confirm-password-create-patient-text {
     color: #434946;
     border: 1px solid #434946;
-    
 }
-.symptoms-create-patient:focus, .first-name-create-patient:focus ,.last-name-create-patient:focus, .dob-create-patient:focus, .email-create-patient:focus, .contact-create-patient:focus, .street-create-patient:focus, .city-create-patient:focus, .state-create-patient:focus, .zipcode-create-patient:focus, .room-create-patient:focus, .select-file-create-patient:focus{
-
-    border: 1px solid #01BCE9;
-   
+.symptoms-create-patient:focus, .first-name-create-patient:focus, .last-name-create-patient:focus, .dob-create-patient:focus, .email-create-patient:focus, .contact-create-patient:focus, .street-create-patient:focus, .city-create-patient:focus, .state-create-patient:focus, .zipcode-create-patient:focus, .room-create-patient:focus, .select-file-create-patient:focus, .password-create-patient:focus, .confirm-password-create-patient:focus {
+        border: 1px solid #01BCE9;
 }
 .upload-btn-create-patient{
     background-color: #01BCE9;
@@ -300,6 +297,10 @@ Forgot-password-page
 .cancel-btn-create-patient:hover{
     background-color: rgba(255, 255, 255, 0.1);
     color: #01BCE9;
+}
+
+::file-selector-button {
+    display: none;
 }
 
 

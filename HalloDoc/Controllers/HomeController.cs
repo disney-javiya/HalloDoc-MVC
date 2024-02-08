@@ -3,6 +3,8 @@ using HalloDoc.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Repository.IRepository;
+using HalloDoc.DataAccessLayer.DataModels.ViewModels;
+
 namespace HalloDoc.Controllers
 {
 
@@ -31,7 +33,7 @@ namespace HalloDoc.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("createPatientRequest");
+            return RedirectToAction("patientDashboard");
         }
  
         public IActionResult Forgotpassword()
@@ -42,7 +44,35 @@ namespace HalloDoc.Controllers
         {
             return View();
         }
-    
+
+
+
+        [HttpPost]
+        public IActionResult CheckEmail(string email)
+        {
+            bool emailExists;
+            var data = _patientRepository.GetUserByEmail(email);
+            if (data == null)
+            {
+                emailExists = false;
+            }
+            else
+            {
+                emailExists = true;
+            }
+
+
+            return new OkObjectResult(new { exists = emailExists });
+        }
+
+
+
+
+
+        public IActionResult patientDashboard()
+        {
+            return View();
+        }
 
         public IActionResult patientSite()
         {
@@ -57,6 +87,14 @@ namespace HalloDoc.Controllers
         public IActionResult createPatientRequest()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult createPatientRequest(createPatientRequest RequestData)
+        {
+
+            _patientRepository.CreateRequest(RequestData);
+            return RedirectToAction(nameof(createPatientRequest));
         }
 
         public IActionResult familyCreateRequest()

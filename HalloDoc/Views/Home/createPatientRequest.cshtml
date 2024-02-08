@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HalloDoc.DataAccessLayer.DataModels.ViewModels.createPatientRequest;
+@{
     Layout = null;
 }
 
@@ -26,7 +27,7 @@
         <header>
             <partial name="Request_header" />
         </header>
-
+        <form method="post" asp-controller="Home" asp-action="createPatientRequest">
         <div class="main-create-patient-req d-flex justify-content-center align-items-center mt-1">
             <div class="row row-cols-1 justify-content-center align-items-center width-create-patient-req ">
                 <div class="col  d-flex justify-content-end ">
@@ -36,141 +37,161 @@
                 <div class="col">
                     <h5>Patient Information</h5>
                 </div>
-                <div class="col-md-12 gy-3">
-                    <div class="form-floating mb-3">
-                        <textarea class="form-control symptoms-create-patient shadow-none" placeholder="" id="floatingTextarea"></textarea>
-                        <label class="symptoms-create-patient-text" for="floatingTextarea">Enter Brief Details Of Symptoms (Optional)</label>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control first-name-create-patient shadow-none" id="floatingInput" placeholder="">
-                        <label class="first-name-create-patient-text" for="floatingInput">First Name</label>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control last-name-create-patient shadow-none" id="floatingInput" placeholder="">
-                        <label class="last-name-create-patient-text" for="floatingInput">Last Name</label>
-                    </div>
-                </div>
-
-                <div class="col-md-6 me-auto">
-                    <div class="form-floating mb-3">
-                        <input type="date" class="form-control dob-create-patient shadow-none" id="floatingInput" placeholder="">
-                        <label class="dob-create-patient-text" for="floatingInput">Date Of Birth</label>
-                    </div>
-                </div>
-
-
-                <div class="col">
-                    <h5>Patient Contact Information</h5>
-                </div>
-
-                <div class="col-md-6 gy-3">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
-                        <label class="email-create-patient-text" for="floatingInput">Email address</label>
-                    </div>
-                </div>
-                <div class="col-md-6 gy-3 ">
-                    <div class="form-floating mb-3">
-                        <!-- <input type="tel" class="form-control contact-create-patient shadow-none" id="floatingContact" placeholder="">
-                        <label class="contact-create-patient-text" for="floatingContact">Phone Number</label> -->
-                        <input class=" form-control contact-create-patient shadow-none" id="phone" type="tel" name="phone" />
-                        <label class="contact-create-patient-text" for="phone"> </label>
-                    </div>
-                </div>
-
-
-
-
-
-
-                <div class="col">
-                    <h5>Patient Location</h5>
-                </div>
-
-                <div class="col-md-6 gy-3">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control street-create-patient  shadow-none" id="floatingInput" placeholder="">
-                        <label class="street-create-patient-text" for="floatingInput">Street</label>
-                    </div>
-                </div>
-                <div class="col-md-6 gy-3">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control city-create-patient shadow-none" id="floatingInput" placeholder="">
-                        <label class="city-create-patient-text" for="floatingInput">City</label>
-                    </div>
-                </div>
-
-
-                <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control state-create-patient shadow-none" id="floatingInput" placeholder="">
-                        <label class="state-create-patient-text" for="floatingInput">State</label>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control zipcode-create-patient shadow-none" id="floatingInput" placeholder="">
-                        <label class="zipcode-create-patient-text" for="floatingInput">Zipcode</label>
-                    </div>
-                </div>
-
-                <div class="col-md-6 me-auto">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control room-create-patient shadow-none" id="floatingInput" placeholder="">
-                        <label class="room-create-patient-text" for="floatingInput">Room # / Suite (Optional)</label>
-                    </div>
-                </div>
-
-
-                <div class="col">
-                    <h5>(Optional) Upload Photo or Document</h5>
-                </div>
-
-
-                <div class="col-md-12 gy-3">
-                    <div class="input-group mb-3">
-                        <div class="form-floating">
-                            <input type="text" class="form-control select-file-create-patient position-relative shadow-none" id="floatingInputGroup1" placeholder="Username">
-                            <label class="select-file-create-patient-text" for="floatingInputGroup1">Select File</label>
+                
+                    <div class="col-md-12 gy-3">
+                        <div class="form-floating mb-3">
+                            <textarea asp-for="Symptoms" class="form-control symptoms-create-patient shadow-none" placeholder="" id="floatingTextarea"></textarea>
+                            <label class="symptoms-create-patient-text" for="floatingTextarea">Enter Brief Details Of Symptoms (Optional)</label>
                         </div>
-                        <button class="btn upload-btn-create-patient" style="z-index: 1;"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i>Upload <!--<input type="file" id="myFile" />-->  </button>
-
                     </div>
-                </div>
-                <!-- <div class="col-md-3 gy-3">
-                    <button class="btn upload-btn-create-patient position-absolute mb-3"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i>Upload</button>
-                </div> -->
-                <div class="col d-flex justify-content-end mb-2">
-                    <button class="btn submit-btn-create-patient me-2" data-toggle="modal" data-target="#confirmation-modal">Submit</button>
-                    <button class="btn cancel-btn-create-patient ms-1">Cancel</button>
-                </div>
 
-                <div class="modal fade" id="confirmation-modal" role="dialog">
-                    <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content ">
-                            <div class="modal-body d-flex flex-column align-items-center justify-content-evenly">
-                                <i class="fa-solid fa-circle-exclamation mt-4" style="color: #f8a804; font-size: 50px;"></i>
-                                <h5 class="mt-2">Information</h5>
-                                <p class="mt-2" style="text-align: center; color: #434946;">When submitting a request, you must provide the correct contact information for the patient or the responsibly party. Failure to provide the correct email and phone number will delay service or be declined.</p>
-                                <button class="btn btn-ok mt-4"  style="background-color: #01BCE9; color: white;">Ok</button>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="FirstName" type="text" class="form-control first-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <label class="first-name-create-patient-text" for="floatingInput">First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="LastName" type="text" class="form-control last-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <label class="last-name-create-patient-text" for="floatingInput">Last Name</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 me-auto">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Dateofbirth" type="date" class="form-control dob-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <label class="dob-create-patient-text" for="floatingInput">Date Of Birth</label>
+                        </div>
+                    </div>
+
+
+                    <div class="col">
+                        <h5>Patient Contact Information</h5>
+                    </div>
+
+                    <div class="col-md-6 gy-3">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Email" type="email" id="email" class="form-control email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
+                            <label class="email-create-patient-text" for="floatingInput">Email address</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 gy-3 ">
+                        <div class="form-floating mb-3">
+                            <!-- <input type="tel" class="form-control contact-create-patient shadow-none" id="floatingContact" placeholder="">
+                            <label class="contact-create-patient-text" for="floatingContact">Phone Number</label> -->
+                            <input asp-for="Mobile" class=" form-control contact-create-patient shadow-none" id="phone" type="tel" name="phone" />
+                            <label class="contact-create-patient-text" for="phone"> </label>
+                        </div>
+                    </div>
+                    
+                    <div id="loginPrompt" class="col">
+                        <div class="col-md-6 gy-3">
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control password-create-patient shadow-none" id="floatingInput" placeholder="">
+                                <label class="password-create-patient-text" for="floatingInput">Password</label>
                             </div>
+                        </div>
+
+                        <div class="col-md-6 gy-3">
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control confirm-password-create-patient shadow-none" id="floatingInput" placeholder="">
+                                <label class="confirm-password-create-patient-text" for="floatingInput">Confirm Password</label>
+                            </div>
+                        </div>
+                    </div>
+                   
+
+
+
+
+
+
+                    <div class="col">
+                        <h5>Patient Location</h5>
+                    </div>
+
+                    <div class="col-md-6 gy-3">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Street" type="text" class="form-control street-create-patient  shadow-none" id="floatingInput" placeholder="">
+                            <label class="street-create-patient-text" for="floatingInput">Street</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 gy-3">
+                        <div class="form-floating mb-3">
+                            <input asp-for="City" type="text" class="form-control city-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <label class="city-create-patient-text" for="floatingInput">City</label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="State" type="text" class="form-control state-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <label class="state-create-patient-text" for="floatingInput">State</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="ZipCode" type="text" class="form-control zipcode-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <label class="zipcode-create-patient-text" for="floatingInput">Zipcode</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 me-auto">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Noofrooms" type="text" class="form-control room-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <label class="room-create-patient-text" for="floatingInput">Room # / Suite (Optional)</label>
+                        </div>
+                    </div>
+
+
+                    <div class="col">
+                        <h5>(Optional) Upload Photo or Document</h5>
+                    </div>
+
+
+                    <div class="col-md-12 gy-3">
+                        <div class="input-group mb-3">
+                            <div class="form-floating">
+                                <input type="text" class="form-control select-file-create-patient position-relative shadow-none" id="floatingInputGroup1" placeholder="Username">
+                                <label class="select-file-create-patient-text" for="floatingInputGroup1">Select File</label>
+                            </div>
+                            <button class="btn upload-btn-create-patient"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i>Upload <input type="file" id="myFile" /> </button>
 
                         </div>
                     </div>
-                </div>
+                    <!-- <div class="col-md-3 gy-3">
+                        <button class="btn upload-btn-create-patient position-absolute mb-3"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i>Upload</button>
+                    </div> -->
+                    <div class="col d-flex justify-content-end mb-2">
+                        <button class="btn submit-btn-create-patient me-2" data-toggle="modal" data-target="#confirmation-modal">Submit</button>
+                        <button class="btn cancel-btn-create-patient ms-1">Cancel</button>
+                    </div>
+             
+                    <div class="modal fade" id="confirmation-modal" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content ">
+                                <div class="modal-body d-flex flex-column align-items-center justify-content-evenly">
+                                    <i class="fa-solid fa-circle-exclamation mt-4" style="color: #f8a804; font-size: 50px;"></i>
+                                    <h5 class="mt-2">Information</h5>
+                                    <p class="mt-2" style="text-align: center; color: #434946;">When submitting a request, you must provide the correct contact information for the patient or the responsibly party. Failure to provide the correct email and phone number will delay service or be declined.</p>
+                                    <button class="btn btn-ok mt-4" style="background-color: #01BCE9; color: white;">Ok</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+              
+
 
 
 
             </div>
         </div>
 
-
+        </form>
         <footer class="d-flex justify-content-end align-items-baseline create-patient-req-footer ">
             <partial name="Request_footer" />
         </footer>
@@ -179,6 +200,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
@@ -196,6 +220,33 @@
             myModal.hide();
         });
         myModal.show()
+    </script>
+
+    <script>
+        $('#loginPrompt').css('display', 'none');
+        $(document).ready(function () {
+            // Attach blur event handler to the email input field
+            $('#email').blur(function () {
+                // Perform client-side email validation
+                var email = $(this).val();
+                // Perform AJAX validation if the email is valid
+                $.ajax({
+                    url: '/Home/CheckEmail',
+                    method: 'POST',
+                    data: { email: email },
+                    success: function (response) {
+                        if (!response.exists) {
+                            $('#loginPrompt').css('display', 'block');
+                        } else {
+                            $('#loginPrompt').css('display', 'none');
+                        }
+                    }
+                });
+
+            });
+
+
+        });
     </script>
 </body>
 
