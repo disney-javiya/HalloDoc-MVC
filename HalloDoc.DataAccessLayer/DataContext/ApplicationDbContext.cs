@@ -408,8 +408,6 @@ public partial class ApplicationDbContext : DbContext
         {
             entity.HasKey(e => e.UserId).HasName("User_pkey");
 
-            entity.Property(e => e.UserId).ValueGeneratedNever();
-
             entity.HasOne(d => d.AspNetUser).WithMany(p => p.Users).HasConstraintName("User_AspNetUserId_fkey");
         });
 

@@ -23,9 +23,6 @@
     height: 125px;
     width: 240px;
 }
-.forgot-link{
-    
-}
 .back-link, .forgot-link{
     text-decoration: none;
     color: #01BCE9;
@@ -339,6 +336,53 @@ Forgot-password-page
 }
 
 
+/*Patient Dashboard*/
+.logo-patient-dashboard-main {
+    height: 80px;
+    width: 190px;
+}
+
+.logout-btn, .create-new-btn, .document-btn {
+    border: 1px solid #01BCE9;
+    color: #01BCE9;
+    text-decoration: none;
+    height: fit-content;
+    border-radius: 5px;
+}
+
+.logout-btn:hover, .create-new-btn:hover, .document-btn:hover {
+    background-color: rgba(1, 188, 233, 0.1);
+    border: 1px solid #01BCE9;
+    color: #86B6F6;
+}
+
+.tab-dashboard {
+    background-color: white;
+}
+
+.tab-dashboard .nav-item .nav-link {
+    color: grey;
+}
+
+.tab-dashboard .nav-item .active {
+    color: #01BCE9;
+    text-decoration: none;
+    border-bottom: 2px solid #01BCE9;
+}
+
+.main-dashboad .table thead tr th {
+    background-color: #F9F9F9;
+}
+
+.main-dashboad .table tbody tr td {
+    color: gray;
+}
+
+.menu-bar {
+    display: none;
+}
+
+
 /* Dark mode CSS*/
 .dark-mode {
     background-color: black;
@@ -374,21 +418,21 @@ Forgot-password-page
         border: 1px solid #616BA8;
         color: white;
     }
-.login-msg, .reset-msg, .signup-msg {
-    color: whitesmoke;
-}
-.email, .password, .username, .password1 {
-    border: 1px solid whitesmoke;
-    color: whitesmoke;
-}
+    .login-msg, .reset-msg, .signup-msg {
+        color: whitesmoke;
+    }
+    .email, .password, .username, .password1 {
+        border: 1px solid whitesmoke;
+        color: whitesmoke;
+    }
     .email-text, .password-text, .username-text{
         color: whitesmoke;    
     }
 
-.email:focus, .password:focus, .username-focus, .password1:focus {
-    border: 1.5px solid #01BCE9;
-    background: transparent;
-}
+    .email:focus, .password:focus, .username-focus, .password1:focus {
+        border: 1.5px solid #01BCE9;
+        background: transparent;
+    }
     .terms-link, .privacy-link, .vr{
         color: whitesmoke;
 
@@ -396,7 +440,17 @@ Forgot-password-page
     .terms-link:hover , .privacy-link:hover{
         background-color: rgba(67, 73, 70, 0.3);
     }
-    
+
+    .terms-link:hover, .privacy-link:hover {
+         background-color: rgba(67, 73, 70, 0.3);
+     }
+    .tab-dashboard, .main-dashboad .table thead tr th, .main-dashboad .table tbody tr td {
+        background-color: black;
+    }
+
+    .main-dashboad .table thead tr th, .main-dashboad .table tbody tr td {
+        color: white;
+    }
 }
 
 

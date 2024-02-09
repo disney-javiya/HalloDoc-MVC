@@ -10,7 +10,6 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
 {
     public class createPatientRequest
     {
-             public string? Symptoms { get; set; }
 
             [StringLength(100)]
             public string FirstName { get; set; } = null!;
@@ -18,9 +17,8 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
             [StringLength(100)]
             public string? LastName { get; set; }
 
-
-            [Column("dateofbirth")]
-            public DateOnly? Dateofbirth { get; set; }
+            [Column(TypeName = "character varying")]
+            public string? PasswordHash { get; set; }
 
             [StringLength(50)]
             public string Email { get; set; } = null!;
@@ -39,13 +37,8 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
 
             [StringLength(10)]
             public string? ZipCode { get; set; }
-            
-            [Column("noofrooms")]
-            public int? Noofrooms { get; set; }
 
-
-            [Column("documents")]
-            public byte[]? Documents { get; set; }
+            public int RequestTypeId { get; set; }
 
 
     }

@@ -79,18 +79,6 @@ public partial class User
     [Column(TypeName = "bit(1)")]
     public BitArray? IsRequestWithEmail { get; set; }
 
-    [Column("symptoms")]
-    public string? Symptoms { get; set; }
-
-    [Column("dateofbirth")]
-    public DateOnly? Dateofbirth { get; set; }
-
-    [Column("noofrooms")]
-    public int? Noofrooms { get; set; }
-
-    [Column("documents")]
-    public byte[]? Documents { get; set; }
-
     [ForeignKey("AspNetUserId")]
     [InverseProperty("Users")]
     public virtual AspNetUser? AspNetUser { get; set; }
