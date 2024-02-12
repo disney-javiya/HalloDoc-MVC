@@ -10,6 +10,10 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
 {
     public class createPatientRequest
     {
+            [StringLength(250)]
+            public string Symptoms { get; set; } = null!;
+
+            public DateOnly DateOfBirth { get; set; }
 
             [StringLength(100)]
             public string FirstName { get; set; } = null!;

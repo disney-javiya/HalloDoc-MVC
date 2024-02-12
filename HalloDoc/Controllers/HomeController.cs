@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Repository.IRepository;
 using HalloDoc.DataAccessLayer.DataModels.ViewModels;
-
+using Microsoft.AspNetCore.Http;
 namespace HalloDoc.Controllers
 {
 
@@ -28,6 +28,9 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult Index(AspNetUser user)
         {
+            HttpContext.Session.SetString("key", user.Email);
+      
+
             var data = _patientRepository.ValidateUser(user.Email, user.PasswordHash);
             if (data == null)
             {
@@ -43,6 +46,12 @@ namespace HalloDoc.Controllers
         public IActionResult createPatientAccount()
         {
             return View();
+        }
+
+        public IActionResult logOut()
+        {
+            HttpContext.Session.Remove("key");
+            return RedirectToAction("Index");         
         }
 
 
@@ -71,6 +80,7 @@ namespace HalloDoc.Controllers
 
         public IActionResult patientDashboard()
         {
+            ViewBag.Data = HttpContext.Session.GetString("key");
             return View();
         }
 
@@ -101,16 +111,34 @@ namespace HalloDoc.Controllers
         {
             return View();
         }
-
-
+        [HttpPost]
+        public IActionResult familyCreateRequest(familyCreateRequest RequestData)
+        {
+            _patientRepository.CreateFamilyRequest(RequestData);
+            return RedirectToAction(nameof(familyCreateRequest));
+        }
         public IActionResult conciergePatientRequest()
         {
             return View();
         }
 
+        [HttpPost]
+        public IActionResult conciergePatientRequest(conciergeCreateRequest RequestData)
+        {
+            _patientRepository.CreateConciergeRequest(RequestData);
+            return RedirectToAction(nameof(conciergePatientRequest));
+        }
+
         public IActionResult businessPatientRequest()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult businessPatientRequest(businessCreateRequest RequestData)
+        {
+            _patientRepository.CreateBusinessRequest(RequestData);
+            return RedirectToAction(nameof(businessPatientRequest));
         }
 
         public IActionResult Privacy()

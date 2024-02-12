@@ -49,7 +49,7 @@ public partial class Request
     public string? DeclinedBy { get; set; }
 
     [Column(TypeName = "bit(1)")]
-    public BitArray IsUrgentEmailSent { get; set; } = null!;
+    public BitArray? IsUrgentEmailSent { get; set; }
 
     [Column(TypeName = "timestamp without time zone")]
     public DateTime? LastWellnessDate { get; set; }

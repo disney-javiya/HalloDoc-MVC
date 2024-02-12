@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HalloDoc.DataAccessLayer.DataModels.ViewModels.businessCreateRequest;
+@{
     Layout = null;
 }
 
@@ -26,6 +27,7 @@
         <header>
             <partial name="Request_header" />
         </header>
+        <form method="post" asp-controller="Home" asp-action="businessPatientRequest">
         <div class="main-create-patient-req d-flex justify-content-center align-items-center mt-1">
             <div class="row row-cols-1 justify-content-center align-items-center width-create-patient-req ">
                 <div class="col  d-flex justify-content-end ">
@@ -37,13 +39,13 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control business-first-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                        <input asp-for="BusinessFirstName" type="text" class="form-control business-first-name-create-patient shadow-none" id="floatingInput" placeholder="">
                         <label class="business-first-name-create-patient-text" for="floatingInput">Your First Name</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control business-last-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="BusinessLastName" type="text" class="form-control business-last-name-create-patient shadow-none" id="floatingInput" placeholder="">
                         <label class="business-last-name-create-patient-text" for="floatingInput">Your Last Name</label>
                     </div>
                 </div>
@@ -51,19 +53,19 @@
                     <div class="form-floating mb-3">
                         <!-- <input type="tel" class="form-control contact-create-patient shadow-none" id="floatingContact" placeholder="">
                         <label class="contact-create-patient-text" for="floatingContact">Phone Number</label> -->
-                        <input class=" form-control business-contact-create-patient shadow-none" id="phone1" type="tel" name="phone" />
+                        <input asp-for="BusinessPhoneNumber" class=" form-control business-contact-create-patient shadow-none" id="phone1" type="tel" name="phone" />
                         <label class="business-contact-create-patient-text" for="phone1"> </label>
                     </div>
                 </div>
                 <div class="col-md-6 gy-3">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control business-email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
+                            <input asp-for="BusinessEmail" type="email" class="form-control business-email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
                         <label class="business-email-create-patient-text" for="floatingInput">Your Email address</label>
                     </div>
                 </div>
                 <div class="col-md-6  me-auto">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control business-property-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="BusinessPropertyName" type="text" class="form-control business-property-create-patient shadow-none" id="floatingInput" placeholder="">
                         <label class="business-property-create-patient-text" for="floatingInput">Business/Property Name</label>
                     </div>
                 </div>
@@ -79,27 +81,27 @@
                 </div>
                 <div class="col-md-12 gy-3">
                     <div class="form-floating mb-3">
-                        <textarea class="form-control symptoms-create-patient shadow-none" placeholder="" id="floatingTextarea"></textarea>
+                            <textarea asp-for="Notes" class="form-control symptoms-create-patient shadow-none" placeholder="" id="floatingTextarea"></textarea>
                         <label class="symptoms-create-patient-text" for="floatingTextarea">Enter Brief Details Of Symptoms (Optional)</label>
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control first-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="FirstName" type="text" class="form-control first-name-create-patient shadow-none" id="floatingInput" placeholder="">
                         <label class="first-name-create-patient-text" for="floatingInput">First Name</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control last-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="LastName" type="text" class="form-control last-name-create-patient shadow-none" id="floatingInput" placeholder="">
                         <label class="last-name-create-patient-text" for="floatingInput">Last Name</label>
                     </div>
                 </div>
 
                 <div class="col-md-6 me-auto">
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control dob-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="DateOfBirth" type="date" class="form-control dob-create-patient shadow-none" id="floatingInput" placeholder="">
                         <label class="dob-create-patient-text" for="floatingInput">Date Of Birth</label>
                     </div>
                 </div>
@@ -111,7 +113,7 @@
 
                 <div class="col-md-6 gy-3">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
+                            <input asp-for="Email" type="email" class="form-control email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
                         <label class="email-create-patient-text" for="floatingInput">Email address</label>
                     </div>
                 </div>
@@ -119,7 +121,7 @@
                     <div class="form-floating mb-3">
                         <!-- <input type="tel" class="form-control contact-create-patient shadow-none" id="floatingContact" placeholder="">
                         <label class="contact-create-patient-text" for="floatingContact">Phone Number</label> -->
-                        <input class=" form-control contact-create-patient shadow-none" id="phone" type="tel" name="phone" />
+                            <input asp-for="PhoneNumber" class=" form-control contact-create-patient shadow-none" id="phone" type="tel" name="phone" />
                         <label class="contact-create-patient-text" for="phone"> </label>
                     </div>
                 </div>
@@ -135,13 +137,13 @@
 
                 <div class="col-md-6 gy-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control street-create-patient  shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="Street" type="text" class="form-control street-create-patient  shadow-none" id="floatingInput" placeholder="">
                         <label class="street-create-patient-text" for="floatingInput">Street</label>
                     </div>
                 </div>
                 <div class="col-md-6 gy-3">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control city-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="City" type="text" class="form-control city-create-patient shadow-none" id="floatingInput" placeholder="">
                         <label class="city-create-patient-text" for="floatingInput">City</label>
                     </div>
                 </div>
@@ -149,13 +151,13 @@
 
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control state-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="State" type="text" class="form-control state-create-patient shadow-none" id="floatingInput" placeholder="">
                         <label class="state-create-patient-text" for="floatingInput">State</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control zipcode-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="ZipCode" type="text" class="form-control zipcode-create-patient shadow-none" id="floatingInput" placeholder="">
                         <label class="zipcode-create-patient-text" for="floatingInput">Zipcode</label>
                     </div>
                 </div>
@@ -194,7 +196,7 @@
             </div>
         </div>
 
-
+        </form>
         <footer class="d-flex justify-content-end align-items-baseline create-patient-req-footer ">
             <partial name="Request_footer"/>
         </footer>

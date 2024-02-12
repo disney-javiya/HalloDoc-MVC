@@ -13,5 +13,8 @@ namespace Repository.IRepository
         AspNetUser ValidateUser(string email, string password);
         AspNetUser GetUserByEmail(string email);
         public void CreateRequest(createPatientRequest RequestData);
+        public void CreateFamilyRequest(familyCreateRequest RequestData);
+        public void CreateConciergeRequest(conciergeCreateRequest RequestData);
+        public void CreateBusinessRequest(businessCreateRequest RequestData);
     }
 }

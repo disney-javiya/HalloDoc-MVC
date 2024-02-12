@@ -40,7 +40,7 @@
                 
                     <div class="col-md-12 gy-3">
                         <div class="form-floating mb-3">
-                            <textarea class="form-control symptoms-create-patient shadow-none" placeholder="" id="floatingTextarea"></textarea>
+                            <textarea asp-for="Symptoms" class="form-control symptoms-create-patient shadow-none" placeholder="" id="floatingTextarea"></textarea>
                             <label class="symptoms-create-patient-text" for="floatingTextarea">Enter Brief Details Of Symptoms (Optional)</label>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
 
                     <div class="col-md-6 me-auto">
                         <div class="form-floating mb-3">
-                            <input  type="date" class="form-control dob-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input  asp-for="DateOfBirth" type="date" class="form-control dob-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="dob-create-patient-text" for="floatingInput">Date Of Birth</label>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                     <div id="loginPrompt" class="col">
                         <div class="col-md-6 gy-3">
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control password-create-patient shadow-none" id="floatingInput" placeholder="">
+                                <input asp-for="PasswordHash" type="password" class="form-control password-create-patient shadow-none" id="floatingInput" placeholder="">
                                 <label class="password-create-patient-text" for="floatingInput">Password</label>
                             </div>
                         </div>

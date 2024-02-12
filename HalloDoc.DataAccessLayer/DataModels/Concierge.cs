@@ -38,6 +38,10 @@ public partial class Concierge
     [StringLength(20)]
     public string? RoleId { get; set; }
 
+    [Column("propertyname")]
+    [StringLength(100)]
+    public string? Propertyname { get; set; }
+
     [ForeignKey("RegionId")]
     [InverseProperty("Concierges")]
     public virtual Region Region { get; set; } = null!;
