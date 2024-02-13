@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -43,7 +44,6 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
             public string? ZipCode { get; set; }
 
             public int RequestTypeId { get; set; }
-
-
+            public List<IFormFile> MultipleFiles { get; set; }
     }
 }

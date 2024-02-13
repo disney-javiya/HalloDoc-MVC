@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "cqMS2GqFGB1M5a5xqJ0TX/zZ4ZpE8D2jDJ4ZMBg4gF1mvDQPtmfzfapoetpgbCPIRkqcShfCqo3DWrVeTMnCvQ==",
+  "dgSpecHash": "0tK9I3cQUDMQmGYkUaDD3WHl8BEjAhpQlsPYfr7OkHPOZJArLe6s8oHK+zG0Hg6rWHVooi/Tt92gPiQXVoGuLg==",
   "success": true,
   "projectFilePath": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\Repositories\\Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pce88\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\pce88\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.15\\microsoft.entityframeworkcore.7.0.15.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.15\\microsoft.entityframeworkcore.abstractions.7.0.15.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.15\\microsoft.entityframeworkcore.analyzers.7.0.15.nupkg.sha512",
@@ -25,6 +26,7 @@
     "C:\\Users\\pce88\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.11\\npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
+    "C:\\Users\\pce88\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"
   ],

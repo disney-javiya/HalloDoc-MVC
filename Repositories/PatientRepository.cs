@@ -9,12 +9,16 @@ using HalloDoc.DataAccessLayer.DataContext;
 using HalloDoc.DataAccessLayer.DataModels;
 using HalloDoc.DataAccessLayer.DataModels.ViewModels;
 using System.Collections;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Repository
 {
     public class PatientRepository : IPatientRepository
     {
         private readonly ApplicationDbContext _context;
+       
         public PatientRepository(ApplicationDbContext context)
         {
             _context = context;
@@ -29,6 +33,8 @@ namespace Repository
         {
             return _context.AspNetUsers.Where(x => x.Email == email).FirstOrDefault();
         }
+
+
         public void CreateRequest(createPatientRequest RequestData)
         {
 
@@ -73,47 +79,72 @@ namespace Repository
             _context.SaveChanges();
 
 
-            Request req = new Request();                    
-            req.RequestTypeId = 2;       
+            Request req = new Request();
+            req.RequestTypeId = 2;
             req.UserId = data.UserId;
             req.FirstName = RequestData.FirstName;
             req.LastName = RequestData.LastName;
             req.PhoneNumber = RequestData.Mobile;
             req.Email = RequestData.Email;
             req.Status = 1;
-            var c =_context.Users.Count(x => x.CreatedDate == DateTime.Now);
-            req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Substring(0,4) + RequestData.LastName.Substring(0,2) + RequestData.FirstName.Substring(0,2) + c;
+            var c = _context.Users.Count(x => x.CreatedDate == DateTime.Now);
+            req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
             req.CreatedDate = DateTime.Now;
 
+            foreach (var file in RequestData.MultipleFiles)
+            {
 
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files");
+
+                //create folder if not exist
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+
+                string fileNameWithPath = Path.Combine(path, file.FileName);
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+            }
             _context.Requests.Add(req);
             _context.SaveChanges();
 
-            RequestClient rc = new RequestClient();
-            rc.RequestId = req.RequestId;
-            rc.FirstName = RequestData.FirstName;
-            rc.LastName = RequestData.LastName;
-            rc.PhoneNumber = RequestData.Mobile;
-            rc.Location = RequestData.State;
-            rc.Address = RequestData.Street + "," + RequestData.City + "," + RequestData.State +  " ,"+ RequestData.ZipCode;
-            rc.Notes = RequestData.Symptoms;
-            rc.Email = RequestData.Email;
-            rc.StrMonth = mn;
-            rc.IntDate = dy;
-            rc.IntYear = yy;
-            rc.Street = RequestData.Street;
-            rc.City = RequestData.City;
-            rc.State = RequestData.State;
-            rc.ZipCode = RequestData.ZipCode;
+            //RequestWiseFile rf = new RequestWiseFile();
+            //rf.RequestId = req.RequestId;
+
+            
+                
+            
+
+
+                RequestClient rc = new RequestClient();
+                rc.RequestId = req.RequestId;
+                rc.FirstName = RequestData.FirstName;
+                rc.LastName = RequestData.LastName;
+                rc.PhoneNumber = RequestData.Mobile;
+                rc.Location = RequestData.State;
+                rc.Address = RequestData.Street + "," + RequestData.City + "," + RequestData.State + " ," + RequestData.ZipCode;
+                rc.Notes = RequestData.Symptoms;
+                rc.Email = RequestData.Email;
+                rc.StrMonth = mn;
+                rc.IntDate = dy;
+                rc.IntYear = yy;
+                rc.Street = RequestData.Street;
+                rc.City = RequestData.City;
+                rc.State = RequestData.State;
+                rc.ZipCode = RequestData.ZipCode;
 
 
 
 
-            _context.RequestClients.Add(rc);
-            _context.SaveChanges();
+                _context.RequestClients.Add(rc);
+                _context.SaveChanges();
+
 
         }
-
+        
         public void CreateFamilyRequest(familyCreateRequest RequestData)
         {
             AspNetUser asp = new AspNetUser();
@@ -332,6 +363,15 @@ namespace Repository
             _context.SaveChanges();
         }
 
+        public List<Request> GetbyEmail(string email)
+        {
+            return _context.Requests.Where(x => x.Email == email).ToList();
+        }
+
+        
+
     }
+
+   
 
 }

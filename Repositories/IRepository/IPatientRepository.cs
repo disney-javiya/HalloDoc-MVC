@@ -16,5 +16,6 @@ namespace Repository.IRepository
         public void CreateFamilyRequest(familyCreateRequest RequestData);
         public void CreateConciergeRequest(conciergeCreateRequest RequestData);
         public void CreateBusinessRequest(businessCreateRequest RequestData);
+        public List<Request> GetbyEmail(string email);
     }
 }

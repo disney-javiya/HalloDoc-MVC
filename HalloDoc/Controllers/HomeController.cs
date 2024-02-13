@@ -12,14 +12,18 @@ namespace HalloDoc.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPatientRepository _patientRepository;
+        private Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv;
 
-        public HomeController(ILogger<HomeController> logger, IPatientRepository patientRepository)
+        public HomeController(ILogger<HomeController> logger, IPatientRepository patientRepository, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
             _logger = logger;
             _patientRepository = patientRepository;
+
+            this.hostingEnv = env;
         }
-  
-      
+
+
+
         public IActionResult Index()
         {
             return View();
@@ -81,7 +85,8 @@ namespace HalloDoc.Controllers
         public IActionResult patientDashboard()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            return View();
+            var res = _patientRepository.GetbyEmail(ViewBag.Data);
+            return View(res);
         }
 
         public IActionResult patientSite()
@@ -98,6 +103,8 @@ namespace HalloDoc.Controllers
         {
             return View();
         }
+
+
 
         [HttpPost]
         public IActionResult createPatientRequest(createPatientRequest RequestData)
@@ -139,6 +146,10 @@ namespace HalloDoc.Controllers
         {
             _patientRepository.CreateBusinessRequest(RequestData);
             return RedirectToAction(nameof(businessPatientRequest));
+        }
+        public IActionResult viewDocuments()
+        {
+            return View();
         }
 
         public IActionResult Privacy()
