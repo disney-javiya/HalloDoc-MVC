@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Http;
+﻿@model IEnumerable<HalloDoc.DataAccessLayer.DataModels.RequestWiseFile>
+@using Microsoft.AspNetCore.Http;
 @{
     Layout = null;
 }
@@ -23,7 +24,7 @@
                 <div class="view-documents d-flex flex-column bg-white container">
                     <div class="d-flex flex-row" style="background-color: #F9F9F9;">
                         <h3>Documents</h3>
-                        <a href="" role="btn" class="back-btn p-1 ms-auto mb-2">Back</a>
+                        <a asp-controller="Home" asp-action="patientDashboard" role="btn" class="back-btn p-1 ms-auto mb-2">Back</a>
                     </div>
                     <p>Patient Name</p>
                     <b class="name-patient">Test Testing (mngsdhuh)</b>
@@ -51,18 +52,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td>Abc</td>
-                                    <td>12/10/2022</td>
-                                    <td><button class="btn upload-btn-create-patient" style="z-index: 1;"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i> <!--<input type="file" id="myFile" />-->  </button></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>Xyz</td>
-                                    <td>12/10/2023</td>
-                                    <td><button class="btn upload-btn-create-patient" style="z-index: 1;"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i> <!--<input type="file" id="myFile" />-->  </button></td>
-                                </tr>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FileName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.RequestId)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                                        </td>
+                                        <td>
+                                             <button class="btn upload-btn-create-patient" style="z-index: 1;"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i>   </button>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>

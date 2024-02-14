@@ -153,16 +153,27 @@
 
 
                     <div class="col-md-12 gy-3">
-                        <div class="input-group mb-3">
-                            <div class="form-floating">
+                        
+                           @*  <div class="form-floating">
                                 <input type="text" class="form-control select-file-create-patient shadow-none" id="floatingInputGroup1" placeholder="Username" readonly>
                                 <label class="select-file-create-patient-text" for="floatingInputGroup1">Select File </label>
                             </div>
                             
-                            <button name="Upload"class="btn upload-btn-create-patient"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i>Upload  </button>
-                            @Html.TextBoxFor(m => m.MultipleFiles, new{ type = "file", hidden = "true", id="myFile" ,multiple = "multiple"})
+                            <button class="btn upload-btn-create-patient" id="upload"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i>Upload  </button> *@
+                            
+                 @*         @Html.TextBoxFor(m => m.MultipleFiles, new{ type = "file", hidden = "true", id="myFile" ,multiple = "multiple"}) *@
+                            @* @Html.TextBoxFor(m => m.MultipleFiles, new{ type = "file",hidden = "true",id="myFile" }) *@
 
-                        </div>
+                            <input type="file" id="real-file" hidden="hidden" asp-for="MultipleFiles" multiple />
+
+                            <div class="input-group mb-3">
+                                <input class="form-control bg-light" type="text" id="custom-text"
+                                       aria-label="readonly input example" value="Select File" readonly>
+                                <button class="btn btn-info" type="button" id="custom-button">
+                                    <i class="bi bi-cloud-arrow-up"></i> Upload
+                                </button>
+                            </div>
+
                     </div>
                     <!-- <div class="col-md-3 gy-3">
                         <button class="btn upload-btn-create-patient position-absolute mb-3"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i>Upload</button>
@@ -202,21 +213,36 @@
     <script src="/js/custom.js"></script>
     <script>
 
-        const upload = document.querySelector('.upload-btn-create-patient');
-        const file = document.querySelector('#myFile');
-        const input_text = document.querySelector('.select-file-create-patient-text');
-        upload.addEventListener("click", function () {
-            file.click();
-            
-            getFilePath();
-        })
+        let file = document.getElementById("real-file");
+        const customBtn = document.getElementById("custom-button");
+        const customTxt = document.getElementById("custom-text");
 
-        function getFilePath() {
-            $('input[type=file]').change(function () {
-                var filePath = $('#myFile').val();
-                input_text.innerHTML = file.files.item(0).name;
-            });
-        }
+        customBtn.addEventListener("click", function () {
+            file.click();
+        });
+
+
+        file.addEventListener("input", () => {
+            //if file selected
+            var i;
+            var filename = "";
+            for (i = 0; i < file.files.length; i++) {
+                filename = filename + " " + file.files[i].name;
+            }
+            if (file.files.length) {
+
+                customTxt.setAttribute("value", filename);
+
+            } else {
+                customTxt.setAttribute("value", "Select File");
+            }
+        });
+        // function getFilePath() {
+        //     $('input[type=file]').change(function () {
+        //         var filePath = $('#myFile').val();
+        //         input_text.innerHTML = file.files.item(0).name;
+        //     });
+        
     </script>
 
 

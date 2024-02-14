@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
 namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
 {
@@ -53,5 +54,6 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
 
         [StringLength(10)]
         public string? ZipCode { get; set; }
+        public IFormFile[] MultipleFiles { get; set; }
     }
 }

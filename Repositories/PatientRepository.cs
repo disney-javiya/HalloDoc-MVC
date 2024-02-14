@@ -93,33 +93,34 @@ namespace Repository
 
             foreach (var file in RequestData.MultipleFiles)
             {
-
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files");
 
-                //create folder if not exist
+                    //create folder if not exist
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
-
-
                 string fileNameWithPath = Path.Combine(path, file.FileName);
-
                 using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
                 {
                     file.CopyTo(stream);
                 }
             }
+
             _context.Requests.Add(req);
             _context.SaveChanges();
+           
+            foreach (var file in RequestData.MultipleFiles)
+            {
+                RequestWiseFile rf = new RequestWiseFile();
+                rf.RequestId = req.RequestId;
+                rf.FileName = file.FileName;
+                rf.CreatedDate  = DateTime.Now;
+                _context.RequestWiseFiles.Add(rf);
+                _context.SaveChanges();
 
-            //RequestWiseFile rf = new RequestWiseFile();
-            //rf.RequestId = req.RequestId;
-
+            }
             
-                
-            
 
-
-                RequestClient rc = new RequestClient();
+            RequestClient rc = new RequestClient();
                 rc.RequestId = req.RequestId;
                 rc.FirstName = RequestData.FirstName;
                 rc.LastName = RequestData.LastName;
@@ -189,9 +190,34 @@ namespace Repository
             req.CreatedDate = DateTime.Now;
             req.RelationName = RequestData.RelationName;
 
+
+            foreach (var file in RequestData.MultipleFiles)
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files");
+
+                //create folder if not exist
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+                string fileNameWithPath = Path.Combine(path, file.FileName);
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+            }
+
             _context.Requests.Add(req);
             _context.SaveChanges();
 
+            
+            foreach (var file in RequestData.MultipleFiles)
+            {
+                RequestWiseFile rf = new RequestWiseFile();
+                rf.RequestId = req.RequestId;
+                rf.FileName = file.FileName;
+                rf.CreatedDate = DateTime.Now;
+                _context.RequestWiseFiles.Add(rf);
+                _context.SaveChanges();
+            }
 
             RequestClient rc = new RequestClient();
             rc.RequestId = req.RequestId;
@@ -365,13 +391,23 @@ namespace Repository
 
         public List<Request> GetbyEmail(string email)
         {
-            return _context.Requests.Where(x => x.Email == email).ToList();
+        
+           var userIds = _context.Users.Where(x => x.Email == email).Select(u => u.UserId).ToList();
+            var userData = new List<Request>();
+            foreach (var userId in userIds)
+            {
+                 userData.AddRange( _context.Requests.Where(ud => ud.UserId == userId).ToList());
+            }
+            return userData;
         }
 
-        
+        public List<RequestWiseFile> GetDocumentsByRequestId(int requestId)
+        {
+            return _context.RequestWiseFiles.Where(d => d.RequestId == requestId).ToList();
+        }
 
     }
 
-   
+
 
 }

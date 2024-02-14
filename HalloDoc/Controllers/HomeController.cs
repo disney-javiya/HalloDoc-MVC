@@ -5,6 +5,8 @@ using System.Diagnostics;
 using Repository.IRepository;
 using HalloDoc.DataAccessLayer.DataModels.ViewModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+
 namespace HalloDoc.Controllers
 {
 
@@ -78,10 +80,6 @@ namespace HalloDoc.Controllers
             return new OkObjectResult(new { exists = emailExists });
         }
 
-
-
-
-
         public IActionResult patientDashboard()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
@@ -147,10 +145,18 @@ namespace HalloDoc.Controllers
             _patientRepository.CreateBusinessRequest(RequestData);
             return RedirectToAction(nameof(businessPatientRequest));
         }
-        public IActionResult viewDocuments()
+        public IActionResult ViewDocuments(int requestId)
         {
-            return View();
+            var document = _patientRepository.GetDocumentsByRequestId(requestId);
+
+            if (document == null)
+            {
+                return NotFound(); // Handle the case where the document is not found
+            }
+
+            return View(document);
         }
+
 
         public IActionResult Privacy()
         {
