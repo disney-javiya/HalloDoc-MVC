@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace HalloDoc.DataAccessLayer.DataModels;
@@ -33,6 +34,7 @@ public partial class RequestWiseFile
 
     [Column(TypeName = "bit(1)")]
     public BitArray? IsCompensation { get; set; }
+ 
 
     [Column("IP")]
     [StringLength(20)]

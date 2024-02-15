@@ -6,6 +6,7 @@ using Repository.IRepository;
 using HalloDoc.DataAccessLayer.DataModels.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.IO.Compression;
 
 namespace HalloDoc.Controllers
 {
@@ -155,6 +156,63 @@ namespace HalloDoc.Controllers
             }
 
             return View(document);
+        }
+
+        public IActionResult DownloadFile(int fileId)
+        {
+            var file = _patientRepository.GetFileById(fileId);
+            if (file == null)
+            {
+                return NotFound(); // Handle the case where the file is not found
+            }
+
+            var filePath = Path.Combine("wwwroot/Files", file.FileName);
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, "application/octet-stream", file.FileName);
+        }
+
+        public IActionResult patientProfile()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            var res = _patientRepository.GetPatientData(ViewBag.Data);
+            return View(res);
+        }
+        public IActionResult UploadFiles(int requestId, List<IFormFile> files)
+        {
+            _patientRepository.UploadFiles(requestId, files);
+            return RedirectToAction("ViewDocuments", new { requestId = requestId });
+        }
+
+
+        public IActionResult DownloadFiles(List<int> fileIds)
+        {
+            IEnumerable<RequestWiseFile> files;
+            if (fileIds != null && fileIds.Any())
+            {
+                files = _patientRepository.GetFilesByIds(fileIds);
+            }
+            else
+            {
+                files = _patientRepository.GetAllFiles();
+            }
+
+            var zipMemoryStream = new MemoryStream();
+            using (var zipArchive = new ZipArchive(zipMemoryStream, ZipArchiveMode.Create, true))
+            {
+                foreach (var file in files)
+                {
+                    var filePath = Path.Combine("wwwroot/Files", file.FileName);
+                    var entry = zipArchive.CreateEntry(file.FileName);
+                    using (var entryStream = entry.Open())
+                    using (var fileStream = new FileStream(filePath, FileMode.Open))
+                    {
+                        fileStream.CopyTo(entryStream);
+                    }
+                }
+            }
+
+            zipMemoryStream.Seek(0, SeekOrigin.Begin);
+            return File(zipMemoryStream, "application/zip", "DownloadedFiles.zip");
         }
 
 

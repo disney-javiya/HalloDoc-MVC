@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\HalloDoc.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\.net-Whole-Plane-2024.pdf",
+      "PackagePath": "staticwebassets\\Files\\.net-Whole-Plane-2024.pdf"
+    },
+    {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\db1.png",
       "PackagePath": "staticwebassets\\Files\\db1.png"
     },
@@ -17,8 +21,32 @@
       "PackagePath": "staticwebassets\\Files\\db3.png"
     },
     {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\db4.png",
+      "PackagePath": "staticwebassets\\Files\\db4.png"
+    },
+    {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\login-desktop-dark.png",
       "PackagePath": "staticwebassets\\Files\\login-desktop-dark.png"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\login-desktop-light.png",
+      "PackagePath": "staticwebassets\\Files\\login-desktop-light.png"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\login-mobile-light.png",
+      "PackagePath": "staticwebassets\\Files\\login-mobile-light.png"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\patient-request-desktop-light.png",
+      "PackagePath": "staticwebassets\\Files\\patient-request-desktop-light.png"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\postgresql-1.png",
+      "PackagePath": "staticwebassets\\Files\\postgresql-1.png"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\postgresql-2.png",
+      "PackagePath": "staticwebassets\\Files\\postgresql-2.png"
     },
     {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\css\\site.css",

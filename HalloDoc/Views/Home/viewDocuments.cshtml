@@ -29,23 +29,34 @@
                     <p>Patient Name</p>
                     <b class="name-patient">Test Testing (mngsdhuh)</b>
                     <p>Check here for any files that you or the doctors of your subsequents requestors have attached for you to review.</p>
-                    <div class="input-group mb-3">
-                        <div class="form-floating">
-                            <input type="text" class="form-control select-file-create-patient position-relative shadow-none" id="floatingInputGroup1" placeholder="Username">
-                            <label class="select-file-create-patient-text" for="floatingInputGroup1">Select File</label>
+                    <form method="post" enctype="multipart/form-data" action="@Url.Action("UploadFiles", "Home", new { requestId =  Context.Request.Query["requestId"]})">
+                        <input type="file" name="files" id="real-file" hidden="hidden" multiple />
+                        <div class="input-group mb-3">
+                            <input class="form-control bg-light" type="text" id="custom-text" aria-label="readonly input example" value="Select File" readonly>
+                            <button class="btn btn-info" type="button" id="custom-button">
+                                <i class="bi bi-cloud-arrow-up"></i> Upload
+                            </button>
                         </div>
-                        <button class="btn upload-btn-create-patient" style="z-index: 1;"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i>Upload <!--<input type="file" id="myFile" />-->  </button>
+                    </form>
 
-                    </div>
                     <div class="download d-flex flex-row">
                         <h3>Documents</h3>
-                        <a href="" role="btn" class="download-btn p-1 ms-auto mb-2">Download All</a>
-                    </div>  
+                        <button id="downloadAllBtn" class="download-btn p-1 ms-auto mb-2">Download All</button>
+                    </div>
+
                     <div class="data-table">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col"></th>
+                                    <th scope="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="checkAll">
+                                            <label class="form-check-label" for="">
+                                              
+                                            </label>
+                                        </div>
+                                    </th>
+                                    <th></th>
                                     <th scope="col">Uploader</th>
                                     <th scope="col">Upload Date</th>
                                     <th scope="col">Actions</th>
@@ -57,6 +68,14 @@
                                 {
                                     <tr>
                                         <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input check" type="checkbox" value="" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
                                             @Html.DisplayFor(modelItem => item.FileName)
                                         </td>
                                         <td>
@@ -66,7 +85,9 @@
                                             @Html.DisplayFor(modelItem => item.CreatedDate)
                                         </td>
                                         <td>
-                                             <button class="btn upload-btn-create-patient" style="z-index: 1;"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i>   </button>
+                                            <a href="@Url.Action("DownloadFile", "Home", new { fileId = item.RequestWiseFileId })" class="btn upload-btn-create-patient">
+                                                <i class="fa-solid fa-cloud-arrow-up me-2" style="color: #ffffff;"></i>
+                                                @*  <button class="btn upload-btn-create-patient" style="z-index: 1;"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i>   </button> *@
                                         </td>
                                     </tr>
                                 }
@@ -83,5 +104,64 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="/js/custom.js"></script>
+    <script>
+        let file = document.getElementById("real-file");
+        const customBtn = document.getElementById("custom-button");
+        const customTxt = document.getElementById("custom-text");
+
+        customBtn.addEventListener("click", function () {
+            file.click();
+        });
+
+        file.addEventListener("change", function () {
+            var i;
+            var filename = "";
+            for (i = 0; i < file.files.length; i++) {
+                filename = filename + " " + file.files[i].name;
+            }
+            if (file.files.length) {
+                customTxt.setAttribute("value", filename);
+                // Automatically submit the form when files are selected
+                this.closest('form').submit();
+            } else {
+                customTxt.setAttribute("value", "Select File");
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var checkAll = document.getElementById("checkAll");
+            if (checkAll) {
+                checkAll.addEventListener("click", function () {
+                    var checkboxes = document.querySelectorAll(".check");
+                    checkboxes.forEach(function (checkbox) {
+                        checkbox.checked = checkAll.checked;
+                    });
+                });
+            }
+        });
+
+
+
+    </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document.getElementById("downloadAllBtn").addEventListener("click", function () {
+                    var checkedFiles = document.querySelectorAll(".check:checked");
+                    var fileIds = [];
+                    checkedFiles.forEach(function (file) {
+                        fileIds.push(file.dataset.fileId);
+                    });
+                    var url = "@Url.Action("DownloadFiles", "Home")";
+                    if (fileIds.length > 0) {
+                        url += "?fileIds=" + fileIds.join(",");
+                    }
+                    window.location.href = url;
+                });
+            });
+    </script>
+
+
+
 </body>
 </html>

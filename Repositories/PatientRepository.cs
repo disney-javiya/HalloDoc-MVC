@@ -406,6 +406,60 @@ namespace Repository
             return _context.RequestWiseFiles.Where(d => d.RequestId == requestId).ToList();
         }
 
+        public void UploadFiles(int requestId, List<IFormFile> files)
+        {
+            foreach (var file in files)
+            {
+                if (file.Length > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var filePath = Path.Combine("wwwroot/Files", fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    RequestWiseFile newFile = new RequestWiseFile
+                    {
+                        FileName = fileName,
+                        RequestId = requestId,
+                        CreatedDate = DateTime.Now
+                    };
+
+                    _context.RequestWiseFiles.Add(newFile);
+                }
+            }
+
+            _context.SaveChanges();
+        }
+
+        public RequestWiseFile GetFileById(int fileId)
+        {
+            return _context.RequestWiseFiles.FirstOrDefault(f => f.RequestWiseFileId == fileId);
+        }
+
+
+        public User GetPatientData(string email)
+        {
+
+            var data = _context.Users.Where(x => x.Email == email).ToList().First();
+            
+            return data;
+        }
+
+        public IEnumerable<RequestWiseFile> GetAllFiles()
+        {
+            return _context.RequestWiseFiles.ToList();
+        }
+
+        public IEnumerable<RequestWiseFile> GetFilesByIds(List<int> fileIds)
+        {
+            return _context.RequestWiseFiles.Where(f => fileIds.Contains(f.RequestWiseFileId)).ToList();
+        }
+
+
+
     }
 
 
