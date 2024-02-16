@@ -22,7 +22,10 @@
         <main>
             <div class="main-dashboad d-flex flex-column">
                 <h3>Medical History</h3>
-                <a href="" role="btn" class="create-new-btn p-1 ms-auto mb-2">Create New Request</a>
+                <a role="button" class="btn create-new-btn p-1 ms-auto mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                   Create New Request
+                </a>
+              
                 <table class="table">
                     <thead>
                         <tr>
@@ -48,6 +51,25 @@
                         }
                     </tbody>
                 </table>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background:#01BCE9; color:white; font-size:16px;">
+                            <h5 class="modal-title" id="exampleModalLabel" >Create New Request</h5>
+                            <button type="button" class="btn-close" style="color:white;" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p style="color:grey">Here I want to create new request for...</p>
+                            <a role="button" class="modal-button-request p-2"  asp-controller="Home" asp-action="requestMe">Me</a>
+                            <a role="button" class="modal-button-request p-2" asp-controller="Home" asp-action="requestSomeoneElse">Some One Else</a>
+                        </div>
+                        <div class="modal-footer">
+                            <a role="button" class="modal-button-request p-2" >Continue</a>
+                            <a role="button" class="modal-button-request p-2" data-bs-dismiss="modal">Cancel</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
 

@@ -413,6 +413,18 @@ Forgot-password-page
     display: none;
 }
 
+.modal-button-request {
+    color: #01BCE9;
+    border: 1px solid #01BCE9;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+    .modal-button-request:hover {
+        color: white;
+        background: #01BCE9;
+    }
 /*View Documents*/
 .view-documents p {
     color: gray;
@@ -483,20 +495,22 @@ Forgot-password-page
         color: #86B6F6;
     }
 
-.edit-btn-patient-profile {
+.edit-btn-patient-profile, .save-btn-patient-profile, .cancel-btn-patient-profile {
     font-size: 18px;
     background-color: #01BCE9;
     color: white;
 }
 
-    .edit-btn-patient-profile:hover {
+    .edit-btn-patient-profile:hover, .save-btn-patient-profile:hover, .cancel-btn-patient-profile:hover {
         background-color: rgba(1, 188, 233, 0.3);
         color: #616BA8;
     }
 /* Dark mode CSS*/
 .dark-mode {
     background-color: black;
-.patient-submit-main, .header, .footer-patient-submit{
+    .patient-submit-main, .header, .footer-patient-submit
+
+{
     background-color: black;
 }
 

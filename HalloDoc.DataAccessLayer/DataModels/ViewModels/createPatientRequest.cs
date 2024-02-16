@@ -44,6 +44,6 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
             public string? ZipCode { get; set; }
 
             public int RequestTypeId { get; set; }
-            public IFormFile[] MultipleFiles { get; set; }
+            public IFormFile[]? MultipleFiles { get; set; }
     }
 }

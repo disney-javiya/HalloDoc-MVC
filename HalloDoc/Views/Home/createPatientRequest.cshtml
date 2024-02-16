@@ -33,7 +33,7 @@
             <div class="row row-cols-1 justify-content-center align-items-center width-create-patient-req ">
                 <div class="col  d-flex justify-content-end ">
                     <a class="btn back-btn mt-1" role="button" asp-controller="Home" asp-action="patientSubmitRequestScreen"> < Back</a>
-                    @* <button class="btn back-btn mt-1" asp-controller="Home" asp-action="patientSubmitRequestScreen">< Back</button> *@
+               
                 </div>
                 <div class="col">
                     <h5>Patient Information</h5>
@@ -73,7 +73,7 @@
 
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input asp-for="Email" type="email" id="email" class="form-control email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
+                            <input asp-for="Email" type="email" id="email" class="form-control email-create-patient shadow-none" id="floatingInput" mailto:placeholder="name@example.com">
                             <label class="email-create-patient-text" for="floatingInput">Email address</label>
                         </div>
                     </div>
@@ -154,15 +154,7 @@
 
                     <div class="col-md-12 gy-3">
                         
-                           @*  <div class="form-floating">
-                                <input type="text" class="form-control select-file-create-patient shadow-none" id="floatingInputGroup1" placeholder="Username" readonly>
-                                <label class="select-file-create-patient-text" for="floatingInputGroup1">Select File </label>
-                            </div>
-                            
-                            <button class="btn upload-btn-create-patient" id="upload"><i class="fa-solid fa-cloud-arrow-up me-2 " style="color: #ffffff;"></i>Upload  </button> *@
-                            
-                 @*         @Html.TextBoxFor(m => m.MultipleFiles, new{ type = "file", hidden = "true", id="myFile" ,multiple = "multiple"}) *@
-                            @* @Html.TextBoxFor(m => m.MultipleFiles, new{ type = "file",hidden = "true",id="myFile" }) *@
+                     
 
                             <input type="file" id="real-file" hidden="hidden" asp-for="MultipleFiles" multiple />
 
@@ -297,6 +289,25 @@
 
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            // Attach blur event handler to the confirm password input field
+            $('.confirm-password-create-patient').blur(function () {
+                // Get the values of password and confirm password fields
+                var password = $('.password-create-patient').val();
+                var confirmPassword = $(this).val();
+
+                // Compare the passwords
+                if (password !== confirmPassword) {
+                    // Show alert if passwords don't match
+                    alert("Password and confirm password do not match!");
+                    // Optionally, you can also clear the confirm password field
+                    $(this).val('');
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>

@@ -79,8 +79,6 @@
                     </div>
                     <div class="col-md-4 gy-3 ">
                         <div class="form-floating mb-3">
-                            <!-- <input type="tel" class="form-control contact-create-patient shadow-none" id="floatingContact" placeholder="">
-                            <label class="contact-create-patient-text" for="floatingContact">Phone Number</label> -->
                             <input class=" form-control contact-create-patient shadow-none" id="phone" type="tel" name="phone" value="@Model.Mobile" disabled />
                             <label class="contact-create-patient-text" for="phone"> </label>
                         </div>
@@ -132,6 +130,11 @@
                         <button class="btn edit-btn-patient-profile me-2 p-2">Edit</button>
 
                     </div>
+                    <div class="col d-flex justify-content-end mb-2">
+                        <a role="button" class="btn save-btn-patient-profile me-2 p-2" style="display: none;">Save</a>
+                        <a role="button" class="btn cancel-btn-patient-profile me-2 p-2" style="display: none;">Cancel</a>
+                        
+                    </div>
                 </div>
             </div>
         </main>
@@ -152,6 +155,45 @@
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
 
+    </script>
+
+    <script>
+        // Add this script to handle button clicks and enable/disable form fields
+        const editBtn = document.querySelector(".edit-btn-patient-profile");
+        const saveBtn = document.querySelector(".save-btn-patient-profile");
+        const cancelBtn = document.querySelector(".cancel-btn-patient-profile");
+        const formFields = document.querySelectorAll(".form-control");
+
+        editBtn.addEventListener("click", function () {
+            formFields.forEach(field => {
+                field.removeAttribute("disabled");
+            });
+            editBtn.style.display = "none";
+            saveBtn.style.display = "inline-block";
+            cancelBtn.style.display = "inline-block";
+        });
+
+        cancelBtn.addEventListener("click", function () {
+            formFields.forEach(field => {
+                field.setAttribute("disabled", true);
+            });
+            editBtn.style.display = "inline-block";
+            saveBtn.style.display = "none";
+            cancelBtn.style.display = "none";
+        });
+
+        // You can handle the save functionality as per your requirements
+        saveBtn.addEventListener("click", function () {
+       
+
+
+            formFields.forEach(field => {
+                field.setAttribute("disabled", true);
+            });
+            editBtn.style.display = "inline-block";
+            saveBtn.style.display = "none";
+            cancelBtn.style.display = "none";
+        });
     </script>
 
 </body>

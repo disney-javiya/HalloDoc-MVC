@@ -90,34 +90,40 @@ namespace Repository
             var c = _context.Users.Count(x => x.CreatedDate == DateTime.Now);
             req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
             req.CreatedDate = DateTime.Now;
-
-            foreach (var file in RequestData.MultipleFiles)
+            if(RequestData.MultipleFiles != null)
             {
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files");
+                foreach (var file in RequestData.MultipleFiles)
+                {
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files");
 
                     //create folder if not exist
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
-                string fileNameWithPath = Path.Combine(path, file.FileName);
-                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                    string fileNameWithPath = Path.Combine(path, file.FileName);
+                    using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
                 }
             }
+          
 
             _context.Requests.Add(req);
             _context.SaveChanges();
-           
-            foreach (var file in RequestData.MultipleFiles)
+            if (RequestData.MultipleFiles != null)
             {
-                RequestWiseFile rf = new RequestWiseFile();
-                rf.RequestId = req.RequestId;
-                rf.FileName = file.FileName;
-                rf.CreatedDate  = DateTime.Now;
-                _context.RequestWiseFiles.Add(rf);
-                _context.SaveChanges();
+                foreach (var file in RequestData.MultipleFiles)
+                {
+                    RequestWiseFile rf = new RequestWiseFile();
+                    rf.RequestId = req.RequestId;
+                    rf.FileName = file.FileName;
+                    rf.CreatedDate = DateTime.Now;
+                    _context.RequestWiseFiles.Add(rf);
+                    _context.SaveChanges();
 
+                }
             }
+               
             
 
             RequestClient rc = new RequestClient();
@@ -191,32 +197,38 @@ namespace Repository
             req.RelationName = RequestData.RelationName;
 
 
-            foreach (var file in RequestData.MultipleFiles)
+            if (RequestData.MultipleFiles != null)
             {
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files");
-
-                //create folder if not exist
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
-                string fileNameWithPath = Path.Combine(path, file.FileName);
-                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                foreach (var file in RequestData.MultipleFiles)
                 {
-                    file.CopyTo(stream);
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files");
+
+                    //create folder if not exist
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                    string fileNameWithPath = Path.Combine(path, file.FileName);
+                    using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
                 }
             }
 
             _context.Requests.Add(req);
             _context.SaveChanges();
 
-            
-            foreach (var file in RequestData.MultipleFiles)
+            if (RequestData.MultipleFiles != null)
             {
-                RequestWiseFile rf = new RequestWiseFile();
-                rf.RequestId = req.RequestId;
-                rf.FileName = file.FileName;
-                rf.CreatedDate = DateTime.Now;
-                _context.RequestWiseFiles.Add(rf);
-                _context.SaveChanges();
+
+                foreach (var file in RequestData.MultipleFiles)
+                {
+                    RequestWiseFile rf = new RequestWiseFile();
+                    rf.RequestId = req.RequestId;
+                    rf.FileName = file.FileName;
+                    rf.CreatedDate = DateTime.Now;
+                    _context.RequestWiseFiles.Add(rf);
+                    _context.SaveChanges();
+                }
             }
 
             RequestClient rc = new RequestClient();
@@ -457,6 +469,118 @@ namespace Repository
         {
             return _context.RequestWiseFiles.Where(f => fileIds.Contains(f.RequestWiseFileId)).ToList();
         }
+
+        public void createPatientRequestMe(createPatientRequest RequestData)
+        {
+
+      
+            User data = new User();
+            var d = _context.AspNetUsers.FirstOrDefault(x => x.Email == RequestData.Email);
+          
+            data.AspNetUserId = d.Id;
+            
+         
+            
+            data.FirstName = RequestData.FirstName;
+            data.LastName = RequestData.LastName;
+            data.Email = RequestData.Email;
+            data.Mobile = RequestData.Mobile;
+            data.Street = RequestData.Street;
+            data.City = RequestData.City;
+            data.State = RequestData.State;
+            data.ZipCode = RequestData.ZipCode;
+            data.CreatedBy = RequestData.FirstName;
+            data.CreatedDate = DateTime.Now;
+
+            String sDate = RequestData.DateOfBirth.ToString();
+            DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
+
+            int dy = datevalue.Day;
+            String mn = datevalue.Month.ToString();
+            int yy = datevalue.Year;
+
+            data.IntYear = yy;
+            data.StrMonth = mn;
+            data.IntDate = dy;
+            data.Status = 1;
+
+            _context.Users.Add(data);
+            _context.SaveChanges();
+
+
+            Request req = new Request();
+            req.RequestTypeId = 2;
+            req.UserId = data.UserId;
+            req.FirstName = RequestData.FirstName;
+            req.LastName = RequestData.LastName;
+            req.PhoneNumber = RequestData.Mobile;
+            req.Email = RequestData.Email;
+            req.Status = 1;
+            var c = _context.Users.Count(x => x.CreatedDate == DateTime.Now);
+            req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
+            req.CreatedDate = DateTime.Now;
+            if (RequestData.MultipleFiles != null)
+            {
+                foreach (var file in RequestData.MultipleFiles)
+                {
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files");
+
+                    //create folder if not exist
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+                    string fileNameWithPath = Path.Combine(path, file.FileName);
+                    using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                }
+            }
+
+
+            _context.Requests.Add(req);
+            _context.SaveChanges();
+            if (RequestData.MultipleFiles != null)
+            {
+                foreach (var file in RequestData.MultipleFiles)
+                {
+                    RequestWiseFile rf = new RequestWiseFile();
+                    rf.RequestId = req.RequestId;
+                    rf.FileName = file.FileName;
+                    rf.CreatedDate = DateTime.Now;
+                    _context.RequestWiseFiles.Add(rf);
+                    _context.SaveChanges();
+
+                }
+            }
+
+
+
+            RequestClient rc = new RequestClient();
+            rc.RequestId = req.RequestId;
+            rc.FirstName = RequestData.FirstName;
+            rc.LastName = RequestData.LastName;
+            rc.PhoneNumber = RequestData.Mobile;
+            rc.Location = RequestData.State;
+            rc.Address = RequestData.Street + "," + RequestData.City + "," + RequestData.State + " ," + RequestData.ZipCode;
+            rc.Notes = RequestData.Symptoms;
+            rc.Email = RequestData.Email;
+            rc.StrMonth = mn;
+            rc.IntDate = dy;
+            rc.IntYear = yy;
+            rc.Street = RequestData.Street;
+            rc.City = RequestData.City;
+            rc.State = RequestData.State;
+            rc.ZipCode = RequestData.ZipCode;
+
+
+
+
+            _context.RequestClients.Add(rc);
+            _context.SaveChanges();
+
+
+        }
+
 
 
 

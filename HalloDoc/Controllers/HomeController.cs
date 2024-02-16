@@ -26,26 +26,33 @@ namespace HalloDoc.Controllers
         }
 
 
-
+      
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Index(AspNetUser user)
         {
-            HttpContext.Session.SetString("key", user.Email);
-      
+          
 
             var data = _patientRepository.ValidateUser(user.Email, user.PasswordHash);
             if (data == null)
             {
-                return RedirectToAction("Index");
+                ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                return View(user);
             }
+
+            // Set session key only when user credentials are validated successfully
+            HttpContext.Session.SetString("key", user.Email);
+
             return RedirectToAction("patientDashboard");
         }
- 
+
+
+
         public IActionResult Forgotpassword()
         {
             return View();
@@ -86,6 +93,25 @@ namespace HalloDoc.Controllers
             ViewBag.Data = HttpContext.Session.GetString("key");
             var res = _patientRepository.GetbyEmail(ViewBag.Data);
             return View(res);
+        }
+        public IActionResult requestMe()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult requestMe(createPatientRequest RequestData)
+        {
+            _patientRepository.createPatientRequestMe(RequestData);
+            return RedirectToAction(nameof(requestMe));
+        }
+
+
+
+        public IActionResult requestSomeoneElse()
+        {
+
+            return View();
         }
 
         public IActionResult patientSite()
@@ -215,7 +241,10 @@ namespace HalloDoc.Controllers
             return File(zipMemoryStream, "application/zip", "DownloadedFiles.zip");
         }
 
-
+        public IActionResult reviewAgreement()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
