@@ -391,15 +391,20 @@ Forgot-password-page
     background-color: white;
 }
 
-    .tab-dashboard .nav-item .nav-link {
-        color: grey;
-    }
-
-    .tab-dashboard .nav-item .active {
-        color: #01BCE9;
-        text-decoration: none;
-        border-bottom: 2px solid #01BCE9;
-    }
+.tab-dashboard .nav-item .nav-link {
+    color: grey;
+    cursor: pointer;
+}
+.tab-dashboard .nav-item .active {
+    color: #01BCE9;
+    text-decoration: none;
+    border-bottom: 2px solid #01BCE9;
+    cursor: pointer;
+}
+.tab-dashboard .nav-item .nav-link:hover {
+    background: #E3E3E3;
+    cursor: pointer;
+}
 
 .main-dashboad .table thead tr th, .main-viewdocuments .table thead tr th {
     background-color: #F9F9F9;
@@ -505,6 +510,14 @@ Forgot-password-page
         background-color: rgba(1, 188, 233, 0.3);
         color: #616BA8;
     }
+
+
+/*Admin Dashboard*/
+.menu-icon-admin {
+    display: none;
+}
+
+
 /* Dark mode CSS*/
 .dark-mode {
     background-color: black;
@@ -636,5 +649,18 @@ h5 {
 
     .width-create-patient-req {
         width: 100%;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .menu-icon-admin {
+        display: block;
+        font-size:20px;
+    }
+
+    .nav {
+        display: none;
     }
 }

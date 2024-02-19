@@ -72,6 +72,7 @@ public partial class User
     [Column(TypeName = "bit(1)")]
     public BitArray? IsDeleted { get; set; }
 
+
     [Column("IP")]
     [StringLength(20)]
     public string? Ip { get; set; }

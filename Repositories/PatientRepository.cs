@@ -12,6 +12,9 @@ using System.Collections;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Net.Http;
 
 namespace Repository
 {
@@ -63,11 +66,11 @@ namespace Repository
             data.CreatedBy = RequestData.FirstName;
             data.CreatedDate = DateTime.Now;
 
-            String sDate = RequestData.DateOfBirth.ToString();
+            System.String sDate = RequestData.DateOfBirth.ToString();
             DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
 
             int dy = datevalue.Day;
-            String mn = datevalue.Month.ToString();
+            System.String mn = datevalue.Month.ToString();
             int yy = datevalue.Year;
 
             data.IntYear = yy;
@@ -166,11 +169,11 @@ namespace Repository
             data.City = RequestData.City;
             data.State = RequestData.State;
             data.ZipCode = RequestData.ZipCode;
-            String sDate = RequestData.DateOfBirth.ToString();
+            System.String sDate = RequestData.DateOfBirth.ToString();
             DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
 
             int dy = datevalue.Day;
-            String mn = datevalue.Month.ToString();
+            System.String mn = datevalue.Month.ToString();
             int yy = datevalue.Year;
 
             data.IntYear = yy;
@@ -263,11 +266,11 @@ namespace Repository
             data.LastName = RequestData.LastName;
             data.Email = RequestData.Email;
             data.Mobile = RequestData.PhoneNumber;;
-            String sDate = RequestData.DateOfBirth.ToString();
+            System.String sDate = RequestData.DateOfBirth.ToString();
             DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
 
             int dy = datevalue.Day;
-            String mn = datevalue.Month.ToString();
+            System.String mn = datevalue.Month.ToString();
             int yy = datevalue.Year;
 
             data.IntYear = yy;
@@ -347,11 +350,11 @@ namespace Repository
             data.City = RequestData.City;
             data.State = RequestData.State;
             data.ZipCode = RequestData.ZipCode;
-            String sDate = RequestData.DateOfBirth.ToString();
+            System.String sDate = RequestData.DateOfBirth.ToString();
             DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
 
             int dy = datevalue.Day;
-            String mn = datevalue.Month.ToString();
+            System.String mn = datevalue.Month.ToString();
             int yy = datevalue.Year;
 
             data.IntYear = yy;
@@ -460,6 +463,75 @@ namespace Repository
             return data;
         }
 
+        public void updateProfile(string email, User u)
+        {
+
+            var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(a=>a.Id).First();
+
+           var listUsers = _context.Users.Where(x=>x.AspNetUserId==aspId).ToList();
+            if(listUsers!=null)
+            {
+                foreach (var user in listUsers)
+                {
+
+                    user.FirstName = u.FirstName;
+                    user.LastName = u.LastName;
+                    user.Email = u.Email;
+                    user.Street = u.Street;
+                    user.City = u.City;
+                    user.State = u.State;
+                    user.ZipCode = u.ZipCode;
+                    _context.SaveChanges();
+
+
+                    var req = _context.Requests.Where(x => x.Email == user.Email).ToList();
+                    foreach (var r in req)
+                    {
+                        r.FirstName = u.FirstName;
+                        r.LastName = u.LastName;
+                        r.Email = u.Email;
+                        var c = _context.Users.Count(x => x.CreatedDate == DateTime.Now);
+                        req.First().ConfirmationNumber = u.State.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 4) + u.LastName.Substring(0, 2) + u.FirstName.Substring(0, 2) + c;
+                        _context.SaveChanges();
+                    }
+
+                    var reqc = _context.RequestClients.Where(x => x.Email == user.Email).ToList();
+                    foreach (var rc in reqc)
+                    {
+                        rc.FirstName = u.FirstName;
+                        rc.LastName = u.LastName;
+                        rc.PhoneNumber = u.Mobile;
+                        rc.Location = u.State;
+                        rc.Address = u.Street + "," + u.City + "," + u.State + " ," + u.ZipCode;
+                        rc.Email = u.Email;
+
+
+
+                        rc.Street = u.Street;
+                        rc.City = u.City;
+                        rc.State = u.State;
+                        rc.ZipCode = u.ZipCode;
+                        _context.SaveChanges();
+
+                    }
+                    var asp = _context.AspNetUsers.Where(x=>x.Id== aspId).ToList().First();
+                    asp.Email = u.Email;
+                    asp.UserName =  u.FirstName + u.LastName;
+                    asp.PhoneNumber = u.Mobile;
+                    
+
+                }
+            }
+
+
+
+
+        }
+
+       
+
+
+
         public IEnumerable<RequestWiseFile> GetAllFiles()
         {
             return _context.RequestWiseFiles.ToList();
@@ -492,11 +564,11 @@ namespace Repository
             data.CreatedBy = RequestData.FirstName;
             data.CreatedDate = DateTime.Now;
 
-            String sDate = RequestData.DateOfBirth.ToString();
+            System.String sDate = RequestData.DateOfBirth.ToString();
             DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
 
             int dy = datevalue.Day;
-            String mn = datevalue.Month.ToString();
+            System.String mn = datevalue.Month.ToString();
             int yy = datevalue.Year;
 
             data.IntYear = yy;
@@ -580,6 +652,227 @@ namespace Repository
 
 
         }
+
+        public void createPatientRequestSomeoneElse(string email ,requestSomeoneElse r)
+        {
+       
+            var existUser =  _context.AspNetUsers.FirstOrDefault(x => x.Email == r.Email);
+            if(existUser!=null)
+            {
+                /*User already exists*/
+                User data = new User();
+                data.AspNetUserId = existUser.Id;
+                data.FirstName = r.FirstName;
+                data.LastName = r.LastName;
+                data.Email = r.Email;
+                data.Mobile = r.Mobile;
+                data.Street = r.Street;
+                data.City = r.City;
+                data.State = r.State;
+                data.ZipCode = r.ZipCode;
+                data.CreatedBy = r.FirstName;
+                data.CreatedDate = DateTime.Now;
+                System.String sDate = r.DateOfBirth.ToString();
+                DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
+
+                int dy = datevalue.Day;
+                System.String mn = datevalue.Month.ToString();
+                int yy = datevalue.Year;
+
+                data.IntYear = yy;
+                data.StrMonth = mn;
+                data.IntDate = dy;
+                data.Status = 1;
+
+                _context.Users.Add(data);
+                _context.SaveChanges();
+              
+                var emailUser = _context.Users.FirstOrDefault(x => x.Email == email);
+                Request req = new Request();
+                req.RequestTypeId = 2;
+                req.UserId = data.UserId;
+                req.FirstName = emailUser.FirstName;
+                req.LastName = emailUser.LastName;
+                req.PhoneNumber = emailUser.Mobile;
+                req.Email = emailUser.Email;
+                req.Status = 1;
+                var c = _context.Users.Count(x => x.CreatedDate == DateTime.Now);
+                req.ConfirmationNumber = r.State.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 4) + r.LastName.Substring(0, 2) + r.FirstName.Substring(0, 2) + c;
+                req.CreatedDate = DateTime.Now;
+                if (r.MultipleFiles != null)
+                {
+                    foreach (var file in r.MultipleFiles)
+                    {
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files");
+
+                        //create folder if not exist
+                        if (!Directory.Exists(path))
+                            Directory.CreateDirectory(path);
+                        string fileNameWithPath = Path.Combine(path, file.FileName);
+                        using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                        }
+                    }
+                }
+
+                _context.Requests.Add(req);
+                _context.SaveChanges();
+                if (r.MultipleFiles != null)
+                {
+                    foreach (var file in r.MultipleFiles)
+                    {
+                        RequestWiseFile rf = new RequestWiseFile();
+                        rf.RequestId = req.RequestId;
+                        rf.FileName = file.FileName;
+                        rf.CreatedDate = DateTime.Now;
+                        _context.RequestWiseFiles.Add(rf);
+                        _context.SaveChanges();
+
+                    }
+                }
+
+                RequestClient rc = new RequestClient();
+                rc.RequestId = req.RequestId;
+                rc.FirstName = r.FirstName;
+                rc.LastName = r.LastName;
+                rc.PhoneNumber = r.Mobile;
+                rc.Location = r.State;
+                rc.Address = r.Street + "," + r.City + "," + r.State + " ," + r.ZipCode;
+                rc.Notes = r.Symptoms;
+                rc.Email = r.Email;
+                rc.StrMonth = mn;
+                rc.IntDate = dy;
+                rc.IntYear = yy;
+                rc.Street = r.Street;
+                rc.City = r.City;
+                rc.State = r.State;
+                rc.ZipCode = r.ZipCode;
+
+
+
+
+                _context.RequestClients.Add(rc);
+                _context.SaveChanges();
+
+            }
+            else
+            {
+                /*User does not exists*/
+                AspNetUser asp = new AspNetUser();
+                asp.Id = Guid.NewGuid().ToString();
+                asp.UserName = r.FirstName + r.LastName;
+                asp.Email = r.Email;
+                asp.PhoneNumber = r.Mobile;
+                asp.CreatedDate = DateTime.Now;
+
+                _context.AspNetUsers.Add(asp);
+                _context.SaveChanges();
+
+                User data = new User();
+                data.AspNetUserId = asp.Id;
+                data.FirstName = r.FirstName;
+                data.LastName = r.LastName;
+                data.Email = r.Email;
+                data.Mobile = r.Mobile;
+                data.Street = r.Street;
+                data.City = r.City;
+                data.State = r.State;
+                data.ZipCode = r.ZipCode;
+                data.CreatedBy = r.FirstName;
+                data.CreatedDate = DateTime.Now;
+
+                System.String sDate = r.DateOfBirth.ToString();
+                DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
+
+                int dy = datevalue.Day;
+                System.String mn = datevalue.Month.ToString();
+                int yy = datevalue.Year;
+
+                data.IntYear = yy;
+                data.StrMonth = mn;
+                data.IntDate = dy;
+                data.Status = 1;
+
+                _context.Users.Add(data);
+                _context.SaveChanges();
+
+
+                var emailUser = _context.Users.FirstOrDefault(x => x.Email == email);
+                Request req = new Request();
+                req.RequestTypeId = 2;
+                req.UserId = data.UserId;
+                req.FirstName = emailUser.FirstName;
+                req.LastName = emailUser.LastName;
+                req.PhoneNumber = emailUser.Mobile;
+                req.Email = emailUser.Email;
+                req.Status = 1;
+                var c = _context.Users.Count(x => x.CreatedDate == DateTime.Now);
+                req.ConfirmationNumber = r.State.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 4) + r.LastName.Substring(0, 2) + r.FirstName.Substring(0, 2) + c;
+                req.CreatedDate = DateTime.Now;
+                if (r.MultipleFiles != null)
+                {
+                    foreach (var file in r.MultipleFiles)
+                    {
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Files");
+
+                        //create folder if not exist
+                        if (!Directory.Exists(path))
+                            Directory.CreateDirectory(path);
+                        string fileNameWithPath = Path.Combine(path, file.FileName);
+                        using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                        }
+                    }
+                }
+
+                _context.Requests.Add(req);
+                _context.SaveChanges();
+                if (r.MultipleFiles != null)
+                {
+                    foreach (var file in r.MultipleFiles)
+                    {
+                        RequestWiseFile rf = new RequestWiseFile();
+                        rf.RequestId = req.RequestId;
+                        rf.FileName = file.FileName;
+                        rf.CreatedDate = DateTime.Now;
+                        _context.RequestWiseFiles.Add(rf);
+                        _context.SaveChanges();
+
+                    }
+                }
+
+
+
+                RequestClient rc = new RequestClient();
+                rc.RequestId = req.RequestId;
+                rc.FirstName = r.FirstName;
+                rc.LastName = r.LastName;
+                rc.PhoneNumber = r.Mobile;
+                rc.Location = r.State;
+                rc.Address = r.Street + "," + r.City + "," + r.State + " ," + r.ZipCode;
+                rc.Notes = r.Symptoms;
+                rc.Email = r.Email;
+                rc.StrMonth = mn;
+                rc.IntDate = dy;
+                rc.IntYear = yy;
+                rc.Street = r.Street;
+                rc.City = r.City;
+                rc.State = r.State;
+                rc.ZipCode = r.ZipCode;
+
+
+
+
+                _context.RequestClients.Add(rc);
+                _context.SaveChanges();
+
+
+            }
+        }
+
+
 
 
 

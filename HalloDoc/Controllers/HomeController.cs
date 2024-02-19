@@ -7,6 +7,7 @@ using HalloDoc.DataAccessLayer.DataModels.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.IO.Compression;
+using NETCore.MailKit.Core;
 
 namespace HalloDoc.Controllers
 {
@@ -15,13 +16,14 @@ namespace HalloDoc.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPatientRepository _patientRepository;
+        private readonly IEmailService _emailService;
         private Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv;
 
-        public HomeController(ILogger<HomeController> logger, IPatientRepository patientRepository, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
+        public HomeController(ILogger<HomeController> logger, IPatientRepository patientRepository, IEmailService emailService, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
             _logger = logger;
             _patientRepository = patientRepository;
-
+            _emailService = emailService;
             this.hostingEnv = env;
         }
 
@@ -57,17 +59,14 @@ namespace HalloDoc.Controllers
         {
             return View();
         }
+
+       
         public IActionResult createPatientAccount()
         {
             return View();
         }
 
-        public IActionResult logOut()
-        {
-            HttpContext.Session.Remove("key");
-            return RedirectToAction("Index");         
-        }
-
+     
 
 
         [HttpPost]
@@ -112,6 +111,14 @@ namespace HalloDoc.Controllers
         {
 
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult requestSomeoneElse(requestSomeoneElse r)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _patientRepository.createPatientRequestSomeoneElse(ViewBag.Data ,r);
+            return RedirectToAction(nameof(requestSomeoneElse));
         }
 
         public IActionResult patientSite()
@@ -203,6 +210,17 @@ namespace HalloDoc.Controllers
             var res = _patientRepository.GetPatientData(ViewBag.Data);
             return View(res);
         }
+        [HttpPost]
+        public IActionResult patientProfile(User u)
+        {
+
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _patientRepository.updateProfile(ViewBag.Data, u);
+            return View();
+        }
+
+
+
         public IActionResult UploadFiles(int requestId, List<IFormFile> files)
         {
             _patientRepository.UploadFiles(requestId, files);
@@ -245,6 +263,13 @@ namespace HalloDoc.Controllers
         {
             return View();
         }
+
+        public IActionResult logOut()
+        {
+            HttpContext.Session.Remove("key");
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Privacy()
         {
             return View();

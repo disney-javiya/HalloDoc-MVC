@@ -1,4 +1,5 @@
 ﻿@model HalloDoc.DataAccessLayer.DataModels.User
+
 @using Microsoft.AspNetCore.Http;
 
 @{
@@ -30,6 +31,7 @@
         </header>
 
         <main>
+            <form method="post" asp-controller="Home" asp-action="patientProfile" enctype="multipart/form-data">
             <div class="main-create-patient-req d-flex justify-content-center align-items-center mt-1">
                 <div class="row row-cols-1 justify-content-center align-items-center width-create-patient-req ">
 
@@ -44,20 +46,20 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                           
-                            <input type="text" class="form-control first-name-create-patient shadow-none " id="floatingInput" placeholder=" " value="@Model.FirstName" disabled>
+                            <input asp-for="FirstName" type="text" class="form-control first-name-create-patient shadow-none " id="floatingInput" placeholder=" " disabled>
                             <label class="first-name-create-patient-text" for="floatingInput">First Name</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control last-name-create-patient shadow-none" id="floatingInput" placeholder="" value="@Model.LastName" disabled>
+                                <input asp-for="LastName" type="text" class="form-control last-name-create-patient shadow-none" id="floatingInput" placeholder="" disabled>
                             <label class="last-name-create-patient-text" for="floatingInput">Last Name</label>
                         </div>
                     </div>
 
                     <div class="col-md-6 me-auto">
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control dob-create-patient shadow-none" id="floatingInput" placeholder="" value="@Model.IntDate" disabled>
+                                <input  type="date" class="form-control dob-create-patient shadow-none" id="floatingInput" placeholder=""  disabled>
                             <label class="dob-create-patient-text" for="floatingInput">Date Of Birth</label>
                         </div>
                     </div>
@@ -79,13 +81,13 @@
                     </div>
                     <div class="col-md-4 gy-3 ">
                         <div class="form-floating mb-3">
-                            <input class=" form-control contact-create-patient shadow-none" id="phone" type="tel" name="phone" value="@Model.Mobile" disabled />
+                                <input asp-for="Mobile" class=" form-control contact-create-patient shadow-none" id="phone" type="tel" name="phone" disabled />
                             <label class="contact-create-patient-text" for="phone"> </label>
                         </div>
                     </div>
                     <div class="col-md-4 gy-3">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com" value="@Model.Email" disabled>
+                                <input asp-for="Email" type="email" class="form-control email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com" disabled>
                             <label class="email-create-patient-text" for="floatingInput">Email address</label>
                         </div>
                     </div>
@@ -96,13 +98,13 @@
 
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control street-create-patient  shadow-none" id="floatingInput" placeholder="" value="@Model.Street" disabled>
+                                <input type="text" asp-for="Street" class="form-control street-create-patient  shadow-none" id="floatingInput" placeholder="" disabled>
                             <label class="street-create-patient-text" for="floatingInput">Street</label>
                         </div>
                     </div>
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control city-create-patient shadow-none" id="floatingInput" placeholder="" value="@Model.City" disabled>
+                                <input asp-for="City" type="text" class="form-control city-create-patient shadow-none" id="floatingInput" placeholder=""  disabled>
                             <label class="city-create-patient-text" for="floatingInput">City</label>
                         </div>
                     </div>
@@ -110,13 +112,13 @@
 
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control state-create-patient shadow-none" id="floatingInput" placeholder="" value="@Model.State" disabled>
+                                <input asp-for="State" type="text" class="form-control state-create-patient shadow-none" id="floatingInput" placeholder=""  disabled>
                             <label class="state-create-patient-text" for="floatingInput">State</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control zipcode-create-patient shadow-none" id="floatingInput" placeholder="" value="@Model.ZipCode" disabled>
+                                <input asp-for="ZipCode" type="text" class="form-control zipcode-create-patient shadow-none" id="floatingInput" placeholder="" disabled>
                             <label class="zipcode-create-patient-text" for="floatingInput">Zipcode</label>
                         </div>
                     </div>
@@ -127,16 +129,17 @@
                     </div>
 
                     <div class="col d-flex justify-content-end mb-2">
-                        <button class="btn edit-btn-patient-profile me-2 p-2">Edit</button>
+                        <button type="button" class="btn edit-btn-patient-profile me-2 p-2">Edit</button>
 
                     </div>
                     <div class="col d-flex justify-content-end mb-2">
-                        <a role="button" class="btn save-btn-patient-profile me-2 p-2" style="display: none;">Save</a>
+                        <button type="submit" role="button" class="btn save-btn-patient-profile me-2 p-2" style="display: none;">Save</button>
                         <a role="button" class="btn cancel-btn-patient-profile me-2 p-2" style="display: none;">Cancel</a>
                         
                     </div>
                 </div>
             </div>
+            </form>
         </main>
         <footer class="d-flex justify-content-end align-items-baseline create-patient-req-footer ">
             <partial name="dashboard_footer"/>
@@ -158,7 +161,7 @@
     </script>
 
     <script>
-        // Add this script to handle button clicks and enable/disable form fields
+       
         const editBtn = document.querySelector(".edit-btn-patient-profile");
         const saveBtn = document.querySelector(".save-btn-patient-profile");
         const cancelBtn = document.querySelector(".cancel-btn-patient-profile");
@@ -182,18 +185,15 @@
             cancelBtn.style.display = "none";
         });
 
-        // You can handle the save functionality as per your requirements
-        saveBtn.addEventListener("click", function () {
-       
+        // saveBtn.addEventListener("click", function () {
 
-
-            formFields.forEach(field => {
-                field.setAttribute("disabled", true);
-            });
-            editBtn.style.display = "inline-block";
-            saveBtn.style.display = "none";
-            cancelBtn.style.display = "none";
-        });
+        //     formFields.forEach(field => {
+        //         field.setAttribute("disabled", true);
+        //     });
+        //     editBtn.style.display = "inline-block";
+        //     saveBtn.style.display = "none";
+        //     cancelBtn.style.display = "none";
+        // });
     </script>
 
 </body>

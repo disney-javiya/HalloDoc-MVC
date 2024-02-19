@@ -234,3 +234,7 @@ C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\HalloDoc.DataAcce
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Repository.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\HalloDoc.DataAccessLayer.pdb
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Repository.pdb
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\MailKit.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\MimeKit.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\NETCore.MailKit.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\BouncyCastle.Crypto.dll

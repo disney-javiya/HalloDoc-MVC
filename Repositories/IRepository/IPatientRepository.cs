@@ -27,6 +27,11 @@ namespace Repository.IRepository
         public IEnumerable<RequestWiseFile> GetFilesByIds(List<int> fileIds);
         public void createPatientRequestMe(createPatientRequest RequestData);
 
-   
+        public void createPatientRequestSomeoneElse(string email,requestSomeoneElse r);
+        public void updateProfile(string email,User u);
+       
+
+
+
     }
 }
