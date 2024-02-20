@@ -14,9 +14,9 @@ namespace Repository.IRepository
         AspNetUser ValidateUser(string email, string password);
         AspNetUser GetUserByEmail(string email);
         public void CreateRequest(createPatientRequest RequestData);
-        public void CreateFamilyRequest(familyCreateRequest RequestData);
-        public void CreateConciergeRequest(conciergeCreateRequest RequestData);
-        public void CreateBusinessRequest(businessCreateRequest RequestData);
+        public string CreateFamilyRequest(familyCreateRequest RequestData);
+        public string CreateConciergeRequest(conciergeCreateRequest RequestData);
+        public string CreateBusinessRequest(businessCreateRequest RequestData);
         public List<Request> GetbyEmail(string email);
   
         public List<RequestWiseFile> GetDocumentsByRequestId(int requestId);

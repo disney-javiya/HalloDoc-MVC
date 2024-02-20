@@ -238,3 +238,9 @@ C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\MailKit.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\MimeKit.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\NETCore.MailKit.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\BouncyCastle.Crypto.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Net.Mail.Abstractions.dll

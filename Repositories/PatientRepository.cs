@@ -154,16 +154,39 @@ namespace Repository
 
 
         }
-        
-        public void CreateFamilyRequest(familyCreateRequest RequestData)
+
+
+        public string CreateFamilyRequest(familyCreateRequest RequestData)
         {
             AspNetUser asp = new AspNetUser();
-            var row = _context.AspNetUsers.Where(x=> x.Email==RequestData.Email).FirstOrDefault();
             User data = new User();
-            data.AspNetUserId = row.Id;
+            var newId="";
+            var row = _context.AspNetUsers.Where(x => x.Email == RequestData.Email).FirstOrDefault();
+            if (row == null)
+            {
+                newId = Guid.NewGuid().ToString();
+                asp.Id = newId;
+                asp.Email = RequestData.Email;
+                asp.UserName = RequestData.FirstName + RequestData.LastName;
+                asp.PhoneNumber = RequestData.PhoneNumber;
+                asp.CreatedDate = DateTime.Now;
+                _context.AspNetUsers.Add(asp);
+                _context.SaveChanges();
+
+                data.AspNetUserId = newId;
+
+                 
+            }
+            else
+            {
+ 
+                data.AspNetUserId = row.Id;
+            }
+
+       
             data.Email = RequestData.Email;
             data.FirstName = RequestData.FirstName;
-            data.LastName = RequestData.LastName;      
+            data.LastName = RequestData.LastName;
             data.Mobile = RequestData.PhoneNumber;
             data.Street = RequestData.Street;
             data.City = RequestData.City;
@@ -192,7 +215,7 @@ namespace Repository
             req.FirstName = RequestData.FamilyFirstName;
             req.LastName = RequestData.FamilyLastName;
             req.PhoneNumber = RequestData.FamilyPhoneNumber;
-            req.Email   = RequestData.FamilyEmail;
+            req.Email = RequestData.FamilyEmail;
             req.Status = 1;
             var c = _context.Users.Count(x => x.CreatedDate == DateTime.Now);
             req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
@@ -253,15 +276,35 @@ namespace Repository
 
             _context.RequestClients.Add(rc);
             _context.SaveChanges();
-
+            return newId;
         }
 
-        public void CreateConciergeRequest(conciergeCreateRequest RequestData)
+        public string CreateConciergeRequest(conciergeCreateRequest RequestData)
         {
             AspNetUser asp = new AspNetUser();
-            var row = _context.AspNetUsers.Where(x => x.Email == RequestData.Email).FirstOrDefault();
             User data = new User();
-            data.AspNetUserId = row.Id;
+            var newId = "";
+            var row = _context.AspNetUsers.Where(x => x.Email == RequestData.Email).FirstOrDefault();
+            if (row == null)
+            {
+                newId = Guid.NewGuid().ToString();
+                asp.Id = newId;
+                asp.Email = RequestData.Email;
+                asp.UserName = RequestData.FirstName + RequestData.LastName;
+                asp.PhoneNumber = RequestData.PhoneNumber;
+                asp.CreatedDate = DateTime.Now;
+                _context.AspNetUsers.Add(asp);
+                _context.SaveChanges();
+
+                data.AspNetUserId = newId;
+
+
+            }
+            else
+            {
+
+                data.AspNetUserId = row.Id;
+            }
             data.FirstName = RequestData.FirstName;
             data.LastName = RequestData.LastName;
             data.Email = RequestData.Email;
@@ -332,16 +375,38 @@ namespace Repository
             requestConcierge.ConciergeId = concierge.ConciergeId;
             _context.RequestConcierges.Add(requestConcierge);
             _context.SaveChanges();
+
+            return newId;
         }
 
 
 
-        public void CreateBusinessRequest(businessCreateRequest RequestData)
+        public string CreateBusinessRequest(businessCreateRequest RequestData)
         {
             AspNetUser asp = new AspNetUser();
-            var row = _context.AspNetUsers.Where(x => x.Email == RequestData.Email).FirstOrDefault();
             User data = new User();
-            data.AspNetUserId = row.Id;
+            var newId = "";
+            var row = _context.AspNetUsers.Where(x => x.Email == RequestData.Email).FirstOrDefault();
+            if (row == null)
+            {
+                newId = Guid.NewGuid().ToString();
+                asp.Id = newId;
+                asp.Email = RequestData.Email;
+                asp.UserName = RequestData.FirstName + RequestData.LastName;
+                asp.PhoneNumber = RequestData.PhoneNumber;
+                asp.CreatedDate = DateTime.Now;
+                _context.AspNetUsers.Add(asp);
+                _context.SaveChanges();
+
+                data.AspNetUserId = newId;
+
+
+            }
+            else
+            {
+
+                data.AspNetUserId = row.Id;
+            }
             data.FirstName = RequestData.FirstName;
             data.LastName = RequestData.LastName;
             data.Email = RequestData.Email;
@@ -402,6 +467,8 @@ namespace Repository
 
             _context.RequestClients.Add(rc);
             _context.SaveChanges();
+
+            return newId;
         }
 
         public List<Request> GetbyEmail(string email)

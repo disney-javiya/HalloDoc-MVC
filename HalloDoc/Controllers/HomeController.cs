@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.IO.Compression;
 using NETCore.MailKit.Core;
+using System.Collections;
+using System.Net.Mail;
+using System.Net;
+using HalloDoc.DataAccessLayer.DataContext;
 
 namespace HalloDoc.Controllers
 {
@@ -16,15 +20,16 @@ namespace HalloDoc.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IPatientRepository _patientRepository;
-        private readonly IEmailService _emailService;
-        private Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger, IPatientRepository patientRepository, IEmailService emailService, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
+
+
+        public HomeController(ILogger<HomeController> logger, IPatientRepository patientRepository, ApplicationDbContext context)
         {
             _logger = logger;
             _patientRepository = patientRepository;
-            _emailService = emailService;
-            this.hostingEnv = env;
+            _context = context;
+     
         }
 
 
@@ -60,7 +65,124 @@ namespace HalloDoc.Controllers
             return View();
         }
 
-       
+        [HttpPost]
+        public IActionResult Reset(PatientLoginVM obj)
+        {
+            AspNetUser aspNetUser = _patientRepository.GetUserByEmail(obj.Email);
+            if (aspNetUser == null)
+            {
+                ModelState.AddModelError("Email", "Email does not exist");
+                return RedirectToAction("Index", obj);
+            }
+            else
+            {
+                string senderEmail = "tatva.dotnet.disneyjaviya@outlook.com";
+
+                string senderPassword = "Disney@20";
+                string Token = Guid.NewGuid().ToString();
+                string resetLink = $"{Request.Scheme}://{Request.Host}/Home/Resetpassword?token={Token}";
+
+                Passwordreset temp = _context.Passwordresets.Where(x => x.Email == obj.Email).FirstOrDefault();
+
+
+
+                if (temp != null)
+                {
+                    temp.Token = Token;
+                    temp.Createddate = DateTime.Now;
+                    temp.Isupdated = new BitArray(1);
+                }
+                else
+                {
+                   
+                    Passwordreset passwordReset = new Passwordreset();
+                    passwordReset.Token = Token;
+                    passwordReset.Email = obj.Email;
+                    passwordReset.Isupdated = new BitArray(1);
+                    passwordReset.Createddate = DateTime.Now;
+                    _context.Passwordresets.Add(passwordReset);
+                }
+                _context.SaveChanges();
+
+
+                SmtpClient client = new SmtpClient("smtp.office365.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false
+                };
+
+                MailMessage mailMessage = new MailMessage
+                {
+                    From = new MailAddress(senderEmail, "HalloDoc"),
+                    Subject = "Set up your Account",
+                    IsBodyHtml = true,
+                    Body = $"Please click the following link to reset your password: <a href='{resetLink}'>{resetLink}</a>"
+                };
+
+                mailMessage.To.Add(obj.Email);
+
+                client.SendMailAsync(mailMessage);
+
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpGet]
+        //[Route("Patient/ResetPassword/{token}")]
+        public IActionResult ResetPassword(string token)
+        {
+            var passwordReset = _context.Passwordresets.Where(u => u.Token == token).FirstOrDefault();
+
+            ResetPasswordVM resetPasswordVM = new ResetPasswordVM
+            {
+                Email = passwordReset.Email,
+                Token = token
+            };
+
+            TimeSpan difference = (TimeSpan)(DateTime.Now - passwordReset.Createddate);
+
+            double hours = difference.TotalHours;
+
+            if (hours > 24)
+            {
+                return NotFound();
+            }
+
+            if (passwordReset.Isupdated == new BitArray(1))
+            {
+                ModelState.AddModelError("Email", "You can only update one time using this link");
+                return View(resetPasswordVM);
+            }
+            TempData["success"] = "Enter Password";
+            return View(resetPasswordVM); ;
+
+        }
+
+
+        [HttpPost]
+        //[Route("/ResetPassword/{token}")]
+
+        public IActionResult ResetPassword(ResetPasswordVM obj)
+        {
+            var passwordReset = _context.Passwordresets.Where(u => u.Token == obj.Token).FirstOrDefault();
+
+            AspNetUser aspNetUser = _patientRepository.GetUserByEmail(obj.Email);
+
+            if (aspNetUser != null)
+            {
+                aspNetUser.PasswordHash = obj.Password;
+                passwordReset.Isupdated = new BitArray(1, true);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
         public IActionResult createPatientAccount()
         {
             return View();
@@ -153,9 +275,16 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult familyCreateRequest(familyCreateRequest RequestData)
         {
-            _patientRepository.CreateFamilyRequest(RequestData);
+            var row = _context.AspNetUsers.Where(x => x.Email == RequestData.Email).FirstOrDefault();
+            var res = _patientRepository.CreateFamilyRequest(RequestData);
+            if(row==null)
+            {
+                SendEmailUser(RequestData.Email, res);
+            }
+            
             return RedirectToAction(nameof(familyCreateRequest));
         }
+
         public IActionResult conciergePatientRequest()
         {
             return View();
@@ -164,7 +293,13 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult conciergePatientRequest(conciergeCreateRequest RequestData)
         {
-            _patientRepository.CreateConciergeRequest(RequestData);
+            var row = _context.AspNetUsers.Where(x => x.Email == RequestData.Email).FirstOrDefault();
+            var res = _patientRepository.CreateConciergeRequest(RequestData);
+            if (row == null)
+            {
+                SendEmailUser(RequestData.Email, res);
+            }
+
             return RedirectToAction(nameof(conciergePatientRequest));
         }
 
@@ -176,9 +311,138 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult businessPatientRequest(businessCreateRequest RequestData)
         {
-            _patientRepository.CreateBusinessRequest(RequestData);
+            var row = _context.AspNetUsers.Where(x => x.Email == RequestData.Email).FirstOrDefault();
+            var res = _patientRepository.CreateBusinessRequest(RequestData);
+            if (row == null)
+            {
+                SendEmailUser(RequestData.Email, res);
+            }
             return RedirectToAction(nameof(businessPatientRequest));
         }
+
+
+
+        public Action SendEmailUser(String Email, string id)
+        {
+            // Existing code...
+            AspNetUser aspNetUser = _patientRepository.GetUserByEmail(Email);
+
+
+            string senderEmail = "tatva.dotnet.disneyjaviya@outlook.com";
+            string senderPassword = "Disney@20";
+            string resetLink = $"{Request.Scheme}://{Request.Host}/Home/createPatientAccount?id={id}";
+
+            // Existing code...
+            Passwordreset temp = _context.Passwordresets.Where(x => x.Email == Email).FirstOrDefault();
+
+
+            /*if (temp.Isupdated.Get(0))
+            {
+                TempData["error"] = "You can only reset once";
+                RedirectToAction("Patientlogin");
+
+            }*/
+
+            if (temp != null)
+            {
+                temp.Token = id.ToString();
+                temp.Createddate = DateTime.Now;
+                temp.Isupdated = new BitArray(1);
+            }
+            else
+            {
+                Passwordreset passwordReset = new Passwordreset();
+                passwordReset.Token = id.ToString();
+                passwordReset.Email = Email;
+                passwordReset.Isupdated = new BitArray(1);
+                passwordReset.Createddate = DateTime.Now;
+                _context.Passwordresets.Add(passwordReset);
+            }
+            _context.SaveChanges();
+
+
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Set up your Account",
+                IsBodyHtml = true,
+                Body = $"Please click the following link to reset your password: <a href='{resetLink}'>{resetLink}</a>"
+            };
+
+            mailMessage.To.Add(Email)
+;
+
+            client.SendMailAsync(mailMessage);
+            return null;
+        }
+
+
+        [HttpGet]
+        public IActionResult createPatientAccount(string id)
+        {
+            var passwordReset = _context.Passwordresets.Where(u => u.Token == id).FirstOrDefault();
+
+            if (passwordReset == null)
+            {
+                return NotFound(); // No password reset request found with the given id
+            }
+            ResetPasswordVM resetPasswordVM = new ResetPasswordVM
+            {
+                Email = passwordReset.Email,
+                Token = id
+            };
+
+            TimeSpan difference = (TimeSpan)(DateTime.Now - passwordReset.Createddate);
+
+            if (difference.TotalHours > 24)
+            {
+                return NotFound(); // Password reset request expired
+            }
+
+            if (passwordReset.Isupdated.Get(0))
+            {
+                ModelState.AddModelError("Email", "You can only update once using this link");
+                return View(new ResetPasswordVM()); // Display error message
+            }
+
+            TempData["success"] = "Enter Password";
+            return View(new ResetPasswordVM { Token = id }); // Pass the token to the view
+        }
+
+        [HttpPost]
+        public IActionResult createPatientAccount(ResetPasswordVM obj)
+        {
+            var passwordReset = _context.Passwordresets.Where(u => u.Token == obj.Token).FirstOrDefault();
+
+            AspNetUser aspNetUser = _context.AspNetUsers.Where(x => x.Id == obj.Token).FirstOrDefault();
+
+            if (aspNetUser != null)
+            {
+                aspNetUser.PasswordHash = obj.Password;
+                passwordReset.Isupdated = new BitArray(1, true);
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+
+
+
+
+        
         public IActionResult ViewDocuments(int requestId)
         {
             var document = _patientRepository.GetDocumentsByRequestId(requestId);

@@ -2,6 +2,9 @@ using Repository;
 using Repository.IRepository;
 using HalloDoc.DataAccessLayer.DataContext;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Mail;
+using System.Net;
+using NETCore.MailKit.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql
 
 
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

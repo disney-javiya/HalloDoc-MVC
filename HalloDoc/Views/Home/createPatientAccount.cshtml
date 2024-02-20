@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HalloDoc.DataAccessLayer.DataModels.ViewModels.ResetPasswordVM;
+@{
     Layout = null;
 }
 
@@ -17,6 +18,7 @@
         <header>
             <partial name="login_header"/>
         </header>
+        <form class="mt-3" method="post" asp-action="createPatientAccount" asp-controller="Home">
         <div class="main d-flex justify-content-center align-items-center">
             <div class="row row-cols-1 justify-content-center align-items-center width ">
                 <div class="col">
@@ -25,7 +27,7 @@
                 <div class="col">
                     <div class="form-floating position-relative mb-3">
 
-                        <input type="email" class="form-control email shadow-none " id="floatingInput" placeholder="">
+                        <input asp-for="Email" type="email" class="form-control email shadow-none " id="floatingInput" placeholder="">
                         <label for="floatingInput" class=" email-text">Email address </label>
                         <i class="fa-regular fa-user position-absolute user-icon" style="color: #828487;"></i>
 
@@ -33,24 +35,28 @@
                 </div>
                 <div class="col">
                     <div class="form-floating position-relative">
-                        <input type="password" class="form-control password shadow-none" id="floatingPassword" placeholder="Password">
+                            <input asp-for="Password" type="password" class="form-control password shadow-none" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword" class=" password-text">Password</label>
                         <i class="fa-regular fa-eye  position-absolute eye-icon" style="color: #828487;"></i>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-floating position-relative">
-                        <input type="password" class="form-control password1 shadow-none mt-1" id="floatingPassword" placeholder="Password">
+                            <input asp-for="CPasswordHash" type="password" class="form-control password1 shadow-none mt-1" id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword" class=" password-text">Confirm Password</label>
                         <i class="fa-regular fa-eye  position-absolute eye-icon1" style="color: #828487;"></i>
                     </div>
                 </div>
+
+                    <input type="hidden" name="Token" value=@Model.Token asp-for="Token">
                 <div class="col gy-2">
-                    <button class="btn signup-btn w-100">Create Account</button>
+                    <button type="submit" class="btn signup-btn w-100">Create Account</button>
                 </div>
 
             </div>
+            
         </div>
+        </form>
         <footer class="d-flex justify-content-center align-items-baseline">
             <partial name="login_footer"/>
         </footer>

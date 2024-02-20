@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.Metrics;
-using System.Numerics;
-using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace HalloDoc.DataAccessLayer.DataModels;
@@ -16,13 +13,11 @@ public partial class AspNetUser
     public string Id { get; set; } = null!;
 
     [StringLength(256)]
-    public string UserName { get; set; } = null!;
+    public string UserName { get; set; }
 
     [Column(TypeName = "character varying")]
-    [Required(ErrorMessage = "Please enter password")]
     public string? PasswordHash { get; set; }
 
-    [Required(ErrorMessage = "Please enter Email")]
     [StringLength(256)]
     public string? Email { get; set; }
 
