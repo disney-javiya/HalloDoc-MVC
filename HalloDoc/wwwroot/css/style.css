@@ -391,20 +391,15 @@ Forgot-password-page
     background-color: white;
 }
 
-.tab-dashboard .nav-item .nav-link {
-    color: grey;
-    cursor: pointer;
-}
-.tab-dashboard .nav-item .active {
-    color: #01BCE9;
-    text-decoration: none;
-    border-bottom: 2px solid #01BCE9;
-    cursor: pointer;
-}
-.tab-dashboard .nav-item .nav-link:hover {
-    background: #E3E3E3;
-    cursor: pointer;
-}
+    .tab-dashboard .nav-item .nav-link {
+        color: grey;
+    }
+
+    .tab-dashboard .nav-item .active {
+        color: #01BCE9;
+        text-decoration: none;
+        border-bottom: 2px solid #01BCE9;
+    }
 
 .main-dashboad .table thead tr th, .main-viewdocuments .table thead tr th {
     background-color: #F9F9F9;
@@ -418,18 +413,6 @@ Forgot-password-page
     display: none;
 }
 
-.modal-button-request {
-    color: #01BCE9;
-    border: 1px solid #01BCE9;
-    text-decoration: none;
-    font-size: 18px;
-    border-radius: 5px;
-}
-
-    .modal-button-request:hover {
-        color: white;
-        background: #01BCE9;
-    }
 /*View Documents*/
 .view-documents p {
     color: gray;
@@ -500,22 +483,120 @@ Forgot-password-page
         color: #86B6F6;
     }
 
-.edit-btn-patient-profile, .save-btn-patient-profile, .cancel-btn-patient-profile {
+.edit-btn-patient-profile {
     font-size: 18px;
     background-color: #01BCE9;
     color: white;
 }
 
-    .edit-btn-patient-profile:hover, .save-btn-patient-profile:hover, .cancel-btn-patient-profile:hover {
+    .edit-btn-patient-profile:hover {
         background-color: rgba(1, 188, 233, 0.3);
         color: #616BA8;
     }
 
+/*Admin Login Page*/
+.admin-loginpage {
+    background-color: #F9F9F9;
+}
 
+.doctor-img {
+    height: 100%;
+}
 /*Admin Dashboard*/
+#new-state {
+    background-color: #213F99;
+    text-decoration: none;
+    color: white;
+}
+
+    #new-state:hover {
+        background-color: rgba(33, 63, 153, 0.3);
+        border: 1px solid #213F99;
+        text-decoration: none;
+    }
+
+#pending-state {
+    color: #00ADEF;
+    background-color: #E5F3F8;
+}
+
+    #pending-state:hover {
+        color: #00ADEF;
+        border: 1px solid #00ADEF;
+        background-color: rgba(229, 243, 248, 0.3);
+    }
+
+#active-state {
+    color: #228B22;
+    background-color: #E8F0E8;
+}
+
+    #active-state:hover {
+        color: #228B22;
+        border: 1px solid #228B22;
+        background-color: rgba(232, 240, 232, 0.3);
+    }
+
+#conclude-state {
+    color: #DB0F81;
+    background-color: #F6E6EF;
+}
+
+    #conclude-state:hover {
+        color: #DB0F81;
+        border: 1px solid #DB0F81;
+        background-color: rgba(246, 230, 239, 0.3);
+    }
+
+#toclose-state {
+    color: #0371D7;
+    background-color: #E5EEF6;
+}
+
+    #toclose-state:hover {
+        color: #0371D7;
+        border: 1px solid #0371D7;
+        background-color: rgba(229, 238, 246, 0.3);
+    }
+
+#unpaid-state {
+    color: #9966CC;
+    background-color: #F1EDF5;
+}
+
+    #unpaid-state:hover {
+        color: #9966CC;
+        border: 1px solid #9966CC;
+        background-color: rgba(241, 237, 245, 0.3);
+    }
+
 .menu-icon-admin {
     display: none;
 }
+
+.admin-buttons .btn {
+    background-color: #01BCE9;
+    color: white;
+}
+
+    .admin-buttons .btn:hover {
+        background-color: rgba(1, 188, 233, 0.3);
+        border: 1px solid #01BCE9;
+        color: black;
+    }
+
+.color-dots #all {
+    text-decoration: none;
+    color: grey;
+    border: 1px solid grey;
+    height: fit-content;
+}
+
+.admin-info-tags {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 
 
 /* Dark mode CSS*/
@@ -652,15 +733,44 @@ h5 {
     }
 }
 
-
 @media (max-width: 768px) {
 
     .menu-icon-admin {
         display: block;
-        font-size:20px;
+        font-size: 20px;
     }
 
     .nav {
         display: none;
+    }
+}
+
+@media(max-width: 880px) {
+    .admin-buttons .btn {
+        width: 10%;
+        height: 30%;
+    }
+
+    .admin-info-tags, .search-inputs {
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 767px) {
+    .doctor-img {
+        display: none;
+    }
+}
+
+@media(min-width: 1200px) and (max-width: 2500px) {
+    .card {
+        width: 16%;
+    }
+}
+
+@media (max-width: 1199px) {
+    .card {
+        width: 33%;
+        margin-top: 7px;
     }
 }

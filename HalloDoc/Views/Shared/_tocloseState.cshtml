@@ -1,0 +1,60 @@
+﻿@model IEnumerable<HalloDoc.DataAccessLayer.DataModels.ViewModels.RequestandRequestClient>
+<div class="admin-table m-2">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date Of Birth</th>
+                <th scope="col">Region</th>
+                <th scope="col">Physician Name</th>
+                <th scope="col">Date Of Service</th>
+                
+                <th scope="col">Address</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Chat With</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.patientName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.patientDOB)
+                        </td>
+                        <td>
+                            Abc Region
+                        </td>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            12/10/2024
+                        </td>
+                      
+                        <td>
+                            @Html.DisplayFor(modelItem => item.patientAddress)
+                        </td>
+                        <td>
+                            -
+                        </td>
+                        <td>
+                            <a href="" role="button">Provider</a>
+                        </td>
+
+                        <td><a href="" role="button">Actions</a></td>
+
+                    </tr>
+                }
+            }
+
+
+        </tbody>
+    </table>
+</div>

@@ -5,8 +5,8 @@
     </div>
 
     <div class="dark d-flex dashboard-right">
-        <p class="mt-4 p-2 dashboard-profile-name">Welcome <b>Test</b></p>
-        <a role="button" class="logout-btn mt-4 p-2" asp-controller="Home" asp-action="logOut">Logout</a>
+        <p class="mt-4 p-2 dashboard-profile-name">Welcome <b>@ViewBag.Data</b></p>
+        <a role="button" class="logout-btn mt-4 p-2" asp-controller="Admin" asp-action="logOut">Logout</a>
 
     </div>
 </div>
@@ -36,6 +36,3 @@
         </li>
     </ul>
 </div>
-
-
-

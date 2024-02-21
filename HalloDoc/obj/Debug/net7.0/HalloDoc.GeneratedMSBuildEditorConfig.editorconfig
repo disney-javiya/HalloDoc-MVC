@@ -92,6 +92,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVx2aWV3RG9jdW1lbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Shared/admin_dashboard_footer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXGFkbWluX2Rhc2hib2FyZF9mb290ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Shared/admin_dashboard_header.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXGFkbWluX2Rhc2hib2FyZF9oZWFkZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -122,6 +126,30 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Shared/Request_header.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFJlcXVlc3RfaGVhZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Shared/_activeState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hY3RpdmVTdGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Shared/_concludeState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9jb25jbHVkZVN0YXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Shared/_newState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9uZXdTdGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Shared/_pendingState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9wZW5kaW5nU3RhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Shared/_tocloseState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF90b2Nsb3NlU3RhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Shared/_unpaidState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF91bnBhaWRTdGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Shared/_ValidationScriptsPartial.cshtml]
