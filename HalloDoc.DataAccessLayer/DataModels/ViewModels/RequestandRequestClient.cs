@@ -28,7 +28,8 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
         [StringLength(500)]
         public string? patientAddress { get; set; }
         public short Status { get; set; }
-
+        [StringLength(50)]
+        public string? patientEmail { get; set; }
 
     }
 }

@@ -33,7 +33,7 @@ namespace HalloDoc.Controllers
         }
 
 
-      
+ /*-----------------------------------Index--------------------------------------------------*/
         public IActionResult Index()
         {
             return View();
@@ -52,14 +52,13 @@ namespace HalloDoc.Controllers
                 return View(user);
             }
 
-            // Set session key only when user credentials are validated successfully
             HttpContext.Session.SetString("key", user.Email);
 
             return RedirectToAction("patientDashboard");
         }
 
 
-
+        /*-----------------------------------Forgot Password--------------------------------------------------*/
         public IActionResult Forgotpassword()
         {
             return View();
@@ -182,7 +181,7 @@ namespace HalloDoc.Controllers
         }
 
 
-
+        /*-----------------------------------Create Patient Account--------------------------------------------------*/
         public IActionResult createPatientAccount()
         {
             return View();
@@ -209,12 +208,14 @@ namespace HalloDoc.Controllers
             return new OkObjectResult(new { exists = emailExists });
         }
 
+        /*-----------------------------------Patient Dashboard--------------------------------------------------*/
         public IActionResult patientDashboard()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
             var res = _patientRepository.GetbyEmail(ViewBag.Data);
             return View(res);
         }
+        /*-----------------------------------Request Me Form --------------------------------------------------*/
         public IActionResult requestMe()
         {
             return View();
@@ -228,7 +229,7 @@ namespace HalloDoc.Controllers
         }
 
 
-
+        /*-----------------------------------request Someone Else Form--------------------------------------------------*/
         public IActionResult requestSomeoneElse()
         {
 
@@ -243,16 +244,18 @@ namespace HalloDoc.Controllers
             return RedirectToAction(nameof(requestSomeoneElse));
         }
 
+
+        /*-----------------------------------patient site--------------------------------------------------*/
         public IActionResult patientSite()
         {
             return View();
         }
-
+        /*-----------------------------------Patient Submit Screen--------------------------------------------------*/
         public IActionResult patientSubmitRequestScreen()
         {
             return View();
         }
-
+        /*-----------------------------------create patient request--------------------------------------------------*/
         public IActionResult createPatientRequest()
         {
             return View();
@@ -268,6 +271,7 @@ namespace HalloDoc.Controllers
             return RedirectToAction(nameof(createPatientRequest));
         }
 
+        /*-----------------------------------create family request--------------------------------------------------*/
         public IActionResult familyCreateRequest()
         {
             return View();
@@ -284,7 +288,7 @@ namespace HalloDoc.Controllers
             
             return RedirectToAction(nameof(familyCreateRequest));
         }
-
+        /*-----------------------------------create concierge request--------------------------------------------------*/
         public IActionResult conciergePatientRequest()
         {
             return View();
@@ -302,7 +306,7 @@ namespace HalloDoc.Controllers
 
             return RedirectToAction(nameof(conciergePatientRequest));
         }
-
+        /*-----------------------------------create business request--------------------------------------------------*/
         public IActionResult businessPatientRequest()
         {
             return View();
@@ -438,18 +442,14 @@ namespace HalloDoc.Controllers
 
 
 
-
-
-
-
-        
+        /*-----------------------------------View Documents--------------------------------------------------*/
         public IActionResult ViewDocuments(int requestId)
         {
             var document = _patientRepository.GetDocumentsByRequestId(requestId);
 
             if (document == null)
             {
-                return NotFound(); // Handle the case where the document is not found
+                return NotFound(); 
             }
 
             return View(document);
@@ -460,7 +460,7 @@ namespace HalloDoc.Controllers
             var file = _patientRepository.GetFileById(fileId);
             if (file == null)
             {
-                return NotFound(); // Handle the case where the file is not found
+                return NotFound(); 
             }
 
             var filePath = Path.Combine("wwwroot/Files", file.FileName);
@@ -468,6 +468,7 @@ namespace HalloDoc.Controllers
             return File(fileBytes, "application/octet-stream", file.FileName);
         }
 
+        /*-----------------------------------Patient Profile--------------------------------------------------*/
         public IActionResult patientProfile()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
@@ -483,7 +484,7 @@ namespace HalloDoc.Controllers
             return View();
         }
 
-
+        /*-----------------------------------Upload Files--------------------------------------------------*/
 
         public IActionResult UploadFiles(int requestId, List<IFormFile> files)
         {
@@ -523,11 +524,13 @@ namespace HalloDoc.Controllers
             return File(zipMemoryStream, "application/zip", "DownloadedFiles.zip");
         }
 
+        /*-----------------------------------Review Agreement--------------------------------------------------*/
         public IActionResult reviewAgreement()
         {
             return View();
         }
 
+        /*-----------------------------------Logout--------------------------------------------------*/
         public IActionResult logOut()
         {
             HttpContext.Session.Remove("key");
