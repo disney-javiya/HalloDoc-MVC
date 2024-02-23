@@ -1,6 +1,4 @@
-﻿
-
-using Repository.IRepository;
+﻿using Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +29,13 @@ namespace Repository
 
         public AspNetUser ValidateUser(string email, string password)
         {
-            return _context.AspNetUsers.Where(x => x.Email == email && x.PasswordHash == password).FirstOrDefault();
+            var passwordhash = "";
+            if (password != null)
+            {
+                var plainText = Encoding.UTF8.GetBytes(password);
+                passwordhash = Convert.ToBase64String(plainText);
+            }
+            return _context.AspNetUsers.Where(x => x.Email == email && x.PasswordHash == passwordhash).FirstOrDefault();
         }
       
         public IEnumerable<RequestandRequestClient> getRequestStateData(int type)

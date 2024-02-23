@@ -13,33 +13,34 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
     {
             [StringLength(250)]
             public string Symptoms { get; set; } = null!;
-
+            [Required]
             public DateOnly DateOfBirth { get; set; }
-
+            [Required]
             [StringLength(100)]
             public string FirstName { get; set; } = null!;
-
+            [Required]
             [StringLength(100)]
             public string? LastName { get; set; }
 
             [Column(TypeName = "character varying")]
+            [Required]
             public string? PasswordHash { get; set; }
-
+            [Required]
             [StringLength(50)]
             public string Email { get; set; } = null!;
-
+            
             [StringLength(20)]
             public string? Mobile { get; set; }
-
+            [Required]
             [StringLength(100)]
             public string? Street { get; set; }
-
+            [Required]
             [StringLength(100)]
             public string? City { get; set; }
-
+            [Required]
             [StringLength(100)]
             public string? State { get; set; }
-
+            [Required]
             [StringLength(10)]
             public string? ZipCode { get; set; }
 

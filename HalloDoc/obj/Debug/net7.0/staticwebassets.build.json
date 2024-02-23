@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mdFK73poBYrUxjpZgcrWu5yp1stCGnYCpW5K9sxA+NI=",
+  "Hash": "utcir7HWInm3HcAlzT8dr2CZclJMalg9m2ewzf+uxpM=",
   "Source": "HalloDoc",
   "BasePath": "_content/HalloDoc",
   "Mode": "Default",
@@ -236,6 +236,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Files\\login-mobile-light.png"
+    },
+    {
+      "Identity": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\MVC.pdf",
+      "SourceId": "HalloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc",
+      "RelativePath": "Files/MVC.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Files\\MVC.pdf"
     },
     {
       "Identity": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\patient-request-desktop-light.png",

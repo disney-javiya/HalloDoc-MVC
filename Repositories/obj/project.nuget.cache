@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "rv03ZwTGpUWy3X519F0w4ENQvJvgdB+aBWSTxe73b+dfa3GZT0yhRiP32us25Lu5czX5ASUFREBIolHcOhJACw==",
+  "dgSpecHash": "oTIqF031OA+iOqdCu3bXJ7jbEHELvSqjd8n5fU8BmoBIkfJiBi8BTFEwm2HOiFedym7qC1rb/wbyxthN99cDZA==",
   "success": true,
   "projectFilePath": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\Repositories\\Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pce88\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\pce88\\.nuget\\packages\\microsoft.aspnet.mvc\\5.3.0\\microsoft.aspnet.mvc.5.3.0.nupkg.sha512",
+    "C:\\Users\\pce88\\.nuget\\packages\\microsoft.aspnet.razor\\3.3.0\\microsoft.aspnet.razor.3.3.0.nupkg.sha512",
+    "C:\\Users\\pce88\\.nuget\\packages\\microsoft.aspnet.webpages\\3.3.0\\microsoft.aspnet.webpages.3.3.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.1.2\\microsoft.aspnetcore.authentication.2.1.2.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.1.1\\microsoft.aspnetcore.authentication.abstractions.2.1.1.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.1.1\\microsoft.aspnetcore.authentication.core.2.1.1.nupkg.sha512",
@@ -50,6 +53,7 @@
     "C:\\Users\\pce88\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.3.1\\microsoft.identitymodel.tokens.7.3.1.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\microsoft.net.http.headers\\2.1.1\\microsoft.net.http.headers.2.1.1.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\pce88\\.nuget\\packages\\microsoft.web.infrastructure\\1.0.0\\microsoft.web.infrastructure.1.0.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
@@ -70,5 +74,46 @@
     "C:\\Users\\pce88\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Mvc 5.3.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Mvc",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Razor 3.3.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Razor",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.WebPages 3.3.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.WebPages",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Web.Infrastructure 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.Web.Infrastructure",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }

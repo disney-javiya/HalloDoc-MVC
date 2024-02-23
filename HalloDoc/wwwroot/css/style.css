@@ -290,7 +290,7 @@ Forgot-password-page
     }
 
 .width-create-patient-req {
-    width: 700px;
+    width: 950px;
     background-color: rgba(255, 255, 255, 0.8);
 }
 
@@ -334,7 +334,9 @@ Forgot-password-page
     display: block !important;
 }
 
-
+.iti--allow-dropdown input {
+    height: 58px;
+}
 /* Family Create Request Page*/
 .family-first-name-create-patient:focus, .family-last-name-create-patient:focus, .family-contact-create-patient:focus, .family-email-create-patient:focus, .family-relation-create-patient:focus {
     border: 1px solid #01BCE9;
@@ -539,15 +541,17 @@ Forgot-password-page
 #send-agree-admin-mob-button, #clear-admin-mob-button, #order-admin-mob-button {
     background: #EE9125;
 }
+
 #transfer-admin-mob-button {
     background: #00ADEF;
 }
+
 #doctor-admin-mob-button {
     background: #145545;
 }
 
 .admin-mob-btn .fa-user {
-    border-radius: ;
+    border-radius:;
 }
 
 #new-state {

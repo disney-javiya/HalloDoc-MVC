@@ -244,3 +244,10 @@ C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Microsoft.Identit
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Net.Mail.Abstractions.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Web.Mvc.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Web.Razor.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Web.Helpers.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Web.WebPages.Deployment.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Web.WebPages.Razor.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Web.WebPages.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Microsoft.Web.Infrastructure.dll

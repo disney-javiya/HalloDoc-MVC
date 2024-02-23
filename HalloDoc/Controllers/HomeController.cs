@@ -12,6 +12,7 @@ using System.Collections;
 using System.Net.Mail;
 using System.Net;
 using HalloDoc.DataAccessLayer.DataContext;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HalloDoc.Controllers
 {
@@ -21,7 +22,7 @@ namespace HalloDoc.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IPatientRepository _patientRepository;
         private readonly ApplicationDbContext _context;
-
+      
 
 
         public HomeController(ILogger<HomeController> logger, IPatientRepository patientRepository, ApplicationDbContext context)
@@ -29,13 +30,16 @@ namespace HalloDoc.Controllers
             _logger = logger;
             _patientRepository = patientRepository;
             _context = context;
-     
+            
+    
         }
 
 
  /*-----------------------------------Index--------------------------------------------------*/
         public IActionResult Index()
         {
+           
+
             return View();
         }
 
@@ -51,9 +55,9 @@ namespace HalloDoc.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid email or password.");
                 return View(user);
             }
-
+           
             HttpContext.Session.SetString("key", user.Email);
-
+           
             return RedirectToAction("patientDashboard");
         }
 
@@ -212,6 +216,10 @@ namespace HalloDoc.Controllers
         public IActionResult patientDashboard()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
+            if (ViewBag.Data == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
             var res = _patientRepository.GetbyEmail(ViewBag.Data);
             return View(res);
         }
@@ -224,6 +232,11 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult requestMe(createPatientRequest RequestData)
         {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            if (ViewBag.Data == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
             _patientRepository.createPatientRequestMe(RequestData);
             return RedirectToAction(nameof(requestMe));
         }
@@ -239,6 +252,11 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult requestSomeoneElse(requestSomeoneElse r)
         {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            if (ViewBag.Data == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
             ViewBag.Data = HttpContext.Session.GetString("key");
             _patientRepository.createPatientRequestSomeoneElse(ViewBag.Data ,r);
             return RedirectToAction(nameof(requestSomeoneElse));
@@ -266,7 +284,13 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult createPatientRequest(createPatientRequest RequestData)
         {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid");
+                return View();
+            }
 
+            TempData["ShowSuccessAlert"] = true;
             _patientRepository.CreateRequest(RequestData);
             return RedirectToAction(nameof(createPatientRequest));
         }
@@ -274,18 +298,25 @@ namespace HalloDoc.Controllers
         /*-----------------------------------create family request--------------------------------------------------*/
         public IActionResult familyCreateRequest()
         {
+           
             return View();
         }
         [HttpPost]
         public IActionResult familyCreateRequest(familyCreateRequest RequestData)
         {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid");
+                return View();
+            }
+
             var row = _context.AspNetUsers.Where(x => x.Email == RequestData.Email).FirstOrDefault();
             var res = _patientRepository.CreateFamilyRequest(RequestData);
             if(row==null)
             {
                 SendEmailUser(RequestData.Email, res);
             }
-            
+            TempData["ShowSuccessAlert"] = true;
             return RedirectToAction(nameof(familyCreateRequest));
         }
         /*-----------------------------------create concierge request--------------------------------------------------*/
@@ -297,13 +328,18 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult conciergePatientRequest(conciergeCreateRequest RequestData)
         {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid");
+                return View();
+            }
             var row = _context.AspNetUsers.Where(x => x.Email == RequestData.Email).FirstOrDefault();
             var res = _patientRepository.CreateConciergeRequest(RequestData);
             if (row == null)
             {
                 SendEmailUser(RequestData.Email, res);
             }
-
+            TempData["ShowSuccessAlert"] = true;
             return RedirectToAction(nameof(conciergePatientRequest));
         }
         /*-----------------------------------create business request--------------------------------------------------*/
@@ -315,18 +351,24 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult businessPatientRequest(businessCreateRequest RequestData)
         {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid");
+                return View();
+            }
             var row = _context.AspNetUsers.Where(x => x.Email == RequestData.Email).FirstOrDefault();
             var res = _patientRepository.CreateBusinessRequest(RequestData);
             if (row == null)
             {
                 SendEmailUser(RequestData.Email, res);
             }
+            TempData["ShowSuccessAlert"] = true;
             return RedirectToAction(nameof(businessPatientRequest));
         }
 
 
 
-        public Action SendEmailUser(String Email, string id)
+        public Action SendEmailUser(System.String Email, string id)
         {
             // Existing code...
             AspNetUser aspNetUser = _patientRepository.GetUserByEmail(Email);
@@ -379,7 +421,7 @@ namespace HalloDoc.Controllers
                 From = new MailAddress(senderEmail, "HalloDoc"),
                 Subject = "Set up your Account",
                 IsBodyHtml = true,
-                Body = $"Please click the following link to reset your password: <a href='{resetLink}'>{resetLink}</a>"
+                Body = $"Please create password for your account: <a href='{resetLink}'>{resetLink}</a>"
             };
 
             mailMessage.To.Add(Email)
@@ -445,6 +487,11 @@ namespace HalloDoc.Controllers
         /*-----------------------------------View Documents--------------------------------------------------*/
         public IActionResult ViewDocuments(int requestId)
         {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            if (ViewBag.Data == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
             var document = _patientRepository.GetDocumentsByRequestId(requestId);
 
             if (document == null)
@@ -472,14 +519,24 @@ namespace HalloDoc.Controllers
         public IActionResult patientProfile()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
+            if (ViewBag.Data == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            
             var res = _patientRepository.GetPatientData(ViewBag.Data);
             return View(res);
         }
         [HttpPost]
         public IActionResult patientProfile(User u)
         {
-
             ViewBag.Data = HttpContext.Session.GetString("key");
+            if (ViewBag.Data == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            
             _patientRepository.updateProfile(ViewBag.Data, u);
             return View();
         }
@@ -493,36 +550,46 @@ namespace HalloDoc.Controllers
         }
 
 
-        public IActionResult DownloadFiles(List<int> fileIds)
+
+
+
+
+        public IActionResult DownloadFiles(List<int> fileIds, int? requestId)
         {
             IEnumerable<RequestWiseFile> files;
-            if (fileIds != null && fileIds.Any())
+
+            if (fileIds != null)
             {
                 files = _patientRepository.GetFilesByIds(fileIds);
             }
+            else if (requestId != null)
+            {
+                files = _patientRepository.GetFilesByRequestId(requestId.Value);
+            }
             else
             {
-                files = _patientRepository.GetAllFiles();
+               
+                return BadRequest("No files selected or invalid request.");
             }
-
             var zipMemoryStream = new MemoryStream();
-            using (var zipArchive = new ZipArchive(zipMemoryStream, ZipArchiveMode.Create, true))
-            {
-                foreach (var file in files)
+                using (var zipArchive = new ZipArchive(zipMemoryStream, ZipArchiveMode.Create, true))
                 {
-                    var filePath = Path.Combine("wwwroot/Files", file.FileName);
-                    var entry = zipArchive.CreateEntry(file.FileName);
-                    using (var entryStream = entry.Open())
-                    using (var fileStream = new FileStream(filePath, FileMode.Open))
+                    foreach (var file in files)
                     {
-                        fileStream.CopyTo(entryStream);
+                        var filePath = Path.Combine("wwwroot/Files", file.FileName);
+                        var entry = zipArchive.CreateEntry(file.FileName);
+                        using (var entryStream = entry.Open())
+                        using (var fileStream = new FileStream(filePath, FileMode.Open))
+                        {
+                            fileStream.CopyTo(entryStream);
+                        }
                     }
                 }
-            }
 
-            zipMemoryStream.Seek(0, SeekOrigin.Begin);
-            return File(zipMemoryStream, "application/zip", "DownloadedFiles.zip");
+                zipMemoryStream.Seek(0, SeekOrigin.Begin);
+                return File(zipMemoryStream, "application/zip", "DownloadedFiles.zip");
         }
+
 
         /*-----------------------------------Review Agreement--------------------------------------------------*/
         public IActionResult reviewAgreement()

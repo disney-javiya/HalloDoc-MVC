@@ -15,6 +15,7 @@ using System.IO;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Net.Http;
+using System.Web.Mvc;
 
 namespace Repository
 {
@@ -29,7 +30,14 @@ namespace Repository
 
         public AspNetUser ValidateUser(string email, string password)
         {
-            return _context.AspNetUsers.Where(x => x.Email == email && x.PasswordHash == password).FirstOrDefault();
+            var passwordhash = "";
+            if (password != null)
+            {
+                var plainText = Encoding.UTF8.GetBytes(password);
+                 passwordhash = Convert.ToBase64String(plainText);
+            }
+            
+            return _context.AspNetUsers.Where(x => x.Email == email && x.PasswordHash == passwordhash).FirstOrDefault();
         }
 
         public AspNetUser GetUserByEmail(string email)
@@ -45,7 +53,9 @@ namespace Repository
             AspNetUser asp = new AspNetUser();
             asp.Id = Guid.NewGuid().ToString();
             asp.UserName = RequestData.FirstName + RequestData.LastName;
-            asp.PasswordHash = RequestData.PasswordHash;
+            var plainText = Encoding.UTF8.GetBytes(RequestData.PasswordHash);
+            asp.PasswordHash = Convert.ToBase64String(plainText);
+            //asp.PasswordHash = RequestData.PasswordHash;
             asp.Email = RequestData.Email;
             asp.PhoneNumber = RequestData.Mobile;
             asp.CreatedDate = DateTime.Now;
@@ -599,15 +609,21 @@ namespace Repository
 
 
 
+
         public IEnumerable<RequestWiseFile> GetAllFiles()
         {
             return _context.RequestWiseFiles.ToList();
+        }
+        public IEnumerable<RequestWiseFile> GetFilesByRequestId(int requestId)
+        {
+            return _context.RequestWiseFiles.Where(f => f.RequestId == requestId).ToList();
         }
 
         public IEnumerable<RequestWiseFile> GetFilesByIds(List<int> fileIds)
         {
             return _context.RequestWiseFiles.Where(f => fileIds.Contains(f.RequestWiseFileId)).ToList();
         }
+
 
         public void createPatientRequestMe(createPatientRequest RequestData)
         {
