@@ -14,5 +14,8 @@ namespace Repository.IRepository
     {
         AspNetUser ValidateUser(string email, string password);
         public IEnumerable<RequestandRequestClient> getRequestStateData(int type);
+        public RequestClient getPatientInfo(int requestId);
+        public string getConfirmationNumber(int requestId);
+        public int getCountNumber(IEnumerable<RequestandRequestClient> res);
     }
 }

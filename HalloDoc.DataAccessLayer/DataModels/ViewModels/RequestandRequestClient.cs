@@ -10,6 +10,7 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
 {
     public class RequestandRequestClient
     {
+        public int? count { get; set; }
         public int? requestId { get; set; }
 
         public int RequestTypeId { get; set; }

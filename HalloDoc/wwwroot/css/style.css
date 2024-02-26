@@ -677,6 +677,16 @@ Forgot-password-page
     border: 1px solid #01BCE9;
     border-radius: 50%;
 }
+
+/*Admin view notes*/
+.width-admin-viewnotes {
+    width: 1200px;
+}
+
+.admin-view-notes .card {
+    width: 45%;
+}
+
 /* Dark mode CSS*/
 .dark-mode {
     background-color: black;
@@ -858,5 +868,11 @@ h5 {
     .card {
         width: 33%;
         margin-top: 7px;
+    }
+}
+
+@media (max-width: 576px) {
+    .admin-view-notes .card {
+        width: 100%;
     }
 }

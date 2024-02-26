@@ -15,6 +15,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Net.Http;
 using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
+using System.Web.Mvc;
 
 namespace Repository
 {
@@ -37,7 +38,24 @@ namespace Repository
             }
             return _context.AspNetUsers.Where(x => x.Email == email && x.PasswordHash == passwordhash).FirstOrDefault();
         }
-      
+
+
+
+        public RequestClient getPatientInfo(int requestId)
+        {
+            return _context.RequestClients.FirstOrDefault(x => x.RequestId == requestId);
+        }
+
+        public string getConfirmationNumber(int requestId)
+        {
+            return _context.Requests.Where(r => r.RequestId == requestId).Select(r => r.ConfirmationNumber).FirstOrDefault();
+        }
+
+        public int getCountNumber(IEnumerable<RequestandRequestClient> res)
+        {
+            return res.Count();
+        }
+
         public IEnumerable<RequestandRequestClient> getRequestStateData(int type)
         {
             var query = (from req in _context.Requests

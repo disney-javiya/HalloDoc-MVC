@@ -6,6 +6,7 @@ using Repository.IRepository;
 using HalloDoc.DataAccessLayer.DataModels.ViewModels;
 using HalloDoc.DataAccessLayer.DataContext;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace HalloDoc.Controllers
 {
@@ -58,6 +59,7 @@ namespace HalloDoc.Controllers
           var res =  _adminRepository.getRequestStateData(type);
             if(type == 1)
             {
+               ViewBag.count =  _adminRepository.getCountNumber(res);
                 return PartialView("_newState", res);
             }
             else if (type == 2)
@@ -82,6 +84,28 @@ namespace HalloDoc.Controllers
             }
 
             return View();
+        }
+
+        public IActionResult adminViewCase(int requestId)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            var requestClient = _adminRepository.getPatientInfo(requestId);
+            if (requestClient != null)
+            {
+                var confirmationNumber = _adminRepository.getConfirmationNumber(requestId);
+                ViewBag.ConfirmationNumber = confirmationNumber;
+            }
+
+            return View(requestClient);
+            
+        }
+        public IActionResult adminViewNotes(int requestId)
+        {
+           ViewBag.Data = HttpContext.Session.GetString("key");
+            var res = _adminRepository.getPatientInfo(requestId);
+           return View(res);
+
         }
 
         public IActionResult logOut()

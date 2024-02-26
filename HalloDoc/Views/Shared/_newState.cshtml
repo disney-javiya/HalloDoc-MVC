@@ -15,6 +15,7 @@
             </tr>
         </thead>
         <tbody>
+           
             @if (Model != null)
             {
 
@@ -52,8 +53,8 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#">Assign Case</a></li>
                                     <li><a class="dropdown-item" href="#">Cancel Case</a></li>
-                                    <li><a class="dropdown-item" href="#">View Case</a></li>
-                                    <li><a class="dropdown-item" href="#">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId})">View Case</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">View Notes</a></li>
                                     <li><a class="dropdown-item" href="#">Block Patient</a></li>
                                 </ul>
                             </div>
@@ -238,6 +239,7 @@
         });
     });
 </script>
+
 
 @*Script for all cards background, icon color and request type role*@
 @* <script>

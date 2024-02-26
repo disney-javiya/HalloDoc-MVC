@@ -69,6 +69,7 @@ public partial class RequestClient
     [StringLength(10)]
     public string? ZipCode { get; set; }
 
+
     public short? CommunicationType { get; set; }
 
     public short? RemindReservationCount { get; set; }
