@@ -16,6 +16,10 @@ namespace Repository.IRepository
         public IEnumerable<RequestandRequestClient> getRequestStateData(int type);
         public RequestClient getPatientInfo(int requestId);
         public string getConfirmationNumber(int requestId);
-        public int getCountNumber(IEnumerable<RequestandRequestClient> res);
+      
+        public RequestNote getNotes(int requestId);
+        public string getTranferNotes(int requestId);
+        public void adminNotes(int requestId, RequestNote r, string email);
+
     }
 }

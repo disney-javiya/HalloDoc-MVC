@@ -51,9 +51,73 @@ namespace Repository
             return _context.Requests.Where(r => r.RequestId == requestId).Select(r => r.ConfirmationNumber).FirstOrDefault();
         }
 
-        public int getCountNumber(IEnumerable<RequestandRequestClient> res)
+        
+        public RequestNote getNotes(int requestId)
         {
-            return res.Count();
+            var res = _context.RequestNotes.FirstOrDefault(x => x.RequestId == requestId);
+            if (res == null)
+            {
+                RequestNote r = new RequestNote();
+                r.RequestId = requestId;
+                r.PhysicianNotes = "";
+                r.AdminNotes = "";
+                r.CreatedBy = "";
+    
+                _context.RequestNotes.Add(r);
+                _context.SaveChanges();
+                res = _context.RequestNotes.FirstOrDefault(x => x.RequestId == requestId);
+            }
+            return res;
+        }
+
+        public string getTranferNotes(int requestId)
+        {
+           
+           
+            var res = _context.RequestStatusLogs.Where(x => x.RequestId == requestId).Select(x=>x.Notes).FirstOrDefault();
+            if (res == null)
+            {
+                return res = "";
+            }
+            return res;
+        }
+        public void adminNotes(int requestId , RequestNote r, string email)
+        {
+            RequestNote rn = new RequestNote();
+            var res = _context.RequestNotes.Where(x => x.RequestId == requestId).FirstOrDefault();
+            if (res == null)
+            {
+                rn.RequestId = requestId;
+                rn.AdminNotes = r.AdminNotes;
+                rn.PhysicianNotes = null;
+                rn.CreatedBy = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.UserName).FirstOrDefault();
+                rn.CreatedDate = DateTime.Now;
+                _context.RequestNotes.Add(rn);
+                _context.SaveChanges();
+            }
+            else { 
+            
+                res = _context.RequestNotes.Where(u=>u.RequestNotesId == res.RequestNotesId).FirstOrDefault();
+                res.RequestNotesId = res.RequestNotesId;
+                res.AdminNotes = r.AdminNotes;
+                res.PhysicianNotes = null;
+                if(res.CreatedBy == "")
+                {
+                    res.CreatedBy = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.UserName).FirstOrDefault();
+                    res.CreatedDate = DateTime.Now;
+                }
+                else
+                {
+                    res.ModifiedBy = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.UserName).FirstOrDefault();
+                    res.ModifiedDate = DateTime.Now;
+                }
+                
+               
+                _context.SaveChanges();
+
+            }
+            
+
         }
 
         public IEnumerable<RequestandRequestClient> getRequestStateData(int type)

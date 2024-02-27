@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<HalloDoc.DataAccessLayer.DataModels.ViewModels.RequestandRequestClient>
+
 <div class="admin-table m-2">
     <table class="table">
         <thead>
@@ -15,13 +16,13 @@
             </tr>
         </thead>
         <tbody>
-           
+
             @if (Model != null)
             {
 
                 foreach (var item in Model)
                 {
-                    <tr id="BackgroundColor"  value="@item.RequestTypeId">
+                    <tr id="BackgroundColor" value="@item.RequestTypeId">
                         <td>
                             @Html.DisplayFor(modelItem => item.patientName)
                         </td>
@@ -52,28 +53,67 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#">Assign Case</a></li>
-                                    <li><a class="dropdown-item" href="#">Cancel Case</a></li>
-                                    <li><a class="dropdown-item" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId})">View Case</a></li>
+                                    <li><a class="dropdown-item" id="cancel-option" role="button" data-bs-toggle="modal" data-bs-target="#myModal" value="@item.requestId">Cancel Case</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId , state = 1})">View Case</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">View Notes</a></li>
                                     <li><a class="dropdown-item" href="#">Block Patient</a></li>
                                 </ul>
                             </div>
-                            
+
                         </td>
 
-                       
-                      
+
+
                     </tr>
-                 
+
                 }
             }
-       
-
         </tbody>
     </table>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Cancellation</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p id="patientName"></p>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Reason For Cancellation
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Reason 1</a></li>
+                            <li><a class="dropdown-item" href="#">Reason 2</a></li>
+                            <li><a class="dropdown-item" href="#">Reason 3</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn">Confirm</button>
+                    <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </div>
+        </div>
     </div>
 
-   <div class="adminmobileview">
+
+</div>
+
+@*This code is for Mobile View*@
+
+
+<div class="adminmobileview">
 
     @if (Model != null)
     {
@@ -86,20 +126,20 @@
                         <p>@item.patientName</p>
                         <p class="ms-auto" id="rname"></p><i class="fa-solid fa-circle ms-1 mt-1" id="circle-color"></i>
                     </div>
-                  
+
                     <div class=" d-flex flex-row justify-content-between">
                         <p>@item.patientAddress</p>
                         <a class="admin-map-btn p-1" role="button">Map Location</a>
-                   </div>
-                   
+                    </div>
+
                     <p>Wait Time: <b>@item.requestedDate</b></p>
                 </div>
             </div>
             <div class="collapse" id="collapseExample">
                 <div class="card card-body" id="BackgroundColormobileinnercard" value="@item.RequestTypeId">
-                    <div class="card-title-legend ms-auto">
+                    <a role="button" class="card-title-legend ms-auto" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId , state = 1})">
                         View Case
-                    </div>
+                    </a>
                     <p> <i class="fa-solid fa-calendar-days p-2 me-1" style="color: #a0a0a2;"></i>Date of birth: @item.patientDOB</p>
                     <p> <i class="fa-regular fa-envelope p-2 me-1" style="color: #a0a0a2;"></i>Email: @item.patientEmail</p>
                     <p> <i class="fa-solid fa-phone  p-2 me-1" style="color: #a0a0a2;"></i>Patient: @item.patientContact</p>
@@ -116,7 +156,7 @@
 
                     <div class=" d-flex flex-row ">
 
-                        <a class="admin-mob-button p-2 m-1" id="view-admin-mob-button" role="button">
+                        <a class="admin-mob-button p-2 m-1" id="view-admin-mob-button" role="button" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">
                             View Notes
                         </a>
                         <a class="admin-mob-button p-2 m-1" id="block-admin-mob-button" role="button">
@@ -131,16 +171,23 @@
                         <a class="admin-mob-btn p-1 m-1" role="button"> <i class="fa-regular fa-user p-2 me-2" style="color: #01BCE9; border:none">Patient</i></a>
                         <a class="admin-mob-btn p-1 m-1" role="button"> <i class="fa-solid fa-user-nurse  p-2 me-1" style="color: #01BCE9;  border:none">Provider</i></a>
                     </div>
-                   
+
                 </div>
             </div>
 
         }
     }
 
-   </div>
+</div>
 
-
+<script>
+    $(document).ready(function () {
+        $('#cancel-option').click(function () {
+            var requestId = $(this).attr("value");
+            $('#patientName').text("Patient Name:" +requestId)
+        });
+    });
+</script>
 
 @*Script for all cards background, icon color and request type role*@
 <script>
@@ -152,20 +199,20 @@
         var rname = "";
         var iconcolor;
         switch (val) {
-            case '1':           
+            case '1':
                 rname = "Business";
                 iconcolor = "#e63368";
                 break;
-            case '2':             
+            case '2':
                 rname = "Patient";
                 iconcolor = "#35d016";
                 break;
-            case '3':              
+            case '3':
                 rname = "Family";
                 iconcolor = "#FFD43B";
                 break;
             default:
-               
+
                 rname = "Concierge";
                 iconcolor = "#74C0FC";
         }
@@ -272,14 +319,14 @@
                 rname = "Concierge";
                 iconcolor = "#74C0FC";
         }
-        
+
         var cbs = card.querySelectorAll('.card-body');
         cbs.forEach(function (cb) {
             cb.style.background = color;
             card.querySelector('#rname').innerHTML = rname;
             card.querySelector('#circle-color').style.color = iconcolor;
         });
-       
+
     });
 </script> *@
 

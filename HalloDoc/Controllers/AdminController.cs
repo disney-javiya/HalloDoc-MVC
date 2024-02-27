@@ -53,13 +53,18 @@ namespace HalloDoc.Controllers
            ViewBag.Data = HttpContext.Session.GetString("key");
             return View();
         }
+        public int getCountNumber(int type)
+        {
+            var res = _adminRepository.getRequestStateData(type);
 
+            return res.Count();
+        }
         public IActionResult adminTableData(int type)
         {
+           
           var res =  _adminRepository.getRequestStateData(type);
             if(type == 1)
             {
-               ViewBag.count =  _adminRepository.getCountNumber(res);
                 return PartialView("_newState", res);
             }
             else if (type == 2)
@@ -100,13 +105,25 @@ namespace HalloDoc.Controllers
             return View(requestClient);
             
         }
+        [HttpGet]
         public IActionResult adminViewNotes(int requestId)
         {
            ViewBag.Data = HttpContext.Session.GetString("key");
-            var res = _adminRepository.getPatientInfo(requestId);
-           return View(res);
+            var res = _adminRepository.getNotes(requestId);
+            ViewBag.TransferNotes = _adminRepository.getTranferNotes(requestId);
+
+            return View(res);    
 
         }
+        [HttpPost]
+        public IActionResult adminViewNotes(int requestId, RequestNote r)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+          _adminRepository.adminNotes(requestId, r, ViewBag.Data);
+            return RedirectToAction("adminDashboard");
+
+        }
+
 
         public IActionResult logOut()
         {

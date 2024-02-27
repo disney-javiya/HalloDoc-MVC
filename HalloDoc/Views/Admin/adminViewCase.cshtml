@@ -114,9 +114,9 @@
 
 
                     <div class="col d-flex justify-content-end mb-2">
-                        <button class="btn submit-btn-create-patient me-2">Assign</button>
+                        <button class="btn submit-btn-create-patient me-2" id="assign-btn">Assign</button>
                         <button class="btn submit-btn-create-patient me-2">View Notes</button>
-                        <button class="btn bg-danger text-white ms-1">Cancel</button>
+                        <button class="btn bg-danger text-white ms-1" id="cancel-btn">Cancel</button>
                     </div>
 
 
@@ -146,6 +146,24 @@
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
 
+    </script>
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const state = urlParams.get('state');
+        var assignBtn = document.querySelector('#assign-btn');
+        var cancelBtn = document.querySelector('#cancel-btn');
+        if(state == 1)
+        {
+            
+            assignBtn.style.display = "block";
+            cancelBtn.style.display = "block";
+        }
+        else{
+           
+            assignBtn.style.display = "none";
+            cancelBtn.style.display = "none";
+        }
     </script>
 </body>
 </html>

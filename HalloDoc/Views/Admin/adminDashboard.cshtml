@@ -25,37 +25,37 @@
                     <div class="card" role="button" id="new-state" value="1">
                         <div class="card-body">
                             <p><i class="fa-solid fa-circle me-1"></i> New</p>
-                            <p>1452 </p>
+                            <p id="count_new"> </p>
                         </div>
                     </div>
                     <div class="card" role="button" id="pending-state" value="2">
                         <div class="card-body">
                             <p><i class="fa-regular fa-user me-1"></i> Pending</p>
-                            <p>266</p>
+                            <p id="count_pending"></p>
                         </div>
                     </div>
                     <div class="card" role="button" id="active-state" value="3">
                         <div class="card-body">
                             <p><i class="fa-regular fa-circle-check me-1"></i> Active</p>
-                            <p>26</p>
+                            <p id="count_active"></p>
                         </div>
                     </div>
                     <div class="card" role="button" id="conclude-state" value="4">
                         <div class="card-body">
                             <p><i class="fa-regular fa-clock me-1"></i> Conclude</p>
-                            <p>1078</p>
+                            <p id="count_conclude"></p>
                         </div>
                     </div>
                     <div class="card" role="button" id="toclose-state" value="5">
                         <div class="card-body">
                             <p><i class="fa-regular fa-user me-1"></i>To Close</p>
-                            <p>519</p>
+                            <p id="count_toclose"></p>
                         </div>
                     </div>
                     <div class="card" role="button" id="unpaid-state" value="6">
                         <div class="card-body">
                             <p><i class="fa-solid fa-dollar-sign me-1"></i>Unpaid</p>
-                            <p>16</p>
+                            <p id="count_unpaid"></p>
                         </div>
                     </div>
 
@@ -104,11 +104,13 @@
                             <div id="tableContainer">
                                 
                             </div>
- 
-                       
+
+
+                
+
            </div>
 
-   
+
 
        </main>
 
@@ -131,6 +133,7 @@
                     switch (type) {
                         case "1":
                             requestState = "(New)";
+                            
                             break;
                         case "2":
                             requestState = "(Pending)";
@@ -163,6 +166,35 @@
                             // Handle error
                         }
                     });
+
+                $.ajax({
+                    url: "/Admin/getCountNumber",
+                    method: "GET",
+                    data: { "type": type },
+                    success: function (data) {
+                        if (type === "1") {
+                            $('#count_new').html(data);
+                        }
+                        else if (type === "2"){
+                            $('#count_pending').html(data);
+                        }
+                        else if (type === "3"){
+                            $('#count_active').html(data);
+                        }
+                        else if (type === "4"){
+                            $('#count_conclude').html(data);
+                        }
+                        else if (type === "5"){
+                            $('#count_toclose').html(data);
+                        }
+                        else {
+                            $('#count_unpaid').html(data);
+                        }
+                    },
+                    error: function () {
+                      
+                    }
+                });
                 });
             });
     </script>
