@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Repository.IRepository
 {
@@ -14,6 +15,7 @@ namespace Repository.IRepository
     {
         AspNetUser ValidateUser(string email, string password);
         public IEnumerable<RequestandRequestClient> getRequestStateData(int type);
+        
         public RequestClient getPatientInfo(int requestId);
         public string getConfirmationNumber(int requestId);
       

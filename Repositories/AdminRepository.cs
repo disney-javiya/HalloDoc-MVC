@@ -110,6 +110,7 @@ namespace Repository
                 {
                     res.ModifiedBy = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.UserName).FirstOrDefault();
                     res.ModifiedDate = DateTime.Now;
+                    
                 }
                 
                
@@ -142,7 +143,8 @@ namespace Repository
                              patientAddress = x.Client.Address,
                              Status = x.Status,
                              RequestTypeId = x.Request.RequestTypeId,
-                             patientEmail = x.Client.Email
+                             patientEmail = x.Client.Email,
+                             CaseTag = _context.CaseTags.ToList()
                          });
 
             if (type == 1)
@@ -176,6 +178,6 @@ namespace Repository
         }
 
 
-
+       
     }
 }

@@ -7,6 +7,8 @@ using HalloDoc.DataAccessLayer.DataModels.ViewModels;
 using HalloDoc.DataAccessLayer.DataContext;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Org.BouncyCastle.Asn1.Ocsp;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace HalloDoc.Controllers
 {
@@ -59,6 +61,7 @@ namespace HalloDoc.Controllers
 
             return res.Count();
         }
+       
         public IActionResult adminTableData(int type)
         {
            
@@ -105,6 +108,11 @@ namespace HalloDoc.Controllers
             return View(requestClient);
             
         }
+
+
+
+
+
         [HttpGet]
         public IActionResult adminViewNotes(int requestId)
         {

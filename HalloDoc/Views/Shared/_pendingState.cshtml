@@ -100,7 +100,7 @@
             </div>
             <div class="collapse" id="collapseExample">
                 <div class="card card-body" id="BackgroundColormobileinnercard" value="@item.RequestTypeId">
-                    <a role="button" class="card-title-legend ms-auto" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId , state = 1})">
+                    <a role="button" class="card-title-legend ms-auto" style="text-decoration:none; color: purple" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId , state = 1})">
                         View Case
                     </a>
                     <p> <i class="fa-solid fa-calendar-days p-2 me-1" style="color: #a0a0a2;"></i>Date of birth: @item.patientDOB</p>

@@ -4226,6 +4226,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "Microsoft.AspNet.Mvc": "5.3.0",
           "Microsoft.AspNetCore.Http.Features": "5.0.17",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11"
         },

@@ -77,30 +77,47 @@
             <div class="modal-content">
 
                 <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Confirm Cancellation</h4>
+                <div class="modal-header" style="background:#01bce9; color:white;">
+                    <h4 class="modal-title" >Confirm Cancellation</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
+                @{
+                    var addedCaseTagIds = new List<int>();
+                }
                 <!-- Modal body -->
-                <div class="modal-body">
-                    <p id="patientName"></p>
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Reason For Cancellation
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Reason 1</a></li>
-                            <li><a class="dropdown-item" href="#">Reason 2</a></li>
-                            <li><a class="dropdown-item" href="#">Reason 3</a></li>
-                        </ul>
+                <div class="modal-body" style="color:grey;">
+                    <p id="patientName" class="m-3"></p>
+                    <select class ="form-select m-2" aria-label="Default select example">
+                        <option selected>Reason for Cancellation</option>
+                        @foreach (var item in Model)
+                        {
+                            @if(item.CaseTag!=null)
+                            {
+                                @foreach (var cs in item.CaseTag)
+                                {
+                                    if (!addedCaseTagIds.Contains(cs.CaseTagId))
+                                    {
+                                        addedCaseTagIds.Add(cs.CaseTagId);
+                                        <option value="@cs.CaseTagId">@cs.Name</option>
+                                    }
+                                   
+                                }
+                            }
+                           
+                           
+                        }
+                   </select>
+                    
+                    <div class="form-floating m-2">
+                        <textarea class="form-control symptoms-create-patient shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
+                        <label class="symptoms-create-patient-text" for="floatingTextarea">Provide Additional Notes</label>
                     </div>
                 </div>
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn">Confirm</button>
-                    <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn submit-btn-cancelcase">Confirm</button>
+                    <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
                 </div>
 
             </div>
@@ -137,7 +154,7 @@
             </div>
             <div class="collapse" id="collapseExample">
                 <div class="card card-body" id="BackgroundColormobileinnercard" value="@item.RequestTypeId">
-                    <a role="button" class="card-title-legend ms-auto" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId , state = 1})">
+                    <a role="button" class="card-title-legend ms-auto" style="text-decoration:none; color: purple" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId , state = 1})">
                         View Case
                     </a>
                     <p> <i class="fa-solid fa-calendar-days p-2 me-1" style="color: #a0a0a2;"></i>Date of birth: @item.patientDOB</p>
@@ -180,11 +197,40 @@
 
 </div>
 
+
+@* 
 <script>
+    $(document).ready(function () {
+        function populateCancelReasonDropdown() {
+          
+            $.ajax({
+                url: '/Admin/GetCancelReasons',
+                type: 'GET',
+                dataType: 'json',
+                
+                success: function (data)
+                     
+                    $('#cancelReasonDropdown').empty();
+                    $.each(data, function (index, item) {
+                        $('#cancelReasonDropdown').append($('<li>').append($('<a>', {
+                            class: 'dropdown-item',
+                            value: item.CaseTagId,
+                            text: item.Name
+                        })));
+                   
+                    });
+                },
+            });
+        }
+
+    })
+</script> *@
+<script>
+
     $(document).ready(function () {
         $('#cancel-option').click(function () {
             var requestId = $(this).attr("value");
-            $('#patientName').text("Patient Name:" +requestId)
+            $('#patientName').text("Patient Name:" + requestId)
         });
     });
 </script>
@@ -297,7 +343,7 @@
         var val = card.getAttribute("value");
         var color;
         var rname = "";
-        var iconcolor;
+        var iconcolor; 
         switch (val) {
             case '1':
                 color = "rgba(230, 51, 104, 0.5)";

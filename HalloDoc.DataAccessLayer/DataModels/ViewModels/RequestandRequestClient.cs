@@ -10,6 +10,7 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
 {
     public class RequestandRequestClient
     {
+       
         public int? count { get; set; }
         public int? requestId { get; set; }
 
@@ -31,6 +32,8 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
         public short Status { get; set; }
         [StringLength(50)]
         public string? patientEmail { get; set; }
+
+        public IEnumerable<CaseTag> CaseTag { get; set; }
 
     }
 }

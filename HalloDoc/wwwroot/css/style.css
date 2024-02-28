@@ -678,15 +678,15 @@ Forgot-password-page
     border-radius: 50%;
 }
 
+.submit-btn-cancelcase {
+    background-color: #01BCE9;
+    color: white;
+}
+
+.cancel-btn-cancelcase {
+    border: 1px solid #01bce9;
+}
 /*Admin view notes*/
-.width-admin-viewnotes {
-    width: 1200px;
-}
-
-.admin-view-notes .card {
-    width: 45%;
-}
-
 /* Dark mode CSS*/
 .dark-mode {
     background-color: black;
@@ -872,7 +872,7 @@ h5 {
 }
 
 @media (max-width: 576px) {
-    .admin-view-notes .card {
-        width: 100%;
+    .notes {
+        flex: none;
     }
 }
