@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Mvc;
 
 namespace Repository.IRepository
@@ -18,10 +19,15 @@ namespace Repository.IRepository
         
         public RequestClient getPatientInfo(int requestId);
         public string getConfirmationNumber(int requestId);
-      
-        public RequestNote getNotes(int requestId);
-        public string getTranferNotes(int requestId);
-        public void adminNotes(int requestId, RequestNote r, string email);
+
+        //public RequestNote getNotes(int requestId);
+        //public string getTranferNotes(int requestId);
+        public void adminNotes(int requestId, viewNotes v, string email);
+        public void adminCancelNote([FromBody] viewNotes viewNoteData, string email);
+
+        public viewNotes getNotes(int requestId, string email);
+
+
 
     }
 }

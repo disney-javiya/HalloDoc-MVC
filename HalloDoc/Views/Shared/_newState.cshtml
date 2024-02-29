@@ -75,7 +75,8 @@
     <div class="modal" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
-
+              <form id="cancelCaseForm"> 
+                
                 <!-- Modal Header -->
                 <div class="modal-header" style="background:#01bce9; color:white;">
                     <h4 class="modal-title" >Confirm Cancellation</h4>
@@ -86,6 +87,7 @@
                 }
                 <!-- Modal body -->
                 <div class="modal-body" style="color:grey;">
+                   
                     <p id="patientName" class="m-3"></p>
                     <select class ="form-select m-2" aria-label="Default select example">
                         <option selected>Reason for Cancellation</option>
@@ -98,7 +100,7 @@
                                     if (!addedCaseTagIds.Contains(cs.CaseTagId))
                                     {
                                         addedCaseTagIds.Add(cs.CaseTagId);
-                                        <option value="@cs.CaseTagId">@cs.Name</option>
+                                            <option id="reason" value="@cs.CaseTagId">@cs.Name</option>
                                     }
                                    
                                 }
@@ -109,9 +111,10 @@
                    </select>
                     
                     <div class="form-floating m-2">
-                        <textarea class="form-control symptoms-create-patient shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
+                        <textarea  class="form-control symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
                         <label class="symptoms-create-patient-text" for="floatingTextarea">Provide Additional Notes</label>
                     </div>
+                 
                 </div>
 
                 <!-- Modal footer -->
@@ -119,8 +122,9 @@
                     <button type="button" class="btn submit-btn-cancelcase">Confirm</button>
                     <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
                 </div>
-
+                </form>
             </div>
+           
         </div>
     </div>
 
@@ -198,33 +202,40 @@
 </div>
 
 
-@* 
 <script>
     $(document).ready(function () {
-        function populateCancelReasonDropdown() {
-          
-            $.ajax({
-                url: '/Admin/GetCancelReasons',
-                type: 'GET',
-                dataType: 'json',
-                
-                success: function (data)
-                     
-                    $('#cancelReasonDropdown').empty();
-                    $.each(data, function (index, item) {
-                        $('#cancelReasonDropdown').append($('<li>').append($('<a>', {
-                            class: 'dropdown-item',
-                            value: item.CaseTagId,
-                            text: item.Name
-                        })));
-                   
-                    });
-                },
-            });
-        }
+        var requestId = null;
 
-    })
-</script> *@
+        $(document).on('click', '#cancel-option', function () {
+            requestId = $(this).attr("value");
+        });
+
+        $('.submit-btn-cancelcase').click(function () {
+            var viewNoteData = {
+                RequestId: requestId, 
+                CaseTag: $('#reason').val(),
+                AdditionalNote: $('.additionalnote').val()
+            };
+            alert(JSON.stringify(viewNoteData));
+            $.ajax({
+                url: '/Admin/adminCancelNote',
+                method: 'POST',
+                data: viewNoteData,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    window.location.href = '/Admin/adminDashboard'; 
+                },
+                error: function () {
+                    alert("Failed to cancel case."); 
+                }
+            });
+
+        });
+    });
+</script>
+
+@* 
 <script>
 
     $(document).ready(function () {
@@ -233,7 +244,7 @@
             $('#patientName').text("Patient Name:" + requestId)
         });
     });
-</script>
+</script> *@
 
 @*Script for all cards background, icon color and request type role*@
 <script>
@@ -333,74 +344,3 @@
     });
 </script>
 
-
-@*Script for all cards background, icon color and request type role*@
-@* <script>
-
-    var cards = document.querySelectorAll('#BackgroundColormobile');
-
-    cards.forEach(function (card) {
-        var val = card.getAttribute("value");
-        var color;
-        var rname = "";
-        var iconcolor; 
-        switch (val) {
-            case '1':
-                color = "rgba(230, 51, 104, 0.5)";
-                rname = "Business";
-                iconcolor = "#e63368";
-                break;
-            case '2':
-                color = "rgba(53, 208, 22, 0.5)";
-                rname = "Patient";
-                iconcolor = "#35d016";
-                break;
-            case '3':
-                color = "rgba(255, 212, 59, 0.5)";
-                rname = "Family";
-                iconcolor = "#FFD43B";
-                break;
-            default:
-                color = "rgba(116, 192, 252, 0.5)";
-                rname = "Concierge";
-                iconcolor = "#74C0FC";
-        }
-
-        var cbs = card.querySelectorAll('.card-body');
-        cbs.forEach(function (cb) {
-            cb.style.background = color;
-            card.querySelector('#rname').innerHTML = rname;
-            card.querySelector('#circle-color').style.color = iconcolor;
-        });
-
-    });
-</script> *@
-
-
-
-@*Script for all inner cards background *@
-@* <script>
-    var innerCards = document.querySelectorAll('#BackgroundColormobileinnercard');
-
-    innerCards.forEach(function (innerCard) {
-        var val = innerCard.getAttribute("value");
-        var color;
-
-        switch (val) {
-            case '1':
-                color = "rgba(230, 51, 104, 0.2)";
-                break;
-            case '2':
-                color = "rgba(53, 208, 22, 0.2)";
-                break;
-            case '3':
-                color = "rgba(255, 212, 59, 0.2)";
-                break;
-            default:
-                color = "rgba(116, 192, 252, 0.2)";
-        }
-
-        innerCard.style.background = color;
-    });
-</script>
- *@

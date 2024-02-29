@@ -108,29 +108,54 @@ namespace HalloDoc.Controllers
             return View(requestClient);
             
         }
-
-
-
-
-
         [HttpGet]
         public IActionResult adminViewNotes(int requestId)
         {
-           ViewBag.Data = HttpContext.Session.GetString("key");
-            var res = _adminRepository.getNotes(requestId);
-            ViewBag.TransferNotes = _adminRepository.getTranferNotes(requestId);
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            var res = _adminRepository.getNotes(requestId, ViewBag.Data);
+           
 
-            return View(res);    
+            return View(res);
 
         }
+
         [HttpPost]
-        public IActionResult adminViewNotes(int requestId, RequestNote r)
+        public IActionResult adminViewNotes(int requestId, viewNotes v)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-          _adminRepository.adminNotes(requestId, r, ViewBag.Data);
+            _adminRepository.adminNotes(requestId, v, ViewBag.Data);
             return RedirectToAction("adminDashboard");
 
         }
+
+        [HttpPost]
+        public IActionResult adminCancelNote(viewNotes viewNoteData)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.adminCancelNote(viewNoteData, ViewBag.Data);
+            return RedirectToAction("adminDashboard");
+
+        }
+
+
+        //[HttpGet]
+        //public IActionResult adminViewNotes(int requestId)
+        //{
+        //    ViewBag.Data = HttpContext.Session.GetString("key");
+        //    var res = _adminRepository.getNotes(requestId);
+        //    ViewBag.TransferNotes = _adminRepository.getTranferNotes(requestId);
+
+        //    return View(res);
+
+        //}
+        //[HttpPost]
+        //public IActionResult adminViewNotes(int requestId, RequestNote r)
+        //{
+        //    ViewBag.Data = HttpContext.Session.GetString("key");
+        //    _adminRepository.adminNotes(requestId, r, ViewBag.Data);
+        //    return RedirectToAction("adminDashboard");
+
+        //}
 
 
         public IActionResult logOut()

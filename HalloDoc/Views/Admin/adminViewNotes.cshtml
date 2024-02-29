@@ -1,4 +1,4 @@
-﻿@model HalloDoc.DataAccessLayer.DataModels.RequestNote
+﻿@model HalloDoc.DataAccessLayer.DataModels.ViewModels.viewNotes
 @using Microsoft.AspNetCore.Http;
 
 @{
@@ -30,35 +30,35 @@
                         <div class="row d-flex flex-row">
                             <div class="col notes m-1 bg-white" style="height: 70px">
                                 <strong><i class="fa-solid fa-money-bill-transfer me-1"></i>Transfer Notes</strong>
-                                <p>@ViewBag.TransferNotes</p>
+                                <p>@Model.TransferNote</p>
                             </div>
                             <div class="col notes  m-1  bg-white">
                                 <strong><i class="fa-solid fa-user-nurse me-1"></i> Physician Notes</strong>
-                                <p>@ViewBag.PhysicianNotes</p>
+                                <p>@Model.PhysicianNote</p>
                             </div>
                         </div>
                         <div class="row d-flex flex-row">
                             <div class="col notes  m-1 bg-white">
                                 <strong><i class="fa-solid fa-user-tie me-1"></i> Admin Notes</strong>
-                                <p>@Model.AdminNotes    </p>
+                                <p>@Model.AdminNote</p>
                             </div>
                             <div class="col notes  m-1 bg-white">
                                 <strong>Admin Cancellation Notes</strong>
-                                <p>Note here</p>
+                                <p>@Model.AdminCancellationNotes</p>
                             </div>
 
                         </div>
                         <div class="row d-flex flex-row">
                             <div class="col notes  m-1 bg-white">
                                 <strong>Patient Cancellation Notes</strong>
-                                <p>Note here</p>
+                                <p>Note</p>
                             </div>
 
                         </div>
                         <div class="row">
                             <div class="col-md-12 bg-white">
                                 <div class="form-floating m-3">
-                                    <textarea asp-for="AdminNotes" class="form-control symptoms-create-patient shadow-none" placeholder="" id="floatingTextarea" style="height: 160px"></textarea>
+                                    <textarea asp-for="AdditionalNote" class="form-control symptoms-create-patient shadow-none" placeholder="" id="floatingTextarea" style="height: 160px"></textarea>
                                     <label class="symptoms-create-patient-text" for="floatingTextarea">Additional Notes</label>
                                 </div>
                                 <div class="div d-flex">

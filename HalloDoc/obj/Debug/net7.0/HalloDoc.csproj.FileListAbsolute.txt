@@ -251,3 +251,6 @@ C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Web.WebPag
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Web.WebPages.Razor.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Web.WebPages.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Microsoft.Web.Infrastructure.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Net.Http.Formatting.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Web.Http.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
