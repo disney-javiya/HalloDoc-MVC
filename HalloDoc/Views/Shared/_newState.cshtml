@@ -52,7 +52,7 @@
                                     Actions
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Assign Case</a></li>
+                                    <li><a class="dropdown-item" id="assign-option" role="button" data-bs-toggle="modal" data-bs-target="#myModalAssign" value="@item.requestId">Assign Case</a></li>
                                     <li><a class="dropdown-item" id="cancel-option" role="button" data-bs-toggle="modal" data-bs-target="#myModal" value="@item.requestId">Cancel Case</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId , state = 1})">View Case</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">View Notes</a></li>
@@ -71,63 +71,121 @@
         </tbody>
     </table>
 
-    <!-- The Modal -->
+    <!--For Cancel Case-->
     <div class="modal" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
-              <form id="cancelCaseForm"> 
-                
-                <!-- Modal Header -->
-                <div class="modal-header" style="background:#01bce9; color:white;">
-                    <h4 class="modal-title" >Confirm Cancellation</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                @{
-                    var addedCaseTagIds = new List<int>();
-                }
-                <!-- Modal body -->
-                <div class="modal-body" style="color:grey;">
-                   
-                    <p id="patientName" class="m-3"></p>
-                    <select class ="form-select m-2" aria-label="Default select example">
-                        <option selected>Reason for Cancellation</option>
-                        @foreach (var item in Model)
-                        {
-                            @if(item.CaseTag!=null)
+                <form id="cancelCaseForm" action="/Admin/adminCancelNote" method="POST">
+                    <!-- Modal Header -->
+                    <div class="modal-header" style="background:#01bce9; color:white;">
+                        <h4 class="modal-title">Confirm Cancellation</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    @{
+                        var addedCaseTagIds = new List<int>();
+                    }
+                    <!-- Modal body -->
+                    <div class="modal-body" style="color:grey;">
+                        <p id="patientName" class="m-3"></p>
+
+                        <input type="hidden" id="requestIdInput" name="requestId" />
+
+                        <select name="reason" class="form-select m-2" aria-label="Default select example">
+                            <option selected>Reason for Cancellation</option>
+                            @foreach (var item in Model)
                             {
-                                @foreach (var cs in item.CaseTag)
+                                @if (item.CaseTag != null)
                                 {
-                                    if (!addedCaseTagIds.Contains(cs.CaseTagId))
-                                    {
-                                        addedCaseTagIds.Add(cs.CaseTagId);
-                                            <option id="reason" value="@cs.CaseTagId">@cs.Name</option>
-                                    }
                                    
+                                    @foreach (var cs in item.CaseTag)
+                                    {
+                                        if (!addedCaseTagIds.Contains(cs.CaseTagId))
+                                        {
+                                            addedCaseTagIds.Add(cs.CaseTagId);
+                                            <option value="@cs.CaseTagId">@cs.Name</option>
+                                        }
+                                    }
                                 }
                             }
-                           
-                           
-                        }
-                   </select>
-                    
-                    <div class="form-floating m-2">
-                        <textarea  class="form-control symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
-                        <label class="symptoms-create-patient-text" for="floatingTextarea">Provide Additional Notes</label>
+                        </select>
+                        <div class="form-floating m-2">
+                            <textarea name="additionalNotes" class="form-control symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
+                            <label class="symptoms-create-patient-text" for="floatingTextarea">Provide Additional Notes</label>
+                        </div>
                     </div>
-                 
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn submit-btn-cancelcase">Confirm</button>
-                    <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
-                </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn submit-btn-cancelcase">Confirm</button>
+                        <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
+                    </div>
                 </form>
             </div>
-           
         </div>
     </div>
 
+
+    <!--For Assign Case-->
+    <div class="modal" id="myModalAssign">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="assignCaseForm" action="/Admin/adminAssignNote" method="POST">
+                    <!-- Modal Header -->
+                    <div class="modal-header" style="background:#01bce9; color:white;">
+                        <h4 class="modal-title">Assign Request</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    @{
+                        var addedRegion = new List<int>();
+                        var addedPhysician = new List<int>();
+                    }
+                    <!-- Modal body -->
+                    <div class="modal-body" style="color:grey;">
+                        <p class="m-3">To assign this request, search and select another Physician.</p>
+
+                         <input type="hidden" id="requestidinput1" name="requestid" />
+                       
+
+                        <!-- For Region -->
+                        <select name="region" id="region" class="form-select m-2" aria-label="Default select example">
+                        <option selected>Select Region</option>
+
+                        @foreach (var item in Model)
+                        {
+                            @if (item.Region != null)
+                            {
+                                @foreach (var r in item.Region)
+                                {
+                                    if (!addedRegion.Contains(r.RegionId))
+                                    {
+                                        addedRegion.Add(r.RegionId);
+                                        <option value="@r.RegionId">@r.Name</option>
+                                    }
+                                }
+                            }
+                        }
+                        </select>
+
+                        <!-- For Physician-->
+                        <select name="physician" id="physician" class="form-select m-2" aria-label="Default select example">
+                            <option selected>Select Physician</option>
+                           
+                            
+                        </select>
+
+                        <div class="form-floating m-2">
+                            <textarea name="additionalNotesAssign" class="form-control symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
+                            <label class="symptoms-create-patient-text" for="floatingTextarea">Description</label>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn submit-btn-assigncase">Submit</button>
+                        <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -200,51 +258,62 @@
     }
 
 </div>
-
-
 <script>
+
     $(document).ready(function () {
         var requestId = null;
 
         $(document).on('click', '#cancel-option', function () {
             requestId = $(this).attr("value");
         });
+        $(document).on('click', '#assign-option', function () {
+            requestId = $(this).attr("value");
+        });
+        $('#cancelCaseForm').submit(function (event) {
 
-        $('.submit-btn-cancelcase').click(function () {
-            var viewNoteData = {
-                RequestId: requestId, 
-                CaseTag: $('#reason').val(),
-                AdditionalNote: $('.additionalnote').val()
-            };
-            alert(JSON.stringify(viewNoteData));
+            $('#requestIdInput').val(requestId);
+
+
+        });
+        $('#assignCaseForm').submit(function (event) {
+
+            $('#requestidinput1').val(requestId);
+
+
+        });
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+
+        $('#region').change(function () {
+          
+            var regionId = $(this).val();
+         
             $.ajax({
-                url: '/Admin/adminCancelNote',
-                method: 'POST',
-                data: viewNoteData,
-                processData: false,
-                contentType: false,
-                success: function () {
-                    window.location.href = '/Admin/adminDashboard'; 
-                },
-                error: function () {
-                    alert("Failed to cancel case."); 
+                url: '/Admin/GetPhysicians',
+                type: 'GET',
+                data: { regionId: regionId },
+                success: function (data) {
+
+                    
+                    var physicianDropdown = $('#physician');
+                    physicianDropdown.empty();
+                   
+                    $.each(data, function (index, physician) {
+                 
+                        physicianDropdown.append($('<option></option>').attr('value', physician.physicianId).text(physician.firstName));
+                       
+                    });
+                
                 }
             });
-
         });
     });
+
+
 </script>
-
-@* 
-<script>
-
-    $(document).ready(function () {
-        $('#cancel-option').click(function () {
-            var requestId = $(this).attr("value");
-            $('#patientName').text("Patient Name:" + requestId)
-        });
-    });
-</script> *@
 
 @*Script for all cards background, icon color and request type role*@
 <script>

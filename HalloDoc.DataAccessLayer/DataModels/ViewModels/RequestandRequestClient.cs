@@ -32,8 +32,12 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
         public short Status { get; set; }
         [StringLength(50)]
         public string? patientEmail { get; set; }
+       
 
         public IEnumerable<CaseTag> CaseTag { get; set; }
+
+        public IEnumerable<Region> Region { get; set; }
+        public IEnumerable<Physician> Physician { get; set; }
 
     }
 }

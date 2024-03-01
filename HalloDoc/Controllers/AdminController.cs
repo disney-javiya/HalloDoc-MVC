@@ -8,6 +8,7 @@ using HalloDoc.DataAccessLayer.DataContext;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Microsoft.EntityFrameworkCore;
+using System.Security;
 
 
 namespace HalloDoc.Controllers
@@ -129,14 +130,27 @@ namespace HalloDoc.Controllers
         }
 
         [HttpPost]
-        public IActionResult adminCancelNote(viewNotes viewNoteData)
+        public IActionResult adminCancelNote(string requestId, string reason, string additionalNotes)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            _adminRepository.adminCancelNote(viewNoteData, ViewBag.Data);
+            _adminRepository.adminCancelNote(requestId,reason,additionalNotes, ViewBag.Data);
             return RedirectToAction("adminDashboard");
 
         }
+        [HttpGet]
+        public List<Physician> GetPhysicians(int regionId)
+        {
+            var res = _adminRepository.GetPhysicians(regionId);
+            return res;
+        }
+        [HttpPost]
+        public IActionResult adminAssignNote(string requestId, string region, string physician, string additionalNotesAssign)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.adminAssignNote(requestId, region, physician, additionalNotesAssign, ViewBag.Data);
+            return RedirectToAction("adminDashboard");
 
+        }
 
         //[HttpGet]
         //public IActionResult adminViewNotes(int requestId)

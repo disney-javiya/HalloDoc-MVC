@@ -678,7 +678,7 @@ Forgot-password-page
     border-radius: 50%;
 }
 
-.submit-btn-cancelcase {
+.submit-btn-cancelcase, .submit-btn-assigncase {
     background-color: #01BCE9;
     color: white;
 }

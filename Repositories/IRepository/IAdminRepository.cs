@@ -23,9 +23,11 @@ namespace Repository.IRepository
         //public RequestNote getNotes(int requestId);
         //public string getTranferNotes(int requestId);
         public void adminNotes(int requestId, viewNotes v, string email);
-        public void adminCancelNote([FromBody] viewNotes viewNoteData, string email);
-
+        //public void adminCancelNote([FromBody] viewNotes viewNoteData, string email);
+        public void adminCancelNote(string requestId, string reason, string additionalNotes, string email);
         public viewNotes getNotes(int requestId, string email);
+        public List<Physician> GetPhysicians(int regionId);
+        public void adminAssignNote(string requestId, string region, string physician, string additionalNotesAssign, string email);
 
 
 
