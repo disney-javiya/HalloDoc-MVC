@@ -55,7 +55,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId})">View Case</a></li>
-                                    <li><a class="dropdown-item" href="#">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("adminViewUploads", "Admin", new { requestId = @item.requestId})">View Uploads</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">View Notes</a></li>
                                     <li><a class="dropdown-item" href="#">Transfer</a></li>
                                     <li><a class="dropdown-item" href="#">Clear Case</a></li>

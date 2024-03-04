@@ -13,6 +13,7 @@ using System.Net.Mail;
 using System.Net;
 using HalloDoc.DataAccessLayer.DataContext;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HalloDoc.Controllers
 {
@@ -370,7 +371,7 @@ namespace HalloDoc.Controllers
 
         public Action SendEmailUser(System.String Email, string id)
         {
-            // Existing code...
+            
             AspNetUser aspNetUser = _patientRepository.GetUserByEmail(Email);
 
 
@@ -378,7 +379,7 @@ namespace HalloDoc.Controllers
             string senderPassword = "Disney@20";
             string resetLink = $"{Request.Scheme}://{Request.Host}/Home/createPatientAccount?id={id}";
 
-            // Existing code...
+           
             Passwordreset temp = _context.Passwordresets.Where(x => x.Email == Email).FirstOrDefault();
 
 
@@ -439,7 +440,7 @@ namespace HalloDoc.Controllers
 
             if (passwordReset == null)
             {
-                return NotFound(); // No password reset request found with the given id
+                return NotFound(); 
             }
             ResetPasswordVM resetPasswordVM = new ResetPasswordVM
             {
@@ -457,11 +458,11 @@ namespace HalloDoc.Controllers
             if (passwordReset.Isupdated.Get(0))
             {
                 ModelState.AddModelError("Email", "You can only update once using this link");
-                return View(new ResetPasswordVM()); // Display error message
+                return View(new ResetPasswordVM());
             }
 
             TempData["success"] = "Enter Password";
-            return View(new ResetPasswordVM { Token = id }); // Pass the token to the view
+            return View(new ResetPasswordVM { Token = id }); 
         }
 
         [HttpPost]
@@ -558,7 +559,7 @@ namespace HalloDoc.Controllers
         {
             IEnumerable<RequestWiseFile> files;
 
-            if (fileIds != null)
+            if (!fileIds.IsNullOrEmpty())
             {
                 files = _patientRepository.GetFilesByIds(fileIds);
             }

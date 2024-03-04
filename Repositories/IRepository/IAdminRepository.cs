@@ -29,6 +29,22 @@ namespace Repository.IRepository
         public List<Physician> GetPhysicians(int regionId);
         public void adminAssignNote(string requestId, string region, string physician, string additionalNotesAssign, string email);
 
+        public void adminBlockNote(string requestId, string additionalNotesBlock, string email);
+
+        public List<RequestWiseFile> GetDocumentsByRequestId(int requestId);
+
+        public void UploadFiles(int requestId, List<IFormFile> files, string email);
+        public RequestWiseFile GetFileById(int fileId);
+        public void DeleteFile(int fileId);
+        public IEnumerable<RequestWiseFile> GetFilesByRequestId(int requestId);
+        public IEnumerable<RequestWiseFile> GetFilesByIds(List<int> fileIds);
+
+        public void GetFilesByIdsDelete(List<int> fileIds);
+        public void GetFilesByRequestIdDelete(int requestId);
+        public string GetPatientEmail(int requestId);
+        public List<string> GetAllFiles(int requestId);
+
+        public List<string> GetSelectedFiles(List<int> ids);
 
 
     }

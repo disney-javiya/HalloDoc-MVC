@@ -17,6 +17,7 @@ using System.Net.Http;
 using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 using System.Web.Mvc;
 using System.Web.Http;
+using System.IO.Compression;
 
 namespace Repository
 {
@@ -197,8 +198,35 @@ namespace Repository
             _context.RequestStatusLogs.Add(rs);
             _context.SaveChanges();
         }
-       
 
+        public void adminBlockNote(string requestId,  string additionalNotesBlock, string email)
+        {
+            RequestStatusLog rs = new RequestStatusLog();
+            Request r = new Request();
+            int reqId = int.Parse(requestId);
+            var res = _context.Requests.Where(x => x.RequestId == reqId).FirstOrDefault();
+            if(res != null)
+            {
+                rs.RequestId = reqId;
+                res.Status = 11;
+                _context.SaveChanges();
+                rs.RequestId = reqId;
+                rs.Status = 11;
+                var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                var id = _context.Admins.Where(x => x.AspNetUserId == aspId).Select(u => u.AdminId).FirstOrDefault();
+                rs.AdminId = id;
+                rs.Notes = additionalNotesBlock;
+                rs.CreatedDate = DateTime.Now;
+
+            }
+            _context.RequestStatusLogs.Add(rs);
+            _context.SaveChanges();
+        }
+
+        public List<RequestWiseFile> GetDocumentsByRequestId(int requestId)
+        {
+            return _context.RequestWiseFiles.Where(d => d.RequestId == requestId).ToList();
+        }
         public IEnumerable<RequestandRequestClient> getRequestStateData(int type)
         {
             var query = (from req in _context.Requests
@@ -257,7 +285,106 @@ namespace Repository
             return query.ToList();
         }
 
+        public void UploadFiles(int requestId, List<IFormFile> files, string email)
+        {
+            foreach (var file in files)
+            {
+                if (file.Length > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var filePath = Path.Combine("wwwroot/Files", fileName);
+                    var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                    var id = _context.Admins.Where(x => x.AspNetUserId == aspId).Select(u => u.AdminId).FirstOrDefault();
+                    
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
 
+                    RequestWiseFile newFile = new RequestWiseFile
+                    {
+                        FileName = fileName,
+                        RequestId = requestId,
+                        AdminId = id,
+                        CreatedDate = DateTime.Now
+                    };
+
+                    _context.RequestWiseFiles.Add(newFile);
+                }
+            }
+
+            _context.SaveChanges();
+        }
+
+        public RequestWiseFile GetFileById(int fileId)
+        {
+            return _context.RequestWiseFiles.FirstOrDefault(f => f.RequestWiseFileId == fileId);
+        }
+
+        public void DeleteFile(int fileId)
+        {
+          var file =  _context.RequestWiseFiles.Where(f=> f.RequestWiseFileId == fileId);
+            if (file != null)
+            {
+                file.ExecuteDelete();
+            }
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<RequestWiseFile> GetFilesByRequestId(int requestId)
+        {
+            return _context.RequestWiseFiles.Where(f => f.RequestId == requestId).ToList();
+        }
+
+        public IEnumerable<RequestWiseFile> GetFilesByIds(List<int> fileIds)
+        {
+            return _context.RequestWiseFiles.Where(f => fileIds.Contains(f.RequestWiseFileId)).ToList();
+        }
+
+
+        public void GetFilesByIdsDelete(List<int> fileIds)
+        {
+            var files = _context.RequestWiseFiles.Where(f => fileIds.Contains(f.RequestWiseFileId));
+            _context.RequestWiseFiles.RemoveRange(files);
+            _context.SaveChanges();
+        }
+
+        public void GetFilesByRequestIdDelete(int requestId)
+        {
+            var files = _context.RequestWiseFiles.Where(f => f.RequestId == requestId);
+            _context.RequestWiseFiles.RemoveRange(files);
+            _context.SaveChanges();
+        }
+        public string GetPatientEmail(int requestId)
+        {
+          string email =  _context.RequestClients.Where(x=>x.RequestId == requestId).Select(f=> f.Email).FirstOrDefault().ToString();
+            return email;
+        }
+
+        public List<string> GetAllFiles(int requestId)
+        {
+            return _context.RequestWiseFiles.Where(x => x.RequestId == requestId).Select(f => f.FileName).ToList();
+            
+        }
        
+
+        public List<string> GetSelectedFiles(List<int> ids)
+        {
+            List<string> selectedfilenames = new List<string>();
+            foreach (var id in ids)
+            {
+                var name = _context.RequestWiseFiles
+                                  .Where(x => x.RequestWiseFileId == id)
+                                  .Select(x => x.FileName)
+                                  .FirstOrDefault(); 
+                if (name != null)
+                {
+                    selectedfilenames.Add(name);
+                }
+            }
+
+            return selectedfilenames;
+        }
+
     }
 }

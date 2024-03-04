@@ -9,7 +9,13 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Microsoft.EntityFrameworkCore;
 using System.Security;
-
+using Repository;
+using System.IO.Compression;
+using Microsoft.IdentityModel.Tokens;
+using System.Collections;
+using System.Net.Mail;
+using System.Net;
+using Elfie.Serialization;
 
 namespace HalloDoc.Controllers
 {
@@ -152,25 +158,217 @@ namespace HalloDoc.Controllers
 
         }
 
-        //[HttpGet]
-        //public IActionResult adminViewNotes(int requestId)
-        //{
-        //    ViewBag.Data = HttpContext.Session.GetString("key");
-        //    var res = _adminRepository.getNotes(requestId);
-        //    ViewBag.TransferNotes = _adminRepository.getTranferNotes(requestId);
+        [HttpPost]
+        public IActionResult adminBlockNote(string requestId , string additionalNotesBlock)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.adminBlockNote(requestId, additionalNotesBlock, ViewBag.Data);
+            return RedirectToAction("adminDashboard");
 
-        //    return View(res);
+        }
+        
+        public IActionResult adminViewUploads(int requestId)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            if (ViewBag.Data == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            var document = _adminRepository.GetDocumentsByRequestId(requestId);
 
-        //}
-        //[HttpPost]
-        //public IActionResult adminViewNotes(int requestId, RequestNote r)
-        //{
-        //    ViewBag.Data = HttpContext.Session.GetString("key");
-        //    _adminRepository.adminNotes(requestId, r, ViewBag.Data);
-        //    return RedirectToAction("adminDashboard");
+            if (document == null)
+            {
+                return NotFound();
+            }
 
-        //}
+            return View(document);
 
+        }
+
+        /*-----------------------------------Upload Files--------------------------------------------------*/
+
+        public IActionResult UploadFiles(int requestId, List<IFormFile> files)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.UploadFiles(requestId, files, ViewBag.Data);
+            return RedirectToAction("adminViewUploads", new { requestId = requestId });
+        }
+
+
+        public IActionResult DownloadFile(int fileId)
+        {
+            var file = _adminRepository.GetFileById(fileId);
+            if (file == null)
+            {
+                return NotFound();
+            }
+
+            var filePath = Path.Combine("wwwroot/Files", file.FileName);
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, "application/octet-stream", file.FileName);
+        }
+
+        public IActionResult DeleteFile(int requestId, int fileId)
+        {
+            _adminRepository.DeleteFile(fileId);
+
+            return RedirectToAction("adminViewUploads", new { requestId = requestId });
+        }
+
+
+        public IActionResult DownloadFiles(string fileIds, int? requestId)
+        {
+            IEnumerable<RequestWiseFile> files;
+            
+            if (!fileIds.IsNullOrEmpty())
+            {
+                var ids = fileIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                      .Select(int.Parse)
+                      .ToList();
+
+                files = _adminRepository.GetFilesByIds(ids);
+            }
+            else if (requestId != null)
+            {
+                files = _adminRepository.GetFilesByRequestId(requestId.Value);
+            }
+            else
+            {
+
+                return BadRequest("No files selected or invalid request.");
+            }
+            var zipMemoryStream = new MemoryStream();
+            using (var zipArchive = new ZipArchive(zipMemoryStream, ZipArchiveMode.Create, true))
+            {
+                foreach (var file in files)
+                {
+                    var filePath = Path.Combine("wwwroot/Files", file.FileName);
+                    var entry = zipArchive.CreateEntry(file.FileName);
+                    using (var entryStream = entry.Open())
+                    using (var fileStream = new FileStream(filePath, FileMode.Open))
+                    {
+                        fileStream.CopyTo(entryStream);
+                    }
+                }
+            }
+
+            zipMemoryStream.Seek(0, SeekOrigin.Begin);
+            return File(zipMemoryStream, "application/zip", "DownloadedFiles.zip");
+        }
+
+
+        public IActionResult DeleteFiles(string fileIds, int? requestId)
+        {
+            IEnumerable<RequestWiseFile> files;
+
+            if (!fileIds.IsNullOrEmpty())
+            {
+                var ids = fileIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                      .Select(int.Parse)
+                      .ToList();
+
+                _adminRepository.GetFilesByIdsDelete(ids);
+            }
+            else if (requestId != null)
+            {
+               _adminRepository.GetFilesByRequestIdDelete(requestId.Value);
+            }
+            else
+            {
+
+                return BadRequest("No files selected or invalid request.");
+            }
+
+            return RedirectToAction("adminViewUploads", new { requestId = requestId });
+
+        }
+
+
+        public async Task<ActionResult> SendEmailDocument(string fileIds, int requestId)
+        {
+            var patientEmail = _adminRepository.GetPatientEmail(requestId);
+
+            string senderEmail = "tatva.dotnet.disneyjaviya@outlook.com";
+            string senderPassword = "Disney@20";
+            string filesFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Files");
+
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc-Documents"),
+                Subject = "Documents",
+                IsBodyHtml = true,
+                Body = "Please review the following documents:"
+            };
+
+            if (string.IsNullOrWhiteSpace(patientEmail))
+            {
+                return BadRequest("Patient email not found or invalid.");
+            }
+
+           
+
+            if (!fileIds.IsNullOrEmpty())
+            {
+                var ids = fileIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                      .Select(int.Parse)
+                      .ToList();
+
+               var selectedfiles = _adminRepository.GetSelectedFiles(ids);
+                var filesInFolder = Directory.GetFiles(filesFolder);
+
+                foreach (var fileName in selectedfiles)
+                {
+                    if (filesInFolder.Contains(Path.Combine(filesFolder, fileName)))
+                    {
+                        mailMessage.Attachments.Add(new Attachment(Path.Combine(filesFolder, fileName)));
+                    }
+                }
+            }
+            else
+            {
+                var fileNames = _adminRepository.GetAllFiles(requestId);
+
+                var filesInFolder = Directory.GetFiles(filesFolder);
+
+                foreach (var fileName in fileNames)
+                {
+                    if (filesInFolder.Contains(Path.Combine(filesFolder, fileName)))
+                    {
+                        mailMessage.Attachments.Add(new Attachment(Path.Combine(filesFolder, fileName)));
+                    }
+                }
+
+            }
+
+
+
+
+
+            mailMessage.To.Add(patientEmail);
+
+            try
+            {
+                await client.SendMailAsync(mailMessage);
+                return RedirectToAction("adminViewUploads", new { requestId = requestId });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Failed to send email: {ex.Message}");
+            }
+        }
+
+
+
+        
 
         public IActionResult logOut()
         {

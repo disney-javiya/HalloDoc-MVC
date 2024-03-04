@@ -131,6 +131,7 @@ namespace Repository
                     rf.RequestId = req.RequestId;
                     rf.FileName = file.FileName;
                     rf.CreatedDate = DateTime.Now;
+                    rf.IsDeleted = new BitArray(new bool[] { false });
                     _context.RequestWiseFiles.Add(rf);
                     _context.SaveChanges();
 
@@ -262,6 +263,7 @@ namespace Repository
                     rf.RequestId = req.RequestId;
                     rf.FileName = file.FileName;
                     rf.CreatedDate = DateTime.Now;
+                    rf.IsDeleted = new BitArray(new bool[] { false });
                     _context.RequestWiseFiles.Add(rf);
                     _context.SaveChanges();
                 }
@@ -516,8 +518,9 @@ namespace Repository
                     {
                         FileName = fileName,
                         RequestId = requestId,
-                        CreatedDate = DateTime.Now
-                    };
+                        CreatedDate = DateTime.Now,
+                        IsDeleted = new BitArray(new bool[] { false })
+                };
 
                     _context.RequestWiseFiles.Add(newFile);
                 }
@@ -702,6 +705,7 @@ namespace Repository
                     rf.RequestId = req.RequestId;
                     rf.FileName = file.FileName;
                     rf.CreatedDate = DateTime.Now;
+                    rf.IsDeleted = new BitArray(new bool[] { false });
                     _context.RequestWiseFiles.Add(rf);
                     _context.SaveChanges();
 
@@ -809,6 +813,7 @@ namespace Repository
                         rf.RequestId = req.RequestId;
                         rf.FileName = file.FileName;
                         rf.CreatedDate = DateTime.Now;
+                        rf.IsDeleted = new BitArray(new bool[] { false });
                         _context.RequestWiseFiles.Add(rf);
                         _context.SaveChanges();
 
@@ -920,6 +925,7 @@ namespace Repository
                         rf.RequestId = req.RequestId;
                         rf.FileName = file.FileName;
                         rf.CreatedDate = DateTime.Now;
+                        rf.IsDeleted = new BitArray(new bool[] { false });
                         _context.RequestWiseFiles.Add(rf);
                         _context.SaveChanges();
 

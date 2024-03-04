@@ -56,7 +56,7 @@
                                     <li><a class="dropdown-item" id="cancel-option" role="button" data-bs-toggle="modal" data-bs-target="#myModal" value="@item.requestId">Cancel Case</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId , state = 1})">View Case</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">View Notes</a></li>
-                                    <li><a class="dropdown-item" href="#">Block Patient</a></li>
+                                    <li><a class="dropdown-item" id="block-option" role="button" data-bs-toggle="modal" data-bs-target="#myModalBlock" value="@item.requestId">Block Patient</a></li>
                                 </ul>
                             </div>
 
@@ -189,6 +189,48 @@
 
 </div>
 
+
+
+
+
+<!--For Block Case-->
+<div class="modal" id="myModalBlock">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="blockCaseForm" action="/Admin/adminBlockNote" method="POST">
+                <!-- Modal Header -->
+                <div class="modal-header" style="background:#01bce9; color:white;">
+                    <h4 class="modal-title">Confirm Block</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+               
+                <!-- Modal body -->
+                <div class="modal-body" style="color:grey;">
+                    <p id="patientName" class="m-3">Patient Name: </p>
+
+                    <input type="hidden" id="requestIdInput2" name="requestId" />
+
+                   
+                    <div class="form-floating m-2">
+                        <textarea name="additionalNotesBlock" class="form-control symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
+                        <label class="symptoms-create-patient-text" for="floatingTextarea">Reason for Block Request</label>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn submit-btn-blockcase">Confirm</button>
+                    <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
 @*This code is for Mobile View*@
 
 
@@ -269,6 +311,9 @@
         $(document).on('click', '#assign-option', function () {
             requestId = $(this).attr("value");
         });
+        $(document).on('click', '#block-option', function () {
+            requestId = $(this).attr("value");
+        });
         $('#cancelCaseForm').submit(function (event) {
 
             $('#requestIdInput').val(requestId);
@@ -278,6 +323,12 @@
         $('#assignCaseForm').submit(function (event) {
 
             $('#requestidinput1').val(requestId);
+
+
+        });
+        $('#blockCaseForm').submit(function (event) {
+
+            $('#requestIdInput2').val(requestId);
 
 
         });
