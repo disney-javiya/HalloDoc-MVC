@@ -207,7 +207,7 @@ Forgot-password-page
     color: #01BCE9;
 }
 
-    .back-btn:hover, .download-btn:hover {
+    .back-btn:hover, .download-btn:hover, .download-btn:hover {
         background-color: rgba(1, 188, 233, 0.1);
         border: 1px solid #01BCE9;
         color: #86B6F6;
@@ -526,11 +526,11 @@ Forgot-password-page
     text-align: center;
 }
 
-#assign-admin-mob-button {
+#assign-option1 {
     background: #943DB8;
 }
 
-#cancel-admin-mob-button, #block-admin-mob-button, #close-admin-mob-button {
+#cancel-option1, #block-option1, #close-admin-mob-button {
     background: #E42929;
 }
 
@@ -686,7 +686,22 @@ Forgot-password-page
 .cancel-btn-cancelcase {
     border: 1px solid #01bce9;
 }
-/*Admin view notes*/
+/*Admin view uploads*/
+.adminmobileviewuploads {
+    display: none;
+}
+
+.checkall {
+    display: none;
+}
+
+.download-btn span {
+    display: block;
+}
+
+.mob-icon {
+    display: none;
+}
 /* Dark mode CSS*/
 .dark-mode {
     background-color: black;
@@ -855,6 +870,7 @@ h5 {
         flex-direction: column;
     }
 
+
         .adminmobileview .card {
             width: 100%;
         }
@@ -874,5 +890,31 @@ h5 {
 @media (max-width: 576px) {
     .notes {
         flex: none;
+    }
+
+    .download-btn span {
+        display: none;
+    }
+
+    .mob-icon {
+        display: block;
+    }
+
+    .checkall {
+        display: block;
+    }
+
+    .adminmobileviewuploads, .view-documents-mobile {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-viewuploads {
+        width: 100%;
+    }
+
+    .data-table-admin-viewuploads {
+        display: none !important;
     }
 }

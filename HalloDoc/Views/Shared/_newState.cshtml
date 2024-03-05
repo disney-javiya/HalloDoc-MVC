@@ -71,6 +71,86 @@
         </tbody>
     </table>
 
+
+</div>
+
+
+
+
+    @*This code is for Mobile View*@
+
+
+    <div class="adminmobileview">
+
+        @if (Model != null)
+        {
+
+            foreach (var item in Model)
+            {
+                <div class="card" role="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="BackgroundColormobile" value="@item.RequestTypeId">
+                    <div class="card-body d-flex flex-column justify-content-around">
+                        <div class=" d-flex flex-row justify-content-between">
+                            <p>@item.patientName</p>
+                            <p class="ms-auto" id="rname"></p><i class="fa-solid fa-circle ms-1 mt-1" id="circle-color"></i>
+                        </div>
+
+                        <div class=" d-flex flex-row justify-content-between">
+                            <p>@item.patientAddress</p>
+                            <a class="admin-map-btn p-1" role="button">Map Location</a>
+                        </div>
+
+                        <p>Wait Time: <b>@item.requestedDate</b></p>
+                    </div>
+                </div>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body" id="BackgroundColormobileinnercard" value="@item.RequestTypeId">
+                        <a role="button" class="card-title-legend ms-auto" style="text-decoration:none; color: purple" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId , state = 1})">
+                            View Case
+                        </a>
+                        <p> <i class="fa-solid fa-calendar-days p-2 me-1" style="color: #a0a0a2;"></i>Date of birth: @item.patientDOB</p>
+                        <p> <i class="fa-regular fa-envelope p-2 me-1" style="color: #a0a0a2;"></i>Email: @item.patientEmail</p>
+                        <p> <i class="fa-solid fa-phone  p-2 me-1" style="color: #a0a0a2;"></i>Patient: @item.patientContact</p>
+                        <p> <i class="fa-regular fa-user p-2 me-1" style="color: #a0a0a2;"></i>Requestor: @item.requestorName</p>
+                        <div class=" d-flex flex-row ">
+
+                        <a class="admin-mob-button  p-2 m-1" id="assign-option1" role="button"  data-bs-toggle="modal" data-bs-target="#myModalAssign" value="@item.requestId">
+                                Assign Case
+                            </a>
+                            <a class="admin-mob-button p-2 m-1" id="cancel-option1" role="button" data-bs-toggle="modal" data-bs-target="#myModal" value="@item.requestId">
+                                Cancel Case
+                            </a>
+                        </div>
+
+                        <div class=" d-flex flex-row ">
+
+                            <a class="admin-mob-button p-2 m-1" id="view-admin-mob-button" role="button" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">
+                                View Notes
+                            </a>
+                        <a class="admin-mob-button p-2 m-1" id="block-option1" role="button"  data-bs-toggle="modal" data-bs-target="#myModalBlock" value="@item.requestId">
+                                Block Patient
+                            </a>
+                        </div>
+                        <a class="admin-mob-button p-2 m-1" id="email-admin-mob-button" role="button">
+                            Email
+                        </a>
+                        <div class=" d-flex flex-row justify-content-end">
+                            <p class="m-1 p-1">Chat with:</p>
+                            <a class="admin-mob-btn p-1 m-1" role="button"> <i class="fa-regular fa-user p-2 me-2" style="color: #01BCE9; border:none">Patient</i></a>
+                            <a class="admin-mob-btn p-1 m-1" role="button"> <i class="fa-solid fa-user-nurse  p-2 me-1" style="color: #01BCE9;  border:none">Provider</i></a>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+        }
+
+    </div>
+
+
+
+
+
     <!--For Cancel Case-->
     <div class="modal" id="myModal">
         <div class="modal-dialog">
@@ -187,7 +267,6 @@
         </div>
     </div>
 
-</div>
 
 
 
@@ -230,76 +309,6 @@
 
 
 
-
-@*This code is for Mobile View*@
-
-
-<div class="adminmobileview">
-
-    @if (Model != null)
-    {
-
-        foreach (var item in Model)
-        {
-            <div class="card" role="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="BackgroundColormobile" value="@item.RequestTypeId">
-                <div class="card-body d-flex flex-column justify-content-around">
-                    <div class=" d-flex flex-row justify-content-between">
-                        <p>@item.patientName</p>
-                        <p class="ms-auto" id="rname"></p><i class="fa-solid fa-circle ms-1 mt-1" id="circle-color"></i>
-                    </div>
-
-                    <div class=" d-flex flex-row justify-content-between">
-                        <p>@item.patientAddress</p>
-                        <a class="admin-map-btn p-1" role="button">Map Location</a>
-                    </div>
-
-                    <p>Wait Time: <b>@item.requestedDate</b></p>
-                </div>
-            </div>
-            <div class="collapse" id="collapseExample">
-                <div class="card card-body" id="BackgroundColormobileinnercard" value="@item.RequestTypeId">
-                    <a role="button" class="card-title-legend ms-auto" style="text-decoration:none; color: purple" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId , state = 1})">
-                        View Case
-                    </a>
-                    <p> <i class="fa-solid fa-calendar-days p-2 me-1" style="color: #a0a0a2;"></i>Date of birth: @item.patientDOB</p>
-                    <p> <i class="fa-regular fa-envelope p-2 me-1" style="color: #a0a0a2;"></i>Email: @item.patientEmail</p>
-                    <p> <i class="fa-solid fa-phone  p-2 me-1" style="color: #a0a0a2;"></i>Patient: @item.patientContact</p>
-                    <p> <i class="fa-regular fa-user p-2 me-1" style="color: #a0a0a2;"></i>Requestor: @item.requestorName</p>
-                    <div class=" d-flex flex-row ">
-
-                        <a class="admin-mob-button p-2 m-1" id="assign-admin-mob-button" role="button">
-                            Assign Case
-                        </a>
-                        <a class="admin-mob-button p-2 m-1" id="cancel-admin-mob-button" role="button">
-                            Cancel Case
-                        </a>
-                    </div>
-
-                    <div class=" d-flex flex-row ">
-
-                        <a class="admin-mob-button p-2 m-1" id="view-admin-mob-button" role="button" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">
-                            View Notes
-                        </a>
-                        <a class="admin-mob-button p-2 m-1" id="block-admin-mob-button" role="button">
-                            Block Patient
-                        </a>
-                    </div>
-                    <a class="admin-mob-button p-2 m-1" id="email-admin-mob-button" role="button">
-                        Email
-                    </a>
-                    <div class=" d-flex flex-row justify-content-end">
-                        <p class="m-1 p-1">Chat with:</p>
-                        <a class="admin-mob-btn p-1 m-1" role="button"> <i class="fa-regular fa-user p-2 me-2" style="color: #01BCE9; border:none">Patient</i></a>
-                        <a class="admin-mob-btn p-1 m-1" role="button"> <i class="fa-solid fa-user-nurse  p-2 me-1" style="color: #01BCE9;  border:none">Provider</i></a>
-                    </div>
-
-                </div>
-            </div>
-
-        }
-    }
-
-</div>
 <script>
 
     $(document).ready(function () {
@@ -312,6 +321,18 @@
             requestId = $(this).attr("value");
         });
         $(document).on('click', '#block-option', function () {
+            requestId = $(this).attr("value");
+        });
+
+        $(document).on('click', '#cancel-option1', function () {
+            requestId = $(this).attr("value");
+        });
+
+        $(document).on('click', '#block-option1', function () {
+            requestId = $(this).attr("value");
+        });
+
+        $(document).on('click', '#assign-option1', function () {
             requestId = $(this).attr("value");
         });
         $('#cancelCaseForm').submit(function (event) {

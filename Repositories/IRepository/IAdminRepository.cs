@@ -46,6 +46,6 @@ namespace Repository.IRepository
 
         public List<string> GetSelectedFiles(List<int> ids);
 
-
+        public List<string> GetNameConfirmation(int requestId);
     }
 }

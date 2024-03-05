@@ -203,6 +203,7 @@ namespace Repository
         {
             RequestStatusLog rs = new RequestStatusLog();
             Request r = new Request();
+            BlockRequest b = new BlockRequest();
             int reqId = int.Parse(requestId);
             var res = _context.Requests.Where(x => x.RequestId == reqId).FirstOrDefault();
             if(res != null)
@@ -218,6 +219,13 @@ namespace Repository
                 rs.Notes = additionalNotesBlock;
                 rs.CreatedDate = DateTime.Now;
 
+                b.PhoneNumber = res.PhoneNumber;
+                b.Email = res.Email;
+                b.Reason = additionalNotesBlock;
+                b.RequestId = reqId.ToString();
+                b.CreatedDate = DateTime.Now;
+
+
             }
             _context.RequestStatusLogs.Add(rs);
             _context.SaveChanges();
@@ -225,8 +233,22 @@ namespace Repository
 
         public List<RequestWiseFile> GetDocumentsByRequestId(int requestId)
         {
-            return _context.RequestWiseFiles.Where(d => d.RequestId == requestId).ToList();
+            
+             
+            return _context.RequestWiseFiles.Where(d => d.RequestId == requestId && d.IsDeleted == new BitArray(new bool [] {false})).ToList();
         }
+
+
+        public List<string> GetNameConfirmation(int requestId)
+        {
+            List<string> result = new List<string>();
+           string name = _context.RequestClients.Where(x=>x.RequestId == requestId).Select(x=>x.FirstName).ToString();
+            result.Add(name);
+            string Cnum = _context.Requests.Where(x=>x.RequestId == requestId).Select(x=>x.ConfirmationNumber).ToString();
+            result.Add(Cnum);
+            return result;
+        }
+
         public IEnumerable<RequestandRequestClient> getRequestStateData(int type)
         {
             var query = (from req in _context.Requests
@@ -306,6 +328,7 @@ namespace Repository
                         FileName = fileName,
                         RequestId = requestId,
                         AdminId = id,
+                        IsDeleted = new BitArray(new bool[] { false }),
                         CreatedDate = DateTime.Now
                     };
 
@@ -323,37 +346,45 @@ namespace Repository
 
         public void DeleteFile(int fileId)
         {
-          var file =  _context.RequestWiseFiles.Where(f=> f.RequestWiseFileId == fileId);
-            if (file != null)
-            {
-                file.ExecuteDelete();
-            }
+          var file =  _context.RequestWiseFiles.Where(f=> f.RequestWiseFileId == fileId).ExecuteUpdate(setters => setters.SetProperty(b => b.IsDeleted, new BitArray(new bool[] {true}) ));
+          
             _context.SaveChanges();
         }
 
         public IEnumerable<RequestWiseFile> GetFilesByRequestId(int requestId)
         {
-            return _context.RequestWiseFiles.Where(f => f.RequestId == requestId).ToList();
+            return _context.RequestWiseFiles.Where(f => f.RequestId == requestId && f.IsDeleted == new BitArray(new bool[] { false })).ToList();
         }
 
         public IEnumerable<RequestWiseFile> GetFilesByIds(List<int> fileIds)
         {
-            return _context.RequestWiseFiles.Where(f => fileIds.Contains(f.RequestWiseFileId)).ToList();
+            return _context.RequestWiseFiles.Where(f => fileIds.Contains(f.RequestWiseFileId) && f.IsDeleted == new BitArray(new bool[] {false})).ToList();
         }
 
 
         public void GetFilesByIdsDelete(List<int> fileIds)
         {
-            var files = _context.RequestWiseFiles.Where(f => fileIds.Contains(f.RequestWiseFileId));
-            _context.RequestWiseFiles.RemoveRange(files);
-            _context.SaveChanges();
+           
+            foreach (var id in fileIds)
+            {
+              var file =  _context.RequestWiseFiles.Where(f => f.RequestWiseFileId == id);
+                file.ExecuteUpdate(setters => setters.SetProperty(b => b.IsDeleted, new BitArray(new bool[] { true })));
+                _context.SaveChanges();
+            }
+           
+           
         }
 
         public void GetFilesByRequestIdDelete(int requestId)
         {
-            var files = _context.RequestWiseFiles.Where(f => f.RequestId == requestId);
-            _context.RequestWiseFiles.RemoveRange(files);
-            _context.SaveChanges();
+            List<RequestWiseFile> files = _context.RequestWiseFiles.Where(f => f.RequestId == requestId).ToList();
+            foreach (var file in files)
+            {
+                file.IsDeleted = new BitArray(new bool[] { true });
+                _context.SaveChanges();
+            }
+          
+           
         }
         public string GetPatientEmail(int requestId)
         {
@@ -363,7 +394,7 @@ namespace Repository
 
         public List<string> GetAllFiles(int requestId)
         {
-            return _context.RequestWiseFiles.Where(x => x.RequestId == requestId).Select(f => f.FileName).ToList();
+            return _context.RequestWiseFiles.Where(x => x.RequestId == requestId && x.IsDeleted == new BitArray(new bool[] { false })).Select(f => f.FileName).ToList();
             
         }
        
@@ -374,7 +405,7 @@ namespace Repository
             foreach (var id in ids)
             {
                 var name = _context.RequestWiseFiles
-                                  .Where(x => x.RequestWiseFileId == id)
+                                  .Where(x => x.RequestWiseFileId == id && x.IsDeleted == new BitArray(new bool[] { false }))
                                   .Select(x => x.FileName)
                                   .FirstOrDefault(); 
                 if (name != null)

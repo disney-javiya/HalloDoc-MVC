@@ -50,7 +50,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId})">View Case</a></li>
-                                    <li><a class="dropdown-item" href="#">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("adminViewUploads", "Admin", new { requestId = @item.requestId})">View Uploads</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">View Notes</a></li>
                                     <li><a class="dropdown-item" href="#">Orders</a></li>
                                     <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
@@ -115,7 +115,7 @@
                     <div class=" d-flex flex-row ">
 
 
-                        <a class="admin-mob-button p-2 m-1" id="uploads-admin-mob-button" role="button">
+                        <a class="admin-mob-button p-2 m-1" id="uploads-admin-mob-button" role="button" href="@Url.Action("adminViewUploads", "Admin", new { requestId = @item.requestId})">
                             View Uploads
                         </a>
                         <a class="admin-mob-button p-2 m-1" id="encounter-admin-mob-button" role="button">

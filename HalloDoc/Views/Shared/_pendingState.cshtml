@@ -125,7 +125,7 @@
                         <a class="admin-mob-button p-2 m-1" id="transfer-admin-mob-button" role="button">
                             Transfer
                         </a>
-                        <a class="admin-mob-button p-2 m-1" id="uploads-admin-mob-button" role="button">
+                        <a class="admin-mob-button p-2 m-1" id="uploads-admin-mob-button" href="@Url.Action("adminViewUploads", "Admin", new { requestId = @item.requestId})" role="button">
                             View Uploads
                         </a>
                     </div>

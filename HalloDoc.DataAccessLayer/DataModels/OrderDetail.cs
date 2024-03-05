@@ -34,4 +34,8 @@ public partial class OrderDetail
 
     [StringLength(100)]
     public string? CreatedBy { get; set; }
+
+    public IEnumerable<HealthProfessionalType> HealthProfessionalType { get; set; }
+    public IEnumerable<HealthProfessional> HealthProfessional { get; set; }
+
 }

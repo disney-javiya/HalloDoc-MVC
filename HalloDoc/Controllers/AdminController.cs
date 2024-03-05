@@ -184,7 +184,12 @@ namespace HalloDoc.Controllers
             return View(document);
 
         }
-
+        public List<string> GetNameConfirmation(string requestId)
+        {
+           int  r = int.Parse(requestId);
+            var res = _adminRepository.GetNameConfirmation(r);
+            return res;
+        }
         /*-----------------------------------Upload Files--------------------------------------------------*/
 
         public IActionResult UploadFiles(int requestId, List<IFormFile> files)
@@ -368,7 +373,11 @@ namespace HalloDoc.Controllers
 
 
 
-        
+        public IActionResult sendOrder()
+        {
+            HttpContext.Session.Remove("key");
+            return View();
+        }
 
         public IActionResult logOut()
         {
