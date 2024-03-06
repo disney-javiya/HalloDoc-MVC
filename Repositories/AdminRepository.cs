@@ -14,7 +14,7 @@ using System.IO;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Net.Http;
-using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
+
 using System.Web.Mvc;
 using System.Web.Http;
 using System.IO.Compression;
@@ -415,6 +415,15 @@ namespace Repository
             }
 
             return selectedfilenames;
+        }
+
+        public List<HealthProfessionalType> GetAllHealthProfessionalType()
+        {
+            return _context.HealthProfessionalTypes.ToList();
+        }
+        public List<HealthProfessional> GetAllHealthProfessional()
+        {
+            return _context.HealthProfessionals.ToList();
         }
 
     }

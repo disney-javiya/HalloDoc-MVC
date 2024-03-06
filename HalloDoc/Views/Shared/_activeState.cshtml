@@ -57,7 +57,7 @@
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId})">View Case</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewUploads", "Admin", new { requestId = @item.requestId})">View Uploads</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">View Notes</a></li>
-                                    <li><a class="dropdown-item" href="#">Orders</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("sendOrder", "Admin", new { requestId = @item.requestId})">Orders</a></li>
                                     <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
                                    
                                     

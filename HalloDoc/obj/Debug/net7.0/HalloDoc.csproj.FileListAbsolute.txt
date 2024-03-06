@@ -254,3 +254,6 @@ C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Microsoft.Web.Inf
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Net.Http.Formatting.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.Web.Http.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

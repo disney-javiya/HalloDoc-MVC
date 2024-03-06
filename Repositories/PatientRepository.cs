@@ -36,7 +36,7 @@ namespace Repository
                 var plainText = Encoding.UTF8.GetBytes(password);
                  passwordhash = Convert.ToBase64String(plainText);
             }
-            
+           
             return _context.AspNetUsers.Where(x => x.Email == email && x.PasswordHash == passwordhash).FirstOrDefault();
         }
 

@@ -20,8 +20,7 @@ namespace Repository.IRepository
         public RequestClient getPatientInfo(int requestId);
         public string getConfirmationNumber(int requestId);
 
-        //public RequestNote getNotes(int requestId);
-        //public string getTranferNotes(int requestId);
+    
         public void adminNotes(int requestId, viewNotes v, string email);
         //public void adminCancelNote([FromBody] viewNotes viewNoteData, string email);
         public void adminCancelNote(string requestId, string reason, string additionalNotes, string email);
@@ -45,7 +44,8 @@ namespace Repository.IRepository
         public List<string> GetAllFiles(int requestId);
 
         public List<string> GetSelectedFiles(List<int> ids);
-
+        public List<HealthProfessionalType> GetAllHealthProfessionalType();
+        public List<HealthProfessional> GetAllHealthProfessional();
         public List<string> GetNameConfirmation(int requestId);
     }
 }

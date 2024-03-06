@@ -16,6 +16,7 @@ using System.Collections;
 using System.Net.Mail;
 using System.Net;
 using Elfie.Serialization;
+using HalloDoc.AuthMiddleware;
 
 namespace HalloDoc.Controllers
 {
@@ -23,18 +24,18 @@ namespace HalloDoc.Controllers
     {
         private readonly ILogger<AdminController> _logger;
         private readonly IAdminRepository _adminRepository;
-  
+        private readonly IAuthenticateRepository _authenticate;
 
 
 
-        public AdminController(ILogger<AdminController> logger, IAdminRepository adminRepository)
+        public AdminController(ILogger<AdminController> logger, IAdminRepository adminRepository, IAuthenticateRepository authenticate)
         {
             _logger = logger;
             _adminRepository = adminRepository;
- 
+            _authenticate = authenticate;
 
         }
-
+  
         public IActionResult Index()
         {
             return View();
@@ -51,12 +52,23 @@ namespace HalloDoc.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid email or password.");
                 return View(user);
             }
+            AspNetUser loginuser = new()
+            {
+                Email = data.Email,
+                UserName = data.UserName,
+                Id = data.Id
+            };
+
+            var jwttoken = _authenticate.GenerateJwtToken(loginuser, "Admin");
+            Response.Cookies.Append("jwt", jwttoken);
 
             // Set session key only when user credentials are validated successfully
             HttpContext.Session.SetString("key", user.Email);
 
             return RedirectToAction("adminDashboard");
         }
+
+        [CustomeAuthorize("Admin")]
         public IActionResult adminDashboard()
         {
            ViewBag.Data = HttpContext.Session.GetString("key");
@@ -68,7 +80,7 @@ namespace HalloDoc.Controllers
 
             return res.Count();
         }
-       
+        [CustomeAuthorize("Admin")]
         public IActionResult adminTableData(int type)
         {
            
@@ -100,7 +112,7 @@ namespace HalloDoc.Controllers
 
             return View();
         }
-
+        [CustomeAuthorize("Admin")]
         public IActionResult adminViewCase(int requestId)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
@@ -115,6 +127,7 @@ namespace HalloDoc.Controllers
             return View(requestClient);
             
         }
+        [CustomeAuthorize("Admin")]
         [HttpGet]
         public IActionResult adminViewNotes(int requestId)
         {
@@ -125,7 +138,7 @@ namespace HalloDoc.Controllers
             return View(res);
 
         }
-
+        [CustomeAuthorize("Admin")]
         [HttpPost]
         public IActionResult adminViewNotes(int requestId, viewNotes v)
         {
@@ -134,7 +147,7 @@ namespace HalloDoc.Controllers
             return RedirectToAction("adminDashboard");
 
         }
-
+        [CustomeAuthorize("Admin")]
         [HttpPost]
         public IActionResult adminCancelNote(string requestId, string reason, string additionalNotes)
         {
@@ -143,12 +156,14 @@ namespace HalloDoc.Controllers
             return RedirectToAction("adminDashboard");
 
         }
+        [CustomeAuthorize("Admin")]
         [HttpGet]
         public List<Physician> GetPhysicians(int regionId)
         {
             var res = _adminRepository.GetPhysicians(regionId);
             return res;
         }
+        [CustomeAuthorize("Admin")]
         [HttpPost]
         public IActionResult adminAssignNote(string requestId, string region, string physician, string additionalNotesAssign)
         {
@@ -157,7 +172,7 @@ namespace HalloDoc.Controllers
             return RedirectToAction("adminDashboard");
 
         }
-
+        [CustomeAuthorize("Admin")]
         [HttpPost]
         public IActionResult adminBlockNote(string requestId , string additionalNotesBlock)
         {
@@ -166,14 +181,14 @@ namespace HalloDoc.Controllers
             return RedirectToAction("adminDashboard");
 
         }
-        
+        [CustomeAuthorize("Admin")]
         public IActionResult adminViewUploads(int requestId)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            if (ViewBag.Data == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
+            //if (ViewBag.Data == null)
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
             var document = _adminRepository.GetDocumentsByRequestId(requestId);
 
             if (document == null)
@@ -371,16 +386,26 @@ namespace HalloDoc.Controllers
             }
         }
 
-
-
+        [HttpGet]
+        [CustomeAuthorize("Admin")]
         public IActionResult sendOrder()
         {
-            HttpContext.Session.Remove("key");
+           sendOrder s = new sendOrder();
+            s.HealthProfessionalType = _adminRepository.GetAllHealthProfessionalType();
+            s.HealthProfessional = _adminRepository.GetAllHealthProfessional();
+            return View(s);
+        }
+        [HttpPost]
+        [CustomeAuthorize("Admin")]
+        public IActionResult sendOrder(sendOrder s)
+        {
+
             return View();
         }
 
         public IActionResult logOut()
         {
+            Response.Cookies.Delete("jwt");
             HttpContext.Session.Remove("key");
             return RedirectToAction("Index");
         }

@@ -1,4 +1,4 @@
-﻿@model HalloDoc.DataAccessLayer.DataModels.OrderDetail
+﻿@model HalloDoc.DataAccessLayer.DataModels.ViewModels.sendOrder
 @using Microsoft.AspNetCore.Http;
 
 @{
@@ -28,11 +28,31 @@
                         <button class="btn back-btn mt-1">< Back</button>
                     </div>
                     <div class="col-md-6">
+                        @{
+                            var addedHealthProfessionalType = new List<int>();
+                        }
                         <select class="form-select p-3 mb-3" aria-label="Default select example">
-                            <option selected>Select Profession</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option selected>HealthProfession Type</option>
+
+                            @foreach (var cs in Model.HealthProfessionalType)
+                            {
+                                <option value="@cs.HealthProfessionalId">@cs.ProfessionName</option>
+                            }
+                            @* @foreach (var item in Model)
+                            {
+                                @if (item.HealthProfessionalType != null)
+                                {
+
+                                    @foreach (var cs in item.HealthProfessionalType)
+                                    {
+                                        if (!addedHealthProfessionalType.Contains(cs.HealthProfessionalId))
+                                        {
+                                            addedHealthProfessionalType.Add(cs.HealthProfessionalId);
+                                          
+                                        }
+                                    }
+                                }
+                            } *@
                         </select>
                     </div>
                     
@@ -41,10 +61,21 @@
                        
                     
                     <div class="col-md-6">
-                        <div class="form-floating mb-3">
+                       @*  <div class="form-floating mb-3">
                             <input type="text" class="form-control last-name-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="last-name-create-patient-text" for="floatingInput">Business</label>
-                        </div>
+                        </div> *@
+                        @{
+                            var addedHealthProfessional = new List<int>();
+                        }
+                        <select class="form-select p-3 mb-3" aria-label="Default select example">
+                            <option selected>HealthProfessional</option>
+
+                            @foreach (var cs in Model.HealthProfessional)
+                            {
+                                <option value="@cs.VendorId">@cs.VendorName</option>
+                            }
+                            </select>
                     </div>
 
                     <div class="col-md-6 ">

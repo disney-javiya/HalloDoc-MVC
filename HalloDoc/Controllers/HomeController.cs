@@ -14,6 +14,7 @@ using System.Net;
 using HalloDoc.DataAccessLayer.DataContext;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.IdentityModel.Tokens;
+using HalloDoc.AuthMiddleware;
 
 namespace HalloDoc.Controllers
 {
@@ -23,20 +24,22 @@ namespace HalloDoc.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IPatientRepository _patientRepository;
         private readonly ApplicationDbContext _context;
-      
+        private readonly IAuthenticateRepository _authenticate;
 
 
-        public HomeController(ILogger<HomeController> logger, IPatientRepository patientRepository, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, IPatientRepository patientRepository, ApplicationDbContext context, IAuthenticateRepository authenticate)
         {
             _logger = logger;
             _patientRepository = patientRepository;
             _context = context;
-            
-    
+            _authenticate = authenticate;
+
+
         }
 
 
- /*-----------------------------------Index--------------------------------------------------*/
+        /*-----------------------------------Index--------------------------------------------------*/
+      
         public IActionResult Index()
         {
            
@@ -51,12 +54,21 @@ namespace HalloDoc.Controllers
           
 
             var data = _patientRepository.ValidateUser(user.Email, user.PasswordHash);
+
             if (data == null)
             {
                 ModelState.AddModelError(string.Empty, "Invalid email or password.");
                 return View(user);
             }
-           
+            AspNetUser loginuser = new()
+            {
+                Email = data.Email,
+                UserName = data.UserName,
+                Id = data.Id
+            };
+
+            var jwttoken = _authenticate.GenerateJwtToken(loginuser,"Patient");
+            Response.Cookies.Append("jwt", jwttoken);
             HttpContext.Session.SetString("key", user.Email);
            
             return RedirectToAction("patientDashboard");
@@ -214,36 +226,40 @@ namespace HalloDoc.Controllers
         }
 
         /*-----------------------------------Patient Dashboard--------------------------------------------------*/
+        [CustomeAuthorize("Patient")]
         public IActionResult patientDashboard()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            if (ViewBag.Data == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
+            //if (ViewBag.Data == null)
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
             var res = _patientRepository.GetbyEmail(ViewBag.Data);
             return View(res);
         }
         /*-----------------------------------Request Me Form --------------------------------------------------*/
+        [CustomeAuthorize("Patient")]
         public IActionResult requestMe()
         {
             return View();
         }
 
         [HttpPost]
+        [CustomeAuthorize("Patient")]
         public IActionResult requestMe(createPatientRequest RequestData)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            if (ViewBag.Data == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
+            //if (ViewBag.Data == null)
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
             _patientRepository.createPatientRequestMe(RequestData);
             return RedirectToAction(nameof(requestMe));
         }
 
 
         /*-----------------------------------request Someone Else Form--------------------------------------------------*/
+        [CustomeAuthorize("Patient")]
         public IActionResult requestSomeoneElse()
         {
 
@@ -251,13 +267,14 @@ namespace HalloDoc.Controllers
         }
 
         [HttpPost]
+        [CustomeAuthorize("Patient")]
         public IActionResult requestSomeoneElse(requestSomeoneElse r)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            if (ViewBag.Data == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
+            //if (ViewBag.Data == null)
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
             ViewBag.Data = HttpContext.Session.GetString("key");
             _patientRepository.createPatientRequestSomeoneElse(ViewBag.Data ,r);
             return RedirectToAction(nameof(requestSomeoneElse));
@@ -486,13 +503,14 @@ namespace HalloDoc.Controllers
 
 
         /*-----------------------------------View Documents--------------------------------------------------*/
+        [CustomeAuthorize("Patient")]
         public IActionResult ViewDocuments(int requestId)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            if (ViewBag.Data == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
+            //if (ViewBag.Data == null)
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
             var document = _patientRepository.GetDocumentsByRequestId(requestId);
 
             if (document == null)
@@ -517,25 +535,27 @@ namespace HalloDoc.Controllers
         }
 
         /*-----------------------------------Patient Profile--------------------------------------------------*/
+        [CustomeAuthorize("Patient")]
         public IActionResult patientProfile()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            if (ViewBag.Data == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
+            //if (ViewBag.Data == null)
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
             
             var res = _patientRepository.GetPatientData(ViewBag.Data);
             return View(res);
         }
         [HttpPost]
+        [CustomeAuthorize("Patient")]
         public IActionResult patientProfile(User u)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            if (ViewBag.Data == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
+            //if (ViewBag.Data == null)
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
 
             
             _patientRepository.updateProfile(ViewBag.Data, u);
@@ -601,6 +621,7 @@ namespace HalloDoc.Controllers
         /*-----------------------------------Logout--------------------------------------------------*/
         public IActionResult logOut()
         {
+            Response.Cookies.Delete("jwt");
             HttpContext.Session.Remove("key");
             return RedirectToAction("Index");
         }
