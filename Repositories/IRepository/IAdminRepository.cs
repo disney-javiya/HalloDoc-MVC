@@ -30,6 +30,7 @@ namespace Repository.IRepository
 
         public void adminBlockNote(string requestId, string additionalNotesBlock, string email);
 
+        public void adminTransferCase(string requestId, string physician, string additionalNotesTransfer, string email);
         public List<RequestWiseFile> GetDocumentsByRequestId(int requestId);
 
         public void UploadFiles(int requestId, List<IFormFile> files, string email);
@@ -44,8 +45,11 @@ namespace Repository.IRepository
         public List<string> GetAllFiles(int requestId);
 
         public List<string> GetSelectedFiles(List<int> ids);
+        public void sendOrderDetails(int requestId, sendOrder s, string email);
         public List<HealthProfessionalType> GetAllHealthProfessionalType();
         public List<HealthProfessional> GetAllHealthProfessional();
         public List<string> GetNameConfirmation(int requestId);
+        public List<HealthProfessional> GetHealthProfessional(int healthprofessionalId);
+        public HealthProfessional GetProfessionInfo(int vendorId);
     }
 }

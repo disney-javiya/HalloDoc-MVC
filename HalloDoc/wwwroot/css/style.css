@@ -538,11 +538,11 @@ Forgot-password-page
     background: #228B22;
 }
 
-#send-agree-admin-mob-button, #clear-admin-mob-button, #order-admin-mob-button {
+#send-agree-admin-mob-button, #clear-option1, #order-admin-mob-button {
     background: #EE9125;
 }
 
-#transfer-admin-mob-button {
+#transfer-option1 {
     background: #00ADEF;
 }
 

@@ -32,7 +32,7 @@
                             @Html.DisplayFor(modelItem => item.requestorName)
                         </td>
                         <td>
-                            1
+                            @Html.DisplayFor(modelItem => item.PhysicianId)
                         </td>
                         <td>
                            12/10/2024
@@ -57,8 +57,8 @@
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId})">View Case</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewUploads", "Admin", new { requestId = @item.requestId})">View Uploads</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">View Notes</a></li>
-                                    <li><a class="dropdown-item" href="#">Transfer</a></li>
-                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" id="transfer-option" role="button" data-bs-toggle="modal" data-bs-target="#myModalTransfer" value="@item.requestId">Transfer</a></li>
+                                    <li><a class="dropdown-item" id="clear-option" role="button" data-bs-toggle="modal" data-bs-target="#myModalClear" value="@item.requestId">Clear Case</a></li>
                                     <li><a class="dropdown-item" href="#">Send Agreement</a></li>
                                 </ul>
                             </div>
@@ -122,7 +122,7 @@
 
                     <div class=" d-flex flex-row ">
 
-                        <a class="admin-mob-button p-2 m-1" id="transfer-admin-mob-button" role="button">
+                        <a class="admin-mob-button p-2 m-1" role="button" id="transfer-option1" data-bs-toggle="modal" data-bs-target="#myModalTransfer" value="@item.requestId">
                             Transfer
                         </a>
                         <a class="admin-mob-button p-2 m-1" id="uploads-admin-mob-button" href="@Url.Action("adminViewUploads", "Admin", new { requestId = @item.requestId})" role="button">
@@ -131,7 +131,7 @@
                     </div>
                     <div class=" d-flex flex-row ">
 
-                        <a class="admin-mob-button p-2 m-1" id="clear-admin-mob-button" role="button">
+                        <a class="admin-mob-button p-2 m-1" role="button" id="clear-option1" data-bs-toggle="modal" data-bs-target="#myModalClear" value="@item.requestId">
                             Clear Case
                         </a>
                         <a class="admin-mob-button p-2 m-1" id="email-admin-mob-button" role="button">
@@ -148,6 +148,159 @@
 
 </div>
 
+
+
+<!--For Transfer Case-->
+<div class="modal" id="myModalTransfer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="transferCaseForm" action="/Admin/adminTransferCase" method="POST">
+                <!-- Modal Header -->
+                <div class="modal-header" style="background:#01bce9; color:white;">
+                    <h4 class="modal-title">Transfer Request</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                @{
+                    var addedRegion = new List<int>();
+                    var addedPhysician = new List<int>();
+                }
+                <!-- Modal body -->
+                <div class="modal-body" style="color:grey;">
+                    <p class="m-3">To transfer this request, search and select another Physician.</p>
+
+                    <input type="hidden" id="requestidinput1" name="requestid" />
+
+
+                    <!-- For Region -->
+                    <select name="region" id="region" class="form-select m-2" aria-label="Default select example">
+                        <option selected>Search Region</option>
+
+                        @foreach (var item in Model)
+                        {
+                            @if (item.Region != null)
+                            {
+                                @foreach (var r in item.Region)
+                                {
+                                    if (!addedRegion.Contains(r.RegionId))
+                                    {
+                                        addedRegion.Add(r.RegionId);
+                                        <option value="@r.RegionId">@r.Name</option>
+                                    }
+                                }
+                            }
+                        }
+                    </select>
+
+                    <!-- For Physician-->
+                    <select name="physician" id="physician" class="form-select m-2" aria-label="Default select example">
+                        <option selected>Select Physician</option>
+
+
+                    </select>
+
+                    <div class="form-floating m-2">
+                        <textarea name="additionalNotesTransfer" class="form-control symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
+                        <label class="symptoms-create-patient-text" for="floatingTextarea">Description</label>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn submit-btn-assigncase">Submit</button>
+                    <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!--For Clear Case-->
+<div class="modal" id="myModalClear">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="clearCaseForm" action="/Admin/adminCaseCase" method="POST">
+                <!-- Modal Header -->
+                @* <div class="modal-header" style="background:#01bce9; color:white;">
+                    <h4 class="modal-title">Transfer Request</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div> *@
+               
+                <!-- Modal body -->
+                <div class="modal-body d-flex flex-column justify-content-between align-items-center" style="color:grey;">
+                    <i class="fa-solid fa-circle-exclamation mt-4" style="color: #f8a804; font-size: 50px;"></i>
+                    <h5 class="mt-2">Confirm for clear case</h5>
+                    <p class="mt-2" style="text-align: center; color: #434946;">Are you sure you want to clear this request? Once clear this request then you are not able to see this request.</p>
+
+
+                    
+
+                    
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer justify-content-center">
+                    <button type="submit" class="btn submit-btn-assigncase">Clear</button>
+                    <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        var requestId = null;
+        $(document).on('click', '#transfer-option', function () {
+            requestId = $(this).attr("value");
+        });
+        $(document).on('click', '#transfer-option1', function () {
+            requestId = $(this).attr("value");
+        });
+        $('#transferCaseForm').submit(function (event) {
+
+            $('#requestidinput1').val(requestId);
+
+
+        });
+    });
+    </script>
+<script>
+    $(document).ready(function () {
+
+        $('#region').change(function () {
+
+            var regionId = $(this).val();
+
+            $.ajax({
+                url: '/Admin/GetPhysicians',
+                type: 'GET',
+                data: { regionId: regionId },
+                success: function (data) {
+
+
+                    var physicianDropdown = $('#physician');
+                    physicianDropdown.empty();
+                    physicianDropdown.append($('<option></option>').text("Select Physicians"));
+                    $.each(data, function (index, physician) {
+
+                        physicianDropdown.append($('<option></option>').attr('value', physician.physicianId).text(physician.firstName));
+
+                    });
+
+                }
+            });
+        });
+    });
+
+
+</script>
 
 @*Script for all cards background, icon color and request type role*@
 <script>

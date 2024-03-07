@@ -85,8 +85,10 @@ namespace Repository
                     //admin tranfered to some physician
                     if(row.TransToAdmin == null)
                     {
-                        var adminusername = _context.AspNetUsers.Where(x=>x.Email == email).Select(u=>u.UserName).FirstOrDefault();
-                        v.TransferNote = adminusername + " " + "transfered to " + row.TransToPhysicianId + " : " + row.Notes;
+                        var adminAspId = _context.Admins.Where(x=>x.AdminId == row.AdminId).Select(u=>u.AspNetUserId).FirstOrDefault();
+                        var adminusername = _context.AspNetUsers.Where(x=>x.Id == adminAspId).Select(u=>u.UserName).FirstOrDefault();
+                        var physicianname = _context.Physicians.Where(x=>x.PhysicianId == row.TransToPhysicianId).Select(u=>u.FirstName).FirstOrDefault();
+                        v.TransferNote = v.TransferNote +  adminusername + " " + "transfered to " + physicianname + " : " + row.Notes;
                     }
                     //physician transfered to admin
                     if(row.TransToPhysicianId == null)
@@ -231,6 +233,32 @@ namespace Repository
             _context.SaveChanges();
         }
 
+
+        public void adminTransferCase(string requestId, string physician, string additionalNotesTransfer, string email)
+        {
+            RequestStatusLog rs = new RequestStatusLog();
+            Request r = new Request();
+            int reqId = int.Parse(requestId);
+            var res = _context.Requests.Where(x => x.RequestId == reqId).FirstOrDefault();
+            if (reqId != null)
+            {
+                res.Status = 2;
+                res.PhysicianId = int.Parse(physician);
+
+                _context.SaveChanges();
+                rs.RequestId = reqId;
+                rs.Status = 2;
+                var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                var id = _context.Admins.Where(x => x.AspNetUserId == aspId).Select(u => u.AdminId).FirstOrDefault();
+                rs.AdminId = id;
+                rs.TransToPhysicianId = int.Parse(physician);
+                rs.Notes = additionalNotesTransfer;
+                rs.CreatedDate = DateTime.Now;
+            }
+            _context.RequestStatusLogs.Add(rs);
+            _context.SaveChanges();
+        }
+
         public List<RequestWiseFile> GetDocumentsByRequestId(int requestId)
         {
             
@@ -272,6 +300,7 @@ namespace Repository
                              Status = x.Status,
                              RequestTypeId = x.Request.RequestTypeId,
                              patientEmail = x.Client.Email,
+                             PhysicianId = x.Request.PhysicianId,
                              CaseTag = _context.CaseTags.ToList(),
                              Region = _context.Regions.ToList(),
                              Physician = _context.Physicians.ToList()
@@ -416,7 +445,23 @@ namespace Repository
 
             return selectedfilenames;
         }
-
+        public void sendOrderDetails(int requestId, sendOrder s, string email)
+        {
+           OrderDetail o = new OrderDetail();
+            var htype = s.type;
+            o.VendorId = s.hname;
+            o.RequestId = requestId;
+            o.FaxNumber = s.FaxNumber;
+            o.Email = s.Email;
+            o.BusinessContact = s.BusinessContact;
+            o.Prescription = s.Prescription;
+            o.NoOfRefill = s.NoOfRefill;
+            o.CreatedDate = DateTime.Now;
+            var name = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.UserName).FirstOrDefault();
+            o.CreatedBy = name;
+            _context.OrderDetails.Add(o);
+            _context.SaveChanges();
+        }
         public List<HealthProfessionalType> GetAllHealthProfessionalType()
         {
             return _context.HealthProfessionalTypes.ToList();
@@ -425,6 +470,13 @@ namespace Repository
         {
             return _context.HealthProfessionals.ToList();
         }
-
+        public List<HealthProfessional> GetHealthProfessional(int healthprofessionalId)
+        {
+           return  _context.HealthProfessionals.Where(x=>x.Profession == healthprofessionalId).ToList();
+        }
+        public HealthProfessional GetProfessionInfo(int vendorId)
+        {
+           return  _context.HealthProfessionals.Where(x=>x.VendorId == vendorId).FirstOrDefault();
+        }
     }
 }

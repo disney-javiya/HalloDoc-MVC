@@ -182,6 +182,15 @@ namespace HalloDoc.Controllers
 
         }
         [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult adminTransferCase(string requestId, string physician, string additionalNotesTransfer)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.adminTransferCase(requestId, physician, additionalNotesTransfer, ViewBag.Data);
+            return RedirectToAction("adminDashboard");
+
+        }
+        [CustomeAuthorize("Admin")]
         public IActionResult adminViewUploads(int requestId)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
@@ -395,12 +404,25 @@ namespace HalloDoc.Controllers
             s.HealthProfessional = _adminRepository.GetAllHealthProfessional();
             return View(s);
         }
+        [HttpGet]
+        public List<HealthProfessional> GetHealthProfessional(int healthprofessionalId)
+        {
+            var res = _adminRepository.GetHealthProfessional(healthprofessionalId);
+            return res;
+        }
+        [HttpGet]
+        public HealthProfessional GetProfessionInfo(int vendorId)
+        {
+            var res = _adminRepository.GetProfessionInfo(vendorId);
+            return res;
+        }
         [HttpPost]
         [CustomeAuthorize("Admin")]
-        public IActionResult sendOrder(sendOrder s)
+        public IActionResult sendOrder(int requestId, sendOrder s)
         {
-
-            return View();
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.sendOrderDetails(requestId, s, ViewBag.Data);
+            return RedirectToAction("sendOrder", new { requestId = requestId });
         }
 
         public IActionResult logOut()
