@@ -20,7 +20,8 @@ namespace Repository.IRepository
         public RequestClient getPatientInfo(int requestId);
         public string getConfirmationNumber(int requestId);
 
-    
+        public List<RequestandRequestClient> getFilterByRegions(IEnumerable<RequestandRequestClient> r, int regionId);
+        public List<RequestandRequestClient> getFilterByName(IEnumerable<RequestandRequestClient> r, string patient_name);
         public void adminNotes(int requestId, viewNotes v, string email);
         //public void adminCancelNote([FromBody] viewNotes viewNoteData, string email);
         public void adminCancelNote(string requestId, string reason, string additionalNotes, string email);
@@ -33,6 +34,7 @@ namespace Repository.IRepository
         public void adminTransferCase(string requestId, string physician, string additionalNotesTransfer, string email);
         public List<RequestWiseFile> GetDocumentsByRequestId(int requestId);
 
+        public List<Region> getAllRegions();
         public void UploadFiles(int requestId, List<IFormFile> files, string email);
         public RequestWiseFile GetFileById(int fileId);
         public void DeleteFile(int fileId);
@@ -51,5 +53,8 @@ namespace Repository.IRepository
         public List<string> GetNameConfirmation(int requestId);
         public List<HealthProfessional> GetHealthProfessional(int healthprofessionalId);
         public HealthProfessional GetProfessionInfo(int vendorId);
+
+        public void adminClearCase(string requestId, string email);
+        public List<string> adminSendAgreementGet(string requestId);
     }
 }

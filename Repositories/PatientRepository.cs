@@ -157,7 +157,8 @@ namespace Repository
                 rc.State = RequestData.State;
                 rc.ZipCode = RequestData.ZipCode;
 
-
+                var regionid = _context.Regions.Where(x=>x.Name == RequestData.City).Select(u=>u.RegionId).FirstOrDefault();
+                rc.RegionId = regionid;
 
 
                 _context.RequestClients.Add(rc);
@@ -285,7 +286,8 @@ namespace Repository
             rc.City = RequestData.City;
             rc.State = RequestData.State;
             rc.ZipCode = RequestData.ZipCode;
-
+            var regionid = _context.Regions.Where(x => x.Name == RequestData.City).Select(u => u.RegionId).FirstOrDefault();
+            rc.RegionId = regionid;
             _context.RequestClients.Add(rc);
             _context.SaveChanges();
             return newId;
@@ -360,6 +362,7 @@ namespace Repository
             rc.LastName = RequestData.LastName;
             rc.PhoneNumber = RequestData.PhoneNumber;
             rc.Location = RequestData.ConciergeState;
+             
             rc.Notes = RequestData.Notes;
             rc.Email = RequestData.Email;
             rc.StrMonth = mn;
@@ -476,7 +479,8 @@ namespace Repository
             rc.City = RequestData.City;
             rc.State = RequestData.State;
             rc.ZipCode = RequestData.ZipCode;
-
+            var regionid = _context.Regions.Where(x => x.Name == RequestData.City).Select(u => u.RegionId).FirstOrDefault();
+            rc.RegionId = regionid;
             _context.RequestClients.Add(rc);
             _context.SaveChanges();
 

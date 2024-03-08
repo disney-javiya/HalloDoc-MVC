@@ -335,6 +335,77 @@ namespace Repository
             
             return query.ToList();
         }
+        public List<Region> getAllRegions()
+        {
+           return _context.Regions.ToList();
+        }
+
+        public List<RequestandRequestClient> getFilterByRegions(IEnumerable<RequestandRequestClient> r, int regionId)
+        {
+            List<RequestandRequestClient> s = new List<RequestandRequestClient>();
+            var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();
+            foreach (var r2 in r)
+            {
+                if(r2.patientAddress != null)
+                {
+                    if (r2.patientAddress.Contains(region))
+                    {
+                        s.Add(r2);
+                    }
+                }
+                
+               
+               
+            }
+            return s;
+           
+        }
+        public List<RequestandRequestClient> getFilterByName(IEnumerable<RequestandRequestClient> r, string patient_name)
+        {
+            List<RequestandRequestClient> s = new List<RequestandRequestClient>();
+            
+            foreach (var r2 in r)
+            {
+                if(patient_name != null)
+                {
+                    if (r2.patientName.ToLower().Contains(patient_name.ToLower()))
+                    {
+                        s.Add(r2);
+                    }
+                }
+                if(patient_name == null)
+                {
+                    return r.ToList();
+                }
+               
+
+
+            }
+            return s;
+        }
+
+
+
+        public List<RequestandRequestClient> getFilterByRegionsAfter(int regionId, IEnumerable<RequestandRequestClient> r)
+        {
+            List<RequestandRequestClient> s = new List<RequestandRequestClient>();
+            var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();
+            foreach (var r2 in r)
+            {
+                if (r2.patientAddress != null)
+                {
+                    if (r2.patientAddress.Contains(region))
+                    {
+                        s.Add(r2);
+                    }
+                }
+
+
+
+            }
+            return s;
+
+        }
 
         public void UploadFiles(int requestId, List<IFormFile> files, string email)
         {
@@ -477,6 +548,47 @@ namespace Repository
         public HealthProfessional GetProfessionInfo(int vendorId)
         {
            return  _context.HealthProfessionals.Where(x=>x.VendorId == vendorId).FirstOrDefault();
+        }
+
+
+        public void adminClearCase(string requestId, string email)
+        {
+            RequestStatusLog rs = new RequestStatusLog();
+            Request r = new Request();
+
+            int reqId = int.Parse(requestId);
+            var res = _context.Requests.Where(x => x.RequestId == reqId).FirstOrDefault();
+            if (res != null)
+            {
+                rs.RequestId = reqId;
+                res.Status = 12;
+                _context.SaveChanges();
+                rs.RequestId = reqId;
+                rs.Status = 12;
+                var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                var id = _context.Admins.Where(x => x.AspNetUserId == aspId).Select(u => u.AdminId).FirstOrDefault();
+                rs.AdminId = id;
+               
+                rs.CreatedDate = DateTime.Now;
+
+               
+
+
+            }
+            _context.RequestStatusLogs.Add(rs);
+            _context.SaveChanges();
+        }
+
+
+        public List<string> adminSendAgreementGet(string requestId)
+        {
+            List<string> res = new List<string>();
+            int reqId = int.Parse(requestId);
+            string mob =  _context.RequestClients.Where(x => x.RequestId == reqId).Select(x => x.PhoneNumber).FirstOrDefault();
+            res.Add(mob);
+            string mail = _context.RequestClients.Where(x => x.RequestId == reqId).Select(x => x.Email).FirstOrDefault();
+            res.Add(mail);
+            return res;
         }
     }
 }

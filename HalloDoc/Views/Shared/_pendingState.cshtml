@@ -59,7 +59,7 @@
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">View Notes</a></li>
                                     <li><a class="dropdown-item" id="transfer-option" role="button" data-bs-toggle="modal" data-bs-target="#myModalTransfer" value="@item.requestId">Transfer</a></li>
                                     <li><a class="dropdown-item" id="clear-option" role="button" data-bs-toggle="modal" data-bs-target="#myModalClear" value="@item.requestId">Clear Case</a></li>
-                                    <li><a class="dropdown-item" href="#">Send Agreement</a></li>
+                                    <li><a class="dropdown-item" id="sendagreement-option" role="button" data-bs-toggle="modal" data-bs-target="#myModalSendAgreement" value="@item.requestId">Send Agreement</a></li>
                                 </ul>
                             </div>
 
@@ -112,7 +112,7 @@
                     <p> <i class="fa-regular fa-user p-2 me-1" style="color: #a0a0a2;"></i>Requestor: @item.requestorName</p>
                     <div class=" d-flex flex-row ">
 
-                        <a class="admin-mob-button p-2 m-1" id="send-agree-admin-mob-button" role="button">
+                        <a class="admin-mob-button p-2 m-1" role="button" id="sendagreement-option1"  data-bs-toggle="modal" data-bs-target="#myModalSendAgreement" value="@item.requestId">
                             Send Agreement
                         </a>
                         <a class="admin-mob-button p-2 m-1" id="view-admin-mob-button" role="button" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">
@@ -222,13 +222,13 @@
 <div class="modal" id="myModalClear">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="clearCaseForm" action="/Admin/adminCaseCase" method="POST">
+            <form id="clearCaseForm" action="/Admin/adminClearCase" method="POST">
                 <!-- Modal Header -->
                 @* <div class="modal-header" style="background:#01bce9; color:white;">
                     <h4 class="modal-title">Transfer Request</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div> *@
-               
+                <input type="hidden" id="requestidinput2" name="requestid" />
                 <!-- Modal body -->
                 <div class="modal-body d-flex flex-column justify-content-between align-items-center" style="color:grey;">
                     <i class="fa-solid fa-circle-exclamation mt-4" style="color: #f8a804; font-size: 50px;"></i>
@@ -254,14 +254,96 @@
 
 
 
+
+<!--For Send Agreement-->
+<div class="modal" id="myModalSendAgreement">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="sendAgreementCaseForm" action="/Admin/adminSendAgreement" method="POST">
+                <!-- Modal Header -->
+                <div class="modal-header" style="background:#01bce9; color:white;">
+                    <h4 class="modal-title">Send Agreement</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body" style="color:grey;">
+                    <p class="m-3">To Send Agreement please make sure you are updating the correct contact information below for the responsible party.</p>
+
+                    <input type="hidden" id="requestidinput3" name="requestid" />
+
+                 
+                        <div class="form-floating mb-3">
+                            <input  type="text" class="form-control b-contact last-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <label class="last-name-create-patient-text" for="floatingInput">Phone Number</label>
+                        </div>
+                
+            
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control email email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
+                            <label class="email-create-patient-text" for="floatingInput">Email</label>
+                        </div>
+                 
+                    
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn submit-btn-assigncase">Send</button>
+                    <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
 <script>
     $(document).ready(function () {
         var requestId = null;
         $(document).on('click', '#transfer-option', function () {
             requestId = $(this).attr("value");
         });
+        $(document).on('click', '#clear-option', function () {
+            requestId = $(this).attr("value");
+        });
         $(document).on('click', '#transfer-option1', function () {
             requestId = $(this).attr("value");
+        });
+        $(document).on('click', '#clear-option1', function () {
+            requestId = $(this).attr("value");
+        });
+        $(document).on('click', '#sendagreement-option', function () {
+            requestId = $(this).attr("value");
+
+            $.ajax({
+                url: '/Admin/adminSendAgreement',
+                type: 'GET',
+                data: { requestId: requestId },
+                success: function (data) {
+
+                    $(".b-contact").val(data[0]);
+                    $(".email").val(data[1]);
+
+                }
+            });
+
+        });
+        $(document).on('click', '#sendagreement-option1', function () {
+            requestId = $(this).attr("value");
+
+            $.ajax({
+                url: '/Admin/adminSendAgreement',
+                type: 'GET',
+                data: { requestId: requestId },
+                success: function (data) {
+
+                    $(".b-contact").val(data[0]);
+                    $(".email").val(data[1]);
+
+                }
+            });
+
         });
         $('#transferCaseForm').submit(function (event) {
 
@@ -269,8 +351,16 @@
 
 
         });
+        $('#clearCaseForm').submit(function (event) {
+
+            $('#requestidinput2').val(requestId);
+
+
+        });
     });
     </script>
+
+
 <script>
     $(document).ready(function () {
 
@@ -301,6 +391,7 @@
 
 
 </script>
+
 
 @*Script for all cards background, icon color and request type role*@
 <script>

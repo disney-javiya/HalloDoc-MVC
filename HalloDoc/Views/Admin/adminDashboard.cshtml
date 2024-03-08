@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<HalloDoc.DataAccessLayer.DataModels.Region>
 @using Microsoft.AspNetCore.Http;
 
 @{
@@ -75,17 +75,31 @@
 
                 </div>
                 <div class="d-flex admin-info-tags bg-white">
-                    <div class="search-inputs d-flex">
-                        <div class="form-floating m-2">
-                            <input type="text" class="form-control serach shadow-none" id="floatingInput" placeholder="Search Patients">
+                    <div class="search-inputs d-flex m-2">
+                        <div class="col-md-6 form-floating m-1">
+                            <input type="text" class="form-control search shadow-none" id="floatingInput" placeholder="Search Patients">
                             <label class="" for="floatingInput"><i class="fa-solid fa-magnifying-glass me-1"></i> Search Patients</label>
                         </div>
-                        <button class="btn  dropdown-toggle m-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-magnifying-glass me-1"></i> All Regions</button>
+                       @*  <button class="btn  dropdown-toggle m-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-magnifying-glass me-1"></i> All Regions</button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item" href="#">1</a></li>
                             <li><a class="dropdown-item" href="#">2</a></li>
                             <li><a class="dropdown-item" href="#">3</a></li>
-                        </ul>
+                        </ul> *@
+                        <select  id="region" class="form-select m-1" aria-label="Default select example">
+                            <option selected>Select Region</option>
+                            @if(Model != null)
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    @if (item.RegionId != null)
+                                    {
+                                        <option value="@item.RegionId">@item.Name</option>  
+                                    }
+                                }
+                            }
+                            
+                        </select>
                     </div>
                     <div class="color-dots d-flex flex-row m-2 p-2">
                         <a class="p-2 me-1" role="button" id="all">All</a>
@@ -97,17 +111,10 @@
 
                     </div>
 
-                </div>
-               
-
-                 
+                </div>             
                             <div id="tableContainer">
                                 
                             </div>
-
-
-                
-
            </div>
 
 
@@ -200,7 +207,76 @@
     </script>
 
 
+<script>
+    $(document).ready(function () {
 
+        var regionId;
+        var patient_name;
+        var type;
+        $('.card').click(function () {
+           type  = $(this).attr("value");
+          
+        });
+        $('#region').change(function () {
+
+            regionId = $('#region').val();
+               
+                if (regionId != null && regionId != "Select Region" && patient_name == undefined) {
+                   
+                    $.ajax({
+                        url: "/Admin/getFilterByRegions",
+                        method: "GET",
+                        data: { "regionId": regionId, "type": type },
+                        success: function (data) {
+                            $('#tableContainer').html(data);
+                        },
+                        error: function () {
+                           
+                        }
+                    });
+                }
+            // if (patient_name != undefined && regionId != null) 
+            // {
+            //     /*already sorted by patient */
+            //         $.ajax({
+            //             url: "/Admin/getFilterByRegionsAfter",
+            //             method: "GET",
+            //             data: { "regionId": regionId ,  "res": res },
+            //             success: function (data) {
+            //                 $('#tableContainer').html(data);
+            //             },
+            //             error: function () {
+
+            //             }
+            //         });
+            // }
+            
+        });
+
+        $('.search').change(function () {
+            patient_name = $('.search').val();
+          
+                if (patient_name != undefined && regionId == undefined) {
+                
+                    $.ajax({
+                        url: "/Admin/getFilterByName",
+                        method: "GET",
+                        data: { "patient_name": patient_name, "type": type },
+                        success: function (data) {
+                            $('#tableContainer').html(data);
+                        },
+                        error: function () {
+
+                        }
+                    });
+                }
+        });
+     
+        
+
+    });
+        
+</script>
 
 
 

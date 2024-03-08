@@ -64,15 +64,18 @@ namespace HalloDoc.Controllers
 
             // Set session key only when user credentials are validated successfully
             HttpContext.Session.SetString("key", user.Email);
-
-            return RedirectToAction("adminDashboard");
+            List<Region> r = new List<Region>();
+            r = _adminRepository.getAllRegions();
+            return View("adminDashboard", r);
         }
 
         [CustomeAuthorize("Admin")]
         public IActionResult adminDashboard()
         {
            ViewBag.Data = HttpContext.Session.GetString("key");
-            return View();
+            List<Region> r = new List<Region>();
+            r = _adminRepository.getAllRegions();
+            return View(r);
         }
         public int getCountNumber(int type)
         {
@@ -112,6 +115,88 @@ namespace HalloDoc.Controllers
 
             return View();
         }
+
+        [CustomeAuthorize("Admin")]
+        public IActionResult getFilterByRegions(int regionId, int type)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            IEnumerable<RequestandRequestClient> r = _adminRepository.getRequestStateData(type);
+            List<RequestandRequestClient> byregion = _adminRepository.getFilterByRegions(r, regionId);
+
+            if (type == 1)
+            {
+                return PartialView("_newState", byregion);
+            }
+            else if (type == 2)
+            {
+                return PartialView("_pendingState", byregion);
+            }
+            else if (type == 3)
+            {
+                return PartialView("_activeState", byregion);
+            }
+            else if (type == 4)
+            {
+                return PartialView("_concludeState", byregion);
+            }
+            else if (type == 5)
+            {
+                return PartialView("_tocloseState", byregion);
+            }
+            else if (type == 6)
+            {
+                return PartialView("_unpaidState", byregion);
+            }
+
+            return View();
+           
+
+        }
+        public IActionResult getFilterByName(string patient_name, int type)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            IEnumerable<RequestandRequestClient> r = _adminRepository.getRequestStateData(type);
+            List<RequestandRequestClient> byregion = _adminRepository.getFilterByName(r, patient_name);
+
+            if (type == 1)
+            {
+                return PartialView("_newState", byregion);
+            }
+            else if (type == 2)
+            {
+                return PartialView("_pendingState", byregion);
+            }
+            else if (type == 3)
+            {
+                return PartialView("_activeState", byregion);
+            }
+            else if (type == 4)
+            {
+                return PartialView("_concludeState", byregion);
+            }
+            else if (type == 5)
+            {
+                return PartialView("_tocloseState", byregion);
+            }
+            else if (type == 6)
+            {
+                return PartialView("_unpaidState", byregion);
+            }
+
+            return View();
+
+        }
+
+        public IActionResult getFilterByRegionsAfter(int regionId, List<RequestandRequestClient> r)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+           
+            List<RequestandRequestClient> byregion = _adminRepository.getFilterByRegions(r, regionId);
+
+            return PartialView("_newState", byregion);
+
+        }
+
         [CustomeAuthorize("Admin")]
         public IActionResult adminViewCase(int requestId)
         {
@@ -190,6 +275,8 @@ namespace HalloDoc.Controllers
             return RedirectToAction("adminDashboard");
 
         }
+
+
         [CustomeAuthorize("Admin")]
         public IActionResult adminViewUploads(int requestId)
         {
@@ -424,10 +511,27 @@ namespace HalloDoc.Controllers
             _adminRepository.sendOrderDetails(requestId, s, ViewBag.Data);
             return RedirectToAction("sendOrder", new { requestId = requestId });
         }
+        [HttpPost]
+        public IActionResult adminClearCase(string requestId)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.adminClearCase(requestId, ViewBag.Data);
+            return RedirectToAction("adminDashboard");
 
+        }
+
+        [HttpGet]
+        public List<string> adminSendAgreement(string requestId)
+        {
+            List<string> res = new List<string>();
+            ViewBag.Data = HttpContext.Session.GetString("key");
+           res  =  _adminRepository.adminSendAgreementGet(requestId);
+            return res;
+
+        }
         public IActionResult logOut()
         {
-            Response.Cookies.Delete("jwt");
+            Response.Cookies.Delete("jwt");   
             HttpContext.Session.Remove("key");
             return RedirectToAction("Index");
         }
