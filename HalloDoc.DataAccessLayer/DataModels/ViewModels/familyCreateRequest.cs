@@ -55,6 +55,6 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
         [Required]
         [StringLength(10)]
         public string? ZipCode { get; set; }
-        public IFormFile[] MultipleFiles { get; set; }
+        public IFormFile[]? MultipleFiles { get; set; }
     }
 }

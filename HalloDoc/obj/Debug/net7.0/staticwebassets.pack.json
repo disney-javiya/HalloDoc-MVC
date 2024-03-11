@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\Files\\11116016_415_prev_ui.png"
     },
     {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\Assignment-1234.pdf",
+      "PackagePath": "staticwebassets\\Files\\Assignment-1234.pdf"
+    },
+    {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\DB1.txt",
       "PackagePath": "staticwebassets\\Files\\DB1.txt"
     },
@@ -65,8 +69,16 @@
       "PackagePath": "staticwebassets\\Files\\SRS-23-24-Trainees-30Jan.pdf"
     },
     {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\SRS-23-24-Trainees-8March24.pdf",
+      "PackagePath": "staticwebassets\\Files\\SRS-23-24-Trainees-8March24.pdf"
+    },
+    {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\SRS-23-24-Trainees_12Feb24.pdf",
       "PackagePath": "staticwebassets\\Files\\SRS-23-24-Trainees_12Feb24.pdf"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\Session 2 (1).txt",
+      "PackagePath": "staticwebassets\\Files\\Session 2 (1).txt"
     },
     {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\Test Instructions.pdf",

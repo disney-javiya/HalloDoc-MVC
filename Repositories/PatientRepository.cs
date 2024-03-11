@@ -16,6 +16,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Net.Http;
 using System.Web.Mvc;
+using System.Web.Helpers;
 
 namespace Repository
 {
@@ -43,6 +44,25 @@ namespace Repository
         public AspNetUser GetUserByEmail(string email)
         {
             return _context.AspNetUsers.Where(x => x.Email == email).FirstOrDefault();
+        }
+
+        public void agreementApproved(int requestId)
+        {
+
+            RequestStatusLog rs = new RequestStatusLog();
+            Request r = new Request();
+            var res =  _context.Requests.Where(x => x.RequestId == requestId).FirstOrDefault();
+           if(res != null)
+           {
+                res.Status = 4;
+               
+                _context.SaveChanges();
+                rs.RequestId = requestId;
+                rs.Status = 4;  
+                rs.CreatedDate = DateTime.Now;
+            }       
+            _context.RequestStatusLogs.Add(rs);
+            _context.SaveChanges();
         }
 
 
@@ -100,9 +120,10 @@ namespace Repository
             req.PhoneNumber = RequestData.Mobile;
             req.Email = RequestData.Email;
             req.Status = 1;
-            var c = _context.Users.Count(x => x.CreatedDate == DateTime.Now);
-            req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
             req.CreatedDate = DateTime.Now;
+            int c = _context.Users.Where(x => x.CreatedDate.Date == DateTime.Today).Count();
+            req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Replace("-", "").Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
+           
             if(RequestData.MultipleFiles != null)
             {
                 foreach (var file in RequestData.MultipleFiles)
@@ -229,8 +250,8 @@ namespace Repository
             req.PhoneNumber = RequestData.FamilyPhoneNumber;
             req.Email = RequestData.FamilyEmail;
             req.Status = 1;
-            var c = _context.Users.Count(x => x.CreatedDate == DateTime.Now);
-            req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
+            int c = _context.Users.Where(x => x.CreatedDate.Date == DateTime.Today).Count();
+            req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Replace("-", "").Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
             req.CreatedDate = DateTime.Now;
             req.RelationName = RequestData.RelationName;
 
@@ -349,8 +370,8 @@ namespace Repository
             req.PhoneNumber = RequestData.ConciergePhoneNumber;
             req.Email = RequestData.ConciergeEmail;
             req.Status = 1;
-            var c = _context.Users.Count(x => x.CreatedDate == DateTime.Now);
-            req.ConfirmationNumber = RequestData.ConciergeState.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
+            int c = _context.Users.Where(x => x.CreatedDate.Date == DateTime.Today).Count();
+            req.ConfirmationNumber = RequestData.ConciergeState.Substring(0, 2) + DateTime.Now.ToString().Replace("-", "").Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
             req.CreatedDate = DateTime.Now;
             _context.Requests.Add(req);
             _context.SaveChanges();
@@ -456,8 +477,8 @@ namespace Repository
             req.PhoneNumber = RequestData.BusinessPhoneNumber;
             req.Email = RequestData.BusinessEmail;
             req.Status = 1;
-            var c = _context.Users.Count(x => x.CreatedDate == DateTime.Now);
-            req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
+            int c = _context.Users.Where(x => x.CreatedDate.Date == DateTime.Today).Count();
+            req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Replace("-", "").Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
             req.CreatedDate = DateTime.Now;
             _context.Requests.Add(req);
             _context.SaveChanges();

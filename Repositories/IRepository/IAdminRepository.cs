@@ -16,7 +16,7 @@ namespace Repository.IRepository
     {
         AspNetUser ValidateUser(string email, string password);
         public IEnumerable<RequestandRequestClient> getRequestStateData(int type);
-        
+        public AspNetUser GetUserByEmail(string email);
         public RequestClient getPatientInfo(int requestId);
         public string getConfirmationNumber(int requestId);
 
@@ -25,6 +25,10 @@ namespace Repository.IRepository
         public void adminNotes(int requestId, viewNotes v, string email);
         //public void adminCancelNote([FromBody] viewNotes viewNoteData, string email);
         public void adminCancelNote(string requestId, string reason, string additionalNotes, string email);
+
+        public string getName(string requestId);
+
+        public string getConfirmationNumber(string requestId);
         public viewNotes getNotes(int requestId, string email);
         public List<Physician> GetPhysicians(int regionId);
         public void adminAssignNote(string requestId, string region, string physician, string additionalNotesAssign, string email);

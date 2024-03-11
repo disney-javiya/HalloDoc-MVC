@@ -41,7 +41,10 @@ namespace Repository
             return _context.AspNetUsers.Where(x => x.Email == email && x.PasswordHash == passwordhash).FirstOrDefault();
         }
 
-
+        public AspNetUser GetUserByEmail(string email)
+        {
+            return _context.AspNetUsers.Where(x => x.Email == email).FirstOrDefault();
+        }
 
         public RequestClient getPatientInfo(int requestId)
         {
@@ -170,6 +173,20 @@ namespace Repository
             _context.SaveChanges();
         }
 
+        public string getName(string requestId)
+        {
+            int reqId = int.Parse(requestId);
+          string name =  _context.RequestClients.Where(x=>x.RequestId == reqId).Select(u=>u.FirstName + " " + u.LastName).FirstOrDefault();
+            return name;
+        }
+
+        public string getConfirmationNumber(string requestId)
+        {
+            int reqId = int.Parse(requestId);
+            string number = _context.Requests.Where(x => x.RequestId == reqId).Select(u => u.ConfirmationNumber).FirstOrDefault();
+            return number;
+        }
+
         public List<Physician> GetPhysicians(int regionId)
         {
           return   _context.Physicians.Where(x=>x.RegionId ==  regionId).ToList();
@@ -258,6 +275,7 @@ namespace Repository
             _context.RequestStatusLogs.Add(rs);
             _context.SaveChanges();
         }
+
 
         public List<RequestWiseFile> GetDocumentsByRequestId(int requestId)
         {

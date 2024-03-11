@@ -233,6 +233,15 @@ namespace HalloDoc.Controllers
 
         }
         [CustomeAuthorize("Admin")]
+        [HttpGet]
+        public string adminCancelNote(string requestId)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            string pname = _adminRepository.getName(requestId);
+            return pname;
+
+        }
+        [CustomeAuthorize("Admin")]
         [HttpPost]
         public IActionResult adminCancelNote(string requestId, string reason, string additionalNotes)
         {
@@ -255,6 +264,16 @@ namespace HalloDoc.Controllers
             ViewBag.Data = HttpContext.Session.GetString("key");
             _adminRepository.adminAssignNote(requestId, region, physician, additionalNotesAssign, ViewBag.Data);
             return RedirectToAction("adminDashboard");
+
+        }
+
+        [CustomeAuthorize("Admin")]
+        [HttpGet]
+        public string adminBlockNote(string requestId)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            string pname = _adminRepository.getName(requestId);
+            return pname;
 
         }
         [CustomeAuthorize("Admin")]
@@ -286,7 +305,8 @@ namespace HalloDoc.Controllers
             //    return RedirectToAction(nameof(Index));
             //}
             var document = _adminRepository.GetDocumentsByRequestId(requestId);
-
+            ViewBag.pname = _adminRepository.getName(requestId.ToString());
+            ViewBag.num = _adminRepository.getConfirmationNumber(requestId.ToString());
             if (document == null)
             {
                 return NotFound();
@@ -528,6 +548,74 @@ namespace HalloDoc.Controllers
            res  =  _adminRepository.adminSendAgreementGet(requestId);
             return res;
 
+        }
+
+        [HttpPost]
+        public IActionResult adminSendAgreement(string requestId, string email, string mobile)
+        {
+           
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            AspNetUser aspNetUser = _adminRepository.GetUserByEmail(email);
+            if (aspNetUser == null)
+            {
+                ModelState.AddModelError("Email", "Email does not exist");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                string senderEmail = "tatva.dotnet.disneyjaviya@outlook.com";
+
+                string senderPassword = "Disney@20";
+                string req = requestId;
+                string agreementLink = $"{Request.Scheme}://{Request.Host}/Home/reviewAgreement?requestId={req}";
+
+                SmtpClient client = new SmtpClient("smtp.office365.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false
+                };
+
+                MailMessage mailMessage = new MailMessage
+                {
+                    From = new MailAddress(senderEmail, "HalloDoc"),
+                    Subject = "Review the Agreement",
+                    IsBodyHtml = true,
+                    Body = $"Please review the agreement by clicking the following link. Further treatment will be carried out only after you agreee to the conditions.: <a href='{agreementLink}'>{agreementLink}</a>"
+                };
+
+                mailMessage.To.Add(email);
+
+                client.SendMailAsync(mailMessage);
+
+                return RedirectToAction("adminDashboard");
+            }
+            
+
+        }
+
+
+        [CustomeAuthorize("Admin")]
+        public IActionResult closeCase(int requestId)
+        {
+            var document = _adminRepository.GetDocumentsByRequestId(requestId);
+            ViewBag.pname = _adminRepository.getName(requestId.ToString());
+            ViewBag.num = _adminRepository.getConfirmationNumber(requestId.ToString());
+           
+            if (document == null)
+            {
+                return NotFound();
+            }
+
+            return View(document);
+        }
+        public RequestClient getPatientInfo(int requestId)
+        {
+            RequestClient r = new RequestClient();
+             r = _adminRepository.getPatientInfo(requestId);
+            return r;
         }
         public IActionResult logOut()
         {

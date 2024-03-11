@@ -55,7 +55,7 @@
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewUploads", "Admin", new { requestId = @item.requestId})">View Uploads</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">View Notes</a></li>
                                     <li><a class="dropdown-item" href="#">Orders</a></li>
-                                    <li><a class="dropdown-item" href="#">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("closeCase", "Admin", new { requestId = @item.requestId})">Close Case</a></li>
                                     <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
                                     <li><a class="dropdown-item" href="#">Clear Case</a></li>
                                     <li><a class="dropdown-item" href="#">Encounter</a></li>
@@ -107,7 +107,7 @@
                     <p> <i class="fa-solid fa-user-nurse  p-2 me-1" style="color: #a0a0a2;"></i>Physician: 1</p>
                     <p> <i class="fa-solid fa-globe p-2 me-1" style="color: #a0a0a2;"></i>Region:abc region</p>
                     <div class=" d-flex flex-row ">
-                        <a class="admin-mob-button p-2 m-1" id="close-admin-mob-button" role="button">
+                        <a class="admin-mob-button p-2 m-1" id="close-admin-mob-button" role="button" href="@Url.Action("closeCase", "Admin", new { requestId = @item.requestId})">
                             Close Case
                         </a>
                         <a class="admin-mob-button p-2 m-1" id="view-admin-mob-button" role="button" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">

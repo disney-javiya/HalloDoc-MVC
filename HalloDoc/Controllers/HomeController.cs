@@ -618,6 +618,13 @@ namespace HalloDoc.Controllers
             return View();
         }
 
+    
+        public IActionResult reviewAgreementPost(int requestId)
+        {
+            _patientRepository.agreementApproved(requestId);
+            return View("Index");
+        }
+
         /*-----------------------------------Logout--------------------------------------------------*/
         public IActionResult logOut()
         {

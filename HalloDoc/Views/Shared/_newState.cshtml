@@ -77,156 +77,157 @@
 
 
 
-    @*This code is for Mobile View*@
+@*This code is for Mobile View*@
 
 
-    <div class="adminmobileview">
+<div class="adminmobileview">
 
-        @if (Model != null)
+    @if (Model != null)
+    {
+
+        foreach (var item in Model)
         {
-
-            foreach (var item in Model)
-            {
-                <div class="card" role="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="BackgroundColormobile" value="@item.RequestTypeId">
-                    <div class="card-body d-flex flex-column justify-content-around">
-                        <div class=" d-flex flex-row justify-content-between">
-                            <p>@item.patientName</p>
-                            <p class="ms-auto" id="rname"></p><i class="fa-solid fa-circle ms-1 mt-1" id="circle-color"></i>
-                        </div>
-
-                        <div class=" d-flex flex-row justify-content-between">
-                            <p>@item.patientAddress</p>
-                            <a class="admin-map-btn p-1" role="button">Map Location</a>
-                        </div>
-
-                        <p>Wait Time: <b>@item.requestedDate</b></p>
+            <div class="card" role="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="BackgroundColormobile" value="@item.RequestTypeId">
+                <div class="card-body d-flex flex-column justify-content-around">
+                    <div class=" d-flex flex-row justify-content-between">
+                        <p>@item.patientName</p>
+                        <p class="ms-auto" id="rname"></p><i class="fa-solid fa-circle ms-1 mt-1" id="circle-color"></i>
                     </div>
-                </div>
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body" id="BackgroundColormobileinnercard" value="@item.RequestTypeId">
-                        <a role="button" class="card-title-legend ms-auto" style="text-decoration:none; color: purple" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId , state = 1})">
-                            View Case
-                        </a>
-                        <p> <i class="fa-solid fa-calendar-days p-2 me-1" style="color: #a0a0a2;"></i>Date of birth: @item.patientDOB</p>
-                        <p> <i class="fa-regular fa-envelope p-2 me-1" style="color: #a0a0a2;"></i>Email: @item.patientEmail</p>
-                        <p> <i class="fa-solid fa-phone  p-2 me-1" style="color: #a0a0a2;"></i>Patient: @item.patientContact</p>
-                        <p> <i class="fa-regular fa-user p-2 me-1" style="color: #a0a0a2;"></i>Requestor: @item.requestorName</p>
-                        <div class=" d-flex flex-row ">
 
-                        <a class="admin-mob-button  p-2 m-1" id="assign-option1" role="button"  data-bs-toggle="modal" data-bs-target="#myModalAssign" value="@item.requestId">
-                                Assign Case
-                            </a>
-                            <a class="admin-mob-button p-2 m-1" id="cancel-option1" role="button" data-bs-toggle="modal" data-bs-target="#myModal" value="@item.requestId">
-                                Cancel Case
-                            </a>
-                        </div>
-
-                        <div class=" d-flex flex-row ">
-
-                            <a class="admin-mob-button p-2 m-1" id="view-admin-mob-button" role="button" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">
-                                View Notes
-                            </a>
-                        <a class="admin-mob-button p-2 m-1" id="block-option1" role="button"  data-bs-toggle="modal" data-bs-target="#myModalBlock" value="@item.requestId">
-                                Block Patient
-                            </a>
-                        </div>
-                        <a class="admin-mob-button p-2 m-1" id="email-admin-mob-button" role="button">
-                            Email
-                        </a>
-                        <div class=" d-flex flex-row justify-content-end">
-                            <p class="m-1 p-1">Chat with:</p>
-                            <a class="admin-mob-btn p-1 m-1" role="button"> <i class="fa-regular fa-user p-2 me-2" style="color: #01BCE9; border:none">Patient</i></a>
-                            <a class="admin-mob-btn p-1 m-1" role="button"> <i class="fa-solid fa-user-nurse  p-2 me-1" style="color: #01BCE9;  border:none">Provider</i></a>
-                        </div>
-
+                    <div class=" d-flex flex-row justify-content-between">
+                        <p>@item.patientAddress</p>
+                        <a class="admin-map-btn p-1" role="button">Map Location</a>
                     </div>
-                </div>
 
-            }
+                    <p>Wait Time: <b>@item.requestedDate</b></p>
+                </div>
+            </div>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body" id="BackgroundColormobileinnercard" value="@item.RequestTypeId">
+                    <a role="button" class="card-title-legend ms-auto" style="text-decoration:none; color: purple" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId , state = 1})">
+                        View Case
+                    </a>
+                    <p> <i class="fa-solid fa-calendar-days p-2 me-1" style="color: #a0a0a2;"></i>Date of birth: @item.patientDOB</p>
+                    <p> <i class="fa-regular fa-envelope p-2 me-1" style="color: #a0a0a2;"></i>Email: @item.patientEmail</p>
+                    <p> <i class="fa-solid fa-phone  p-2 me-1" style="color: #a0a0a2;"></i>Patient: @item.patientContact</p>
+                    <p> <i class="fa-regular fa-user p-2 me-1" style="color: #a0a0a2;"></i>Requestor: @item.requestorName</p>
+                    <div class=" d-flex flex-row ">
+
+                        <a class="admin-mob-button  p-2 m-1" id="assign-option1" role="button" data-bs-toggle="modal" data-bs-target="#myModalAssign" value="@item.requestId">
+                            Assign Case
+                        </a>
+                        <a class="admin-mob-button p-2 m-1" id="cancel-option1" role="button" data-bs-toggle="modal" data-bs-target="#myModal" value="@item.requestId">
+                            Cancel Case
+                        </a>
+                    </div>
+
+                    <div class=" d-flex flex-row ">
+
+                        <a class="admin-mob-button p-2 m-1" id="view-admin-mob-button" role="button" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">
+                            View Notes
+                        </a>
+                        <a class="admin-mob-button p-2 m-1" id="block-option1" role="button" data-bs-toggle="modal" data-bs-target="#myModalBlock" value="@item.requestId">
+                            Block Patient
+                        </a>
+                    </div>
+                    <a class="admin-mob-button p-2 m-1" id="email-admin-mob-button" role="button">
+                        Email
+                    </a>
+                    <div class=" d-flex flex-row justify-content-end">
+                        <p class="m-1 p-1">Chat with:</p>
+                        <a class="admin-mob-btn p-1 m-1" role="button"> <i class="fa-regular fa-user p-2 me-2" style="color: #01BCE9; border:none">Patient</i></a>
+                        <a class="admin-mob-btn p-1 m-1" role="button"> <i class="fa-solid fa-user-nurse  p-2 me-1" style="color: #01BCE9;  border:none">Provider</i></a>
+                    </div>
+
+                </div>
+            </div>
+
         }
+    }
 
-    </div>
-
-
-
+</div>
 
 
-    <!--For Cancel Case-->
-    <div class="modal" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form id="cancelCaseForm" action="/Admin/adminCancelNote" method="POST">
-                    <!-- Modal Header -->
-                    <div class="modal-header" style="background:#01bce9; color:white;">
-                        <h4 class="modal-title">Confirm Cancellation</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    @{
-                        var addedCaseTagIds = new List<int>();
-                    }
-                    <!-- Modal body -->
-                    <div class="modal-body" style="color:grey;">
-                        <p id="patientName" class="m-3"></p>
 
-                        <input type="hidden" id="requestIdInput" name="requestId" />
 
-                        <select name="reason" class="form-select m-2" aria-label="Default select example">
-                            <option selected>Reason for Cancellation</option>
-                            @foreach (var item in Model)
+
+<!--For Cancel Case-->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="cancelCaseForm" action="/Admin/adminCancelNote" method="POST">
+                <!-- Modal Header -->
+                <div class="modal-header" style="background:#01bce9; color:white;">
+                    <h4 class="modal-title">Confirm Cancellation</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                @{
+                    var addedCaseTagIds = new List<int>();
+                }
+                <!-- Modal body -->
+                <div class="modal-body" style="color:grey;">
+
+                    <p id="patientName" class="m-3">Patient Name: </p>
+
+
+                    <input type="hidden" id="requestIdInput" name="requestId" />
+                    <select name="reason" class="form-select m-2" aria-label="Default select example">
+                        <option selected>Reason for Cancellation</option>
+                        @foreach (var item in Model)
+                        {
+                            @if (item.CaseTag != null)
                             {
-                                @if (item.CaseTag != null)
+
+                                @foreach (var cs in item.CaseTag)
                                 {
-                                   
-                                    @foreach (var cs in item.CaseTag)
+                                    if (!addedCaseTagIds.Contains(cs.CaseTagId))
                                     {
-                                        if (!addedCaseTagIds.Contains(cs.CaseTagId))
-                                        {
-                                            addedCaseTagIds.Add(cs.CaseTagId);
-                                            <option value="@cs.CaseTagId">@cs.Name</option>
-                                        }
+                                        addedCaseTagIds.Add(cs.CaseTagId);
+                                        <option value="@cs.CaseTagId">@cs.Name</option>
                                     }
                                 }
                             }
-                        </select>
-                        <div class="form-floating m-2">
-                            <textarea name="additionalNotes" class="form-control symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
-                            <label class="symptoms-create-patient-text" for="floatingTextarea">Provide Additional Notes</label>
-                        </div>
+                        }
+                    </select>
+                    <div class="form-floating m-2">
+                        <textarea name="additionalNotes" class="form-control symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
+                        <label class="symptoms-create-patient-text" for="floatingTextarea">Provide Additional Notes</label>
                     </div>
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="submit" class="btn submit-btn-cancelcase">Confirm</button>
-                        <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn submit-btn-cancelcase">Confirm</button>
+                    <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
 
-    <!--For Assign Case-->
-    <div class="modal" id="myModalAssign">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form id="assignCaseForm" action="/Admin/adminAssignNote" method="POST">
-                    <!-- Modal Header -->
-                    <div class="modal-header" style="background:#01bce9; color:white;">
-                        <h4 class="modal-title">Assign Request</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    @{
-                        var addedRegion = new List<int>();
-                        var addedPhysician = new List<int>();
-                    }
-                    <!-- Modal body -->
-                    <div class="modal-body" style="color:grey;">
-                        <p class="m-3">To assign this request, search and select another Physician.</p>
+<!--For Assign Case-->
+<div class="modal" id="myModalAssign">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="assignCaseForm" action="/Admin/adminAssignNote" method="POST">
+                <!-- Modal Header -->
+                <div class="modal-header" style="background:#01bce9; color:white;">
+                    <h4 class="modal-title">Assign Request</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                @{
+                    var addedRegion = new List<int>();
+                    var addedPhysician = new List<int>();
+                }
+                <!-- Modal body -->
+                <div class="modal-body" style="color:grey;">
+                    <p class="m-3">To assign this request, search and select another Physician.</p>
 
-                         <input type="hidden" id="requestidinput1" name="requestid" />
-                       
+                    <input type="hidden" id="requestidinput1" name="requestid" />
 
-                        <!-- For Region -->
-                        <select name="region" id="region" class="form-select m-2" aria-label="Default select example">
+
+                    <!-- For Region -->
+                    <select name="region" id="region" class="form-select m-2 region" aria-label="Default select example">
                         <option selected>Select Region</option>
 
                         @foreach (var item in Model)
@@ -243,29 +244,29 @@
                                 }
                             }
                         }
-                        </select>
+                    </select>
 
-                        <!-- For Physician-->
-                        <select name="physician" id="physician" class="form-select m-2" aria-label="Default select example">
-                            <option selected>Select Physician</option>
-                           
-                            
-                        </select>
+                    <!-- For Physician-->
+                    <select name="physician" id="physician" class="form-select m-2" aria-label="Default select example">
+                        <option selected>Select Physician</option>
 
-                        <div class="form-floating m-2">
-                            <textarea name="additionalNotesAssign" class="form-control symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
-                            <label class="symptoms-create-patient-text" for="floatingTextarea">Description</label>
-                        </div>
+
+                    </select>
+
+                    <div class="form-floating m-2">
+                        <textarea name="additionalNotesAssign" class="form-control symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
+                        <label class="symptoms-create-patient-text" for="floatingTextarea">Description</label>
                     </div>
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="submit" class="btn submit-btn-assigncase">Submit</button>
-                        <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn submit-btn-assigncase">Submit</button>
+                    <button type="button" class="btn cancel-btn-cancelcase" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
 
 
@@ -282,14 +283,14 @@
                     <h4 class="modal-title">Confirm Block</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-               
+
                 <!-- Modal body -->
                 <div class="modal-body" style="color:grey;">
-                    <p id="patientName" class="m-3">Patient Name: </p>
+                    <p id="patientName1" class="m-3">Patient Name: </p>
 
                     <input type="hidden" id="requestIdInput2" name="requestId" />
 
-                   
+
                     <div class="form-floating m-2">
                         <textarea name="additionalNotesBlock" class="form-control symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
                         <label class="symptoms-create-patient-text" for="floatingTextarea">Reason for Block Request</label>
@@ -315,21 +316,70 @@
         var requestId = null;
 
         $(document).on('click', '#cancel-option', function () {
+
             requestId = $(this).attr("value");
+
+
+            $.ajax({
+                url: '/Admin/adminCancelNote',
+                type: 'GET',
+                data: { requestId: requestId },
+                success: function (data) {
+
+                    $("#patientName").text("Patient Name: " + data);
+
+                }
+            });
+
+
         });
         $(document).on('click', '#assign-option', function () {
+
             requestId = $(this).attr("value");
+
         });
         $(document).on('click', '#block-option', function () {
             requestId = $(this).attr("value");
+
+            $.ajax({
+                url: '/Admin/adminBlockNote',
+                type: 'GET',
+                data: { requestId: requestId },
+                success: function (data) {
+
+                    $("#patientName1").text("Patient Name: " + data);
+
+                }
+            });
         });
 
         $(document).on('click', '#cancel-option1', function () {
             requestId = $(this).attr("value");
+            $.ajax({
+                url: '/Admin/adminCancelNote',
+                type: 'GET',
+                data: { requestId: requestId },
+                success: function (data) {
+
+                    $("#patientName").text("Patient Name: " + data);
+
+                }
+            });
         });
 
         $(document).on('click', '#block-option1', function () {
             requestId = $(this).attr("value");
+
+            $.ajax({
+                url: '/Admin/adminBlockNote',
+                type: 'GET',
+                data: { requestId: requestId },
+                success: function (data) {
+
+                    $("#patientName1").text("Patient Name: " + data);
+
+                }
+            });
         });
 
         $(document).on('click', '#assign-option1', function () {
@@ -358,34 +408,50 @@
 </script>
 <script>
     $(document).ready(function () {
-
-        $('#region').change(function () {
-          
+        $('.region').change(function () {
             var regionId = $(this).val();
-         
+          
             $.ajax({
                 url: '/Admin/GetPhysicians',
                 type: 'GET',
                 data: { regionId: regionId },
                 success: function (data) {
-
-                    
                     var physicianDropdown = $('#physician');
                     physicianDropdown.empty();
-                    
+                    physicianDropdown.append($('<option></option>').text("Select Physicians"));
                     $.each(data, function (index, physician) {
-                 
                         physicianDropdown.append($('<option></option>').attr('value', physician.physicianId).text(physician.firstName));
-                       
                     });
-                
+                }
+            });
+           
+           
+        });
+
+    });
+</script>
+@* <script>
+    $(document).ready(function () {
+        $('#region').change(function () {
+            var regionId = $(this).val();
+            alert(regionId);
+            $.ajax({
+                url: '/Admin/GetPhysicians',
+                type: 'GET',
+                data: { regionId: regionId },
+                success: function (data) {
+                    var physicianDropdown = $('#physician');
+                    physicianDropdown.empty();
+                    physicianDropdown.append($('<option></option>').text("Select Physicians"));
+                    $.each(data, function (index, physician) {
+                        physicianDropdown.append($('<option></option>').attr('value', physician.physicianId).text(physician.firstName));
+                    });
                 }
             });
         });
+       
     });
-
-
-</script>
+</script> *@
 
 @*Script for all cards background, icon color and request type role*@
 <script>
@@ -484,4 +550,5 @@
         });
     });
 </script>
+
 

@@ -172,7 +172,7 @@
 
 
                     <!-- For Region -->
-                    <select name="region" id="region" class="form-select m-2" aria-label="Default select example">
+                    <select name="region" id="region" class="form-select m-2 region" aria-label="Default select example">
                         <option selected>Search Region</option>
 
                         @foreach (var item in Model)
@@ -274,13 +274,13 @@
 
                  
                         <div class="form-floating mb-3">
-                            <input  type="text" class="form-control b-contact last-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input name="mobile" type="text" class="form-control b-contact last-name-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="last-name-create-patient-text" for="floatingInput">Phone Number</label>
                         </div>
                 
             
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control email email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
+                            <input name="email" type="email" class="form-control email email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
                             <label class="email-create-patient-text" for="floatingInput">Email</label>
                         </div>
                  
@@ -357,6 +357,12 @@
 
 
         });
+        $('#sendAgreementCaseForm').submit(function (event) {
+
+            $('#requestidinput3').val(requestId);
+
+
+        });
     });
     </script>
 
@@ -364,7 +370,7 @@
 <script>
     $(document).ready(function () {
 
-        $('#region').change(function () {
+        $('.region').change(function () {
 
             var regionId = $(this).val();
 

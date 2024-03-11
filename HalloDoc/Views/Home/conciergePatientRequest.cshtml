@@ -56,7 +56,7 @@
                 <div class="col-md-6 gy-3 ">
                     <div class="form-floating mb-3">
                        
-                            <input asp-for="ConciergePhoneNumber" class=" form-control concierge-contact-create-patient shadow-none" id="phone1" type="tel" name="phone" />
+                            <input asp-for="ConciergePhoneNumber" class=" form-control concierge-contact-create-patient shadow-none" id="phone1" type="tel"  />
                         <label class="concierge-contact-create-patient-text" for="phone1"> </label>
                            
                     </div>
@@ -159,7 +159,7 @@
                     <div class="form-floating mb-3">
                         <!-- <input type="tel" class="form-control contact-create-patient shadow-none" id="floatingContact" placeholder="">
                         <label class="contact-create-patient-text" for="floatingContact">Phone Number</label> -->
-                            <input asp-for="PhoneNumber" class=" form-control contact-create-patient shadow-none" id="phone"  name="phone" />
+                            <input asp-for="PhoneNumber" class=" form-control contact-create-patient shadow-none" id="phone"/>
                         <label class="contact-create-patient-text" for="phone"> </label>
                             
                     </div>
@@ -198,7 +198,7 @@
                     }
 
                 <div class="col d-flex justify-content-end mb-2">
-                        <button class="btn submit-btn-create-patient me-2" id="showAlertButton">Submit</button>
+                        <button type="submit" class="btn submit-btn-create-patient me-2" id="showAlertButton">Submit</button>
                     <button class="btn cancel-btn-create-patient ms-1">Cancel</button>
                 </div>
 

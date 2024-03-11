@@ -18,7 +18,7 @@ namespace Repository.IRepository
         public string CreateConciergeRequest(conciergeCreateRequest RequestData);
         public string CreateBusinessRequest(businessCreateRequest RequestData);
         public List<Request> GetbyEmail(string email);
-  
+        public void agreementApproved(int requestId);
         public List<RequestWiseFile> GetDocumentsByRequestId(int requestId);
         public void UploadFiles(int requestId, List<IFormFile> files);
         public RequestWiseFile GetFileById(int fileId);

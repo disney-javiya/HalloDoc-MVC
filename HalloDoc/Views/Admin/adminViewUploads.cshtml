@@ -29,7 +29,7 @@
                         <a asp-controller="Admin" asp-action="adminDashboard" role="btn" class="back-btn p-1 ms-auto mb-2">Back</a>
                     </div>
                     <p>Patient Name</p>
-                    <b class="name-patient">Test Testing (Confirmation Number)</b>
+                    <b class="name-patient">@ViewBag.pname (@ViewBag.num)</b>
                     <p>Check here to review and add files that you or the Client/Member has attached to the Request.</p>
                     <form method="post" enctype="multipart/form-data" action="@Url.Action("UploadFiles", "Admin", new { requestId =  Context.Request.Query["requestId"]})">
                         <input type="file" name="files" id="real-file" hidden="hidden" multiple />
