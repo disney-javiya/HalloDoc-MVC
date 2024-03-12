@@ -100,6 +100,10 @@ namespace Repository
                         v.TransferNote = physicianusername + "tranfered to" + row.AdminId + ":" + row.Notes;
                     }
                 }
+                else if(row.Status == 7)
+                {
+                    v.PatientCancellationNotes = _context.RequestStatusLogs.Where(x => x.RequestId == requestId && x.Status == 7).Select(u => u.Notes).FirstOrDefault();
+                }
             }
             
             
@@ -277,6 +281,27 @@ namespace Repository
         }
 
 
+        public void patientCancelNote(string requestId, string additionalNotesPatient)
+        {
+            RequestStatusLog rs = new RequestStatusLog();
+            Request r = new Request();
+            int reqId = int.Parse(requestId);
+          
+            var res = _context.Requests.Where(x => x.RequestId == reqId).FirstOrDefault();
+            if (reqId != null)
+            {
+                res.Status = 7;
+                _context.SaveChanges();
+                rs.RequestId = reqId;
+                rs.Status = 7;
+                rs.Notes = additionalNotesPatient;
+                rs.CreatedDate = DateTime.Now;
+            }
+            _context.RequestStatusLogs.Add(rs);
+            _context.SaveChanges();
+        }
+
+
         public List<RequestWiseFile> GetDocumentsByRequestId(int requestId)
         {
             
@@ -314,7 +339,10 @@ namespace Repository
                              requestedDate = x.Request.CreatedDate,
                              patientContact = x.Client.PhoneNumber,
                              requestorContact = x.Request.PhoneNumber,
+
                              patientAddress = x.Client.Address,
+                             patientCity = x.Client.City,
+                             physicianName = _context.Physicians.Where(u=>u.PhysicianId == x.Request.PhysicianId).Select(u=>u.FirstName).FirstOrDefault(),
                              Status = x.Status,
                              RequestTypeId = x.Request.RequestTypeId,
                              patientEmail = x.Client.Email,
@@ -579,10 +607,10 @@ namespace Repository
             if (res != null)
             {
                 rs.RequestId = reqId;
-                res.Status = 12;
+                res.Status = 10;
                 _context.SaveChanges();
                 rs.RequestId = reqId;
-                rs.Status = 12;
+                rs.Status = 10;
                 var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
                 var id = _context.Admins.Where(x => x.AspNetUserId == aspId).Select(u => u.AdminId).FirstOrDefault();
                 rs.AdminId = id;
@@ -607,6 +635,34 @@ namespace Repository
             string mail = _context.RequestClients.Where(x => x.RequestId == reqId).Select(x => x.Email).FirstOrDefault();
             res.Add(mail);
             return res;
+        }
+
+        public void closeCaseAdmin(int requestId, string email)
+        {
+
+            RequestStatusLog rs = new RequestStatusLog();
+            Request r = new Request();
+
+            var res = _context.Requests.Where(x => x.RequestId == requestId).FirstOrDefault();
+            if (res != null)
+            {
+               
+                res.Status = 9;
+                _context.SaveChanges();
+                rs.RequestId = requestId;
+                rs.Status = 9;
+                var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                var id = _context.Admins.Where(x => x.AspNetUserId == aspId).Select(u => u.AdminId).FirstOrDefault();
+                rs.AdminId = id;
+                rs.CreatedDate = DateTime.Now;
+            }
+            _context.RequestStatusLogs.Add(rs);
+            _context.SaveChanges();
+        }
+        public string adminTransferNotes(int requestId, string email)
+        {
+           var res = getNotes(requestId, email);
+           return res.TransferNote;
         }
     }
 }

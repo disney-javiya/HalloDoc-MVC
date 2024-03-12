@@ -33,6 +33,11 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
         [StringLength(50)]
         public string? patientEmail { get; set; }
 
+        [StringLength(50)]
+        public string? patientCity { get; set; }
+        [StringLength(50)]
+        public string? physicianName { get; set; }
+
         public int? PhysicianId { get; set; }
         public IEnumerable<CaseTag> CaseTag { get; set; }
 

@@ -20,6 +20,8 @@
             <partial name="admin_dashboard_header" />
         </header>
         <main>
+            <div id="toast-container"></div>
+           
            <div class="main-admin-dashboad d-flex flex-column justify-content-between">
                 <div class="row justify-content-between  m-2 ">
                     <div class="card" role="button" id="new-state" value="1">
@@ -119,7 +121,8 @@
 
 
 
-       </main>
+
+        </main>
 
         <footer class="d-flex justify-content-center align-items-baseline">
             <partial name="admin_dashboard_footer"/>
@@ -132,8 +135,10 @@
         <script>
         $(document).ready(function () {
                 
-                $('#new-state').click();
-
+           
+            setTimeout(function () {
+                $('#new-state').trigger('click');
+            }, 1);
                 $('.card').click(function () {
                     var type = $(this).attr("value");
                     var requestState = "";
@@ -278,6 +283,94 @@
         
 </script>
 
+    @if (ViewBag.LoginSuccess != null && ViewBag.LoginSuccess)
+    {
+        <script>
+          
+            $(document).ready(function () {
+                var toastHTML = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="2000" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">' +
+                     
+                    '<div class="toast-body bg-success text-white">Admin logged in successfully!</div>' +
+                    '</div>';
+
+              
+                $('#toast-container').append(toastHTML);
+
+                $('.toast').toast('show');
+            });
+        </script>
+    }
+
+
+    @if (ViewBag.CancelNote != null && ViewBag.CancelNote)
+    {
+        <script>
+
+            $(document).ready(function () {
+                var toastHTML = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="2000" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">' +
+
+                    '<div class="toast-body bg-success text-white">Request Cancelled successfully!</div>' +
+                    '</div>';
+
+
+                $('#toast-container').append(toastHTML);
+
+                $('.toast').toast('show');
+            });
+        </script>
+    }
+    @if (TempData["CancelNote"] != null && (bool)TempData["CancelNote"] == true)
+    {
+        <script>
+
+            $(document).ready(function () {
+                var toastHTML = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="2000" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">' +
+
+                    '<div class="toast-body bg-success text-white">Request Cancelled successfully!</div>' +
+                    '</div>';
+
+
+                $('#toast-container').append(toastHTML);
+
+                $('.toast').toast('show');
+            });
+        </script>
+    }
+   
+    @if (TempData["AssignNote"] != null && (bool)TempData["AssignNote"] == true)
+    {
+        <script>
+
+            $(document).ready(function () {
+                var toastHTML = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="2000" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">' +
+
+                    '<div class="toast-body bg-success text-white">Request Assigned successfully!</div>' +
+                    '</div>';
+
+
+                $('#toast-container').append(toastHTML);
+
+                $('.toast').toast('show');
+            });
+        </script>
+    }
+    @if (TempData["BlockNote"] != null && (bool)TempData["BlockNote"] == true)
+    {
+        <script>
+
+            $(document).ready(function () {
+                var toastHTML = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="2000" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">' +
+
+                    '<div class="toast-body bg-success text-white">Request Blocked successfully!</div>' +
+                    '</div>';
+
+
+                $('#toast-container').append(toastHTML);
+
+                $('.toast').toast('show');
+            });
+        </script>
+    }
 
 
 </body>

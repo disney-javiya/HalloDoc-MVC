@@ -560,11 +560,12 @@ Forgot-password-page
     color: white;
 }
 
-    #new-state:hover {
+    #new-state:hover { 
         background-color: rgba(33, 63, 153, 0.3);
         border: 1px solid #213F99;
         text-decoration: none;
     }
+
 
 #pending-state {
     color: #00ADEF;
@@ -702,6 +703,13 @@ Forgot-password-page
 .mob-icon {
     display: none;
 }
+
+
+
+
+
+
+
 /* Dark mode CSS*/
 .dark-mode {
     background-color: black;

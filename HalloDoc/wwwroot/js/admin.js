@@ -17,7 +17,6 @@
 
 
 
-
 function toggleMenu() {
     var menu = document.querySelector('.nav');
 

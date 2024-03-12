@@ -36,6 +36,8 @@ namespace Repository.IRepository
         public void adminBlockNote(string requestId, string additionalNotesBlock, string email);
 
         public void adminTransferCase(string requestId, string physician, string additionalNotesTransfer, string email);
+
+        public void patientCancelNote(string requestId, string additionalNotesPatient);
         public List<RequestWiseFile> GetDocumentsByRequestId(int requestId);
 
         public List<Region> getAllRegions();
@@ -60,5 +62,9 @@ namespace Repository.IRepository
 
         public void adminClearCase(string requestId, string email);
         public List<string> adminSendAgreementGet(string requestId);
+
+        public void closeCaseAdmin(int requestId, string email);
+
+        public string adminTransferNotes(int requestId, string email);
     }
 }

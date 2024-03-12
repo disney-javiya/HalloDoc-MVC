@@ -29,10 +29,10 @@
                             @Html.DisplayFor(modelItem => item.patientDOB)
                         </td>
                         <td>
-                            Abc Region
+                            @Html.DisplayFor(modelItem => item.patientCity)
                         </td>
                         <td>
-                            1
+                            @Html.DisplayFor(modelItem => item.physicianName)
                         </td>
                         <td>
                             12/10/2024
@@ -54,7 +54,7 @@
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewCase", "Admin", new { requestId = @item.requestId})">View Case</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewUploads", "Admin", new { requestId = @item.requestId})">View Uploads</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">View Notes</a></li>
-                                    <li><a class="dropdown-item" href="#">Orders</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("sendOrder", "Admin", new { requestId = @item.requestId})">Orders</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("closeCase", "Admin", new { requestId = @item.requestId})">Close Case</a></li>
                                     <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
                                     <li><a class="dropdown-item" href="#">Clear Case</a></li>

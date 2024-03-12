@@ -27,6 +27,9 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
         public string? PhysicianCancellationNotes { get; set; }
 
         [StringLength(500)]
+        public string? PatientCancellationNotes { get; set; }
+
+        [StringLength(500)]
         public string? CaseTag { get; set; }
 
         [StringLength(500)]

@@ -61,9 +61,11 @@ namespace HalloDoc.Controllers
 
             var jwttoken = _authenticate.GenerateJwtToken(loginuser, "Admin");
             Response.Cookies.Append("jwt", jwttoken);
-
+            ViewBag.LoginSuccess = true;
             // Set session key only when user credentials are validated successfully
             HttpContext.Session.SetString("key", user.Email);
+
+
             List<Region> r = new List<Region>();
             r = _adminRepository.getAllRegions();
             return View("adminDashboard", r);
@@ -88,6 +90,7 @@ namespace HalloDoc.Controllers
         {
            
           var res =  _adminRepository.getRequestStateData(type);
+          
             if(type == 1)
             {
                 return PartialView("_newState", res);
@@ -246,7 +249,9 @@ namespace HalloDoc.Controllers
         public IActionResult adminCancelNote(string requestId, string reason, string additionalNotes)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
+            ViewBag.CancelNote = true;
             _adminRepository.adminCancelNote(requestId,reason,additionalNotes, ViewBag.Data);
+            TempData["CancelNote"] = true;
             return RedirectToAction("adminDashboard");
 
         }
@@ -263,6 +268,8 @@ namespace HalloDoc.Controllers
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
             _adminRepository.adminAssignNote(requestId, region, physician, additionalNotesAssign, ViewBag.Data);
+            
+           TempData["AssignNote"] = true;
             return RedirectToAction("adminDashboard");
 
         }
@@ -282,6 +289,7 @@ namespace HalloDoc.Controllers
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
             _adminRepository.adminBlockNote(requestId, additionalNotesBlock, ViewBag.Data);
+            TempData["BlockNote"] = true;
             return RedirectToAction("adminDashboard");
 
         }
@@ -611,11 +619,40 @@ namespace HalloDoc.Controllers
 
             return View(document);
         }
+
+
+        [CustomeAuthorize("Admin")]
+        public IActionResult closeCaseAdmin(int requestId)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            _adminRepository.closeCaseAdmin(requestId, ViewBag.Data);
+            return RedirectToAction("adminDashboard");
+        }
         public RequestClient getPatientInfo(int requestId)
         {
             RequestClient r = new RequestClient();
              r = _adminRepository.getPatientInfo(requestId);
             return r;
+        }
+
+       
+        [HttpPost]
+        public IActionResult patientCancelNote(string requestId, string additionalNotesPatient)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.patientCancelNote(requestId, additionalNotesPatient);
+            return RedirectToAction("adminDashboard");
+
+        }
+
+
+        public string adminTransferNotes(int requestId)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+           string res = _adminRepository.adminTransferNotes(requestId, ViewBag.Data);
+            return res;
+
         }
         public IActionResult logOut()
         {

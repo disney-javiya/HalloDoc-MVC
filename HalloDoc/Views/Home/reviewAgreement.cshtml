@@ -33,6 +33,7 @@
         </div>
      
     </div>
+
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -40,17 +41,19 @@
                     <h5 class="modal-title" id="exampleModalLabel">Cancel Confirmation</h5>
                     <button type="button" class="btn-close" style="color:white;" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <form id="patientCancelCaseForm" action="@Url.Action("patientCancelNote", "Admin", new { requestId =  Context.Request.Query["requestId"]})"  method="POST">
                 <div class="modal-body">
                     <p style="color:grey">Test Test,</p>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control shadow-none" id="floatingInput" placeholder="">
-                        <label class="" for="floatingInput">Please provide a brief explanation for your cancelation.</label>
+                            <input name="additionalNotesPatient" type="text" class="form-control shadow-none" id="floatingInput" placeholder="">
+                        <label  for="floatingInput">Please provide a brief explanation for your cancelation.</label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a role="button" class="modal-button-request p-2">Confirm</a>
-                    <a role="button" class="modal-button-request p-2" data-bs-dismiss="modal">Cancel</a>
+                    <button  type="submit" class="modal-button-request p-2" style="background: #01bce9; color:white; border:none;">Confirm</button>
+                        <a role="button" class="modal-button-request p-2" data-bs-dismiss="modal" style="background:white ; color: #01bce9; border:1px solid #01bce9; text-decoration:none;">Cancel</a>
                 </div>
+                </form>
             </div>
         </div>
     </div>
