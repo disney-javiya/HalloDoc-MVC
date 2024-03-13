@@ -59,6 +59,17 @@
 
         </tbody>
     </table>
+
+    <div class="pagination" id="pagination">
+
+
+        <a href="#" id="prev">Previous</a>
+        <a href="#" class="page-link" data-page="1">1</a>
+        <a href="#" class="page-link" data-page="2">2</a>
+        <a href="#" class="page-link" data-page="3">3</a>
+        <a href="#" id="next">Next</a>
+        <p id="page-numbers"> </p>
+    </div>
 </div>
 
 
@@ -94,7 +105,7 @@
                     <p> <i class="fa-regular fa-envelope p-2 me-1" style="color: #a0a0a2;"></i>Email: @item.patientEmail</p>
                     <p> <i class="fa-solid fa-phone  p-2 me-1" style="color: #a0a0a2;"></i>Patient: @item.patientContact</p>
                     <p> <i class="fa-solid fa-calendar-days p-2 me-1" style="color: #a0a0a2;"></i>Date of service: -</p>
-                    <p> <i class="fa-solid fa-user-nurse  p-2 me-1" style="color: #a0a0a2;"></i>Physician: 1</p>
+                    <p> <i class="fa-solid fa-user-nurse  p-2 me-1" style="color: #a0a0a2;"></i>Physician: @item.physicianName</p>
                     <div class=" d-flex flex-row ">
 
                         <a class="admin-mob-button p-2 m-1" id="view-admin-mob-button" role="button" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">
@@ -122,7 +133,7 @@
 
 </div>
 
-
+<script src="/js/pagination.js"></script>
 
 @*Script for all cards background, icon color and request type role*@
 <script>
@@ -219,4 +230,11 @@
             td.style.background = color;
         });
     });
+</script>
+
+<script>
+    $(document).ready(function () {
+        pagination();
+    });
+
 </script>

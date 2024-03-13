@@ -79,7 +79,14 @@
                                             @Html.DisplayFor(modelItem => item.FileName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.RequestId)
+                                            @if(item.AdminId == null)
+                                            {
+                                                @Html.DisplayFor(modelItem => item.RequestId)
+                                            }
+                                            else
+                                            {
+                                                @Html.DisplayFor(modelItem => item.AdminId)
+                                            }
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.CreatedDate)

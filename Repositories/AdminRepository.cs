@@ -181,6 +181,7 @@ namespace Repository
         {
             int reqId = int.Parse(requestId);
           string name =  _context.RequestClients.Where(x=>x.RequestId == reqId).Select(u=>u.FirstName + " " + u.LastName).FirstOrDefault();
+
             return name;
         }
 
@@ -659,9 +660,10 @@ namespace Repository
             _context.RequestStatusLogs.Add(rs);
             _context.SaveChanges();
         }
-        public string adminTransferNotes(int requestId, string email)
+        public string adminTransferNotes(string requestId, string email)
         {
-           var res = getNotes(requestId, email);
+            int reqId = int.Parse(requestId);
+            var res = getNotes(reqId, email);
            return res.TransferNote;
         }
     }

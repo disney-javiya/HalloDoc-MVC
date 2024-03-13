@@ -57,6 +57,10 @@
       "PackagePath": "staticwebassets\\Files\\SRS-23-24-Trainees-14Feb24.pdf"
     },
     {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\SRS-23-24-Trainees-21Feb24 (1).pdf",
+      "PackagePath": "staticwebassets\\Files\\SRS-23-24-Trainees-21Feb24 (1).pdf"
+    },
+    {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\SRS-23-24-Trainees-21Feb24.pdf",
       "PackagePath": "staticwebassets\\Files\\SRS-23-24-Trainees-21Feb24.pdf"
     },
@@ -167,6 +171,10 @@
     {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\js\\custom.js",
       "PackagePath": "staticwebassets\\js\\custom.js"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\js\\pagination.js",
+      "PackagePath": "staticwebassets\\js\\pagination.js"
     },
     {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\js\\site.js",

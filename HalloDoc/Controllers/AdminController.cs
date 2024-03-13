@@ -544,6 +544,7 @@ namespace HalloDoc.Controllers
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
             _adminRepository.adminClearCase(requestId, ViewBag.Data);
+            TempData["ClearCase"] = true;
             return RedirectToAction("adminDashboard");
 
         }
@@ -647,10 +648,11 @@ namespace HalloDoc.Controllers
         }
 
 
-        public string adminTransferNotes(int requestId)
+        public string adminTransferNotes(string requestId)
         {
-            ViewBag.Data = HttpContext.Session.GetString("key");
-           string res = _adminRepository.adminTransferNotes(requestId, ViewBag.Data);
+           ViewBag.Data = HttpContext.Session.GetString("key");
+           
+            string res = _adminRepository.adminTransferNotes(requestId, ViewBag.Data);
             return res;
 
         }

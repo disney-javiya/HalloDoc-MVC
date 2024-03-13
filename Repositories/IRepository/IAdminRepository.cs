@@ -65,6 +65,6 @@ namespace Repository.IRepository
 
         public void closeCaseAdmin(int requestId, string email);
 
-        public string adminTransferNotes(int requestId, string email);
+        public string adminTransferNotes(string requestId, string email);
     }
 }

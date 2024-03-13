@@ -44,9 +44,10 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.patientAddress)
                         </td>
-                        <td>
-                            
-                              -
+                        <td id="notes" >
+                            <input type="hidden" id="requestidinput4" value="requestId=@item.requestId"/>
+                            <p class="note"></p>
+                              
                             
                                 
                         </td>
@@ -75,6 +76,17 @@
 
         </tbody>
     </table>
+
+    <div class="pagination" id="pagination">
+
+
+        <a href="#" id="prev">Previous</a>
+        <a href="#" class="page-link" data-page="1">1</a>
+        <a href="#" class="page-link" data-page="2">2</a>
+        <a href="#" class="page-link" data-page="3">3</a>
+        <a href="#" id="next">Next</a>
+        <p id="page-numbers"> </p>
+    </div>
 </div>
 
 
@@ -109,9 +121,9 @@
                     <p> <i class="fa-solid fa-calendar-days p-2 me-1" style="color: #a0a0a2;"></i>Date of birth: @item.patientDOB</p>
                     <p> <i class="fa-regular fa-envelope p-2 me-1" style="color: #a0a0a2;"></i>Email: @item.patientEmail</p>
                     <p> <i class="fa-solid fa-phone  p-2 me-1" style="color: #a0a0a2;"></i>Patient: @item.patientContact</p>
-                    <p> <i class="fa-solid fa-note-sticky p-2 me-1" style="color: #a0a0a2;"></i>Transfer Notes: -</p>
+                    <p> <i class="fa-solid fa-note-sticky p-2 me-1" style="color: #a0a0a2;"></i>Transfer Notes:<input type="hidden" id="requestidinput5" value="requestId=@item.requestId" /><p class="note"></p></p>
                     <p> <i class="fa-solid fa-calendar-days p-2 me-1" style="color: #a0a0a2;"></i>Date of service: -</p>
-                    <p> <i class="fa-solid fa-user-nurse  p-2 me-1" style="color: #a0a0a2;"></i>Physician: 1</p>
+                    <p> <i class="fa-solid fa-user-nurse  p-2 me-1" style="color: #a0a0a2;"></i>Physician: @item.physicianName</p>
                     <p> <i class="fa-regular fa-user p-2 me-1" style="color: #a0a0a2;"></i>Requestor: @item.requestorName</p>
                     <div class=" d-flex flex-row ">
 
@@ -300,6 +312,8 @@
 </div>
 
 
+<script src="/js/pagination.js"></script>
+
 
 <script>
     $(document).ready(function () {
@@ -318,7 +332,6 @@
         });
         $(document).on('click', '#sendagreement-option', function () {
             requestId = $(this).attr("value");
-
             $.ajax({
                 url: '/Admin/adminSendAgreement',
                 type: 'GET',
@@ -401,6 +414,48 @@
 
 </script>
 
+
+<script>
+$(document).ready(function () {
+    var rows = document.querySelectorAll('#BackgroundColor');
+
+    rows.forEach(function (row) {
+        var requestId = row.querySelector('#requestidinput4').value.replace("requestId=", "");
+       
+        $.ajax({
+            url: '/Admin/adminTransferNotes',
+            type: 'GET',
+            data: { requestId: requestId },
+            success: function (data) {
+                $(row).find(".note").text(data);
+               
+            }
+        });
+    });
+});
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        var collapses = document.querySelectorAll('.collapse');
+
+        collapses.forEach(function (c) {
+            var requestId = c.querySelector('#requestidinput5').value.replace("requestId=", "");
+
+            $.ajax({
+                url: '/Admin/adminTransferNotes',
+                type: 'GET',
+                data: { requestId: requestId },
+                success: function (data) {
+                    $(c).find(".note").text(data);
+
+                }
+            });
+        });
+    });
+
+</script>
 
 @*Script for all cards background, icon color and request type role*@
 <script>
@@ -494,4 +549,11 @@
             td.style.background = color;
         });
     });
+</script>
+
+<script>
+    $(document).ready(function () {
+        pagination();
+    });
+
 </script>

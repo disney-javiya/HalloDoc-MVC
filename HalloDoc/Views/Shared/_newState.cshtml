@@ -45,9 +45,7 @@
                             @Html.DisplayFor(modelItem => item.patientAddress)
                         </td>
                         <td>
-                            -
-                             
-                           
+                            - 
                         </td>
                         <td><a class="table-btn p-1" role="button">Provider</a></td>
                         <td>
@@ -74,7 +72,16 @@
             }
         </tbody>
     </table>
-
+    <div class="pagination" id="pagination">
+        
+     
+        <a href="#" id="prev">Previous</a>
+        <a href="#" class="page-link" data-page="1">1</a>
+        <a href="#" class="page-link" data-page="2">2</a>
+        <a href="#" class="page-link" data-page="3">3</a>
+        <a href="#" id="next">Next</a>
+        <p id="page-numbers"> </p>
+    </div>
 
 </div>
 
@@ -313,7 +320,7 @@
 
 
 <script src="/js/admin.js"></script>
-
+<script src="/js/pagination.js"></script>
 <script>
 
     $(document).ready(function () {
@@ -434,28 +441,7 @@
 
     });
 </script>
-@* <script>
-    $(document).ready(function () {
-        $('#region').change(function () {
-            var regionId = $(this).val();
-            alert(regionId);
-            $.ajax({
-                url: '/Admin/GetPhysicians',
-                type: 'GET',
-                data: { regionId: regionId },
-                success: function (data) {
-                    var physicianDropdown = $('#physician');
-                    physicianDropdown.empty();
-                    physicianDropdown.append($('<option></option>').text("Select Physicians"));
-                    $.each(data, function (index, physician) {
-                        physicianDropdown.append($('<option></option>').attr('value', physician.physicianId).text(physician.firstName));
-                    });
-                }
-            });
-        });
-       
-    });
-</script> *@
+
 
 @*Script for all cards background, icon color and request type role*@
 <script>
@@ -555,4 +541,11 @@
     });
 </script>
 
+<script>
 
+
+    $(document).ready(function () {
+        pagination();
+    });
+    
+</script>
