@@ -407,6 +407,22 @@ namespace Repository
             return s;
            
         }
+
+        public List<RequestandRequestClient> getByRequesttypeId(IEnumerable<RequestandRequestClient> r, int requesttypeId)
+        {
+            List<RequestandRequestClient> s = new List<RequestandRequestClient>();
+           
+            foreach (var r2 in r)
+            {
+                if (r2.RequestTypeId == requesttypeId)
+                {
+                    s.Add(r2);
+                }
+
+            }
+            return s;
+
+        }
         public List<RequestandRequestClient> getFilterByName(IEnumerable<RequestandRequestClient> r, string patient_name)
         {
             List<RequestandRequestClient> s = new List<RequestandRequestClient>();
@@ -495,7 +511,7 @@ namespace Repository
         {
           var file =  _context.RequestWiseFiles.Where(f=> f.RequestWiseFileId == fileId).ExecuteUpdate(setters => setters.SetProperty(b => b.IsDeleted, new BitArray(new bool[] {true}) ));
           
-            _context.SaveChanges();
+            _context.SaveChanges();  
         }
 
         public IEnumerable<RequestWiseFile> GetFilesByRequestId(int requestId)

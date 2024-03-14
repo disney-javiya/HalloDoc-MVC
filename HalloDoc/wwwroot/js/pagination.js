@@ -44,7 +44,7 @@ function pagination() {
         });
     }
 
-    // Event listener for "Previous" button
+ 
     prevButton.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
@@ -53,7 +53,7 @@ function pagination() {
         }
     });
 
-    // Event listener for "Next" button
+   
     nextButton.addEventListener('click', () => {
         if (currentPage < totalPages) {
             currentPage++;

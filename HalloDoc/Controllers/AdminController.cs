@@ -64,7 +64,7 @@ namespace HalloDoc.Controllers
             ViewBag.LoginSuccess = true;
             // Set session key only when user credentials are validated successfully
             HttpContext.Session.SetString("key", user.Email);
-
+            ViewBag.Data = HttpContext.Session.GetString("key");
 
             List<Region> r = new List<Region>();
             r = _adminRepository.getAllRegions();
@@ -155,6 +155,42 @@ namespace HalloDoc.Controllers
            
 
         }
+
+        public IActionResult getByRequesttypeId(int requesttypeId, int type)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            IEnumerable<RequestandRequestClient> r = _adminRepository.getRequestStateData(type);
+            List<RequestandRequestClient> bytypeid = _adminRepository.getByRequesttypeId(r, requesttypeId);
+
+            if (type == 1)
+            {
+                return PartialView("_newState", bytypeid);
+            }
+            else if (type == 2)
+            {
+                return PartialView("_pendingState", bytypeid);
+            }
+            else if (type == 3)
+            {
+                return PartialView("_activeState", bytypeid);
+            }
+            else if (type == 4)
+            {
+                return PartialView("_concludeState", bytypeid);
+            }
+            else if (type == 5)
+            {
+                return PartialView("_tocloseState", bytypeid);
+            }
+            else if (type == 6)
+            {
+                return PartialView("_unpaidState", bytypeid);
+            }
+
+            return View();
+
+
+        }
         public IActionResult getFilterByName(string patient_name, int type)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
@@ -190,15 +226,9 @@ namespace HalloDoc.Controllers
 
         }
 
-        public IActionResult getFilterByRegionsAfter(int regionId, List<RequestandRequestClient> r)
-        {
-            ViewBag.Data = HttpContext.Session.GetString("key");
-           
-            List<RequestandRequestClient> byregion = _adminRepository.getFilterByRegions(r, regionId);
+       
 
-            return PartialView("_newState", byregion);
-
-        }
+    
 
         [CustomeAuthorize("Admin")]
         public IActionResult adminViewCase(int requestId)
@@ -654,6 +684,15 @@ namespace HalloDoc.Controllers
            
             string res = _adminRepository.adminTransferNotes(requestId, ViewBag.Data);
             return res;
+
+        }
+
+        //[CustomeAuthorize("Admin")]
+        public IActionResult adminProfile()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            return View();
 
         }
         public IActionResult logOut()

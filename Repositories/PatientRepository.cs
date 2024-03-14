@@ -508,6 +508,21 @@ namespace Repository
             return newId;
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public List<Request> GetbyEmail(string email)
         {
         

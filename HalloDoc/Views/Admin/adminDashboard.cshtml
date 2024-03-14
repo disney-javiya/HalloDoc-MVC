@@ -82,12 +82,7 @@
                             <input type="text" class="form-control search shadow-none" id="floatingInput" placeholder="Search Patients">
                             <label class="" for="floatingInput"><i class="fa-solid fa-magnifying-glass me-1"></i> Search Patients</label>
                         </div>
-                        @*  <button class="btn  dropdown-toggle m-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-magnifying-glass me-1"></i> All Regions</button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">1</a></li>
-                        <li><a class="dropdown-item" href="#">2</a></li>
-                        <li><a class="dropdown-item" href="#">3</a></li>
-                        </ul> *@
+                        
                         <select id="region" class="form-select m-1" aria-label="Default select example">
                             <option selected>Select Region</option>
                             @if (Model != null)
@@ -105,11 +100,11 @@
                     </div>
                     <div class="color-dots d-flex flex-row m-2 p-2">
                         <a class="p-2 me-1" role="button" id="all">All</a>
-                        <p><i class="fa-solid fa-circle me-1 p-2" style="color: #35d016;"></i>Patient</p>
-                        <p><i class="fa-solid fa-circle me-1 p-2" style="color: #FFD43B;"></i>Family/Friend</p>
-                        <p><i class="fa-solid fa-circle me-1 p-2" style="color: #e63368;"></i>Business</p>
-                        <p><i class="fa-solid fa-circle me-1 p-2" style="color: #74C0FC;"></i>Conciege</p>
-                        <p><i class="fa-solid fa-circle me-1 p-2" style="color: #B197FC;"></i>VIP</p>
+                        <a role="button" id="patient"><i class="fa-solid fa-circle me-1 p-2" style="color: #35d016;"></i>Patient</a>
+                        <a role="button" id="family"><i class="fa-solid fa-circle me-1 p-2" style="color: #FFD43B;"></i>Family/Friend</a>
+                        <a role="button" id="business"><i class="fa-solid fa-circle me-1 p-2" style="color: #e63368;"></i>Business</a>
+                        <a role="button" id="concierge"><i class="fa-solid fa-circle me-1 p-2" style="color: #74C0FC;"></i>Conciege</a>
+                        <a role="button" id="vip"><i class="fa-solid fa-circle me-1 p-2" style="color: #B197FC;"></i>VIP</a>
 
                     </div>
 
@@ -127,8 +122,9 @@
             <partial name="admin_dashboard_footer" />
         </footer>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="/js/admin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"> </script>
 
     <script>
@@ -212,6 +208,77 @@
 
 
     <script>
+        $('.card').click(function () {
+            var type = $(this).attr("value");
+       
+        if ($('#patient').click(function () {
+          
+                $.ajax({
+                    url: "/Admin/getByRequesttypeId",
+                    method: "GET",
+                    data: { "requesttypeId": 2, "type": type },
+                    success: function (data) {
+                        $('#tableContainer').html(data);
+                    },
+                    error: function () {
+
+                    }
+                });
+            
+        }));
+        if ($('#family').click(function () {
+            
+                $.ajax({
+                    url: "/Admin/getByRequesttypeId",
+                    method: "GET",
+                    data: { "requesttypeId": 3, "type": type },
+                    success: function (data) {
+                        $('#tableContainer').html(data);
+                    },
+                    error: function () {
+
+                    }
+                });
+               
+        }));
+         if ($('#business').click(function () {
+           
+                $.ajax({
+                    url: "/Admin/getByRequesttypeId",
+                    method: "GET",
+                    data: { "requesttypeId": 1, "type": type },
+                    success: function (data) {
+                        $('#tableContainer').html(data);
+                    },
+                    error: function () {
+
+                    }
+                });
+               
+        }));
+         if ($('#concierge').click(function () {
+            
+                $.ajax({
+                    url: "/Admin/getByRequesttypeId",
+                    method: "GET",
+                    data: { "requesttypeId": 4, "type": type },
+                    success: function (data) {
+                        $('#tableContainer').html(data);
+                    },
+                    error: function () {
+
+                    }
+                });
+             
+        }));
+        if ($('#vip').click(function () {
+           
+        }));
+
+        });
+    </script>
+
+    <script>
         $(document).ready(function () {
 
             var regionId;
@@ -239,21 +306,7 @@
                         }
                     });
                 }
-                // if (patient_name != undefined && regionId != null)
-                // {
-                //     /*already sorted by patient */
-                //         $.ajax({
-                //             url: "/Admin/getFilterByRegionsAfter",
-                //             method: "GET",
-                //             data: { "regionId": regionId ,  "res": res },
-                //             success: function (data) {
-                //                 $('#tableContainer').html(data);
-                //             },
-                //             error: function () {
-
-                //             }
-                //         });
-                // }
+               
 
             });
 
@@ -337,7 +390,47 @@
         </script>
     }
 
-    
+   @*  <script>
+        $(document).ready(function () {
+
+            var regionId;
+            var patient_name;
+            var type;
+
+            $('.card').click(function () {
+                type = $(this).attr("value");
+                applyFilters();
+            });
+
+            $('#region').change(function () {
+                regionId = $('#region').val();
+                applyFilters();
+            });
+
+            $('.search').change(function () {
+                patient_name = $('.search').val();
+                applyFilters();
+            });
+
+            function applyFilters() {
+                if ((regionId && regionId !== "Select Region") || patient_name) {
+                    $.ajax({
+                        url: "/Admin/getFilteredData",
+                        method: "GET",
+                        data: { "regionId": regionId, "patient_name": patient_name, "type": type },
+                        success: function (data) {
+                            $('#tableContainer').html(data);
+                        },
+                        error: function () {
+                            console.log("Error occurred while fetching filtered data.");
+                        }
+                    });
+                }
+            }
+
+        });
+
+    </script> *@
 
 </body>
 </html>

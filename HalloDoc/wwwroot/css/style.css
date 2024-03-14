@@ -746,7 +746,7 @@ Forgot-password-page
     background-color: black;
 }
 
-.create-patient-req-main, .header-create-patient-req {
+.create-patient-req-main, .header-create-patient-req, .admin-info-tags {
     background-color: black;
 }
 
@@ -762,7 +762,7 @@ Forgot-password-page
     color: whitesmoke;
 }
 
-h5 {
+h5, .tab-dashboard .nav .nav-item .nav-link {
     color: whitesmoke;
 }
 

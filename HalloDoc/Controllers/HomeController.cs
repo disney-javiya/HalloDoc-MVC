@@ -400,12 +400,6 @@ namespace HalloDoc.Controllers
             Passwordreset temp = _context.Passwordresets.Where(x => x.Email == Email).FirstOrDefault();
 
 
-            /*if (temp.Isupdated.Get(0))
-            {
-                TempData["error"] = "You can only reset once";
-                RedirectToAction("Patientlogin");
-
-            }*/
 
             if (temp != null)
             {
@@ -469,7 +463,7 @@ namespace HalloDoc.Controllers
 
             if (difference.TotalHours > 24)
             {
-                return NotFound(); // Password reset request expired
+                return NotFound(); 
             }
 
             if (passwordReset.Isupdated.Get(0))

@@ -21,6 +21,8 @@ namespace Repository.IRepository
         public string getConfirmationNumber(int requestId);
 
         public List<RequestandRequestClient> getFilterByRegions(IEnumerable<RequestandRequestClient> r, int regionId);
+
+        public List<RequestandRequestClient> getByRequesttypeId(IEnumerable<RequestandRequestClient> r, int requesttypeId);
         public List<RequestandRequestClient> getFilterByName(IEnumerable<RequestandRequestClient> r, string patient_name);
         public void adminNotes(int requestId, viewNotes v, string email);
         //public void adminCancelNote([FromBody] viewNotes viewNoteData, string email);
