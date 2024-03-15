@@ -23,22 +23,22 @@
         <main>
 
             <div class="main-viewdocuments d-flex flex-column">
-                <div class="view-documents d-flex flex-column bg-white container">
-                    <div class="d-flex flex-row" style="background-color: #F9F9F9;">
+                <div class="view-documents d-flex flex-column  container">
+                    <div class="d-flex flex-row">
                         <h3>Close Case</h3>
                         <a asp-controller="Admin" asp-action="adminDashboard" role="btn" class="back-btn p-1 ms-auto mb-2">Back</a>
                     </div>
                     <p>Patient Name</p>
                     <b class="name-patient">@ViewBag.pname (@ViewBag.num)</b>
-                   
+
                     <a role="button" class="back-btn p-1 ms-auto mb-2">Create Invoice through Quick books</a>
-         
+
 
                     <div class="data-table-admin-viewuploads">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    
+
                                     <th scope="col">Documents</th>
                                     <th scope="col">Upload Date</th>
                                     <th scope="col">Actions</th>
@@ -64,12 +64,12 @@
                                         </td>
                                     </tr>
                                 }
-                               
+
                             </tbody>
                         </table>
                     </div>
 
-                    <div class="row row-cols-1 justify-content-center align-items-center">
+                    <div class="row row-cols-1 justify-content-center align-items-center close-data">
                         <div class="col mb-3">
                             <h2>Patient Information</h2>
                         </div>
@@ -87,7 +87,7 @@
                             </div>
                         </div>
 
-                     
+
                         <div class="col-md-6 gy-3 me-auto">
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control dob-create-patient shadow-none" id="floatingInput" placeholder="" disabled>
@@ -99,11 +99,11 @@
                                 <input type="text" class="form-control contact-create-patient  shadow-none" id="floatingInput" id="phone" placeholder="" disabled>
                                 <label class="contact-create-patient-text" for="floatingInput">Phone Number</label>
                             </div>
-                             <div class="mb-3 ms-2">
+                            <div class="mb-3 ms-2">
                                 <i role="button" class="fa-solid fa-phone p-3" style="color: #01bce9; border:1px solid #01BCE9"></i>
                             </div>
                         </div>
-                        
+
 
                         <div class="col-md-6 gy-3 me-auto">
                             <div class="form-floating mb-3">
@@ -112,8 +112,8 @@
                             </div>
                         </div>
                     </div>
-                   
-                    <div class="col d-flex justify-content-end mb-2">
+
+                    <div class="col d-flex justify-content-end mb-2 closecase-btns">
                         <button type="button" class="btn edit-btn-patient-profile me-2 p-2">Edit</button>
                         <a role="button" href="@Url.Action("closeCaseAdmin", "Admin", new { requestId =  Context.Request.Query["requestId"]})" class="btn closecase-btn-patient-profile me-2 p-2" style="color: #01bce9; border:1px solid #01bce9">Close Case</a>
                     </div>
@@ -155,7 +155,7 @@
                                         <a href="@Url.Action("DownloadFile", "Admin", new { fileId = item.RequestWiseFileId})" class="btn p-0">
                                             <i class="fa-solid fa-cloud-arrow-up m-1  p-2" style="color: #01bce9; border: 1px solid #01bce9; border-radius: 2px;"></i>
                                         </a>
-                                       
+
 
                                     </div>
 
@@ -192,7 +192,7 @@
     <script src="/js/custom.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"> </script>
     <script>
-       
+
         const editBtn = document.querySelector(".edit-btn-patient-profile");
         const closeCaseBtn = document.querySelector(".closecase-btn-patient-profile");
         const saveBtn = document.querySelector(".save-btn-patient-profile");
@@ -226,20 +226,20 @@
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const requestId = urlParams.get('requestId');
-           
+
 
             $.ajax({
                 url: '/Admin/getPatientInfo',
                 type: 'GET',
                 data: { requestId: requestId },
                 success: function (data) {
-                    
+
                     $(".first-name-create-patient").val(data.firstName);
                     $(".last-name-create-patient").val(data.lastName);
                     $(".dob-create-patient ").val(data.intDate + "/" + data.strMonth + "/" + data.intYear);
                     $(".contact-create-patient").val(data.phoneNumber);
                     $(".email-create-patient").val(data.email);
-                   
+
 
                 }
             });

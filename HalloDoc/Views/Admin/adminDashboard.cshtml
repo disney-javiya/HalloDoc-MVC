@@ -67,16 +67,21 @@
                     <div>
                         <h3>Patients <span id="requestState"></span></h3>
                     </div>
-                    <div class="admin-buttons">
-                        <a class="btn" href="#" role="button"><i class="fa-regular fa-paper-plane me-1"></i>Send Link</a>
-                        <a class="btn" href="#" role="button"><i class="fa-regular fa-pen-to-square me-1"></i>Create Requests</a>
-                        <a class="btn" href="#" role="button"><i class="fa-solid fa-share me-1"></i>Export</a>
-                        <a class="btn" href="#" role="button"><i class="fa-solid fa-share me-1"></i>Export All</a>
-                        <a class="btn" href="#" role="button"><i class="fa-regular fa-user me-1"></i>Request DTY Support</a>
+                    <div class="admin-buttons d-flex ">
+                        <a class="btn me-1" href="#" role="button"><i class="fa-regular fa-paper-plane me-1"></i>Send Link</a>
+                        <a class="btn me-1" href="#" role="button"><i class="fa-regular fa-pen-to-square me-1"></i>Create Requests</a>
+                        <form asp-action="Export" asp-controller="Admin" method="post">
+                            <input type="hidden" name="GridHtml" />
+                          
+                            <button type="submit" class="btn me-1" id="btnSubmit" value="Export"><i class="fa-solid fa-share me-1"></i>Export</button>
+                        </form>
+                        
+                        <a class="btn me-1" href="#" role="button"><i class="fa-solid fa-share me-1"></i>Export All</a>
+                        <a class="btn me-1" href="#" role="button"><i class="fa-regular fa-user me-1"></i>Request DTY Support</a>
                     </div>
 
                 </div>
-                <div class="d-flex admin-info-tags bg-white">
+                <div class="d-flex admin-info-tags ">
                     <div class="search-inputs d-flex m-2">
                         <div class="col-md-6 form-floating m-1">
                             <input type="text" class="form-control search shadow-none" id="floatingInput" placeholder="Search Patients">
@@ -126,6 +131,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"> </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                $("input[name='GridHtml']").val($(".admin-table").html());
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function () {
@@ -306,6 +318,7 @@
                         }
                     });
                 }
+
                
 
             });

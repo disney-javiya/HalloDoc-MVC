@@ -23,8 +23,8 @@
         <main>
 
             <div class="main-viewdocuments d-flex flex-column">
-                <div class="view-documents d-flex flex-column bg-white container">
-                    <div class="d-flex flex-row" style="background-color: #F9F9F9;">
+                <div class="view-documents d-flex flex-column  container">
+                    <div class="d-flex flex-row" >
                         <h3>Documents</h3>
                         <a asp-controller="Admin" asp-action="adminDashboard" role="btn" class="back-btn p-1 ms-auto mb-2">Back</a>
                     </div>
@@ -34,7 +34,7 @@
                     <form method="post" enctype="multipart/form-data" action="@Url.Action("UploadFiles", "Admin", new { requestId =  Context.Request.Query["requestId"]})">
                         <input type="file" name="files" id="real-file" hidden="hidden" multiple />
                         <div class="input-group mb-3">
-                            <input class="form-control bg-light" type="text" id="custom-text" aria-label="readonly input example" value="Select File" readonly>
+                            <input class="form-control" type="text" id="custom-text" aria-label="readonly input example" value="Select File" readonly>
                             <button class="btn btn-info" type="button" id="custom-button">
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>

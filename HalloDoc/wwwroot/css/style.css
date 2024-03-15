@@ -509,6 +509,10 @@ Forgot-password-page
     display: none;
 }
 
+.admin-info-tags {
+    background: white;
+}
+
 .admin-map-btn, .admin-mob-btn {
     text-decoration: none;
     color: #01BCE9;
@@ -704,6 +708,10 @@ Forgot-password-page
     display: none;
 }
 
+.view-documents {
+    background: white;
+}
+
 .pagination {
     text-align: center;
     margin-top: 2rem;
@@ -728,15 +736,18 @@ Forgot-password-page
         color: white;
     }
 
+#custom-text {
+    background: white;
+}
+
 #page-numbers {
     margin-top: 20px;
     font-size: 12px;
 }
 
-
-
-
-
+.width-admin-viewnotes .notes {
+    background: white;
+}
 /* Dark mode CSS*/
 .dark-mode {
     background-color: black;
@@ -746,23 +757,28 @@ Forgot-password-page
     background-color: black;
 }
 
-.create-patient-req-main, .header-create-patient-req, .admin-info-tags {
+.create-patient-req-main, .header-create-patient-req, .admin-info-tags, .pagination a, .width-admin-viewnotes .notes, .view-documents, .name-patient, #custom-text, #healthtype option, #healthprofesional option, .NoOfRefill option {
     background-color: black;
 }
 
 .width-create-patient-req {
     background-color: rgba(211,211,211,0.3);
-}
-
-.symptoms-create-patient, .first-name-create-patient, .last-name-create-patient, .dob-create-patient, .email-create-patient, .contact-create-patient, .street-create-patient, .city-create-patient, .state-create-patient, .zipcode-create-patient, .room-create-patient, .select-file-create-patient, .family-first-name-create-patient, .family-last-name-create-patient, .family-contact-create-patient, .family-email-create-patient, .family-relation-create-patient, .concierge-first-name-create-patient, .concierge-last-name-create-patient, .concierge-contact-create-patient, .concierge-email-create-patient, .concierge-property-create-patient, .concierge-street-create-patient, .concierge-city-create-patient, .concierge-state-create-patient, .concierge-zipcode-create-patient, .business-first-name-create-patient, .business-last-name-create-patient, .business-contact-create-patient, .business-email-create-patient, .business-property-create-patient, .business-case-create-patient {
-    background-color: transparent;
-}
-
-.symptoms-create-patient-text, .first-name-create-patient-text, .last-name-create-patient-text, .dob-create-patient-text, .email-create-patient-text, .contact-create-patient-text, .street-create-patient-text, .city-create-patient-text, .state-create-patient-text, .zipcode-create-patient-text, .room-create-patient-text, .select-file-create-patient-text, .family-first-name-create-patient-text, .family-last-name-create-patient-text, .family-contact-create-patient-text, .family-email-create-patient-text, .family-relation-create-patient-text, .concierge-first-name-create-patient-text, .concierge-last-name-create-patient-text, .concierge-contact-create-patient-text, .concierge-email-create-patient-text, .concierge-property-create-patient-text, .concierge-street-create-patient-text, .concierge-city-create-patient-text, .concierge-state-create-patient-text, .concierge-zipcode-create-patient-text, .business-first-name-create-patient-text, .business-last-name-create-patient-text, .business-contact-create-patient-text, .business-email-create-patient-text, .business-property-create-patient-text, .business-case-create-patient-text {
     color: whitesmoke;
 }
 
-h5, .tab-dashboard .nav .nav-item .nav-link {
+    .width-create-patient-req .form-floating input, .width-admin-viewnotes, .AdditionalNote, #custom-text {
+        color: whitesmoke;
+    }
+
+.symptoms-create-patient, .first-name-create-patient, .last-name-create-patient, .dob-create-patient, .email-create-patient, .contact-create-patient, .street-create-patient, .city-create-patient, .state-create-patient, .zipcode-create-patient, .room-create-patient, .select-file-create-patient, .family-first-name-create-patient, .family-last-name-create-patient, .family-contact-create-patient, .family-email-create-patient, .family-relation-create-patient, .concierge-first-name-create-patient, .concierge-last-name-create-patient, .concierge-contact-create-patient, .concierge-email-create-patient, .concierge-property-create-patient, .concierge-street-create-patient, .concierge-city-create-patient, .concierge-state-create-patient, .concierge-zipcode-create-patient, .business-first-name-create-patient, .business-last-name-create-patient, .business-contact-create-patient, .business-email-create-patient, .business-property-create-patient, .business-case-create-patient, #healthtype, #healthprofesional, .NoOfRefill {
+    background-color: transparent;
+}
+
+.symptoms-create-patient-text, .first-name-create-patient-text, .last-name-create-patient-text, .dob-create-patient-text, .email-create-patient-text, .contact-create-patient-text, .street-create-patient-text, .city-create-patient-text, .state-create-patient-text, .zipcode-create-patient-text, .room-create-patient-text, .select-file-create-patient-text, .family-first-name-create-patient-text, .family-last-name-create-patient-text, .family-contact-create-patient-text, .family-email-create-patient-text, .family-relation-create-patient-text, .concierge-first-name-create-patient-text, .concierge-last-name-create-patient-text, .concierge-contact-create-patient-text, .concierge-email-create-patient-text, .concierge-property-create-patient-text, .concierge-street-create-patient-text, .concierge-city-create-patient-text, .concierge-state-create-patient-text, .concierge-zipcode-create-patient-text, .business-first-name-create-patient-text, .business-last-name-create-patient-text, .business-contact-create-patient-text, .business-email-create-patient-text, .business-property-create-patient-text, .business-case-create-patient-text, #healthtype, #healthprofesional, .NoOfRefill {
+    color: whitesmoke;
+}
+
+h5, h3, h3 span, .tab-dashboard .nav .nav-item .nav-link, .search, .search-inputs label, #region, .color-dots a, .admin-table table thead tr th, .admin-table table tbody tr td, .dashboard-profile-name, .dashboard-profile-name b, .menu-icon-admin, #BackgroundColormobileinnercard {
     color: whitesmoke;
 }
 
@@ -770,9 +786,10 @@ h5, .tab-dashboard .nav .nav-item .nav-link {
     color: white;
 }
 
-.patient-site-main {
+.patient-site-main, .search, #region, .admin-login {
     background-color: black;
 }
+
 
 .patient-btn:hover, .family-btn:hover, .concierge-btn:hover, .bussiness-btn:hover {
     border: 1px solid #616BA8;
@@ -805,13 +822,13 @@ h5, .tab-dashboard .nav .nav-item .nav-link {
         background-color: rgba(67, 73, 70, 0.3);
     }
 
-.tab-dashboard, .main-dashboad .table thead tr th, .main-dashboad .table tbody tr td, .main-viewdocuments .data-table .table thead tr th, .main-viewdocuments .data-table .table tbody tr td {
+.tab-dashboard, .main-dashboad .table thead tr th, .main-dashboad .table tbody tr td, .main-viewdocuments .data-table .table thead tr th, .main-viewdocuments .data-table .table tbody tr td, .admin-table table thead tr th, .data-table-admin-viewuploads table thead tr th, .data-table-admin-viewuploads table tbody tr td, .close-data, .data-table-admin-viewuploads, .closecase-btns, .admin-view-documents-main {
     background-color: black;
 }
 
-.main-dashboad .table thead tr th, .main-dashboad .table tbody tr td, .main-viewdocuments .data-table .table thead tr th, .main-viewdocuments .data-table .table tbody tr td {
-    color: white;
-}
+    .main-dashboad .table thead tr th, .main-dashboad .table tbody tr td, .main-viewdocuments .data-table .table thead tr th, .main-viewdocuments .data-table .table tbody tr td, .data-table-admin-viewuploads table thead tr th, .data-table-admin-viewuploads table tbody tr td, .close-data .form-floating input, .close-data h2 {
+        color: white;
+    }
 
 }
 

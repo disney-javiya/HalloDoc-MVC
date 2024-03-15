@@ -47,9 +47,6 @@
                         <td id="notes">
                             <input type="hidden" id="requestidinput4" value="requestId=@item.requestId" />
                             <p class="note"></p>
-
-
-
                         </td>
                         <td><a class="table-btn p-1" role="button">Provider</a></td>
                         <td>
@@ -63,7 +60,7 @@
                                     <li><a class="dropdown-item" href="@Url.Action("adminViewNotes", "Admin", new { requestId = @item.requestId})">View Notes</a></li>
                                     <li><a class="dropdown-item" href="@Url.Action("sendOrder", "Admin", new { requestId = @item.requestId})">Orders</a></li>
                                     <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
-                                    <li><a class="dropdown-item" href="#">Encounter</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("encounterForm", "Admin", new { requestId = @item.requestId})">Encounter</a></li>
                                 </ul>
                             </div>
 

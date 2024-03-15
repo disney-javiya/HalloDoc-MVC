@@ -62,7 +62,7 @@
                                     <li><a class="dropdown-item" href="@Url.Action("closeCase", "Admin", new { requestId = @item.requestId})">Close Case</a></li>
                                     <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
                                     <li><a class="dropdown-item" href="#">Clear Case</a></li>
-                                    <li><a class="dropdown-item" href="#">Encounter</a></li>
+                                    <li><a class="dropdown-item" href="@Url.Action("encounterForm", "Admin", new { requestId = @item.requestId})">Encounter</a></li>
                                 </ul>
                             </div>
 

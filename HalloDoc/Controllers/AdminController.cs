@@ -17,6 +17,7 @@ using System.Net.Mail;
 using System.Net;
 using Elfie.Serialization;
 using HalloDoc.AuthMiddleware;
+using System.Text;
 
 namespace HalloDoc.Controllers
 {
@@ -118,6 +119,13 @@ namespace HalloDoc.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public FileResult Export(string GridHtml)
+        {
+            return File(Encoding.ASCII.GetBytes(GridHtml), "application/vnd.ms-excel", "Data.xls");
+        }   
+
 
         [CustomeAuthorize("Admin")]
         public IActionResult getFilterByRegions(int regionId, int type)
@@ -687,13 +695,22 @@ namespace HalloDoc.Controllers
 
         }
 
-        //[CustomeAuthorize("Admin")]
+        [CustomeAuthorize("Admin")]
         public IActionResult adminProfile()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
 
             return View();
 
+        }
+
+        //[CustomeAuthorize("Admin")]
+        public IActionResult encounterForm()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            //_adminRepository.closeCaseAdmin(requestId, ViewBag.Data);
+            return View();
         }
         public IActionResult logOut()
         {
