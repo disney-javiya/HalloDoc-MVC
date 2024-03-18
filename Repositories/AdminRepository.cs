@@ -423,6 +423,62 @@ namespace Repository
             return s;
 
         }
+
+        public List<RequestandRequestClient> getByRequesttypeIdRegionAndName(IEnumerable<RequestandRequestClient> r, int requesttypeId, int? regionId, string? patient_name)
+        {
+            List<RequestandRequestClient> s = new List<RequestandRequestClient>();
+
+            
+            if (regionId == 0 && patient_name != null)
+            {
+                foreach (var r2 in r)
+                {
+                    if (r2.RequestTypeId == requesttypeId && r2.patientName.ToLower().Contains(patient_name.ToLower()))
+                    {
+                        s.Add(r2);
+                    }
+
+                }
+            }
+            else if(patient_name == null && regionId !=0)
+            {
+                var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();
+                foreach (var r2 in r)
+                {
+                    if (r2.RequestTypeId == requesttypeId && r2.patientAddress.Contains(region))
+                    {
+                        s.Add(r2);
+                    }
+
+                }
+            }
+            else if(patient_name == null && regionId == 0)
+            {
+                foreach (var r2 in r)
+                {
+                    if (r2.RequestTypeId == requesttypeId)
+                    {
+                        s.Add(r2);
+                    }
+
+                }
+            }
+            else
+            {
+                var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();
+                foreach (var r2 in r)
+                {
+                    if (r2.RequestTypeId == requesttypeId && r2.patientAddress.Contains(region) && r2.patientName.ToLower().Contains(patient_name.ToLower()))
+                    {
+                        s.Add(r2);
+                    }
+
+                }
+            }
+           
+            return s;
+
+        }
         public List<RequestandRequestClient> getFilterByName(IEnumerable<RequestandRequestClient> r, string patient_name)
         {
             List<RequestandRequestClient> s = new List<RequestandRequestClient>();
@@ -448,7 +504,23 @@ namespace Repository
         }
 
 
+        public List<RequestandRequestClient> getFilterByRegionAndName(IEnumerable<RequestandRequestClient> r, string patient_name, int regionId)
+        {
+            List<RequestandRequestClient> s = new List<RequestandRequestClient>();
+            var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();
+            foreach (var r2 in r)
+            {
+                if (r2.patientName != null && r2.patientAddress != null)
+                {
+                    if (r2.patientName.ToLower().Contains(patient_name.ToLower()) && r2.patientAddress.Contains(region))
+                    {
+                        s.Add(r2);
+                    }
+                }
 
+            }
+            return s;
+        }
         public List<RequestandRequestClient> getFilterByRegionsAfter(int regionId, IEnumerable<RequestandRequestClient> r)
         {
             List<RequestandRequestClient> s = new List<RequestandRequestClient>();
@@ -681,6 +753,10 @@ namespace Repository
             int reqId = int.Parse(requestId);
             var res = getNotes(reqId, email);
            return res.TransferNote;
+        }
+        public Admin getAdminInfo(string email)
+        {
+            return _context.Admins.Where(x => x.Email == email).FirstOrDefault();
         }
     }
 }

@@ -54,6 +54,7 @@
                                     <input asp-for="Email" type="email" class="form-control email shadow-none " id="floatingInput" placeholder="">
                                 <label for="floatingInput" class=" email-text">Email address </label>
                                 <i class="fa-regular fa-user position-absolute user-icon" style="color: #828487;"></i>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
 
                             </div>
                         </div>
@@ -62,6 +63,7 @@
                                     <input asp-for="PasswordHash" type="password" class="form-control password shadow-none" id="floatingPassword" placeholder="Password">
                                 <label for="floatingPassword" class=" password-text">Password</label>
                                 <i class="fa-regular fa-eye  position-absolute eye-icon" style="color: #828487;"></i>
+                                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col gy-2">

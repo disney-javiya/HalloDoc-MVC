@@ -58,18 +58,21 @@
                             <div class="form-floating mb-3">
                                 <input asp-for="BusinessContact" type="text" class="form-control b-contact last-name-create-patient shadow-none" id="floatingInput" placeholder="">
                                 <label class="last-name-create-patient-text" for="floatingInput">Business Contact</label>
+                                <span asp-validation-for="BusinessContact" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-6 gy-3 ">
                             <div class="form-floating mb-3">
                                 <input asp-for="Email"  type="email" class="form-control email email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
                                 <label class="email-create-patient-text" for="floatingInput">Email address</label>
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-6  me-auto">
                             <div class="form-floating mb-3">
                                 <input asp-for="FaxNumber" type="text" class="form-control faxnumber last-name-create-patient shadow-none" id="floatingInput" placeholder="">
                                 <label class="last-name-create-patient-text" for="floatingInput">Fax Number</label>
+                                <span asp-validation-for="FaxNumber" class="text-danger"></span>
                             </div>
                         </div>
 

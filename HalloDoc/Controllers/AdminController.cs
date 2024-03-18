@@ -19,6 +19,7 @@ using Elfie.Serialization;
 using HalloDoc.AuthMiddleware;
 using System.Text;
 
+
 namespace HalloDoc.Controllers
 {
     public class AdminController : Controller
@@ -80,11 +81,18 @@ namespace HalloDoc.Controllers
             r = _adminRepository.getAllRegions();
             return View(r);
         }
-        public int getCountNumber(int type)
+        public List<int> getCountNumber()
         {
-            var res = _adminRepository.getRequestStateData(type);
+            List<int> result = new List<int>();
+            IEnumerable<RequestandRequestClient> res;
+            for (int i = 1; i<=6; i++)
+            {
+               res = _adminRepository.getRequestStateData(i);
+               result.Add(res.Count());
+            }
 
-            return res.Count();
+
+            return result;
         }
         [CustomeAuthorize("Admin")]
         public IActionResult adminTableData(int type)
@@ -164,11 +172,12 @@ namespace HalloDoc.Controllers
 
         }
 
-        public IActionResult getByRequesttypeId(int requesttypeId, int type)
+        public IActionResult getByRequesttypeId(string typeid, int type)
         {
+            int reqId = int.Parse(typeid);
             ViewBag.Data = HttpContext.Session.GetString("key");
             IEnumerable<RequestandRequestClient> r = _adminRepository.getRequestStateData(type);
-            List<RequestandRequestClient> bytypeid = _adminRepository.getByRequesttypeId(r, requesttypeId);
+            List<RequestandRequestClient> bytypeid = _adminRepository.getByRequesttypeId(r, reqId);
 
             if (type == 1)
             {
@@ -199,7 +208,43 @@ namespace HalloDoc.Controllers
 
 
         }
-        public IActionResult getFilterByName(string patient_name, int type)
+
+        public IActionResult getByRequesttypeIdRegionAndName(string typeid, int type, int regionid, string patient_name)
+        {
+            int reqId = int.Parse(typeid);
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            IEnumerable<RequestandRequestClient> r = _adminRepository.getRequestStateData(type);
+           
+           List<RequestandRequestClient> bytypeid = _adminRepository.getByRequesttypeIdRegionAndName(r, reqId, regionid, patient_name);
+            if (type == 1)
+            {
+                return PartialView("_newState", bytypeid);
+            }
+            else if (type == 2)
+            {
+                return PartialView("_pendingState", bytypeid);
+            }
+            else if (type == 3)
+            {
+                return PartialView("_activeState", bytypeid);
+            }
+            else if (type == 4)
+            {
+                return PartialView("_concludeState", bytypeid);
+            }
+            else if (type == 5)
+            {
+                return PartialView("_tocloseState", bytypeid);
+            }
+            else if (type == 6)
+            {
+                return PartialView("_unpaidState", bytypeid);
+            }
+
+            return View();
+
+        }
+            public IActionResult getFilterByName(string patient_name, int type)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
             IEnumerable<RequestandRequestClient> r = _adminRepository.getRequestStateData(type);
@@ -234,9 +279,41 @@ namespace HalloDoc.Controllers
 
         }
 
-       
+        public IActionResult getFilterByRegionAndName(string patient_name, int type, int regionId)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            IEnumerable<RequestandRequestClient> r = _adminRepository.getRequestStateData(type);
+            List<RequestandRequestClient> byregionandname = _adminRepository.getFilterByRegionAndName(r, patient_name, regionId);
+            if (type == 1)
+            {
+                return PartialView("_newState", byregionandname);
+            }
+            else if (type == 2)
+            {
+                return PartialView("_pendingState", byregionandname);
+            }
+            else if (type == 3)
+            {
+                return PartialView("_activeState", byregionandname);
+            }
+            else if (type == 4)
+            {
+                return PartialView("_concludeState", byregionandname);
+            }
+            else if (type == 5)
+            {
+                return PartialView("_tocloseState", byregionandname);
+            }
+            else if (type == 6)
+            {
+                return PartialView("_unpaidState", byregionandname);
+            }
 
-    
+            return View();
+
+        }
+
+
 
         [CustomeAuthorize("Admin")]
         public IActionResult adminViewCase(int requestId)
@@ -696,11 +773,13 @@ namespace HalloDoc.Controllers
         }
 
         [CustomeAuthorize("Admin")]
+        [HttpGet]
         public IActionResult adminProfile()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-
-            return View();
+            Admin a = new Admin();
+            a = _adminRepository.getAdminInfo(ViewBag.Data);
+            return View(a);
 
         }
 

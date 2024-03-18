@@ -24,6 +24,10 @@ namespace Repository.IRepository
 
         public List<RequestandRequestClient> getByRequesttypeId(IEnumerable<RequestandRequestClient> r, int requesttypeId);
         public List<RequestandRequestClient> getFilterByName(IEnumerable<RequestandRequestClient> r, string patient_name);
+
+        public List<RequestandRequestClient> getFilterByRegionAndName(IEnumerable<RequestandRequestClient> r, string patient_name, int regionId);
+
+        public List<RequestandRequestClient> getByRequesttypeIdRegionAndName(IEnumerable<RequestandRequestClient> r, int requesttypeId, int? regionId, string? patient_name);
         public void adminNotes(int requestId, viewNotes v, string email);
         //public void adminCancelNote([FromBody] viewNotes viewNoteData, string email);
         public void adminCancelNote(string requestId, string reason, string additionalNotes, string email);
@@ -68,5 +72,6 @@ namespace Repository.IRepository
         public void closeCaseAdmin(int requestId, string email);
 
         public string adminTransferNotes(string requestId, string email);
+        public Admin getAdminInfo(string email);
     }
 }

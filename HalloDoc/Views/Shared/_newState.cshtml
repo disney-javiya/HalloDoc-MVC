@@ -200,6 +200,7 @@
                             }
                         }
                     </select>
+                   
                     <div class="form-floating m-2">
                         <textarea name="additionalNotes" class="form-control symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
                         <label class="symptoms-create-patient-text" for="floatingTextarea">Provide Additional Notes</label>
@@ -338,7 +339,7 @@
                 success: function (data) {
 
                     $("#patientName").text("Patient Name: " + data);
-
+                    
                 }
             });
 

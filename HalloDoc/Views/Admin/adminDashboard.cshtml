@@ -105,11 +105,11 @@
                     </div>
                     <div class="color-dots d-flex flex-row m-2 p-2">
                         <a class="p-2 me-1" role="button" id="all">All</a>
-                        <a role="button" id="patient"><i class="fa-solid fa-circle me-1 p-2" style="color: #35d016;"></i>Patient</a>
-                        <a role="button" id="family"><i class="fa-solid fa-circle me-1 p-2" style="color: #FFD43B;"></i>Family/Friend</a>
-                        <a role="button" id="business"><i class="fa-solid fa-circle me-1 p-2" style="color: #e63368;"></i>Business</a>
-                        <a role="button" id="concierge"><i class="fa-solid fa-circle me-1 p-2" style="color: #74C0FC;"></i>Conciege</a>
-                        <a role="button" id="vip"><i class="fa-solid fa-circle me-1 p-2" style="color: #B197FC;"></i>VIP</a>
+                        <a role="button" data-id="2" class="role" style="text-decoration:none; color: black;"><i class="fa-solid fa-circle  me-1 p-2" style="color: #35d016;"></i>Patient</a>
+                        <a role="button" data-id="3" class="role" style="text-decoration:none; color: black;"><i class="fa-solid fa-circle role me-1 p-2" style="color: #FFD43B;"></i>Family/Friend</a>
+                        <a role="button"  data-id="1" class="role" style="text-decoration:none; color: black;"><i class="fa-solid fa-circle role me-1 p-2" style="color: #e63368;"></i>Business</a>
+                        <a role="button"  data-id="4" class="role" style="text-decoration:none; color: black;"><i class="fa-solid fa-circle role me-1 p-2" style="color: #74C0FC;"></i>Conciege</a>
+                        <a role="button"  data-id="5" class="role" style="text-decoration:none; color: black;"><i class="fa-solid fa-circle role me-1 p-2" style="color: #B197FC;"></i>VIP</a>
 
                     </div>
 
@@ -189,26 +189,15 @@
                 $.ajax({
                     url: "/Admin/getCountNumber",
                     method: "GET",
-                    data: { "type": type },
+                   
                     success: function (data) {
-                        if (type === "1") {
-                            $('#count_new').html(data);
-                        }
-                        else if (type === "2") {
-                            $('#count_pending').html(data);
-                        }
-                        else if (type === "3") {
-                            $('#count_active').html(data);
-                        }
-                        else if (type === "4") {
-                            $('#count_conclude').html(data);
-                        }
-                        else if (type === "5") {
-                            $('#count_toclose').html(data);
-                        }
-                        else {
-                            $('#count_unpaid').html(data);
-                        }
+                        $('#count_new').html(data[0]);
+                        $('#count_pending').html(data[1]);
+                        $('#count_active').html(data[2]);
+                        $('#count_conclude').html(data[3]);
+                        $('#count_toclose').html(data[4]);
+                        $('#count_unpaid').html(data[5]);
+                       
                     },
                     error: function () {
 
@@ -219,12 +208,207 @@
     </script>
 
 
-    <script>
-        $('.card').click(function () {
-            var type = $(this).attr("value");
+
+<script>
+        $(document).ready(function () {
+
+            var regionId;
+            var patient_name;
+            var type;
+            var typeid;
+            $('.card').click(function () {
+                type = $(this).attr("value");
        
-        if ($('#patient').click(function () {
-          
+             
+            });
+            $('#region').change(function () {
+
+                regionId = $('#region').val();
+         
+                fetchData();
+            });
+            $('.search').change(function () {
+                patient_name = $('.search').val();
+           
+                fetchData();
+            });
+            $('.role').click(function () {
+                typeid = $(this).attr("data-id");
+        
+                fetchData();
+            });
+            alert("hii");
+            function fetchData() {
+                alert("hey");
+
+                if (regionId != null && regionId != "Select Region" && patient_name == undefined) {
+
+                    $.ajax({
+                        url: "/Admin/getFilterByRegions",
+                        method: "GET",
+                        data: { "regionId": regionId, "type": type },
+                        success: function (data) {
+                            $('#tableContainer').html(data);
+                        },
+                        error: function () {
+
+                        }
+
+                    });
+                    $('#region').val("Select Region");
+                }
+                if (patient_name != undefined && regionId == undefined) {
+
+                    $.ajax({
+                        url: "/Admin/getFilterByName",
+                        method: "GET",
+                        data: { "patient_name": patient_name, "type": type },
+                        success: function (data) {
+                            $('#tableContainer').html(data);
+                        },
+                        error: function () {
+
+                        }
+
+                    });
+                    $('.search').val("");
+
+                }
+                if (patient_name != undefined && regionId != null) {
+                    $.ajax({
+                        url: "/Admin/getFilterByRegionAndName",
+                        method: "GET",
+                        data: { "patient_name": patient_name, "type": type, "regionId": regionId },
+                        success: function (data) {
+                            $('#tableContainer').html(data);
+                        },
+                        error: function () {
+
+                        }
+                    });
+                    $('.search').val("");
+                    $('#region').val("Select Region");
+
+                }
+                if (typeid != null) {
+                   
+                    // if (regionId == null && patient_name == undefined) {
+                    //     $.ajax({
+                    //         url: "/Admin/getByRequesttypeId",
+                    //         method: "GET",
+                    //         data: { "typeid": typeid, "type": type },
+                    //         success: function (data) {
+                    //             $('#tableContainer').html(data);
+                    //         },
+                    //         error: function () {
+
+                    //         }
+                    //     });
+
+                      
+                    // }
+                  
+                        $.ajax({
+                            url: "/Admin/getByRequesttypeIdRegionAndName",
+                            method: "GET",
+                            data: { "typeid": typeid, "type": type, "regionId": regionId, "patient_name": patient_name },
+                            success: function (data) {
+                                $('#tableContainer').html(data);
+                            },
+                            error: function () {
+
+                            }
+                        });
+                      
+                     
+                        
+                    typeid = undefined;
+                    $('.search').val("");
+                    $('#region').val("Select Region");
+                }
+
+               
+
+            }
+        });
+    </script>
+
+   @*  if($('#patient').click(function () {
+
+    $.ajax({
+    url: "/admin/getbyrequesttypeid",
+    method: "get",
+    data: { "requesttypeid": 2, "type": type },
+    success: function (data) {
+    $('#tablecontainer').html(data);
+    },
+    error: function () {
+
+    }
+    });
+
+    }));
+    if( $('#family').click(function () {
+
+    $.ajax({
+    url: "/admin/getbyrequesttypeid",
+    method: "get",
+    data: { "requesttypeid": 3, "type": type },
+    success: function (data) {
+    $('#tablecontainer').html(data);
+    },
+    error: function () {
+
+    }
+    });
+
+    }));
+    if($('#business').click(function () {
+
+    $.ajax({
+    url: "/admin/getbyrequesttypeid",
+    method: "get",
+    data: { "requesttypeid": 1, "type": type },
+    success: function (data) {
+    $('#tablecontainer').html(data);
+    },
+    error: function () {
+
+    }
+    });
+
+    }));
+    if( $('#concierge').click(function () {
+
+    $.ajax({
+    url: "/admin/getbyrequesttypeid",
+    method: "get",
+    data: { "requesttypeid": 4, "type": type },
+    success: function (data) {
+    $('#tablecontainer').html(data);
+    },
+    error: function () {
+
+    }
+    });
+
+    }));
+    if($('#vip').click(function () {
+
+    }));
+
+ *@
+
+
+    @*     <script>
+        $(document).ready(function () {
+            var type;
+            $('.card').click(function () {
+                 type = $(this).attr("value");
+               
+            });
+            $('#patient').click(function () {
+              
                 $.ajax({
                     url: "/Admin/getByRequesttypeId",
                     method: "GET",
@@ -236,10 +420,10 @@
 
                     }
                 });
-            
-        }));
-        if ($('#family').click(function () {
-            
+
+            });
+            $('#family').click(function () {
+
                 $.ajax({
                     url: "/Admin/getByRequesttypeId",
                     method: "GET",
@@ -251,10 +435,10 @@
 
                     }
                 });
-               
-        }));
-         if ($('#business').click(function () {
-           
+
+            });
+            $('#business').click(function () {
+
                 $.ajax({
                     url: "/Admin/getByRequesttypeId",
                     method: "GET",
@@ -266,10 +450,10 @@
 
                     }
                 });
-               
-        }));
-         if ($('#concierge').click(function () {
-            
+
+            });
+            $('#concierge').click(function () {
+
                 $.ajax({
                     url: "/Admin/getByRequesttypeId",
                     method: "GET",
@@ -281,11 +465,11 @@
 
                     }
                 });
-             
-        }));
-        if ($('#vip').click(function () {
-           
-        }));
+
+            });
+            $('#vip').click(function () {
+
+            });
 
         });
     </script>
@@ -316,9 +500,26 @@
                         error: function () {
 
                         }
+                              
                     });
+                   
                 }
+                if (patient_name != undefined && regionId != null) {
+                    $.ajax({
+                        url: "/Admin/getFilterByRegionAndName",
+                        method: "GET",
+                        data: { "patient_name": patient_name, "type": type, "regionId": regionId },
+                        success: function (data) {
+                            $('#tableContainer').html(data);
+                        },
+                        error: function () {
 
+                        }
+                    });
+                    $('.search').val("");
+                    $('#region').val("Select Region");
+
+                }
                
 
             });
@@ -339,15 +540,32 @@
 
                         }
                     });
+                   
+                }
+                if (patient_name != undefined && regionId != null) 
+                {
+                    $.ajax({
+                        url: "/Admin/getFilterByRegionAndName",
+                        method: "GET",
+                        data: { "patient_name": patient_name, "type": type, "regionId": regionId },
+                        success: function (data) {
+                            $('#tableContainer').html(data);
+                        },
+                        error: function () {
+
+                        }
+                    });
+                    $('.search').val("");
+                    $('#region').val("Select Region");
                 }
             });
 
 
 
-        });
+        }); 
 
     </script>
-
+ *@
 
 
     @if (ViewBag.LoginSuccess != null && ViewBag.LoginSuccess ||
@@ -403,47 +621,7 @@
         </script>
     }
 
-   @*  <script>
-        $(document).ready(function () {
-
-            var regionId;
-            var patient_name;
-            var type;
-
-            $('.card').click(function () {
-                type = $(this).attr("value");
-                applyFilters();
-            });
-
-            $('#region').change(function () {
-                regionId = $('#region').val();
-                applyFilters();
-            });
-
-            $('.search').change(function () {
-                patient_name = $('.search').val();
-                applyFilters();
-            });
-
-            function applyFilters() {
-                if ((regionId && regionId !== "Select Region") || patient_name) {
-                    $.ajax({
-                        url: "/Admin/getFilteredData",
-                        method: "GET",
-                        data: { "regionId": regionId, "patient_name": patient_name, "type": type },
-                        success: function (data) {
-                            $('#tableContainer').html(data);
-                        },
-                        error: function () {
-                            console.log("Error occurred while fetching filtered data.");
-                        }
-                    });
-                }
-            }
-
-        });
-
-    </script> *@
+  
 
 </body>
 </html>

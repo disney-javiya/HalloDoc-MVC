@@ -1,4 +1,4 @@
-﻿@* @model HalloDoc.DataAccessLayer.DataModels.ViewModels.createPatientRequest; *@
+﻿@model HalloDoc.DataAccessLayer.DataModels.Admin;
 @{
     Layout = null;
 }
@@ -41,14 +41,14 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control first-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="FirstName" type="text" class="form-control first-name-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="first-name-create-patient-text" for="floatingInput">Username</label>
 
                         </div>
                     </div>
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control password-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input  type="password" class="form-control password-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="password-create-patient-text" for="floatingInput">Password</label>
 
                         </div>
@@ -88,14 +88,14 @@
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control first-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="FirstName" type="text" class="form-control first-name-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="first-name-create-patient-text" for="floatingInput">First Name</label>
 
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control last-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="LastName" type="text" class="form-control last-name-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="last-name-create-patient-text" for="floatingInput">Last Name</label>
 
                         </div>
@@ -103,7 +103,7 @@
 
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
+                            <input asp-for="Email" type="email" class="form-control email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
                             <label class="email-create-patient-text" for="floatingInput">Email address</label>
 
                         </div>
@@ -111,7 +111,7 @@
 
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control email-create-patient shadow-none" id="floatingInput1" placeholder="name@example.com">
+                            <input asp-for="Email" type="email" class="form-control email-create-patient shadow-none" id="floatingInput1" placeholder="name@example.com">
                             <label class="email-create-patient-text" for="floatingInput1">Confirm Email address</label>
 
                         </div>
@@ -119,7 +119,7 @@
                     <div class="col-md-6 gy-3  me-auto">
                         <div class="form-floating mb-3">
 
-                            <input class=" form-control contact-create-patient shadow-none" id="phone" type="tel" />
+                            <input asp-for="Mobile" class=" form-control contact-create-patient shadow-none" id="phone" type="tel" />
                             <label class="contact-create-patient-text" for="phone"> </label>
 
                         </div>
@@ -141,7 +141,7 @@
 
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control street-create-patient  shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="Address1" type="text" class="form-control street-create-patient  shadow-none" id="floatingInput" placeholder="">
                             <label class="street-create-patient-text" for="floatingInput">Address 1</label>
 
                         </div>
@@ -149,14 +149,14 @@
 
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control street-create-patient  shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="Address2" type="text" class="form-control street-create-patient  shadow-none" id="floatingInput" placeholder="">
                             <label class="street-create-patient-text" for="floatingInput">Address 2</label>
 
                         </div>
                     </div>
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control city-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="City" type="text" class="form-control city-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="city-create-patient-text" for="floatingInput">City</label>
 
                         </div>
@@ -165,14 +165,14 @@
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control state-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="City" type="text" class="form-control state-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="state-create-patient-text" for="floatingInput">State</label>
 
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control zipcode-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="Zip" type="text" class="form-control zipcode-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="zipcode-create-patient-text" for="floatingInput">Zipcode</label>
 
                         </div>
@@ -180,7 +180,7 @@
                     <div class="col-md-6 gy-3 ">
                         <div class="form-floating mb-3">
 
-                            <input class=" form-control contact-create-patient shadow-none" id="phone1" type="tel" />
+                            <input asp-for="AltPhone" class=" form-control contact-create-patient shadow-none" id="phone1" type="tel" />
                             <label class="contact-create-patient-text" for="phone1"> </label>
 
                         </div>
@@ -229,8 +229,8 @@
 
     </script>
     <script>
-        const phoneInputField = document.querySelector("#phone1");
-        const phoneInput = window.intlTelInput(phoneInputField, {
+        const phoneInputField1 = document.querySelector("#phone1");
+        const phoneInput1 = window.intlTelInput(phoneInputField1, {
             utilsScript:
                 "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
         });
