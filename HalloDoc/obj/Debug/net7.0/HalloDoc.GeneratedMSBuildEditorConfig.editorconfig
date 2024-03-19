@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\pce88\source\repos\HalloDoc\HalloDoc
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Admin/adminCreateRequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYWRtaW5DcmVhdGVSZXF1ZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Admin/adminDashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cYWRtaW5EYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

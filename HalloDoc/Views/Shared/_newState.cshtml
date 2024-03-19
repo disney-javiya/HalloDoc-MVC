@@ -427,7 +427,8 @@
                 url: '/Admin/GetPhysicians',
                 type: 'GET',
                 data: { regionId: regionId },
-                success: function (data) {
+                success: function (data)
+                   
                     var physicianDropdown = $('#physician');
                     physicianDropdown.empty();
                     physicianDropdown.append($('<option></option>').text("Select Physicians"));
@@ -441,7 +442,7 @@
         });
 
     });
-</script>
+</script>s
 
 
 @*Script for all cards background, icon color and request type role*@

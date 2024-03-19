@@ -18,6 +18,7 @@ using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.Http;
 using System.IO.Compression;
+using System.Web.Helpers;
 
 namespace Repository
 {
@@ -391,6 +392,10 @@ namespace Repository
         {
             List<RequestandRequestClient> s = new List<RequestandRequestClient>();
             var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();
+            if (regionId == 0)
+            {
+                return r.ToList();
+            }
             foreach (var r2 in r)
             {
                 if(r2.patientAddress != null)
@@ -427,8 +432,7 @@ namespace Repository
         public List<RequestandRequestClient> getByRequesttypeIdRegionAndName(IEnumerable<RequestandRequestClient> r, int requesttypeId, int? regionId, string? patient_name)
         {
             List<RequestandRequestClient> s = new List<RequestandRequestClient>();
-
-            
+           
             if (regionId == 0 && patient_name != null)
             {
                 foreach (var r2 in r)
@@ -439,8 +443,10 @@ namespace Repository
                     }
 
                 }
+                return s;
+                
             }
-            else if(patient_name == null && regionId !=0)
+            else if(patient_name == null && regionId != 0)
             {
                 var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();
                 foreach (var r2 in r)
@@ -451,18 +457,9 @@ namespace Repository
                     }
 
                 }
+                return s;
             }
-            else if(patient_name == null && regionId == 0)
-            {
-                foreach (var r2 in r)
-                {
-                    if (r2.RequestTypeId == requesttypeId)
-                    {
-                        s.Add(r2);
-                    }
-
-                }
-            }
+            
             else
             {
                 var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();
@@ -474,9 +471,10 @@ namespace Repository
                     }
 
                 }
+                return s;
             }
            
-            return s;
+          
 
         }
         public List<RequestandRequestClient> getFilterByName(IEnumerable<RequestandRequestClient> r, string patient_name)
@@ -508,6 +506,18 @@ namespace Repository
         {
             List<RequestandRequestClient> s = new List<RequestandRequestClient>();
             var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();
+            if(regionId == 0 && patient_name == null)
+            {
+                return r.ToList();
+            }
+            if(regionId !=0 && patient_name == null)
+            {
+               return getFilterByRegions(r,regionId);
+            }
+            if (regionId == 0 && patient_name != null)
+            {
+              return  getFilterByName(r, patient_name);
+            }
             foreach (var r2 in r)
             {
                 if (r2.patientName != null && r2.patientAddress != null)
@@ -758,5 +768,148 @@ namespace Repository
         {
             return _context.Admins.Where(x => x.Email == email).FirstOrDefault();
         }
+        public string adminCreateRequest(createAdminRequest RequestData , string email)
+        {
+            AspNetUser asp = new AspNetUser();
+            User data = new User();
+            var newId = "";
+            var row = _context.AspNetUsers.Where(x => x.Email == RequestData.Email).FirstOrDefault();
+            if (row == null)
+            {
+                newId = Guid.NewGuid().ToString();
+                asp.Id = newId;
+                asp.Email = RequestData.Email;
+                asp.UserName = RequestData.FirstName + RequestData.LastName;
+                asp.PhoneNumber = RequestData.Mobile;
+                asp.CreatedDate = DateTime.Now;
+                _context.AspNetUsers.Add(asp);
+                _context.SaveChanges();
+
+                data.AspNetUserId = newId;
+
+
+            }
+            else
+            {
+
+                data.AspNetUserId = row.Id;
+            }
+
+
+            data.Email = RequestData.Email;
+            data.FirstName = RequestData.FirstName;
+            data.LastName = RequestData.LastName;
+            data.Mobile = RequestData.Mobile;
+            data.Street = RequestData.Street;
+            data.City = RequestData.City;
+            data.State = RequestData.State;
+            data.ZipCode = RequestData.ZipCode;
+            System.String sDate = RequestData.DateOfBirth.ToString();
+            DateTime datevalue = (Convert.ToDateTime(sDate.ToString()));
+
+            int dy = datevalue.Day;
+            System.String mn = datevalue.Month.ToString();
+            int yy = datevalue.Year;
+
+            data.IntYear = yy;
+            data.StrMonth = mn;
+            data.IntDate = dy;
+
+            var admin = _context.Admins.Where(x=>x.Email == email).FirstOrDefault();    
+            data.CreatedBy = admin.FirstName;
+            data.CreatedDate = DateTime.Now;
+            data.Status = 1;
+            _context.Users.Add(data);
+            _context.SaveChanges();
+
+
+            Request req = new Request();
+            req.RequestTypeId = 5;
+            req.UserId = data.UserId;
+            req.FirstName = admin.FirstName;
+            req.LastName = admin.LastName;
+            req.PhoneNumber = admin.Mobile;
+            req.Email = admin.Email;
+            req.Status = 1;
+            int c = _context.Users.Where(x => x.CreatedDate.Date == DateTime.Today).Count();
+            req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Replace("-", "").Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
+            req.CreatedDate = DateTime.Now;
+           
+
+
+            _context.Requests.Add(req);
+            _context.SaveChanges();
+
+
+            RequestClient rc = new RequestClient();
+            rc.RequestId = req.RequestId;
+            rc.FirstName = RequestData.FirstName;
+            rc.LastName = RequestData.LastName;
+            rc.PhoneNumber = RequestData.Mobile;
+            rc.Location = RequestData.State;
+            rc.Address = RequestData.Street + "," + RequestData.City + "," + RequestData.State + " ," + RequestData.ZipCode;
+           
+            rc.Email = RequestData.Email;
+            rc.StrMonth = mn;
+            rc.IntDate = dy;
+            rc.IntYear = yy;
+            rc.Street = RequestData.Street;
+            rc.City = RequestData.City;
+            rc.State = RequestData.State;
+            rc.ZipCode = RequestData.ZipCode;
+            var regionid = _context.Regions.Where(x => x.Name == RequestData.City).Select(u => u.RegionId).FirstOrDefault();
+            rc.RegionId = regionid;
+            _context.RequestClients.Add(rc);
+            _context.SaveChanges();
+
+            viewNotes v = new viewNotes();
+            v.AdditionalNote = RequestData.AdditionalNotes;
+
+            adminNotes(req.RequestId, v, email);
+            return newId;
+        }
+
+        public void passwordresetInsert(string Email, string id)
+        {
+            Passwordreset temp = _context.Passwordresets.Where(x => x.Email == Email).FirstOrDefault();
+
+
+
+            if (temp != null)
+            {
+                temp.Token = id.ToString();
+                temp.Createddate = DateTime.Now;
+                temp.Isupdated = new BitArray(1);
+            }
+            else
+            {
+                Passwordreset passwordReset = new Passwordreset();
+                passwordReset.Token = id.ToString();
+                passwordReset.Email = Email;
+                passwordReset.Isupdated = new BitArray(1);
+                passwordReset.Createddate = DateTime.Now;
+                _context.Passwordresets.Add(passwordReset);
+            }
+            _context.SaveChanges();
+
+        }
+       
+        public List<Region> getAdminRegions(string email)
+        {
+            var admin = _context.Admins.FirstOrDefault(x => x.Email == email);
+            if (admin == null)
+            {
+                return new List<Region>(); 
+            }
+
+            var regionIds = _context.AdminRegions
+                                    .Where(x => x.AdminId == admin.AdminId)
+                                    .Select(x => x.RegionId)
+                                    .ToList();
+
+            var regions = _context.Regions.Where(x => regionIds.Contains(x.RegionId)).ToList();
+            return regions;
+        }
+
     }
 }

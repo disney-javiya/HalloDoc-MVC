@@ -73,5 +73,8 @@ namespace Repository.IRepository
 
         public string adminTransferNotes(string requestId, string email);
         public Admin getAdminInfo(string email);
+        public string adminCreateRequest(createAdminRequest RequestData, string email);
+        public void passwordresetInsert(string Email, string id);
+        public List<Region> getAdminRegions(string email);
     }
 }

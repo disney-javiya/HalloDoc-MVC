@@ -782,14 +782,91 @@ namespace HalloDoc.Controllers
             return View(a);
 
         }
+        [CustomeAuthorize("Admin")]
+
+        public IActionResult adminCreateRequest()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+           
+            //if (row == null)
+            //{
+            //    SendEmailUser(RequestData.Email, res);
+            //}
+            return View();
+
+        }
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult adminCreateRequest(createAdminRequest RequestData)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            string email = RequestData.Email;
+            var row = _adminRepository.GetUserByEmail(email);
+            var res = _adminRepository.adminCreateRequest(RequestData, ViewBag.Data);
+
+            if (row == null)
+            {
+                SendEmailUser(RequestData.Email, res);
+            }
+            return RedirectToAction("adminDashboard");
+
+        }
+
+        public Action SendEmailUser(System.String Email, string id)
+        {
+
+            AspNetUser aspNetUser = _adminRepository.GetUserByEmail(Email);
+
+
+            string senderEmail = "tatva.dotnet.disneyjaviya@outlook.com";
+            string senderPassword = "Disney@20";
+            string resetLink = $"{Request.Scheme}://{Request.Host}/Home/createPatientAccount?id={id}";
+
+           _adminRepository.passwordresetInsert(Email,id);
+
+           
+
+
+
+            SmtpClient client = new SmtpClient("smtp.office365.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress(senderEmail, "HalloDoc"),
+                Subject = "Set up your Account",
+                IsBodyHtml = true,
+                Body = $"Please create password for your account: <a href='{resetLink}'>{resetLink}</a>"
+            };
+
+            mailMessage.To.Add(Email)
+;
+
+            client.SendMailAsync(mailMessage);
+            return null;
+        }
 
         //[CustomeAuthorize("Admin")]
         public IActionResult encounterForm()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
 
-            //_adminRepository.closeCaseAdmin(requestId, ViewBag.Data);
+           
             return View();
+        }
+        [HttpGet]
+        public List<Region> getAdminRegions()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            //List<Region> res = new List<Region>();
+         var res =  _adminRepository.getAdminRegions(ViewBag.Data);
+            return res;
         }
         public IActionResult logOut()
         {

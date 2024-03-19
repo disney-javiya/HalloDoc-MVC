@@ -41,14 +41,14 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input asp-for="FirstName" type="text" class="form-control first-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="FirstName" type="text" class="form-control first-name-create-patient shadow-none" id="floatingInput" placeholder="" disabled>
                             <label class="first-name-create-patient-text" for="floatingInput">Username</label>
 
                         </div>
                     </div>
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input  type="password" class="form-control password-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input  type="password" class="form-control password-create-patient shadow-none" id="floatingInput" placeholder="" >
                             <label class="password-create-patient-text" for="floatingInput">Password</label>
 
                         </div>
@@ -56,7 +56,7 @@
 
                     <div class="col-md-6  gy-3 dropdown" style=" color: lightgray; border: 1px solid lightgray;">
                         <div class=" form-floating mb-3 ">
-                            <button class="btn dropdown-toggle  w-100" style="text-align:left; border:none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn dropdown-toggle  w-100" style="text-align:left; border:none;" type="button" data-bs-toggle="dropdown" aria-expanded="false" disabled>
                                 Status
                             </button>
                             <ul class="dropdown-menu w-100">
@@ -68,7 +68,7 @@
 
                     <div class="col-md-6  gy-3 dropdown" style=" color: lightgray; border: 1px solid lightgray;">
                         <div class=" form-floating mb-3 ">
-                            <button class="btn  dropdown-toggle w-100 " style="text-align:left; border:none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn  dropdown-toggle w-100 " style="text-align:left; border:none;" type="button" data-bs-toggle="dropdown" aria-expanded="false" disabled>
                                 Role
                             </button>
                             <ul class="dropdown-menu w-100">
@@ -88,14 +88,14 @@
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input asp-for="FirstName" type="text" class="form-control first-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="FirstName" type="text" class="form-control first-name-create-patient shadow-none e1" id="floatingInput" placeholder="" disabled>
                             <label class="first-name-create-patient-text" for="floatingInput">First Name</label>
 
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input asp-for="LastName" type="text" class="form-control last-name-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="LastName" type="text" class="form-control last-name-create-patient shadow-none e1" id="floatingInput" placeholder="" disabled>
                             <label class="last-name-create-patient-text" for="floatingInput">Last Name</label>
 
                         </div>
@@ -103,7 +103,7 @@
 
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input asp-for="Email" type="email" class="form-control email-create-patient shadow-none" id="floatingInput" placeholder="name@example.com">
+                            <input asp-for="Email" type="email" class="form-control email-create-patient shadow-none e1" id="floatingInput" placeholder="name@example.com" disabled>
                             <label class="email-create-patient-text" for="floatingInput">Email address</label>
 
                         </div>
@@ -111,29 +111,33 @@
 
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input asp-for="Email" type="email" class="form-control email-create-patient shadow-none" id="floatingInput1" placeholder="name@example.com">
+                            <input asp-for="Email" type="email" class="form-control email-create-patient shadow-none e1" id="floatingInput1" placeholder="name@example.com" disabled>
                             <label class="email-create-patient-text" for="floatingInput1">Confirm Email address</label>
 
                         </div>
                     </div>
-                    <div class="col-md-6 gy-3  me-auto">
+                    <div class="col-md-6 gy-3 ">
                         <div class="form-floating mb-3">
 
-                            <input asp-for="Mobile" class=" form-control contact-create-patient shadow-none" id="phone" type="tel" />
+                            <input asp-for="Mobile" class=" form-control contact-create-patient shadow-none e1" id="phone" type="tel" disabled />
                             <label class="contact-create-patient-text" for="phone"> </label>
 
                         </div>
                     </div>
 
-
+                    <div id="checkbox-container" class="col-md-6 gy-3">
+                    </div>
+                     
+                  
 
                     <div class="col d-flex justify-content-end mb-2">
-                        <button class="btn submit-btn-create-patient me-2" id="showAlertButton">Edit</button>
-
+                        <button class="btn submit-btn-create-patient edit1 me-2" id="showAlertButton">Edit</button>
+                        <button type="submit" role="button" class="btn save-btn-patient-profile submit1 me-2 p-2" style="display: none;">Save</button>
+                        <a role="button" class="btn cancel-btn-patient-profile cancel1 me-2 p-2" style="display: none;">Cancel</a>
                     </div>
+                    
 
-
-
+                   
 
                     <div class="col">
                         <h5>Mailing & Billing Information</h5>
@@ -141,7 +145,7 @@
 
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input asp-for="Address1" type="text" class="form-control street-create-patient  shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="Address1" type="text" class="form-control street-create-patient  shadow-none e2" id="floatingInput" placeholder="" disabled>
                             <label class="street-create-patient-text" for="floatingInput">Address 1</label>
 
                         </div>
@@ -149,14 +153,14 @@
 
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input asp-for="Address2" type="text" class="form-control street-create-patient  shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="Address2" type="text" class="form-control street-create-patient  shadow-none e2" id="floatingInput" placeholder="" disabled>
                             <label class="street-create-patient-text" for="floatingInput">Address 2</label>
 
                         </div>
                     </div>
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input asp-for="City" type="text" class="form-control city-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="City" type="text" class="form-control city-create-patient shadow-none e2" id="floatingInput" placeholder="" disabled>
                             <label class="city-create-patient-text" for="floatingInput">City</label>
 
                         </div>
@@ -165,14 +169,14 @@
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input asp-for="City" type="text" class="form-control state-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="City" type="text" class="form-control state-create-patient shadow-none e2" id="floatingInput" placeholder="" disabled>
                             <label class="state-create-patient-text" for="floatingInput">State</label>
 
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input asp-for="Zip" type="text" class="form-control zipcode-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="Zip" type="text" class="form-control zipcode-create-patient shadow-none e2" id="floatingInput" placeholder="" disabled>
                             <label class="zipcode-create-patient-text" for="floatingInput">Zipcode</label>
 
                         </div>
@@ -180,7 +184,7 @@
                     <div class="col-md-6 gy-3 ">
                         <div class="form-floating mb-3">
 
-                            <input asp-for="AltPhone" class=" form-control contact-create-patient shadow-none" id="phone1" type="tel" />
+                            <input asp-for="AltPhone" class=" form-control contact-create-patient shadow-none e2" id="phone1" type="tel" disabled />
                             <label class="contact-create-patient-text" for="phone1"> </label>
 
                         </div>
@@ -192,10 +196,12 @@
 
 
                     <div class="col d-flex justify-content-end mb-2">
-                        <button class="btn submit-btn-create-patient me-2" id="showAlertButton">Edit</button>
+                        <button class="btn submit-btn-create-patient edit2 me-2" id="showAlertButton">Edit</button>
+                        <button type="submit" role="button" class="btn save-btn-patient-profile submit2 me-2 p-2" style="display: none;">Save</button>
+                        <a role="button" class="btn cancel-btn-patient-profile cancel2 me-2 p-2" style="display: none;">Cancel</a>
 
                     </div>
-
+                    
 
 
 
@@ -237,7 +243,86 @@
 
     </script>
 
+    <script>
+        $(document).ready(function () {
+          
+            $.ajax({
+                url: '/Admin/getAdminRegions',
+                method: 'GET',
+                success: function (data) {
+                   
+                        $.each(data, function (index, region) {
 
+                        var checkbox = $('<input checked disabled>').attr({
+                                type: 'checkbox',
+                                name: 'regions',
+                                
+                                value: region.regionId
+                            });
+                           
+                            var label = $('<label>').text(region.name);
+                           
+                            var container = $('#checkbox-container');
+                        container.append(checkbox).append(" ").append(label).append('<br>');
+                        });
+                 
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching regions:", xhr.status, xhr.statusText);
+                    console.error("Response body:", xhr.responseText);
+                    alert("Failed to fetch regions. Please try again later.");
+                }
+
+            });
+        });
+    </script>
+
+    <script>
+
+        const editBtn1 = document.querySelector(".edit1");
+        const editBtn2 = document.querySelector(".edit2");
+        const saveBtn1 = document.querySelector(".submit1");
+        const saveBtn2 = document.querySelector(".submit2");
+        const cancelBtn1 = document.querySelector(".cancel1");
+        const cancelBtn2 = document.querySelector(".cancel2");
+        const e1 = document.querySelectorAll(".e1");
+        const e2 = document.querySelectorAll(".e2");
+        editBtn1.addEventListener("click", function () {
+            e1.forEach(field => {
+                field.removeAttribute("disabled");
+            });
+            editBtn1.style.display = "none";
+            saveBtn1.style.display = "inline-block";
+            cancelBtn1.style.display = "inline-block";
+        });
+
+        cancelBtn1.addEventListener("click", function () {
+            e1.forEach(field => {
+                field.setAttribute("disabled", true);
+            });
+            editBtn1.style.display = "inline-block";
+            saveBtn1.style.display = "none";
+            cancelBtn1.style.display = "none";
+        });
+
+        editBtn2.addEventListener("click", function () {
+            e2.forEach(field => {
+                field.removeAttribute("disabled");
+            });
+            editBtn2.style.display = "none";
+            saveBtn2.style.display = "inline-block";
+            cancelBtn2.style.display = "inline-block";
+        });
+
+        cancelBtn2.addEventListener("click", function () {
+            e2.forEach(field => {
+                field.setAttribute("disabled", true);
+            });
+            editBtn2.style.display = "inline-block";
+            saveBtn2.style.display = "none";
+            cancelBtn2.style.display = "none";
+        });
+</script>
 </body>
 
 </html>
