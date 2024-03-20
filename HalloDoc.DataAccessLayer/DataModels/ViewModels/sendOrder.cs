@@ -17,18 +17,19 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
 
         public int? RequestId { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string? FaxNumber { get; set; }
-
+        [Required]
         [StringLength(50)]
         public string? Email { get; set; }
-
+        [Required]
         [StringLength(100)]
         public string? BusinessContact { get; set; }
-
+        [Required]
         [Column(TypeName = "character varying")]
         public string? Prescription { get; set; }
-
+ 
         public int? NoOfRefill { get; set; }
 
         [Column(TypeName = "timestamp without time zone")]
@@ -36,8 +37,9 @@ namespace HalloDoc.DataAccessLayer.DataModels.ViewModels
 
         [StringLength(100)]
         public string? CreatedBy { get; set; }
-  
+
         public int? hname { get; set; }
+     
         public int? type { get; set; }
         public IEnumerable<HealthProfessionalType> HealthProfessionalType { get; set; }
         public IEnumerable<HealthProfessional> HealthProfessional { get; set; }

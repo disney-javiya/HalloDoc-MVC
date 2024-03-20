@@ -204,8 +204,9 @@ namespace Repository
             RequestStatusLog rs = new RequestStatusLog();
             Request r = new Request();
             int reqId = int.Parse(requestId);
+
             var res = _context.Requests.Where(x => x.RequestId == reqId).FirstOrDefault();
-            if (reqId != null)
+            if (res != null && physician != "Select Physician" && region != "Select Region" )
             {
                 res.Status = 2;
                 res.PhysicianId = int.Parse(physician);
@@ -263,7 +264,7 @@ namespace Repository
             Request r = new Request();
             int reqId = int.Parse(requestId);
             var res = _context.Requests.Where(x => x.RequestId == reqId).FirstOrDefault();
-            if (reqId != null)
+            if (res != null)
             {
                 res.Status = 2;
                 res.PhysicianId = int.Parse(physician);
@@ -290,7 +291,7 @@ namespace Repository
             int reqId = int.Parse(requestId);
           
             var res = _context.Requests.Where(x => x.RequestId == reqId).FirstOrDefault();
-            if (reqId != null)
+            if (res != null)
             {
                 res.Status = 7;
                 _context.SaveChanges();
@@ -909,6 +910,93 @@ namespace Repository
 
             var regions = _context.Regions.Where(x => regionIds.Contains(x.RegionId)).ToList();
             return regions;
+        }
+
+
+        public void adminProfileUpdatePassword(string email, string password)
+        {
+            var aspuser = _context.AspNetUsers.Where(x => x.Email == email).First();
+
+            
+            if (aspuser != null)
+            {
+                var plainText = Encoding.UTF8.GetBytes(password);
+                aspuser.PasswordHash = Convert.ToBase64String(plainText);
+                _context.SaveChanges();
+            }
+        }
+
+        public void adminUpdateProfile(string email, Admin a , string uncheckedCheckboxes)
+        {
+
+            var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(a => a.Id).First();
+
+            var admin = _context.Admins.Where(x => x.AspNetUserId == aspId).FirstOrDefault();
+            if (admin != null)
+            {
+                
+                admin.FirstName = a.FirstName;
+                admin.LastName = a.LastName;
+                admin.Email = a.Email;
+                admin.Mobile = a.Mobile;
+               
+                admin.ModifiedBy = admin.AspNetUserId;
+                admin.ModifiedDate = DateTime.Now;
+                string[] boxes = uncheckedCheckboxes.Split(','); ;
+
+
+                if (uncheckedCheckboxes != null)
+                {
+                    foreach (var box in boxes)
+                    {
+                        int regionid = int.Parse(box);
+                        var row = _context.AdminRegions.Where(x => x.AdminId == admin.AdminId && x.RegionId == regionid).FirstOrDefault();
+                        if (row != null)
+                        {
+                            _context.AdminRegions.Remove(row);
+                            _context.SaveChanges();
+
+                        }
+
+                    }
+                }
+                _context.SaveChanges();
+                
+            }
+
+
+
+
+
+        }
+
+        public void adminUpdateProfileBilling(string email, Admin a)
+        {
+
+            var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(a => a.Id).First();
+
+            var admin = _context.Admins.Where(x => x.AspNetUserId == aspId).FirstOrDefault();
+            if (admin != null)
+            {
+
+               
+                admin.Address1 = a.Address1;
+                admin.Address2 = a.Address2;
+                admin.City = a.City;
+
+                var regionid = _context.Regions.Where(x => x.Name == a.City).Select(u => u.RegionId).FirstOrDefault();
+                admin.RegionId = regionid;
+                admin.Zip = a.Zip;
+                admin.AltPhone = a.AltPhone;
+                admin.ModifiedBy = admin.AspNetUserId;
+                admin.ModifiedDate = DateTime.Now;
+                _context.SaveChanges();
+
+            }
+
+
+
+
         }
 
     }

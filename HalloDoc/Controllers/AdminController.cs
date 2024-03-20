@@ -18,7 +18,8 @@ using System.Net;
 using Elfie.Serialization;
 using HalloDoc.AuthMiddleware;
 using System.Text;
-
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace HalloDoc.Controllers
 {
@@ -128,13 +129,153 @@ namespace HalloDoc.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public FileResult Export(string GridHtml)
+        //{
+        //    return File(Encoding.ASCII.GetBytes(GridHtml), "application/vnd.ms-excel", "Data.xls");
+        //}
+
         [HttpPost]
-        public FileResult Export(string GridHtml)
+        public FileResult Export(string type, string regionId, string patient_name, string typeid)
         {
-            return File(Encoding.ASCII.GetBytes(GridHtml), "application/vnd.ms-excel", "Data.xls");
-        }   
+            int t = int.Parse(type);
+            int tid =0;
+            int r =0;
+            if (typeid != null)
+            {
+                 tid = int.Parse(typeid);
+            }
+            if(regionId != null)
+            {
+                 r = int.Parse(regionId);
+            }
+            
+            IEnumerable<RequestandRequestClient> res = _adminRepository.getRequestStateData(t);
+            List<RequestandRequestClient> result;
+            if(regionId != null && patient_name == null && typeid == null)
+            {
+               result = _adminRepository.getFilterByRegions(res, r);
+            }
+            else if (regionId == null && patient_name != null && typeid == null)
+            {
+                result = _adminRepository.getFilterByName(res, patient_name);
+            }
+            else if (regionId == null && patient_name == null && typeid != null)
+            {
+                result = _adminRepository.getByRequesttypeId(res, tid);
+            }
+            else if (regionId != null && patient_name != null && typeid == null)
+            {
+                result = _adminRepository.getFilterByRegionAndName(res, patient_name,r);
+            }
+            else if (regionId == null && patient_name == null && typeid ==  null)
+            {
+                result = res.ToList();
+            }
+            else 
+            {
+                result = _adminRepository.getByRequesttypeIdRegionAndName(res, tid, r, patient_name);
+            }
+            var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Data");
+            var currentRow = 1;
+            worksheet.Cell(currentRow, 1).Value = "Patient Name";
+            worksheet.Cell(currentRow, 2).Value = "Patient DOB";
+            worksheet.Cell(currentRow, 3).Value = "Patient Email";
+            worksheet.Cell(currentRow, 4).Value = "Requestor Name";
+            worksheet.Cell(currentRow, 5).Value = "Physician Name";
+            worksheet.Cell(currentRow, 6).Value = "Patient Contact";
+            worksheet.Cell(currentRow, 7).Value = "Requestor Contact";
+            worksheet.Cell(currentRow, 8).Value = "Patient Address";
+            worksheet.Cell(currentRow, 9).Value = "Requested Date";
 
+            worksheet.Column(1).Width = 20;
+            worksheet.Column(2).Width = 15;
+            worksheet.Column(3).Width = 30;
+            worksheet.Column(4).Width = 20;
+            worksheet.Column(5).Width = 20;
+            worksheet.Column(6).Width = 15;
+            worksheet.Column(7).Width = 15;
+            worksheet.Column(8).Width = 35;
+            worksheet.Column(9).Width = 15;
+            foreach (var user in result)
+            {
+                currentRow++;
+                worksheet.Cell(currentRow, 1).Value = user.patientName;
+                worksheet.Cell(currentRow, 2).Value = user.patientDOB;
+                worksheet.Cell(currentRow, 3).Value = user.patientEmail;
+                worksheet.Cell(currentRow, 4).Value = user.requestorName;
+                worksheet.Cell(currentRow, 5).Value = user.physicianName;
+                worksheet.Cell(currentRow, 6).Value = user.patientContact;
+                worksheet.Cell(currentRow, 7).Value = user.requestorContact;
+                worksheet.Cell(currentRow, 8).Value = user.patientAddress;
+                worksheet.Cell(currentRow, 9).Value = user.requestedDate;
 
+            }
+
+            using (var stream = new MemoryStream())
+            {
+                workbook.SaveAs(stream);
+                var content = stream.ToArray();
+
+                return File(
+                    content,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "users.xlsx");
+            }
+        }
+        [HttpPost]
+        public FileResult ExportAll(int type)
+        {
+            var res = _adminRepository.getRequestStateData(type);
+            var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("Data");
+            var currentRow = 1;
+            worksheet.Cell(currentRow, 1).Value = "Patient Name";
+            worksheet.Cell(currentRow, 2).Value = "Patient DOB";
+            worksheet.Cell(currentRow, 3).Value = "Patient Email";
+            worksheet.Cell(currentRow, 4).Value = "Requestor Name";
+            worksheet.Cell(currentRow, 5).Value = "Physician Name";
+            worksheet.Cell(currentRow, 6).Value = "Patient Contact";
+            worksheet.Cell(currentRow, 7).Value = "Requestor Contact";
+            worksheet.Cell(currentRow, 8).Value = "Patient Address";
+            worksheet.Cell(currentRow, 9).Value = "Requested Date";
+
+            worksheet.Column(1).Width = 20;
+            worksheet.Column(2).Width = 15;
+            worksheet.Column(3).Width = 30;
+            worksheet.Column(4).Width = 20;
+            worksheet.Column(5).Width = 20;
+            worksheet.Column(6).Width = 15;
+            worksheet.Column(7).Width = 15;
+            worksheet.Column(8).Width = 35;
+            worksheet.Column(9).Width = 15;
+            foreach (var user in res)
+            {
+                currentRow++;
+                worksheet.Cell(currentRow, 1).Value = user.patientName;
+                worksheet.Cell(currentRow, 2).Value = user.patientDOB;
+                worksheet.Cell(currentRow, 3).Value = user.patientEmail;
+                worksheet.Cell(currentRow, 4).Value = user.requestorName;
+                worksheet.Cell(currentRow, 5).Value = user.physicianName;
+                worksheet.Cell(currentRow, 6).Value = user.patientContact;
+                worksheet.Cell(currentRow, 7).Value = user.requestorContact;
+                worksheet.Cell(currentRow, 8).Value = user.patientAddress;              
+                worksheet.Cell(currentRow, 9).Value = user.requestedDate;
+               
+            }
+
+            using (var stream = new MemoryStream())
+            {
+                workbook.SaveAs(stream);
+                var content = stream.ToArray();
+
+                return File(
+                    content,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    "users.xlsx");
+            }
+        }
         [CustomeAuthorize("Admin")]
         public IActionResult getFilterByRegions(int regionId, int type)
         {
@@ -174,36 +315,46 @@ namespace HalloDoc.Controllers
 
         public IActionResult getByRequesttypeId(string typeid, int type)
         {
-            int reqId = int.Parse(typeid);
-            ViewBag.Data = HttpContext.Session.GetString("key");
-            IEnumerable<RequestandRequestClient> r = _adminRepository.getRequestStateData(type);
-            List<RequestandRequestClient> bytypeid = _adminRepository.getByRequesttypeId(r, reqId);
+            if (typeid == "all")
+            {
+                return adminTableData(type);
+            }
+            else
+            {
+                int reqId = int.Parse(typeid);
+                IEnumerable<RequestandRequestClient> r = _adminRepository.getRequestStateData(type);
+                List<RequestandRequestClient> bytypeid = _adminRepository.getByRequesttypeId(r, reqId);
 
-            if (type == 1)
-            {
-                return PartialView("_newState", bytypeid);
-            }
-            else if (type == 2)
-            {
-                return PartialView("_pendingState", bytypeid);
-            }
-            else if (type == 3)
-            {
-                return PartialView("_activeState", bytypeid);
-            }
-            else if (type == 4)
-            {
-                return PartialView("_concludeState", bytypeid);
-            }
-            else if (type == 5)
-            {
-                return PartialView("_tocloseState", bytypeid);
-            }
-            else if (type == 6)
-            {
-                return PartialView("_unpaidState", bytypeid);
-            }
 
+
+                ViewBag.Data = HttpContext.Session.GetString("key");
+
+
+                if (type == 1)
+                {
+                    return PartialView("_newState", bytypeid);
+                }
+                else if (type == 2)
+                {
+                    return PartialView("_pendingState", bytypeid);
+                }
+                else if (type == 3)
+                {
+                    return PartialView("_activeState", bytypeid);
+                }
+                else if (type == 4)
+                {
+                    return PartialView("_concludeState", bytypeid);
+                }
+                else if (type == 5)
+                {
+                    return PartialView("_tocloseState", bytypeid);
+                }
+                else if (type == 6)
+                {
+                    return PartialView("_unpaidState", bytypeid);
+                }
+            }
             return View();
 
 
@@ -211,35 +362,43 @@ namespace HalloDoc.Controllers
 
         public IActionResult getByRequesttypeIdRegionAndName(string typeid, int type, int regionid, string patient_name)
         {
-            int reqId = int.Parse(typeid);
-            ViewBag.Data = HttpContext.Session.GetString("key");
-            IEnumerable<RequestandRequestClient> r = _adminRepository.getRequestStateData(type);
+            if (typeid == "all")
+            {
+                return adminTableData(type);
+            }
+            else
+            {
+                int reqId = int.Parse(typeid);
+                ViewBag.Data = HttpContext.Session.GetString("key");
+                IEnumerable<RequestandRequestClient> r = _adminRepository.getRequestStateData(type);
+
+                List<RequestandRequestClient> bytypeid = _adminRepository.getByRequesttypeIdRegionAndName(r, reqId, regionid, patient_name);
+                if (type == 1)
+                {
+                    return PartialView("_newState", bytypeid);
+                }
+                else if (type == 2)
+                {
+                    return PartialView("_pendingState", bytypeid);
+                }
+                else if (type == 3)
+                {
+                    return PartialView("_activeState", bytypeid);
+                }
+                else if (type == 4)
+                {
+                    return PartialView("_concludeState", bytypeid);
+                }
+                else if (type == 5)
+                {
+                    return PartialView("_tocloseState", bytypeid);
+                }
+                else if (type == 6)
+                {
+                    return PartialView("_unpaidState", bytypeid);
+                }
+            }
            
-           List<RequestandRequestClient> bytypeid = _adminRepository.getByRequesttypeIdRegionAndName(r, reqId, regionid, patient_name);
-            if (type == 1)
-            {
-                return PartialView("_newState", bytypeid);
-            }
-            else if (type == 2)
-            {
-                return PartialView("_pendingState", bytypeid);
-            }
-            else if (type == 3)
-            {
-                return PartialView("_activeState", bytypeid);
-            }
-            else if (type == 4)
-            {
-                return PartialView("_concludeState", bytypeid);
-            }
-            else if (type == 5)
-            {
-                return PartialView("_tocloseState", bytypeid);
-            }
-            else if (type == 6)
-            {
-                return PartialView("_unpaidState", bytypeid);
-            }
 
             return View();
 
@@ -629,7 +788,8 @@ namespace HalloDoc.Controllers
         [CustomeAuthorize("Admin")]
         public IActionResult sendOrder()
         {
-           sendOrder s = new sendOrder();
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            sendOrder s = new sendOrder();
             s.HealthProfessionalType = _adminRepository.GetAllHealthProfessionalType();
             s.HealthProfessional = _adminRepository.GetAllHealthProfessional();
             return View(s);
@@ -780,6 +940,37 @@ namespace HalloDoc.Controllers
             Admin a = new Admin();
             a = _adminRepository.getAdminInfo(ViewBag.Data);
             return View(a);
+
+        }
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult adminProfileUpdatePassword(string password)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            _adminRepository.adminProfileUpdatePassword(ViewBag.Data, password);
+            return RedirectToAction("adminProfile");
+
+        }
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult adminProfile(Admin a , string uncheckedCheckboxes)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+           
+            _adminRepository.adminUpdateProfile(ViewBag.Data, a, uncheckedCheckboxes);
+            return RedirectToAction("adminProfile");
+
+        }
+
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult adminProfileBilling(Admin a)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            _adminRepository.adminUpdateProfileBilling(ViewBag.Data, a);
+            return RedirectToAction("adminProfile");
 
         }
         [CustomeAuthorize("Admin")]

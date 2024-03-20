@@ -76,5 +76,9 @@ namespace Repository.IRepository
         public string adminCreateRequest(createAdminRequest RequestData, string email);
         public void passwordresetInsert(string Email, string id);
         public List<Region> getAdminRegions(string email);
+        public void adminProfileUpdatePassword(string email, string password);
+
+        public void adminUpdateProfile(string email, Admin a, string uncheckedCheckboxes);
+        public void adminUpdateProfileBilling(string email, Admin a);
     }
 }

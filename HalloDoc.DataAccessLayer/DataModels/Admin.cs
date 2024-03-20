@@ -15,30 +15,30 @@ public partial class Admin
 
     [StringLength(128)]
     public string AspNetUserId { get; set; } = null!;
-
+    [Required]
     [StringLength(100)]
     public string FirstName { get; set; } = null!;
-
+    [Required]
     [StringLength(100)]
     public string? LastName { get; set; }
-
+    [Required]
     [StringLength(50)]
     public string Email { get; set; } = null!;
-
+    [Required]
     [StringLength(20)]
     public string? Mobile { get; set; }
-
+    [Required]
     [StringLength(500)]
     public string? Address1 { get; set; }
 
     [StringLength(500)]
     public string? Address2 { get; set; }
-
+    [Required]
     [StringLength(100)]
     public string? City { get; set; }
 
     public int? RegionId { get; set; }
-
+    [Required]
     [StringLength(10)]
     public string? Zip { get; set; }
 
