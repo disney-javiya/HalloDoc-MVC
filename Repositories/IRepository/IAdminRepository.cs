@@ -80,5 +80,14 @@ namespace Repository.IRepository
 
         public void adminUpdateProfile(string email, Admin a, string uncheckedCheckboxes);
         public void adminUpdateProfileBilling(string email, Admin a);
+
+        public List<Physician> GetAllPhysicians();
+        public List<Region> getPhysicianRegions(int physicianId);
+        public Physician getPhysicianDetails(int physicianId);
+        public void physicianUpdateStatus(string email, int physicianId, Physician p);
+        public void physicianUpdatePassword(string email, int physicianId, string password);
+        public void physicianUpdateAccount(string email, int physicianId, Physician p, string uncheckedCheckboxes);
+        public void physicianUpdateBilling(string email, int physicianId, Physician p);
+        public void physicianUpdateBusiness(string email, int physicianId, Physician p);
     }
 }

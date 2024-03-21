@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rWWqCvGdYUv2O+SbaNgOV5+p42mpBkU/v9T7j4oowwKB2sUAEeObsxsyc0llTFs7ySIlBKbciwLds5Fb7Xo7xA==",
+  "dgSpecHash": "diOZFZhdDSKSnnZ8QVPlJi68RYfL9IqUj7lBRbdZcnKmFJAfvAwUpWvws9AVbaEea29NEyx8OApxZ3AOGjA30A==",
   "success": true,
   "projectFilePath": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\HalloDoc.csproj",
   "expectedPackageFiles": [
@@ -183,6 +183,8 @@
     "C:\\Users\\pce88\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
+    "C:\\Users\\pce88\\.nuget\\packages\\system.collections.nongeneric\\4.3.0\\system.collections.nongeneric.4.3.0.nupkg.sha512",
+    "C:\\Users\\pce88\\.nuget\\packages\\system.collections.specialized\\4.3.0\\system.collections.specialized.4.3.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.composition\\6.0.0\\system.composition.6.0.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.composition.attributedmodel\\6.0.0\\system.composition.attributedmodel.6.0.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.composition.convention\\6.0.0\\system.composition.convention.6.0.0.nupkg.sha512",
@@ -261,6 +263,7 @@
     "C:\\Users\\pce88\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\pce88\\.nuget\\packages\\twilio\\7.0.2\\twilio.7.0.2.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512"
   ],
   "logs": [

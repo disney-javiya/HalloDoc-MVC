@@ -748,6 +748,26 @@ Forgot-password-page
 .width-admin-viewnotes .notes {
     background: white;
 }
+
+
+/*Provider Menu*/
+.create-provider-btn {
+    background-color: #01BCE9;
+    color: white;
+    text-decoration: none;
+}
+
+    .create-provider-btn :hover {
+        background-color: rgba(1, 188, 233, 0.3);
+        color: #616BA8;
+    }
+
+.providermenu-btn {
+    background-color: white;
+    color: #01BCE9;
+    border: 1px solid #01BCE9;
+    text-decoration: none;
+}
 /* Dark mode CSS*/
 .dark-mode {
     background-color: black;

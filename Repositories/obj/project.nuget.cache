@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VbtIwdNvCQIWmqUzbp9+2DxCsFl6VpCNGWq6f6pSyxiBsPz/uwxFuFmuYiSBN9Kncpz99Iw/RKnyCWcU7FycDg==",
+  "dgSpecHash": "lC1wn9mBz3DoMe+C1lij/0HaCOrW9+vez1oma/+qIQ2H/1W1OsYy1PQzZ4qKw5hqtiLNmN9PfhArba+5QuV9Hg==",
   "success": true,
   "projectFilePath": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\Repositories\\Repository.csproj",
   "expectedPackageFiles": [
@@ -94,6 +94,8 @@
     "C:\\Users\\pce88\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
+    "C:\\Users\\pce88\\.nuget\\packages\\system.collections.nongeneric\\4.3.0\\system.collections.nongeneric.4.3.0.nupkg.sha512",
+    "C:\\Users\\pce88\\.nuget\\packages\\system.collections.specialized\\4.3.0\\system.collections.specialized.4.3.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.console\\4.3.0\\system.console.4.3.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.5.0\\system.diagnostics.diagnosticsource.4.5.0.nupkg.sha512",
@@ -156,6 +158,7 @@
     "C:\\Users\\pce88\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\pce88\\.nuget\\packages\\twilio\\7.0.2\\twilio.7.0.2.nupkg.sha512",
     "C:\\Users\\pce88\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512"
   ],
   "logs": [

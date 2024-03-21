@@ -44,12 +44,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cY2xvc2VDYXNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Admin/editPhysicianAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cZWRpdFBoeXNpY2lhbkFjY291bnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Admin/encounterForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cZW5jb3VudGVyRm9ybS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Admin/providerMenu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5ccHJvdmlkZXJNZW51LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pce88/source/repos/HalloDoc/HalloDoc/Views/Admin/sendOrder.cshtml]

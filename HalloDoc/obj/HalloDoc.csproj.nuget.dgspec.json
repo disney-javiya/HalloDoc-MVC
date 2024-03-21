@@ -71,6 +71,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[7.0.11, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[7.0.2, )"
             }
           },
           "imports": [
@@ -187,6 +191,10 @@
             "System.Net.Mail.Abstractions": {
               "target": "Package",
               "version": "[1.1.21, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[7.0.2, )"
             }
           },
           "imports": [
@@ -303,6 +311,10 @@
             "System.Net.Mail.Abstractions": {
               "target": "Package",
               "version": "[1.1.21, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[7.0.2, )"
             }
           },
           "imports": [

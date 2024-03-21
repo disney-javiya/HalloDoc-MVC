@@ -20,6 +20,11 @@ using HalloDoc.AuthMiddleware;
 using System.Text;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
+using Twilio.Http;
+
 
 namespace HalloDoc.Controllers
 {
@@ -874,12 +879,34 @@ namespace HalloDoc.Controllers
 
                 client.SendMailAsync(mailMessage);
 
+
+                sendSMS(requestId, mobile);
+
                 return RedirectToAction("adminDashboard");
             }
             
 
         }
+        public void sendSMS(string requestId,string mobile)
+        {
+            string req = requestId;
+            string agreementLink = $"{Request.Scheme}://{Request.Host}/Home/reviewAgreement?requestId={req}";
+            string accountSid = "AC5c509d7da59a0b33e1b8e928c6a1b6b9";
+            string authToken = "b1193502b178351e8f7709e095524ca9";
 
+            TwilioClient.Init(accountSid, authToken);
+            var messageOptions = new CreateMessageOptions(
+             new PhoneNumber("+916353121783"));
+            messageOptions.From = new PhoneNumber("+15642161066");
+            messageOptions.Body = "Please review the agreement by clicking the following link. Further treatment will be carried out only after you agreee to the conditions.: <a href='{agreementLink}'>{agreementLink}</a>";
+
+            var message = MessageResource.Create(messageOptions);
+            Console.WriteLine(message.Body);
+
+
+            
+
+        }
 
         [CustomeAuthorize("Admin")]
         public IActionResult closeCase(int requestId)
@@ -1058,6 +1085,89 @@ namespace HalloDoc.Controllers
             //List<Region> res = new List<Region>();
          var res =  _adminRepository.getAdminRegions(ViewBag.Data);
             return res;
+        }
+
+    
+        public IActionResult providerMenu()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            List<Physician> res = new List<Physician>();
+            res = _adminRepository.GetAllPhysicians();
+            
+            return View(res);
+        }
+
+        public IActionResult editPhysicianAccount(int physicianId)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            var res = _adminRepository.getPhysicianDetails(physicianId);
+            return View(res);
+        }
+        [HttpGet]
+        public List<Region> getPhysicianRegions(int physicianId)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            //List<Region> res = new List<Region>();
+            var res = _adminRepository.getPhysicianRegions(physicianId);
+            return res;
+        }
+
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult physicianUpdateStatus(int physicianId, Physician p)
+        {    
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            _adminRepository.physicianUpdateStatus(ViewBag.Data, physicianId, p);
+            return RedirectToAction("editPhysicianAccount", new { physicianId = physicianId });
+
+        }
+
+
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult physicianUpdatePassword(int physicianId, string password)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            _adminRepository.physicianUpdatePassword(ViewBag.Data, physicianId, password);
+            return RedirectToAction("adminProfile", new { physicianId = physicianId });
+
+        }
+
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult physicianUpdateAccount(int physicianId, Physician p, string uncheckedCheckboxes)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            _adminRepository.physicianUpdateAccount(ViewBag.Data, physicianId, p, uncheckedCheckboxes);
+            return RedirectToAction("editPhysicianAccount", new { physicianId = physicianId });
+
+        }
+
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult physicianUpdateBilling(int physicianId, Physician p)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            _adminRepository.physicianUpdateBilling(ViewBag.Data, physicianId, p);
+            return RedirectToAction("editPhysicianAccount", new { physicianId = physicianId });
+
+        }
+
+
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult physicianUpdateBusiness(int physicianId, Physician p)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            _adminRepository.physicianUpdateBusiness(ViewBag.Data, physicianId, p);
+            return RedirectToAction("editPhysicianAccount", new { physicianId = physicianId });
+
         }
         public IActionResult logOut()
         {

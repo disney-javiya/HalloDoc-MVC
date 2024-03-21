@@ -264,3 +264,4 @@ C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Irony.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\SixLabors.Fonts.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\System.IO.Packaging.dll
 C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\XLParser.dll
+C:\Users\pce88\source\repos\HalloDoc\HalloDoc\bin\Debug\net7.0\Twilio.dll

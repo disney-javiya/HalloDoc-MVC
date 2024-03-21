@@ -19,6 +19,8 @@ using System.Web.Mvc;
 using System.Web.Http;
 using System.IO.Compression;
 using System.Web.Helpers;
+using DocumentFormat.OpenXml.Drawing;
+
 
 namespace Repository
 {
@@ -559,8 +561,8 @@ namespace Repository
             {
                 if (file.Length > 0)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var filePath = Path.Combine("wwwroot/Files", fileName);
+                    var fileName = System.IO.Path.GetFileName(file.FileName);
+                    var filePath = System.IO.Path.Combine("wwwroot/Files", fileName);
                     var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
                     var id = _context.Admins.Where(x => x.AspNetUserId == aspId).Select(u => u.AdminId).FirstOrDefault();
                     
@@ -999,5 +1001,161 @@ namespace Repository
 
         }
 
+        public List<Physician> GetAllPhysicians()
+        {
+            return _context.Physicians.ToList();
+        }
+        public Physician getPhysicianDetails(int physicianId)
+        {
+            //int pid = int.Parse(physicianId);
+           var res = _context.Physicians.Where(x=>x.PhysicianId == physicianId).FirstOrDefault();
+            return res;
+        }
+        public List<Region> getPhysicianRegions(int physicianId)
+        {
+            var physician = _context.Physicians.Where(x=>x.PhysicianId == physicianId).ToList();
+            
+            if (physician == null)
+            {
+                return new List<Region>();
+            }
+
+            var regionIds = _context.PhysicianRegions
+                                    .Where(x => x.PhysicianId == physicianId)
+                                    .Select(x => x.RegionId)
+                                    .ToList();
+
+            var regions = _context.Regions.Where(x => regionIds.Contains(x.RegionId)).ToList();
+            return regions;
+        }
+        public void physicianUpdateStatus(string email, int physicianId, Physician p)
+        {
+            var physician = _context.Physicians.Where(x => x.PhysicianId == physicianId).FirstOrDefault();
+
+
+            if (physician != null)
+            {
+
+
+                physician.Status = p.Status;
+                var aid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                physician.ModifiedBy = aid;
+                physician.ModifiedDate = DateTime.Now;
+                _context.SaveChanges();
+
+            }
+        }
+        public void physicianUpdatePassword(string email,int physicianId, string password)
+        {
+            
+
+            var physicianAspId = _context.Physicians.Where(x => x.PhysicianId == physicianId).Select(u=>u.AspNetUserId).FirstOrDefault();
+            if (physicianAspId != null && password != null)
+            {
+                
+               var physician = _context.AspNetUsers.Where(x => x.Id == physicianAspId).FirstOrDefault();
+                var plainText = Encoding.UTF8.GetBytes(password);
+                physician.PasswordHash = Convert.ToBase64String(plainText);
+                physician.ModifiedDate = DateTime.Now;
+                _context.SaveChanges();
+            }
+        }
+        public void physicianUpdateAccount(string email, int physicianId, Physician p, string uncheckedCheckboxes)
+        {
+
+            var physician = _context.Physicians.Where(x => x.PhysicianId == physicianId).FirstOrDefault();
+
+          
+            if (physician != null)
+            {
+
+                physician.FirstName = p.FirstName;
+                physician.LastName = p.LastName;
+                physician.Email = p.Email;
+                physician.Mobile = p.Mobile;
+                physician.MedicalLicense = p.MedicalLicense;
+                physician.Npinumber = p.Npinumber;
+                physician.SyncEmailAddress  = p.SyncEmailAddress;
+                var aid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                physician.ModifiedBy = aid;
+                physician.ModifiedDate = DateTime.Now;
+                _context.SaveChanges();
+                string[] boxes = uncheckedCheckboxes.Split(','); 
+
+
+                if (boxes != null)
+                {
+                   
+                    foreach (var box in boxes)
+                    {
+                        if(box != "")
+                        {
+                            int regionid = int.Parse(box);
+                            var row = _context.PhysicianRegions.Where(x => x.PhysicianId == physicianId && x.RegionId == regionid).FirstOrDefault();
+                            if (row != null)
+                            {
+                                _context.PhysicianRegions.Remove(row);
+                                _context.SaveChanges();
+
+                            }
+                        }
+                      
+
+                    }
+                }
+                
+
+            }
+        }
+
+        public void physicianUpdateBilling(string email,int physicianId, Physician p)
+        {
+
+            var physician = _context.Physicians.Where(x => x.PhysicianId == physicianId).FirstOrDefault();
+
+          
+            if (physician != null)
+            {
+
+
+                physician.Address1 = p.Address1;
+                physician.Address2 = p.Address2;
+                physician.City = p.City;
+
+                var regionid = _context.Regions.Where(x => x.Name == p.City).Select(u => u.RegionId).FirstOrDefault();
+                physician.RegionId = regionid;
+                physician.Zip = p.Zip;
+                physician.AltPhone = p.AltPhone;
+                var aid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                physician.ModifiedBy = aid;
+                physician.ModifiedDate = DateTime.Now;
+                _context.SaveChanges();
+
+            }
+
+
+
+
+        }
+
+        public void physicianUpdateBusiness(string email, int physicianId, Physician p )
+        {
+            var physician = _context.Physicians.Where(x => x.PhysicianId == physicianId).FirstOrDefault();
+
+            if (physician != null)
+            {
+                physician.BusinessName = p.BusinessName;
+                physician.BusinessWebsite = p.BusinessWebsite;
+                var aid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                physician.ModifiedBy = aid;
+                physician.ModifiedDate = DateTime.Now;
+
+            
+                _context.SaveChanges();
+
+
+
+            }
+        }
     }
 }
