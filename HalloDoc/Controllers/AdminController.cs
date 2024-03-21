@@ -1168,6 +1168,9 @@ namespace HalloDoc.Controllers
             _adminRepository.physicianUpdateBusiness(ViewBag.Data, physicianId, p);
             return RedirectToAction("editPhysicianAccount", new { physicianId = physicianId });
 
+
+
+
         }
         public IActionResult logOut()
         {
