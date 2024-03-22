@@ -24,6 +24,7 @@ using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 using Twilio.Http;
+using System.Reflection;
 
 
 namespace HalloDoc.Controllers
@@ -1171,6 +1172,75 @@ namespace HalloDoc.Controllers
 
 
 
+        }
+
+        public IActionResult contactProvider(string physicianId, string ctype, string messagebody)
+        {
+            int pid = int.Parse(physicianId);
+            var physician = _adminRepository.getPhysicianDetails(pid);
+            if(ctype == "1" || ctype == "3")
+            {
+               
+               
+                string accountSid = "AC5c509d7da59a0b33e1b8e928c6a1b6b9";
+                string authToken = "b1193502b178351e8f7709e095524ca9";
+
+                TwilioClient.Init(accountSid, authToken);
+                var messageOptions = new CreateMessageOptions(
+                 new PhoneNumber("+916353121783"));
+                messageOptions.From = new PhoneNumber("+15642161066");
+                messageOptions.Body = messagebody;
+
+                var message = MessageResource.Create(messageOptions);
+                Console.WriteLine(message.Body);
+            }
+            if (ctype == "2" || ctype == "3")
+            {
+                string email = physician.Email;
+
+
+
+                if (physician == null)
+                {
+                    ModelState.AddModelError("Email", "Email does not exist");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    string senderEmail = "tatva.dotnet.disneyjaviya@outlook.com";
+
+                    string senderPassword = "Disney@20";
+
+
+                    SmtpClient client = new SmtpClient("smtp.office365.com")
+                    {
+                        Port = 587,
+                        Credentials = new NetworkCredential(senderEmail, senderPassword),
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false
+                    };
+
+                    MailMessage mailMessage = new MailMessage
+                    {
+                        From = new MailAddress(senderEmail, "HalloDoc"),
+                        Subject = "HalloDoc Admin",
+                        IsBodyHtml = true,
+                        Body = $"This message is for {physician.FirstName} from admin of HalloDoc! {messagebody}"
+                    };
+
+                    mailMessage.To.Add(email);
+
+                    client.SendMailAsync(mailMessage);
+
+
+
+
+                }
+             
+
+            }
+            return RedirectToAction("providerMenu");
         }
         public IActionResult logOut()
         {
