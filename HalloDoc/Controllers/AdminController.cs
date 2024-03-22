@@ -1268,6 +1268,20 @@ namespace HalloDoc.Controllers
 
             return View();
         }
+        public IActionResult createRole()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            
+
+            return View();
+        }
+
+        public List<Menu> menuByAccountType(int accountType)
+        {
+            List<Menu> menu = new List<Menu>();
+            menu = _adminRepository.menuByAccountType(accountType);
+            return menu;
+        }
         public IActionResult logOut()
         {
             Response.Cookies.Delete("jwt");   

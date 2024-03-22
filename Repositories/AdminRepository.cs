@@ -1046,6 +1046,25 @@ namespace Repository
                 physician.Npinumber = p.Npinumber;
                 physician.CreatedDate = DateTime.Now;
 
+                if(photo != null && photo.Length>0)
+                {
+
+                    string fileName = System.IO.Path.GetFileName(photo.FileName);
+                    string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/AdminFiles");
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    string filePath = System.IO.Path.Combine(path, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        photo.CopyTo(stream);
+                    }
+                    physician.Photo = photo.FileName;
+                }
+              
+                
+
                 _context.Physicians.Add(physician);
                 _context.SaveChanges();
 
@@ -1233,8 +1252,18 @@ namespace Repository
 
           
         }
+        public List<Menu> menuByAccountType(int accountType)
+        {
+           if(accountType == 3)
+            {
+                return _context.Menus.ToList();
+            }
+           var m = _context.Menus.Where(x=>x.AccountType == accountType).ToList();
+            return m;
+        }
 
-       
+
+
 
     }
 }

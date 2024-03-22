@@ -92,6 +92,8 @@ namespace Repository.IRepository
         public void physicianUpdateBilling(string email, int physicianId, Physician p);
 
         public void physicianUpdateBusiness(string email, int physicianId, Physician p, IFormFile[] files);
+
+        public List<Menu> menuByAccountType(int accountType);
         //public void physicianUpdateBusiness(string email, int physicianId, Physician p, IFormFile? profilePhoto, IFormFile? signaturePhoto, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc);
     }
 }
