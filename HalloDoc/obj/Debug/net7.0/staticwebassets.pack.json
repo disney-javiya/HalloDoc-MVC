@@ -5,6 +5,18 @@
       "PackagePath": "staticwebassets\\HalloDoc.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\AdminFiles\\11116016_415_prev_ui.png",
+      "PackagePath": "staticwebassets\\AdminFiles\\11116016_415_prev_ui.png"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\AdminFiles\\SRS-23-24-Trainees-2Feb24.pdf",
+      "PackagePath": "staticwebassets\\AdminFiles\\SRS-23-24-Trainees-2Feb24.pdf"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\AdminFiles\\Updated-Training-Plan-20March24.pdf",
+      "PackagePath": "staticwebassets\\AdminFiles\\Updated-Training-Plan-20March24.pdf"
+    },
+    {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\.net-Whole-Plane-2024.pdf",
       "PackagePath": "staticwebassets\\Files\\.net-Whole-Plane-2024.pdf"
     },

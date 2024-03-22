@@ -267,7 +267,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 gy-3">
-                        <input type="file" name="files" id="real-file" hidden="hidden" multiple />
+                        <input type="file" name="files" id="real-file" hidden="hidden" />
                         <div class="input-group mb-3">
                             <input class="form-control binfo" type="text" id="custom-text" aria-label="readonly input example" value="Select Photo" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button">
@@ -276,9 +276,9 @@
                         </div>
                     </div>
                     <div class="col-md-6 gy-3">
-                        <input type="file" name="files1" id="real-file1" hidden="hidden" multiple />
+                        <input type="file" name="files" id="real-file1" hidden="hidden"  />
                         <div class="input-group mb-3">
-                            <input class="form-control binfo" type="text" id="custom-text1" aria-label="readonly input example" value="Select Signature" readonly disabled>
+                            <input class="form-control binfo" type="text" id="custom-text1" aria-label="readonly input example" value="Select Signature" name="signature" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button1">
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>
@@ -286,7 +286,7 @@
                     </div>
                     <div class="col-md-12 gy-3">
                     <div class="form-floating m-2">
-                            <textarea name="additionalNotes" class="form-control binfo symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px"></textarea>
+                            <textarea asp-for="AdminNotes" class="form-control binfo symptoms-create-patient additionalnote shadow-none" placeholder="" id="floatingTextarea" style="height: 100px" disabled></textarea>
                         <label class="symptoms-create-patient-text" for="floatingTextarea">Admin Notes</label>
                     </div>
                     </div>
@@ -306,11 +306,18 @@
 
                     <hr>
                <div class="d-flex flex-column justify-content-between">
-                    <div class="form-check mb-3">
+                    <div class="form-check mb-3 d-flex flex-row">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Independent Contractor Agreement
                         </label>
+
+                        <input type="file" name="agreementDoc" id="real-file2" hidden="hidden" />
+                        <div class="input-group mb-3">
+                            <button class="btn btn-info" type="button" id="custom-button2">
+                                <i class="bi bi-cloud-arrow-up"></i> Upload
+                            </button>
+                        </div>
                     </div>
                
                     <div class="form-check mb-3">
@@ -319,24 +326,51 @@
                         <label class="form-check-label" for="flexCheckDefault">
                             Background Check
                         </label>
+
+                        <input type="file" name="backgroundDoc" id="real-file3" hidden="hidden" />
+                        <div class="input-group mb-3">
+                            <button class="btn btn-info" type="button" id="custom-button3">
+                                <i class="bi bi-cloud-arrow-up"></i> Upload
+                            </button>
+                        </div>
                     </div>
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             HIPAA Compliance
                         </label>
+
+                        <input type="file" name="hippaDoc" id="real-file4" hidden="hidden" />
+                        <div class="input-group mb-3">
+                            <button class="btn btn-info" type="button" id="custom-button4">
+                                <i class="bi bi-cloud-arrow-up"></i> Upload
+                            </button>
+                        </div>
                     </div>
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Non-disclosure Agreement
                         </label>
+
+                        <input type="file" name="disclosureDoc" id="real-file5" hidden="hidden" />
+                        <div class="input-group mb-3">
+                            <button class="btn btn-info" type="button" id="custom-button5">
+                                <i class="bi bi-cloud-arrow-up"></i> Upload
+                            </button>
+                        </div>
                     </div>
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             License Document
                         </label>
+                        <input type="file" name="licenseDoc" id="real-file6" hidden="hidden" />
+                        <div class="input-group mb-3">
+                            <button class="btn btn-info" type="button" id="custom-button6">
+                                <i class="bi bi-cloud-arrow-up"></i> Upload
+                            </button>
+                        </div>
                     </div>
                </div>
             </div>
@@ -524,7 +558,7 @@
 
     </script>
 
-    <script>
+@*     <script>
         let file = document.getElementById("real-file");
         const customBtn = document.getElementById("custom-button");
         const customTxt = document.getElementById("custom-text");
@@ -571,7 +605,41 @@
                 customTxt.setAttribute("value", "Select File");
             }
         });
+    </script> *@
+
+    <script>
+        function setupFileInput(fileInputId, customButtonId, customTextId) {
+            let fileInput = document.getElementById(fileInputId);
+            const customButton = document.getElementById(customButtonId);
+            const customText = document.getElementById(customTextId);
+
+            customButton.addEventListener("click", function () {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener("change", function () {
+                var filename = "";
+                for (var i = 0; i < fileInput.files.length; i++) {
+                    filename = filename + " " + fileInput.files[i].name;
+                }
+                if (fileInput.files.length) {
+                    customText.setAttribute("value", filename);
+                    // this.closest('form').submit();
+                } else {
+                    customText.setAttribute("value", "Select File");
+                }
+            });
+        }
+
+        setupFileInput("real-file", "custom-button", "custom-text");
+        setupFileInput("real-file1", "custom-button1", "custom-text1");
+         setupFileInput("real-file2", "custom-button2", "");
+        setupFileInput("real-file3", "custom-button3", "");
+          setupFileInput("real-file4", "custom-button4", "");
+        setupFileInput("real-file5", "custom-button5", "");
+        setupFileInput("real-file6", "custom-button6", "");
     </script>
+
     <script>
 
 

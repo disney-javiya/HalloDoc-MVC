@@ -76,11 +76,13 @@ namespace Repository.IRepository
         public string adminCreateRequest(createAdminRequest RequestData, string email);
         public void passwordresetInsert(string Email, string id);
         public List<Region> getAdminRegions(string email);
+
+       
         public void adminProfileUpdatePassword(string email, string password);
 
         public void adminUpdateProfile(string email, Admin a, string uncheckedCheckboxes);
         public void adminUpdateProfileBilling(string email, Admin a);
-
+        public void createPhysicianAccount(Physician p, IFormFile photo, string password, string email);
         public List<Physician> GetAllPhysicians();
         public List<Region> getPhysicianRegions(int physicianId);
         public Physician getPhysicianDetails(int physicianId);
@@ -88,6 +90,8 @@ namespace Repository.IRepository
         public void physicianUpdatePassword(string email, int physicianId, string password);
         public void physicianUpdateAccount(string email, int physicianId, Physician p, string uncheckedCheckboxes);
         public void physicianUpdateBilling(string email, int physicianId, Physician p);
-        public void physicianUpdateBusiness(string email, int physicianId, Physician p);
+
+        public void physicianUpdateBusiness(string email, int physicianId, Physician p, IFormFile[] files);
+        //public void physicianUpdateBusiness(string email, int physicianId, Physician p, IFormFile? profilePhoto, IFormFile? signaturePhoto, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc);
     }
 }

@@ -896,7 +896,11 @@ namespace Repository
             _context.SaveChanges();
 
         }
+
+
        
+
+
         public List<Region> getAdminRegions(string email)
         {
             var admin = _context.Admins.FirstOrDefault(x => x.Email == email);
@@ -913,7 +917,7 @@ namespace Repository
             var regions = _context.Regions.Where(x => regionIds.Contains(x.RegionId)).ToList();
             return regions;
         }
-
+        
 
         public void adminProfileUpdatePassword(string email, string password)
         {
@@ -1000,7 +1004,53 @@ namespace Repository
 
 
         }
+        public void createPhysicianAccount(Physician p, IFormFile photo, string password, string email)
+        {
+            AspNetUser asp = new AspNetUser();
+            Physician physician = new Physician();
+            if (p != null)
+            {
 
+                asp.Id = Guid.NewGuid().ToString();
+                asp.UserName = "MD." + p.LastName + p.FirstName;
+                var plainText = Encoding.UTF8.GetBytes(password);
+                asp.PasswordHash = Convert.ToBase64String(plainText);
+                
+                asp.Email = p.Email;
+                asp.PhoneNumber = p.Mobile;
+                asp.CreatedDate = DateTime.Now;
+
+                _context.AspNetUsers.Add(asp);
+                _context.SaveChanges();
+
+                physician.AspNetUserId = asp.Id;
+                physician.FirstName = p.FirstName;
+                physician.LastName = p.LastName;
+                physician.Email = p.Email;
+                physician.Mobile = p.Mobile;
+                physician.MedicalLicense = p.MedicalLicense;
+                physician.AdminNotes = p.AdminNotes;
+                physician.Address1 = p.Address1;
+                physician.Address2 = p.Address2;
+                physician.City = p.City;
+                var rid = _context.Regions.Where(x=>x.Name == p.City).Select(u=>u.RegionId).FirstOrDefault();
+                physician.RegionId = rid;
+                physician.Zip = p.Zip;
+                physician.AltPhone = p.AltPhone;
+
+                var aspid = _context.AspNetUsers.Where(x=>x.Email == email).Select(u=>u.Id).FirstOrDefault();
+                physician.CreatedBy = aspid;
+                physician.Status = 1;
+                physician.BusinessName = p.BusinessName;
+                physician.BusinessWebsite = p.BusinessWebsite;
+                physician.Npinumber = p.Npinumber;
+                physician.CreatedDate = DateTime.Now;
+
+                _context.Physicians.Add(physician);
+                _context.SaveChanges();
+
+            }
+        }
         public List<Physician> GetAllPhysicians()
         {
             return _context.Physicians.ToList();
@@ -1138,7 +1188,7 @@ namespace Repository
 
         }
 
-        public void physicianUpdateBusiness(string email, int physicianId, Physician p )
+        public void physicianUpdateBusiness(string email, int physicianId, Physician p, IFormFile[] files )
         {
             var physician = _context.Physicians.Where(x => x.PhysicianId == physicianId).FirstOrDefault();
 
@@ -1146,16 +1196,45 @@ namespace Repository
             {
                 physician.BusinessName = p.BusinessName;
                 physician.BusinessWebsite = p.BusinessWebsite;
+                physician.AdminNotes = p.AdminNotes;
                 var aid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
                 physician.ModifiedBy = aid;
                 physician.ModifiedDate = DateTime.Now;
+                foreach (var file in files)
+                {
+                    if (file != null && file.Length > 0)
+                    {
+                        string fileName = System.IO.Path.GetFileName(file.FileName);
+                        string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/AdminFiles");
 
-            
+                        if (!Directory.Exists(path))
+                            Directory.CreateDirectory(path);
+
+                        string filePath = System.IO.Path.Combine(path, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                        }
+                    }
+                }
+                physician.Photo = files[0].FileName;
+                physician.Signature = files[1].FileName;
+
                 _context.SaveChanges();
 
 
 
             }
+
+
+
+
+
+          
         }
+
+       
+
     }
 }

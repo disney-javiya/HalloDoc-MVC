@@ -1097,6 +1097,21 @@ namespace HalloDoc.Controllers
             
             return View(res);
         }
+    
+        public IActionResult createPhysicianAccount()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+           
+            return View();
+        }
+        [HttpPost]
+        public IActionResult createPhysicianAccount(Physician p, IFormFile photo, string password)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.createPhysicianAccount(p, photo, password, ViewBag.Data);
+            return View();
+        }
+
 
         public IActionResult editPhysicianAccount(int physicianId)
         {
@@ -1162,11 +1177,13 @@ namespace HalloDoc.Controllers
 
         [CustomeAuthorize("Admin")]
         [HttpPost]
-        public IActionResult physicianUpdateBusiness(int physicianId, Physician p)
+        public IActionResult physicianUpdateBusiness(int physicianId, Physician p, IFormFile[] files)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.physicianUpdateBusiness(ViewBag.Data, physicianId, p, files);
 
-            _adminRepository.physicianUpdateBusiness(ViewBag.Data, physicianId, p);
+
+          
             return RedirectToAction("editPhysicianAccount", new { physicianId = physicianId });
 
 
@@ -1241,6 +1258,15 @@ namespace HalloDoc.Controllers
 
             }
             return RedirectToAction("providerMenu");
+        }
+
+        public IActionResult adminAccess()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            //List<Physician> res = new List<Physician>();
+            //res = _adminRepository.GetAllPhysicians();
+
+            return View();
         }
         public IActionResult logOut()
         {
