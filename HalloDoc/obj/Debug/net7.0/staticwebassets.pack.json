@@ -33,6 +33,10 @@
       "PackagePath": "staticwebassets\\Files\\Assignment-1234.pdf"
     },
     {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\CreateAdmin.png",
+      "PackagePath": "staticwebassets\\Files\\CreateAdmin.png"
+    },
+    {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\DB1.txt",
       "PackagePath": "staticwebassets\\Files\\DB1.txt"
     },

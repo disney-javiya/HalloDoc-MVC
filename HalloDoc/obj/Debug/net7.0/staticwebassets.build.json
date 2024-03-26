@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7fUouj1EPJ98uOLoiwcce1yWqnk697VoRw2TSs/FwJE=",
+  "Hash": "AMO4nDGmxiVX8ozAwXvHN0SZo4vl4ghfu4nnvMxheCQ=",
   "Source": "HalloDoc",
   "BasePath": "_content/HalloDoc",
   "Mode": "Default",
@@ -219,6 +219,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Files\\Assignment-1234.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\CreateAdmin.png",
+      "SourceId": "HalloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc",
+      "RelativePath": "Files/CreateAdmin.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Files\\CreateAdmin.png"
     },
     {
       "Identity": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\db1.png",

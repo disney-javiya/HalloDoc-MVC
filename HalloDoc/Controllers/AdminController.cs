@@ -1263,15 +1263,25 @@ namespace HalloDoc.Controllers
         public IActionResult adminAccess()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            //List<Physician> res = new List<Physician>();
-            //res = _adminRepository.GetAllPhysicians();
+            List<Role> res = new List<Role>();
+            res = _adminRepository.GetAllRoles();
 
-            return View();
+            return View(res);
         }
+        [CustomeAuthorize("Admin")]
         public IActionResult createRole()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
             
+
+            return View();
+        }
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult createRole(createRole r , string checkedCheckboxes)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            //_adminRepository.createRole(r, checkedCheckboxes, ViewBag.Data);
 
             return View();
         }

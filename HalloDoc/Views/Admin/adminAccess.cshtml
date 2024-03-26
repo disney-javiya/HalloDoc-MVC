@@ -1,4 +1,4 @@
-﻿@* @model IEnumerable<HalloDoc.DataAccessLayer.DataModels.Physician> *@
+﻿@model IEnumerable<HalloDoc.DataAccessLayer.DataModels.Role> 
 @using Microsoft.AspNetCore.Http;
 
 @{
@@ -46,28 +46,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @* @foreach (var item in Model)
+                                @if(Model != null)
                                 {
-                                   *@  <tr>
-                                        
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
 
-                                        <td>
-                                            Master Admin
-                                           
-                                        </td>
-                                        <td>
-                                            Admin
-                                         
-                                        </td>
-                                       
-                                       
-                                        <td>
-                                            <a class="providermenu-btn p-1" role="button" >Edit</a>
-                                            <a class="providermenu-btn p-1" role="button" id="delete-option" data-bs-toggle="modal" data-bs-target="#myModal">Delete</a>
-                                         
-                                        </td>
-                                    </tr>
-                                @* } *@
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.AccountType)
+
+                                            </td>
+
+
+                                            <td>
+                                                <a class="providermenu-btn p-1" role="button">Edit</a>
+                                                <a class="providermenu-btn p-1" role="button" id="delete-option" data-bs-toggle="modal" data-bs-target="#myModal">Delete</a>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                
 
                             </tbody>
                         </table>

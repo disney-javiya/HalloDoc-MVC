@@ -1262,8 +1262,50 @@ namespace Repository
             return m;
         }
 
+        public void createRole(Role r, string checkedCheckboxes, string email)
+        {
+            Role role = new Role();
+            if (r != null)
+            {
+                role.Name = r.Name;
+                role.AccountType = r.AccountType;
+                var asp_name = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.UserName).FirstOrDefault();
+                role.CreatedBy = asp_name;
+                role.CreatedDate = DateTime.Now;
+                role.IsDeleted = new BitArray(new bool[] { false });
+                _context.Roles.Add(role);
+                _context.SaveChanges();
+
+                string[] boxes = checkedCheckboxes.Split(',');
 
 
+                if (boxes != null)
+                {
 
+                    foreach (var box in boxes)
+                    {
+                        if (box != "")
+                        {
+                            int menuId = int.Parse(box);
+                            List<Menu> row = _context.Menus.Where(x => x.MenuId == menuId).ToList();
+                            if (row != null)
+                            {
+                                RoleMenu roleMenu = new RoleMenu();
+                                roleMenu.MenuId = menuId;
+                                roleMenu.RoleId = role.RoleId;
+
+                            }
+                        }
+
+
+                    }
+                }
+            }
+        }
+
+        public List<Role> GetAllRoles()
+        {
+            return _context.Roles.ToList();
+        }
     }
 }

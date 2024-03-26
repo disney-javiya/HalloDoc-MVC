@@ -95,5 +95,9 @@ namespace Repository.IRepository
 
         public List<Menu> menuByAccountType(int accountType);
         //public void physicianUpdateBusiness(string email, int physicianId, Physician p, IFormFile? profilePhoto, IFormFile? signaturePhoto, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc);
+
+        public void createRole(Role r, string checkedCheckboxes, string email);
+
+        public List<Role> GetAllRoles();
     }
 }

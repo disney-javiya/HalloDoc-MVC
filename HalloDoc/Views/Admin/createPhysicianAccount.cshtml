@@ -195,7 +195,7 @@
                     </div>
                     <div class="col-md-6 gy-3 ">
                         <div class="form-floating mb-3">
-                            <input asp-for="AltPhone" class=" form-control contact-create-patient shadow-none info" id="phone1" type="tel" disabled />
+                            <input asp-for="AltPhone" class=" form-control contact-create-patient shadow-none info" id="phone1" type="tel" />
                             <label class="contact-create-patient-text" for="phone1"> </label>
                             <span asp-validation-for="AltPhone" class="text-danger"></span>
                         </div>
@@ -252,8 +252,8 @@
 
                 <hr>
                 <div class="d-flex flex-column justify-content-between">
-                    <div class="form-check mb-3 d-flex flex-row">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <div class="form-check mb-3 d-flex flex-row justify-content-between">
+                            <input class="form-check-input  me-4" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Independent Contractor Agreement
                         </label>
@@ -266,9 +266,9 @@
                         </div>
                     </div>
 
-                    <div class="form-check mb-3">
+                        <div class="form-check mb-3  d-flex flex-row justify-content-between">
 
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input  me-4" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Background Check
                         </label>
@@ -280,8 +280,8 @@
                             </button>
                         </div>
                     </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <div class="form-check mb-3  d-flex flex-row justify-content-between">
+                            <input class="form-check-input  me-4" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             HIPAA Compliance
                         </label>
@@ -293,8 +293,8 @@
                             </button>
                         </div>
                     </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <div class="form-check mb-3  d-flex flex-row justify-content-between">
+                            <input class="form-check-input   me-4" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Non-disclosure Agreement
                         </label>
@@ -306,8 +306,8 @@
                             </button>
                         </div>
                     </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <div class="form-check mb-3  d-flex flex-row justify-content-between">
+                            <input class="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             License Document
                         </label>
@@ -320,7 +320,7 @@
                     </div>
                 </div>
 
-                    <button role="button" style="height:fit-content;" type="submit" class="create-provider-btn w-25 p-1 ms-auto ">Create Account</button>
+                    <button role="button" style="height:fit-content; border:none;" type="submit" class="create-provider-btn w-25 p-1 ms-auto mb-3">Create Account</button>
             </div>
         </div>
         </form>
