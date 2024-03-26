@@ -449,6 +449,10 @@ namespace Repository
                 return s;
                 
             }
+            else if (patient_name == null && regionId == 0)
+            {
+              return getByRequesttypeId(r, requesttypeId);
+            }
             else if(patient_name == null && regionId != 0)
             {
                 var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();

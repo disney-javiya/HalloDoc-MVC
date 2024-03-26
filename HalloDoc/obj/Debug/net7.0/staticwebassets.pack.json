@@ -9,6 +9,14 @@
       "PackagePath": "staticwebassets\\AdminFiles\\11116016_415_prev_ui.png"
     },
     {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\AdminFiles\\CreateAdmin.png",
+      "PackagePath": "staticwebassets\\AdminFiles\\CreateAdmin.png"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\AdminFiles\\CreateProvider.png",
+      "PackagePath": "staticwebassets\\AdminFiles\\CreateProvider.png"
+    },
+    {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\AdminFiles\\SRS-23-24-Trainees-2Feb24.pdf",
       "PackagePath": "staticwebassets\\AdminFiles\\SRS-23-24-Trainees-2Feb24.pdf"
     },
@@ -107,6 +115,10 @@
     {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\Updated-Training-Plan-20March24.pdf",
       "PackagePath": "staticwebassets\\Files\\Updated-Training-Plan-20March24.pdf"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\data (4).xlsx",
+      "PackagePath": "staticwebassets\\Files\\data (4).xlsx"
     },
     {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\db1.png",
