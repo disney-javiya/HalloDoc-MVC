@@ -35,8 +35,16 @@
         <li class="nav-item">
             <a class="nav-link">Partners</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Admin" asp-action="adminAccess">Access</a>
+       
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Access
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" asp-controller="Admin" asp-action="adminAccess">Role Access</a></li>
+                <li><a class="dropdown-item" href="#">User Access</a></li>
+                <li><a class="dropdown-item" asp-controller="Admin" asp-action="createAdmin">Create Admin</a></li>
+            </ul>
         </li>
         <li class="nav-item">
             <a class="nav-link">Records</a>

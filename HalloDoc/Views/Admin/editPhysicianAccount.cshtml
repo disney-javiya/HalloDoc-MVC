@@ -309,6 +309,7 @@
 
 
                     <hr>
+                <form method="post" class="row row-cols-1 " action="@Url.Action("physicianUpdateUpload", "Admin", new { physicianId =  Context.Request.Query["physicianId"]})" enctype="multipart/form-data">
                <div class="d-flex flex-column justify-content-between">
                     <div class="form-check mb-3 d-flex flex-row">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -317,7 +318,7 @@
                         </label>
 
 
-                        <input type="file" name="agreementDoc" id="real-file2" hidden="hidden" />
+                            <input type="file" name="agreementDoc"  id="real-file2" hidden="hidden" />
                         <div class="input-group mb-3">
                             <input class="form-control binfo" type="text" id="custom-text2" aria-label="readonly input example" value="Select Agreement" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button2">
@@ -333,7 +334,7 @@
                             Background Check
                         </label>
 
-                        <input type="file" name="backgroundDoc" id="real-file3" hidden="hidden" />
+                            <input type="file" name="backgroundDoc"  id="real-file3" hidden="hidden" />
                         <div class="input-group mb-3">
                             <input class="form-control binfo" type="text" id="custom-text3" aria-label="readonly input example" value="Select backgroundDoc" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button3">
@@ -347,7 +348,7 @@
                             HIPAA Compliance
                         </label>
 
-                        <input type="file" name="hippaDoc" id="real-file4" hidden="hidden" />
+                            <input type="file" name="hippaDoc" id="real-file4" hidden="hidden" />
                         <div class="input-group mb-3">
                             <input class="form-control binfo" type="text" id="custom-text4" aria-label="readonly input example" value="Select hippaDoc" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button4">
@@ -361,7 +362,7 @@
                             Non-disclosure Agreement
                         </label>
 
-                        <input type="file" name="disclosureDoc" id="real-file5" hidden="hidden" />
+                            <input type="file" name="disclosureDoc" id="real-file5" hidden="hidden" />
                         <div class="input-group mb-3">
                             <input class="form-control binfo" type="text" id="custom-text5" aria-label="readonly input example" value="Select disclosureDoc" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button5">
@@ -374,7 +375,7 @@
                         <label class="form-check-label" for="flexCheckDefault">
                             License Document
                         </label>
-                        <input type="file" name="licenseDoc" id="real-file6" hidden="hidden" />
+                            <input type="file" name="licenseDoc"  id="real-file6" hidden="hidden" />
                         <div class="input-group mb-3">
                             <input class="form-control binfo" type="text" id="custom-text6" aria-label="readonly input example" value="Select licenseDoc" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button6">
@@ -382,7 +383,12 @@
                             </button>
                         </div>
                     </div>
+                        <div class="col d-flex justify-content-end mb-2">
+                    <button type="submit" role="button" class="btn save-btn-patient-profile  me-2 p-2" id="submit5" >Save</button>
+                            <a role="button" class="btn cancel-btn-patient-profile  me-2 p-2" id="cancel5" href="@Url.Action("deletePhysicianAccount", "Admin", new { physicianId =  Context.Request.Query["physicianId"]})">Delete Account</a>
+                    </div>
                </div>
+               </form>
             </div>
         </div>
 

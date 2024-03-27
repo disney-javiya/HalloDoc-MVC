@@ -1,0 +1,86 @@
+
+--Creating Table salesman
+create table salesman
+(salesman_id int primary key,
+name varchar(20) not null,
+city varchar(20) not null,
+commission decimal(4,2) not null);
+
+
+--Creating Table customer
+create table customer
+(customer_id int primary key,
+cust_name varchar(20) not null,
+city varchar(20) not null,
+grade int not null,
+salesman_id int references salesman(salesman_id) on delete set null);
+
+
+--Creating Table orders
+create table orders
+(ord_no int primary key,
+pur_amt decimal(7,2) not null,
+ord_date date not null,
+customer_id int references customer(customer_id) on delete set null,
+salesman_id int references salesman(salesman_id) on delete set null);
+
+
+--Inserting Values into salesman table.
+
+insert into salesman values(1,'Priya','Delhi',20);
+insert into salesman values(2,'Rahul','Bangalore',25);
+insert into salesman values(3,'Neha','Mangalore',18);
+insert into salesman values(4,'Kiya','Chennai',22);
+insert into salesman values(5,'Sara','Kolkata',19);
+insert into salesman values(6,'Vivek','Rajkot',20);
+insert into salesman values(7,'Anita','Jamnagar',21);
+
+
+--Inserting Values into customer.
+
+insert into customer values(101,'Shrey','Morbi',200,5);
+insert into customer values(102,'Raj','Bangalore',230,2);
+insert into customer values(103,'Smita','Mumbai',300,3);
+insert into customer values(104,'Vinita','Hyderabad',100,1);
+insert into customer values(105,'Anjali','Mumbai',250,7);
+insert into customer values(106,'Arun','Gulbarga',3,6);
+insert into customer values(108,'Pooja','Raichur',1,7);
+
+
+
+--Inserting Values into orders.
+
+insert into orders values(21,10000,'2021-05-04',101,5);
+insert into orders values(22,15000,'2020-06-24',102,2);
+insert into orders values(23,12000,'2023-07-18',103,3);
+insert into orders values(24,18000,'2022-09-15',104,1);
+insert into orders values(25,9000,'2020-03-12',105,7);
+insert into orders values(26,20000,'2020-08-05',106,6);
+insert into orders values(27,11000,'2020-01-10',107,7);
+insert into orders values(28,1500,'2020-08-07',105,7);
+insert into orders values(29,600,'2020-01-11',102,2);
+
+--1. write a SQL query to find the salesperson and customer who reside in the same city. Return Salesman, cust_name and city
+
+select s.name, c.cust_name, s.city from salesman as s inner join customer as c on s.city= c.city;
+
+--2.write a SQL query to find those orders where the order amount exists between 500 and 2000. Return ord_no, purch_amt, cust_name, city
+
+select o.ord_no, o.pur_amt, c.cust_name, c.city from orders o inner join customer c on o.customer_id = c.customer_id where o.pur_amt between 500 and 2000; 
+
+--3.write a SQL query to find the salesperson(s) and the customer(s) he represents. Return Customer Name, city, Salesman, commission
+
+select c.cust_name, c.city, s.name, s.commission from customer c inner join salesman s on c.salesman_id = s.salesman_id;
+
+--4.write a SQL query to find salespeople who received commissions of more than 12 percent from the company. Return Customer Name, customer city, Salesman, commission.
+
+select c.cust_name, c.city, s.name, s.commission from customer c inner join salesman s on c.salesman_id = s.salesman_id where s.commission >12;
+
+--5. write a SQL query to locate those salespeople who do not live in the same city where their customers live and have received a commission of more than 12% from the company. Return Customer Name, customer city, Salesman, salesman city, commission
+
+select c.cust_name, c.city, s.name, s.city, s.commission from customer c inner join salesman s on c.salesman_id = s.salesman_id where c.city != s.city and s.commission > 12;
+
+--6.write a SQL query to find the details of an order. Return ord_no, ord_date, purch_amt, Customer Name, grade, Salesman, commission
+
+select o.ord_no, o.ord_date, o.pur_amt, c.cust_name AS "Customer Name", c.grade,s.name AS "Salesman", s.commission from orders o inner join customer c ON o.customer_id = c.customer_id inner join salesman s ON o.salesman_id = s.salesman_id;
+

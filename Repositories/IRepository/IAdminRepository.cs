@@ -82,7 +82,7 @@ namespace Repository.IRepository
 
         public void adminUpdateProfile(string email, Admin a, string uncheckedCheckboxes);
         public void adminUpdateProfileBilling(string email, Admin a);
-        public void createPhysicianAccount(Physician p, IFormFile photo, string password, string email);
+        public void createPhysicianAccount(Physician p, IFormFile photo, string password, string email, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc);
         public List<Physician> GetAllPhysicians();
         public List<Region> getPhysicianRegions(int physicianId);
         public Physician getPhysicianDetails(int physicianId);
@@ -93,11 +93,20 @@ namespace Repository.IRepository
 
         public void physicianUpdateBusiness(string email, int physicianId, Physician p, IFormFile[] files);
 
+        public void physicianUpdateUpload(string email, int physicianId, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc);
+        public void deletePhysicianAccount(string email, int physicianId);
         public List<Menu> menuByAccountType(int accountType);
         //public void physicianUpdateBusiness(string email, int physicianId, Physician p, IFormFile? profilePhoto, IFormFile? signaturePhoto, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc);
 
-        public void createRole(Role r, string checkedCheckboxes, string email);
+        public void createRole(createRole r, List<string> menu, string email);
 
         public List<Role> GetAllRoles();
+        public void adminDeleteRole(int roleId, string email);
+
+        public Role getRoleData(int roleId);
+        public List<int> menuByAccountTypeRoleId(int accountType, int roleId);
+        public void updateRole(Role r, List<string> menu, int roleId, string email);
+
+        public void createAdmin(Admin a, string password, string email);
     }
 }
