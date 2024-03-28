@@ -21,6 +21,7 @@ using System.IO.Compression;
 using System.Web.Helpers;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.ExtendedProperties;
 
 
 namespace Repository
@@ -953,25 +954,33 @@ namespace Repository
 
                 admin.ModifiedBy = admin.AspNetUserId;
                 admin.ModifiedDate = DateTime.Now;
-                string[] boxes = uncheckedCheckboxes.Split(','); ;
+                _context.SaveChanges();
 
 
-                if (uncheckedCheckboxes != null)
+
+
+                string[] boxes = uncheckedCheckboxes.Split(','); 
+
+
+                if (boxes != null)
                 {
                     foreach (var box in boxes)
                     {
-                        int regionid = int.Parse(box);
-                        var row = _context.AdminRegions.Where(x => x.AdminId == admin.AdminId && x.RegionId == regionid).FirstOrDefault();
-                        if (row != null)
+                        if (box != "")
                         {
-                            _context.AdminRegions.Remove(row);
-                            _context.SaveChanges();
+                            int regionid = int.Parse(box);
+                            var row = _context.AdminRegions.Where(x => x.AdminId == admin.AdminId && x.RegionId == regionid).FirstOrDefault();
+                            if (row != null)
+                            {
+                                _context.AdminRegions.Remove(row);
+                                _context.SaveChanges();
 
+                            }
                         }
 
                     }
                 }
-                _context.SaveChanges();
+                
 
             }
 
@@ -1009,7 +1018,7 @@ namespace Repository
 
 
         }
-        public void createPhysicianAccount(Physician p, IFormFile photo, string password, string email, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc)
+        public void createPhysicianAccount(Physician p, IFormFile photo, string password, string role, List<int> region, string email, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc)
         {
             AspNetUser asp = new AspNetUser();
             Physician physician = new Physician();
@@ -1050,7 +1059,8 @@ namespace Repository
                 physician.BusinessWebsite = p.BusinessWebsite;
                 physician.Npinumber = p.Npinumber;
                 physician.CreatedDate = DateTime.Now;
-
+                int roleid = int.Parse(role);
+                physician.RoleId = roleid;
                 if (photo != null && photo.Length > 0)
                 {
 
@@ -1071,9 +1081,23 @@ namespace Repository
                 _context.SaveChanges();
                 physicianUpdateUpload(email, physician.PhysicianId, agreementDoc, backgroundDoc, hippaDoc, disclosureDoc, licenseDoc);
 
+              
                
-
             }
+            if (region != null)
+            {
+               
+                foreach (var a in region)
+                {
+                    PhysicianRegion physicianRegion = new PhysicianRegion();
+                    physicianRegion.PhysicianId = physician.PhysicianId;
+                    physicianRegion.RegionId = a;
+                    _context.PhysicianRegions.Add(physicianRegion);
+
+                }
+                _context.SaveChanges();
+            }
+           
         }
         public List<Physician> GetAllPhysicians()
         {
@@ -1112,6 +1136,7 @@ namespace Repository
 
 
                 physician.Status = p.Status;
+                physician.RoleId = p.RoleId;
                 var aid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
                 physician.ModifiedBy = aid;
                 physician.ModifiedDate = DateTime.Now;
@@ -1277,7 +1302,7 @@ namespace Repository
                     {
                         agreementDoc.CopyTo(stream);
                     }
-
+              
                     physician.IsAgreementDoc = new BitArray(new bool[] { true });
                 }
                 if (backgroundDoc != null && backgroundDoc.Length > 0)
@@ -1360,6 +1385,12 @@ namespace Repository
 
             }
            
+        }
+
+        public List<Role> GetPhysiciansRoles()
+        {
+           List<Role> r = _context.Roles.Where(x => x.AccountType == 2).ToList();
+            return r;
         }
 
         public void deletePhysicianAccount(string email, int physicianId)
@@ -1473,55 +1504,70 @@ namespace Repository
             return r;
         }
 
-        public void updateRole(Role r, List<string> menu, int roleId, string email)
+        public void updateRole(Role r, List<int> menu, int roleId, string email)
         {
+            List<int> todelete = new List<int>();
+            List<int> toinsert = new List<int>();
             var res = _context.Roles.Where(x => x.RoleId == roleId).First();
             if (res != null)
             {
+                res.RoleId = res.RoleId;
                 res.Name = r.Name;
                 res.AccountType = r.AccountType;
                 var asp_name = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.UserName).FirstOrDefault();
                 res.ModifiedBy = asp_name;
                 res.ModifiedDate = DateTime.Now;
-                _context.Roles.Add(res);
                 _context.SaveChanges();
 
-                if (menu != null)
+            }
+
+
+            if (menu != null)
+            {
+
+                List<int> rm = _context.RoleMenus.Where(x => x.RoleId == roleId).Select(u => u.MenuId).ToList();
+                if (rm != null)
                 {
-                    var rm = _context.RoleMenus.Where(x => x.RoleId == roleId).Select(u => u.MenuId).ToList().ToString();
-
-                    foreach (var m in menu)
+                    foreach (var a in rm)
                     {
-                        if (m != "")
+                        if (!menu.Contains(a))
                         {
-                            //if(rm.Contains(m))
-                            //{
-                            //    continue;
-                            //}
-                            //RoleMenu roleMenu = new RoleMenu();
-                            //int menuId = int.Parse(m);
-                            //Menu row = _context.Menus.Where(x => x.MenuId == menuId).FirstOrDefault();
-
-
-                            //if (row != null )
-                            //{
-
-                            //    roleMenu.MenuId = menuId;
-                            //    roleMenu.RoleId = res.RoleId;
-
-                            //}
-                            //_context.RoleMenus.Add(roleMenu);
-
+                            todelete.Add(a);
                         }
-
-                        _context.SaveChanges();
+                    }
+                    foreach (var b in menu)
+                    {
+                        if (!rm.Contains(b))
+                        {
+                            toinsert.Add(b);
+                        }
                     }
                 }
+                foreach (var a in todelete)
+                {
+                   
+                    var row = _context.RoleMenus.Where(x => x.RoleId == roleId && x.MenuId == a).First();
+                    _context.RoleMenus.Remove(row);
+                    _context.SaveChanges(true);
+                }
+                foreach (var a in toinsert)
+                {
+                    RoleMenu roleMenu = new RoleMenu();
+                  
+                    roleMenu.MenuId = a;
+                    roleMenu.RoleId = roleId;
+                    _context.RoleMenus.Add(roleMenu);
+                    _context.SaveChanges();
+                }
+
+
 
             }
+
+
         }
 
-        public void createAdmin(Admin a, string password, string email)
+        public void createAdmin(Admin a, string password, List<int> region, string role, string email)
         {
             AspNetUser asp = new AspNetUser();
             Admin admin = new Admin();
@@ -1553,14 +1599,39 @@ namespace Repository
                 var aspid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
                 admin.CreatedBy = aspid;
                 admin.CreatedDate = DateTime.Now;
+                int roleid = int.Parse(role);
+                admin.RoleId = roleid;
 
-               
-               
-
+                _context.Admins.Add(admin);
+                _context.SaveChanges();
+                
 
             }
-            _context.Admins.Add(admin);
-            _context.SaveChanges();
+            if (region != null)
+            {
+                
+                foreach (var id in region)
+                {
+                    AdminRegion adminRegion = new AdminRegion();
+                    adminRegion.AdminId = admin.AdminId;
+                    adminRegion.RegionId = id;
+                    _context.AdminRegions.Add(adminRegion);
+
+
+                }
+
+                _context.SaveChanges(true);
+
+            }
+            
+
+
+        }
+
+        public List<Role> GetAdminsRoles()
+        {
+            List<Role> r = _context.Roles.Where(x => x.AccountType == 1).ToList();
+            return r;
         }
     }
 }

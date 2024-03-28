@@ -66,14 +66,14 @@
                        
                     </div>
 
-                    <div class="col-md-6 gy-3" style=" color: lightgray;">
-                        <select asp-for="RoleId" class="form-select m-0 p-2 ainfo" aria-label="Default select example" disabled>
-                            <option selected>Role</option>
-                            <option>Master Physician</option>
-                            <option>Physician</option>
-                            
-                        </select>
 
+                    <div class="col-md-4 gy-3 mb-3" style=" color: lightgray;">
+
+                        <select asp-for="RoleId"  id="role" class="form-select m-2 p-2 ainfo" aria-label="Default select example" disabled>
+                            <option selected>@Model.RoleId</option>
+
+
+                        </select>
                     </div>
 
 
@@ -312,7 +312,8 @@
                 <form method="post" class="row row-cols-1 " action="@Url.Action("physicianUpdateUpload", "Admin", new { physicianId =  Context.Request.Query["physicianId"]})" enctype="multipart/form-data">
                <div class="d-flex flex-column justify-content-between">
                     <div class="form-check mb-3 d-flex flex-row">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          
+                            <input class="form-check-input" checked="@Model.IsAgreementDoc" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Independent Contractor Agreement
                         </label>
@@ -320,16 +321,16 @@
 
                             <input type="file" name="agreementDoc"  id="real-file2" hidden="hidden" />
                         <div class="input-group mb-3">
-                            <input class="form-control binfo" type="text" id="custom-text2" aria-label="readonly input example" value="Select Agreement" readonly disabled>
+                                <input class="form-control binfo" type="text" id="custom-text2" aria-label="readonly input example" value="Select Agreement" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button2">
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>
                         </div>
                     </div>
-               
+                
                     <div class="form-check mb-3">
 
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" checked="@Model.IsBackgroundDoc" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Background Check
                         </label>
@@ -357,7 +358,7 @@
                         </div>
                     </div>
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" checked="@Model.IsNonDisclosureDoc" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Non-disclosure Agreement
                         </label>
@@ -371,7 +372,7 @@
                         </div>
                     </div>
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" checked="@Model.IsLicenseDoc" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             License Document
                         </label>
@@ -574,54 +575,7 @@
 
     </script>
 
-@*     <script>
-        let file = document.getElementById("real-file");
-        const customBtn = document.getElementById("custom-button");
-        const customTxt = document.getElementById("custom-text");
 
-        customBtn.addEventListener("click", function () {
-            file.click();
-        });
-
-        file.addEventListener("change", function () {
-            var i;
-            var filename = "";
-            for (i = 0; i < file.files.length; i++) {
-                filename = filename + " " + file.files[i].name;
-            }
-            if (file.files.length) {
-                customTxt.setAttribute("value", filename);
-
-                this.closest('form').submit();
-            } else {
-                customTxt.setAttribute("value", "Select File");
-            }
-        });
-    </script>
-    <script>
-        let file1 = document.getElementById("real-file1");
-        const customBtn1 = document.getElementById("custom-button1");
-        const customTxt1 = document.getElementById("custom-text1");
-
-        customBtn1.addEventListener("click", function () {
-            file1.click();
-        });
-
-        file1.addEventListener("change", function () {
-            var i;
-            var filename1 = "";
-            for (i = 0; i < file1.files.length; i++) {
-                filename1 = filename1 + " " + file1.files[i].name;
-            }
-            if (file.files.length) {
-                customTxt1.setAttribute("value", filename1);
-
-                this.closest('form').submit();
-            } else {
-                customTxt.setAttribute("value", "Select File");
-            }
-        });
-    </script> *@
 
     <script>
         function setupFileInput(fileInputId, customButtonId, customTextId) {
@@ -677,6 +631,34 @@
 
 
     </script>
+
+
+    <script>
+        $(document).ready(function () {
+            
+            $.ajax({
+                url: '/Admin/GetPhysiciansRoles',
+                type: 'GET',
+
+                success: function (data) {
+
+                    var roleDropdown = $('#role');
+                    roleDropdown.empty();
+                    
+                    roleDropdown.append($('<option></option>').text(@Model.RoleId));
+                    $.each(data, function (index, RoleId) {
+
+                        roleDropdown.append($('<option></option>').attr('value', RoleId.roleId).text(RoleId.name));
+                    });
+                }
+            });
+
+
+
+
+        });
+    </script>
+
 
     <script>
 

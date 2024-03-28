@@ -58,14 +58,13 @@
 
                    
 
-                    <div class="col-md-4 gy-3" style=" color: lightgray;">
-                        <select  class="form-select m-0 p-2 ainfo" aria-label="Default select example" >
-                            <option selected>Role</option>
-                            <option>Master Physician</option>
-                            <option>Physician</option>
+                    <div class="col-md-4 gy-3 mb-3" style=" color: lightgray;">
+                       
+                        <select name="role" id="role" class="form-select m-2 p-2 ainfo" aria-label="Default select example">
+                            <option selected>Select Role</option>
+
 
                         </select>
-
                     </div>
 
 
@@ -139,10 +138,13 @@
                     </div> *@
 
 
-                  
 
+                    <div class="col-md-12 d-flex flex-row">
+                        <div id="checkbox-container" class="col-md-6 gy-3 ">
+                        <input type="hidden" id="uncheckedCheckboxesInput" name="checkedcheckbox" />
 
-
+                    </div>
+                    </div>
              
 
 
@@ -401,6 +403,66 @@
         setupFileInput("real-file4", "custom-button4", "custom-text4");
         setupFileInput("real-file5", "custom-button5", "custom-text5");
         setupFileInput("real-file6", "custom-button6", "custom-text6");
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $.ajax({
+                url: '/Admin/GetPhysiciansRoles',
+                type: 'GET',
+
+                success: function (data) {
+
+                    var roleDropdown = $('#role');
+                    roleDropdown.empty();
+                    roleDropdown.append($('<option></option>').text("Select Roles"));
+                    $.each(data, function (index, role) {
+                       
+                        roleDropdown.append($('<option></option>').attr('value', role.roleId).text(role.name));
+                    });
+                }
+            });
+
+
+
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            
+            $.ajax({
+                url: '/Admin/getAllRegions',
+                method: 'GET',
+             
+                success: function (data) {
+
+                    $.each(data, function (index, region) {
+
+                        var checkbox = $('<input>').attr({
+                            type: 'checkbox',
+                           name: 'region',
+                            class: 'box',
+                            value: region.regionId
+                        });
+
+                        var label = $('<label>').text(region.name);
+
+                        var container = $('#checkbox-container');
+                        container.append(checkbox).append(" ").append(label).append('<br>');
+                    });
+
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching regions:", xhr.status, xhr.statusText);
+                    console.error("Response body:", xhr.responseText);
+                    alert("Failed to fetch regions. Please try again later.");
+                }
+
+            });
+        });
     </script>
 </body>
 </html>

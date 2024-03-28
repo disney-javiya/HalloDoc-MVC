@@ -135,6 +135,11 @@ namespace HalloDoc.Controllers
             return View();
         }
 
+        public List<Region> getAllRegions()
+        {
+            List<Region> r = _adminRepository.getAllRegions();
+            return r;
+        }
         //[HttpPost]
         //public FileResult Export(string GridHtml)
         //{
@@ -1105,10 +1110,10 @@ namespace HalloDoc.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult createPhysicianAccount(Physician p, IFormFile photo, string password, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc)
+        public IActionResult createPhysicianAccount(Physician p, IFormFile photo, string password, string role, List<int> region, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            _adminRepository.createPhysicianAccount(p, photo, password, ViewBag.Data , agreementDoc, backgroundDoc, hippaDoc, disclosureDoc, licenseDoc);
+            _adminRepository.createPhysicianAccount(p, photo, password, role, region, ViewBag.Data , agreementDoc, backgroundDoc, hippaDoc, disclosureDoc, licenseDoc);
             return RedirectToAction("providerMenu");
         }
 
@@ -1124,7 +1129,7 @@ namespace HalloDoc.Controllers
         public List<Region> getPhysicianRegions(int physicianId)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            //List<Region> res = new List<Region>();
+          
             var res = _adminRepository.getPhysicianRegions(physicianId);
             return res;
         }
@@ -1205,7 +1210,14 @@ namespace HalloDoc.Controllers
 
 
         }
-       
+        [HttpGet]
+        public List<Role> GetPhysiciansRoles()
+        {
+           List<Role> res = _adminRepository.GetPhysiciansRoles();
+            return res;
+        }
+
+
         public IActionResult deletePhysicianAccount(int physicianId)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
@@ -1345,7 +1357,7 @@ namespace HalloDoc.Controllers
         }
         [CustomeAuthorize("Admin")]
         [HttpPost]
-        public IActionResult editRole(Role r, List<string> menu, int roleId)
+        public IActionResult editRole(Role r, List<int> menu, int roleId)
         {
             //string selected = Request.Form["uncheckedCheckboxes"];
             ViewBag.Data = HttpContext.Session.GetString("key");
@@ -1359,15 +1371,22 @@ namespace HalloDoc.Controllers
             ViewBag.Data = HttpContext.Session.GetString("key");
             return View();
         }
+        [HttpGet]
+        public List<Role> GetAdminsRoles()
+        {
+            List<Role> res = _adminRepository.GetAdminsRoles();
+            return res;
+        }
         [HttpPost]
-        public IActionResult createAdmin(Admin a, string password)
+        public IActionResult createAdmin(Admin a, string password, List<int> region, string role)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            _adminRepository.createAdmin(a, password, ViewBag.Data);
+            _adminRepository.createAdmin(a, password, region,role, ViewBag.Data);
             return RedirectToAction("adminDashboard");
         }
         public IActionResult logOut()
         {
+
             Response.Cookies.Delete("jwt");   
             HttpContext.Session.Remove("key");
             return RedirectToAction("Index");

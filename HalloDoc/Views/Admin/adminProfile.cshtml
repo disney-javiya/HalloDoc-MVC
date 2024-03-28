@@ -64,38 +64,16 @@
 
                     </div>
 
-                    <div class="col-md-6 gy-3" style=" color: lightgray;">
-                        <select asp-for="RoleId" class="form-select m-0 p-2 ainfo" aria-label="Default select example" disabled>
-                            <option selected>Role</option>
-                            <option>Master Physician</option>
-                            <option>Physician</option>
+                    <div class="col-md-4 gy-3 mb-3" style=" color: lightgray;">
+
+                        <select name="role" id="role" class="form-select m-2 p-2 ainfo" aria-label="Default select example" disabled>
+                           
+
 
                         </select>
-
-                    </div>
-                   @*  <div class="col-md-6 gy-3" style=" color: lightgray;">
-                        <div class=" form-floating mb-3 ">
-                            <button class="btn dropdown-toggle  " style="text-align:left; border:none;" type="button" data-bs-toggle="dropdown"  >
-                                Status
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Active</a></li>
-                                <li><a class="dropdown-item" href="#">Not Active</a></li>
-                            </ul>
-                        </div>
                     </div>
 
-                    <div class="col-md-6 gy-3" style=" color: lightgray;  ">
-                        <div class=" form-floating mb-3 ">
-                            <button class="btn  dropdown-toggle  " style="text-align:left; border:none;" type="button" data-bs-toggle="dropdown"  >
-                                Role
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Master Admin</a></li>
-                                <li><a class="dropdown-item" href="#">Admin</a></li>
-                            </ul>
-                        </div>
-                    </div> *@
+                 
                    
 
                     <button class="btn back-btn m-2 w-25 ms-auto" role="button" type="submit" >Reset Password</button>
@@ -269,6 +247,30 @@
 
     </script>
 
+    <script>
+        $(document).ready(function () {
+
+            $.ajax({
+                url: '/Admin/GetAdminsRoles',
+                type: 'GET',
+
+                success: function (data) {
+
+                    var roleDropdown = $('#role');
+                    roleDropdown.empty();
+                    roleDropdown.append($('<option></option>').text(@Model.RoleId));
+                    $.each(data, function (index, role) {
+
+                        roleDropdown.append($('<option></option>').attr('value', role.roleId).text(role.name));
+                    });
+                }
+            });
+
+
+
+
+        });
+    </script>
     <script>
         $(document).ready(function () {
           
