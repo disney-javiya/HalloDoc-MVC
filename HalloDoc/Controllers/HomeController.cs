@@ -607,12 +607,13 @@ namespace HalloDoc.Controllers
 
 
         /*-----------------------------------Review Agreement--------------------------------------------------*/
+        [CustomeAuthorize("Patient")]
         public IActionResult reviewAgreement()
         {
             return View();
         }
 
-    
+      
         public IActionResult reviewAgreementPost(int requestId)
         {
             _patientRepository.agreementApproved(requestId);

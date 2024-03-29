@@ -938,6 +938,25 @@ namespace Repository
             }
         }
 
+        public void adminProfileUpdateStatus(string email, Admin a)
+        {
+            var admin = _context.Admins.Where(x => x.Email == email).FirstOrDefault();
+
+
+            if (admin != null)
+            {
+
+
+                admin.Status = a.Status;
+                admin.RoleId = a.RoleId;
+                var aid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                admin.ModifiedBy = aid;
+                admin.ModifiedDate = DateTime.Now;
+                _context.SaveChanges();
+
+            }
+        }
+
         public void adminUpdateProfile(string email, Admin a, string uncheckedCheckboxes)
         {
 

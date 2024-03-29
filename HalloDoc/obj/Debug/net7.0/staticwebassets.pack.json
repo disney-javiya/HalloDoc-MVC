@@ -121,6 +121,10 @@
       "PackagePath": "staticwebassets\\Files\\CreateAdmin.png"
     },
     {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\CreateProvider.png",
+      "PackagePath": "staticwebassets\\Files\\CreateProvider.png"
+    },
+    {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\DB1.txt",
       "PackagePath": "staticwebassets\\Files\\DB1.txt"
     },
@@ -191,6 +195,10 @@
     {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\Updated-Training-Plan-20March24.pdf",
       "PackagePath": "staticwebassets\\Files\\Updated-Training-Plan-20March24.pdf"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\data (3).xlsx",
+      "PackagePath": "staticwebassets\\Files\\data (3).xlsx"
     },
     {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\data (4).xlsx",

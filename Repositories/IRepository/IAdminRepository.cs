@@ -78,8 +78,8 @@ namespace Repository.IRepository
         public List<Region> getAdminRegions(string email);
 
        
-        public void adminProfileUpdatePassword(string email, string password);
-
+        public void adminProfileUpdatePassword(string email, string password);  
+        public void adminProfileUpdateStatus(string email, Admin a);
         public void adminUpdateProfile(string email, Admin a, string uncheckedCheckboxes);
         public void adminUpdateProfileBilling(string email, Admin a);
         public void createPhysicianAccount(Physician p, IFormFile photo, string password, string role, List<int> region, string email, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc);

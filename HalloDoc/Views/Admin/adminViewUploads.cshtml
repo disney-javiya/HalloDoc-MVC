@@ -180,7 +180,7 @@
             document.getElementById("downloadAllBtn").addEventListener("click", function () {
               
                 var checkedFiles = document.querySelectorAll(".check:checked");
-
+                
                 var fileIds = [];
                 var requestId = @Model.FirstOrDefault()?.RequestId ?? null;
                 checkedFiles.forEach(function (file) {
@@ -188,7 +188,7 @@
                     fileIds.push(file.value);
 
                 });
-                alert(fileIds);
+               
                 var url = "@Url.Action("DownloadFiles", "Admin")";
                 if (fileIds.length > 0) {
                    
@@ -297,14 +297,17 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var checkAll = document.getElementById("checkAll");
+            var checkboxes = document.querySelectorAll(".check");
             if (checkAll) {
                 checkAll.addEventListener("click", function () {
-                    var checkboxes = document.querySelectorAll(".check");
+                  
                     checkboxes.forEach(function (checkbox) {
                         checkbox.checked = checkAll.checked;
                     });
                 });
             }
+           
+            
         });
 
 
@@ -312,6 +315,34 @@
     </script>
 
 
+@*     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var checkAll = document.getElementById("checkAll");
+            var checkboxes = document.querySelectorAll(".check");
+
+            if (checkAll) {
+                checkAll.addEventListener("click", function () {
+                    checkboxes.forEach(function (checkbox) {
+                        checkbox.checked = checkAll.checked;
+                    });
+                });
+            }
+
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener("change", function () {
+                    var allChecked = true;
+                    checkboxes.forEach(function (cb) {
+                        if (!cb.checked) {
+                            allChecked = false;
+                           
+                        }
+                    });
+                   
+                    checkAll.checked = allChecked;
+                });
+            });
+        });
+    </script> *@
 
 </body>
 </html>

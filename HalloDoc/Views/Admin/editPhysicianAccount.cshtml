@@ -51,7 +51,7 @@
                         <div class="form-floating mb-3">
                             <input type="password" name="password" id="password" class="form-control  password-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="password-create-patient-text" for="floatingInput">Password</label>
-
+                            <span id="pwd"></span>
                         </div>
                     </div>
 
@@ -669,13 +669,20 @@
             const urlParams = new URLSearchParams(queryString);
             const physicianId = urlParams.get('physicianId');
             const password = $('#password').val();
-            $.ajax({
-                url: '/Admin/physicianUpdatePassword',
-                method: 'POST',
-                data: { 'physicianId': physicianId , 'password': password },
-                success: function (data) {
-                }
-            });
+            if (password == "") {
+                $("#pwd").append("Enter Password First!!").css("color", "red");
+            }
+            if(password != "")
+            {
+                $.ajax({
+                    url: '/Admin/physicianUpdatePassword',
+                    method: 'POST',
+                    data: { 'physicianId': physicianId, 'password': password },
+                    success: function (data) {
+                    }
+                });
+            }
+           
 
 
 

@@ -77,6 +77,7 @@ namespace HalloDoc.Controllers
 
             List<Region> r = new List<Region>();
             r = _adminRepository.getAllRegions();
+           
             return View("adminDashboard", r);
         }
 
@@ -885,9 +886,9 @@ namespace HalloDoc.Controllers
 
                 client.SendMailAsync(mailMessage);
 
-
-                sendSMS(requestId, mobile);
-
+                TempData["isSentAgreement"] = true;
+                //sendSMS(requestId, mobile);
+                
                 return RedirectToAction("adminDashboard");
             }
             
@@ -982,6 +983,17 @@ namespace HalloDoc.Controllers
             ViewBag.Data = HttpContext.Session.GetString("key");
 
             _adminRepository.adminProfileUpdatePassword(ViewBag.Data, password);
+            return RedirectToAction("adminProfile");
+
+        }
+
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult adminProfileUpdateStatus( Admin a)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            _adminRepository.adminProfileUpdateStatus(ViewBag.Data, a);
             return RedirectToAction("adminProfile");
 
         }
@@ -1383,6 +1395,12 @@ namespace HalloDoc.Controllers
             ViewBag.Data = HttpContext.Session.GetString("key");
             _adminRepository.createAdmin(a, password, region,role, ViewBag.Data);
             return RedirectToAction("adminDashboard");
+        }
+
+        public IActionResult admincheduling()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            return View();
         }
         public IActionResult logOut()
         {
