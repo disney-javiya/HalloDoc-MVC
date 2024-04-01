@@ -957,7 +957,7 @@ namespace Repository
             }
         }
 
-        public void adminUpdateProfile(string email, Admin a, string uncheckedCheckboxes)
+        public void adminUpdateProfile(string email, Admin a, string? uncheckedCheckboxes)
         {
 
             var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(a => a.Id).First();
@@ -976,29 +976,33 @@ namespace Repository
                 _context.SaveChanges();
 
 
-
-
-                string[] boxes = uncheckedCheckboxes.Split(','); 
-
-
-                if (boxes != null)
+                if(uncheckedCheckboxes != null)
                 {
-                    foreach (var box in boxes)
+                    string[] boxes = uncheckedCheckboxes.Split(',');
+
+                    if (boxes != null)
                     {
-                        if (box != "")
+                        foreach (var box in boxes)
                         {
-                            int regionid = int.Parse(box);
-                            var row = _context.AdminRegions.Where(x => x.AdminId == admin.AdminId && x.RegionId == regionid).FirstOrDefault();
-                            if (row != null)
+                            if (box != "")
                             {
-                                _context.AdminRegions.Remove(row);
-                                _context.SaveChanges();
+                                int regionid = int.Parse(box);
+                                var row = _context.AdminRegions.Where(x => x.AdminId == admin.AdminId && x.RegionId == regionid).FirstOrDefault();
+                                if (row != null)
+                                {
+                                    _context.AdminRegions.Remove(row);
+                                    _context.SaveChanges();
 
+                                }
                             }
-                        }
 
+                        }
                     }
                 }
+
+                
+
+
                 
 
             }
@@ -1651,6 +1655,38 @@ namespace Repository
         {
             List<Role> r = _context.Roles.Where(x => x.AccountType == 1).ToList();
             return r;
+        }
+        public void insertShift(shiftViewModel s, string checktoggle, string email)
+        {
+            Shift shift = new Shift();
+            ShiftDetail shiftDetail = new ShiftDetail();
+            if(s != null)
+            {
+                shift.PhysicianId = s.PhysicianId;
+                shift.StartDate = s.StartDate;
+                shift.RepeatUpto = s.RepeatUpto;
+                var asp_id =  _context.AspNetUsers.Where(x=> x.Email == email).Select(u=>u.Id).First();
+                shift.CreatedBy = asp_id;
+                shift.CreatedDate = DateTime.Now;
+                if(checktoggle == "on")
+                {
+                    shift.IsRepeat = new BitArray(new bool[] { true });
+                }
+                else
+                {
+                    shift.IsRepeat = new BitArray(new bool[] { false });
+                }
+                _context.Shifts.Add(shift);
+                _context.SaveChanges();
+                shiftDetail.ShiftId = shift.ShiftId;
+                shiftDetail.ShiftDate = s.ShiftDate;
+                shiftDetail.RegionId = s.RegionId;
+                shiftDetail.StartTime = s.StartTime;
+                shiftDetail.EndTime = s.EndTime;
+                shiftDetail.IsDeleted = new BitArray(new bool[] { false });
+               _context.ShiftDetails.Add(shiftDetail);
+                _context.SaveChanges();
+            }
         }
     }
 }

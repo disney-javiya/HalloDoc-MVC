@@ -999,7 +999,7 @@ namespace HalloDoc.Controllers
         }
         [CustomeAuthorize("Admin")]
         [HttpPost]
-        public IActionResult adminProfile(Admin a , string uncheckedCheckboxes)
+        public IActionResult adminProfile(Admin a , string? uncheckedCheckboxes)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
            
@@ -1397,10 +1397,20 @@ namespace HalloDoc.Controllers
             return RedirectToAction("adminDashboard");
         }
 
-        public IActionResult admincheduling()
+        public IActionResult adminScheduling()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
             return View();
+        }
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult insertShift(shiftViewModel s, string checktoggle)
+        {
+            //string selected = Request.Form["uncheckedCheckboxes"];
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.insertShift(s, checktoggle,ViewBag.Data);
+
+            return RedirectToAction("adminScheduling");
         }
         public IActionResult logOut()
         {

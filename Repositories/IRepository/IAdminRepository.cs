@@ -111,5 +111,7 @@ namespace Repository.IRepository
         public void createAdmin(Admin a, string password, List<int> region, string role, string email);
 
         public List<Role> GetAdminsRoles();
+
+        public void insertShift(shiftViewModel s, string checktoggle, string email);
     }
 }

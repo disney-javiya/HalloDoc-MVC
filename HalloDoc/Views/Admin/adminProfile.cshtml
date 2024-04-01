@@ -350,13 +350,15 @@
 <script>
         const editBtn2 = document.querySelector("#edit2");
         const saveBtn2 = document.querySelector("#submit2");
+        const cancelBtn2 = document.querySelector("#cancel2");
         const editBtn3 = document.querySelector("#edit3");
         const saveBtn3 = document.querySelector("#submit3");
         const cancelBtn3 = document.querySelector("#cancel3");
         const ainfo = document.querySelectorAll(".ainfo");
 
         editBtn2.addEventListener("click", function () {
-            info.forEach(field => {
+            
+            .forEach(field => {
                 field.removeAttribute("disabled");
             });
             editBtn2.style.display = "none";
