@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\HalloDoc.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\AdminFiles\\10\\Data (1).xls",
+      "PackagePath": "staticwebassets\\AdminFiles\\10\\Data (1).xls"
+    },
+    {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\AdminFiles\\11116016_415_prev_ui.png",
       "PackagePath": "staticwebassets\\AdminFiles\\11116016_415_prev_ui.png"
     },
@@ -99,6 +103,18 @@
     {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\AdminFiles\\suntitled.txt",
       "PackagePath": "staticwebassets\\AdminFiles\\suntitled.txt"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\AdminFiles\\{physicianId}\\Patient_site.pdf",
+      "PackagePath": "staticwebassets\\AdminFiles\\{physicianId}\\Patient_site.pdf"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\AdminFiles\\{physicianId}\\Updated-Training-Plan-20March24.pdf",
+      "PackagePath": "staticwebassets\\AdminFiles\\{physicianId}\\Updated-Training-Plan-20March24.pdf"
+    },
+    {
+      "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\AdminFiles\\{physicianId}\\suntitled.txt",
+      "PackagePath": "staticwebassets\\AdminFiles\\{physicianId}\\suntitled.txt"
     },
     {
       "Id": "C:\\Users\\pce88\\source\\repos\\HalloDoc\\HalloDoc\\wwwroot\\Files\\.net-Whole-Plane-2024.pdf",

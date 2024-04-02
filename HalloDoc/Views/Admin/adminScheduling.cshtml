@@ -72,7 +72,7 @@
                         <button role="button" style=" border:none;" class="create-provider-btn  p-2  m-2">Month</button>
                     </div>
                     <div class="col-12">
-                        <table class="table table-striped-columns table-striped-rows">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">Staff</th>
@@ -104,116 +104,11 @@
 
 
                                 </tr>
-                                <tr class="coverage">
-                                    <th>Coverage</th>
-                                    <th></th>
-                                    <th ></th>
-                                    <th ></th>
-                                    <th ></th>
-                                    <th ></th>
-                                    <th ></th>
-                                    <th ></th>
-                                    <th ></th>
-                                    <th ></th>
-                                    <th></th>
-                                    <th ></th>
-                                    <th ></th>
-                                    <th ></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th ></th>
-                                    <th></th>
-                                    <th ></th>
-                                    <th ></th>
-                                    <th ></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th ></th>
-                                    <th></th>
-                                </tr>
+                                
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                            <tbody class="coverage">
+                                
+                               
                             </tbody>
                         </table>
                     </div>
@@ -258,7 +153,7 @@
                         </select>
 
                         <div class="form-floating mb-3">
-                            <input asp-for="StartDate" type="date" class="form-control dob-create-patient shadow-none" id="floatingInput" placeholder="">
+                            <input asp-for="ShiftDate" type="date" class="form-control dob-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="dob-create-patient-text" for="floatingInput">Shift Date</label>
 
                         </div>
@@ -277,23 +172,24 @@
                         <input name="checktoggle" type="checkbox" id="toggle" />
                         <label class="toggle-label" for="toggle"></label>
                         <div class="d-flex justify-content-around mb-1">
-                            <input type="checkbox" id="sun">
+                            <input type="checkbox" id="sun" name="dayList" value="1">
                             <label for="sun"> Every Sunday</label>
-                            <input type="checkbox" id="mon">
+                            <input type="checkbox" id="mon" name="dayList" value="2">
                             <label for="mon"> Every Monday</label>
-                            <input type="checkbox" id="tue">
+                            <input type="checkbox" id="tue" name="dayList" value="3">
                             <label for="tue"> Every Tuesday</label>
-                            <input type="checkbox" id="wed">
+                            
                         </div>
                         <div class="d-flex justify-content-around mb-1">
+                            <input type="checkbox" id="wed" name="dayList" value="4">
                             <label for="wed"> Every Wednesday</label>
-                            <input type="checkbox" id="thur">
+                            <input type="checkbox" id="thur" name="dayList" value="5">
                             <label for="thur"> Every Thursday</label>
-                            <input type="checkbox" id="fri">
+                            <input type="checkbox" id="fri" name="dayList" value="6">
                             <label for="fri"> Every Friday</label>
 
                         </div>
-                        <input type="checkbox" class="mb-3" id="sat">
+                        <input type="checkbox" class="mb-3" id="sat" name="dayList" value="7">
                         <label for="sat"> Every Saturday</label>
                         <select asp-for="RepeatUpto" id="repeat" class="form-select mb-3" aria-label="Default select example">
                             <option selected>Repeat End</option>
@@ -320,6 +216,32 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Admin/GetAllPhysicians',
+                type: 'GET',
+                success: function (data) {
+                    var physiciansList = $('.coverage');
+                    physiciansList.empty();
+
+                    $.each(data, function (index, coverage) {
+                        var tr = $('<tr></tr>');
+                        tr.append($('<th></th>').attr('value', coverage.physicianId).text(coverage.firstName));
+
+                      
+                        for (var i = 0; i < 24; i++) {
+                            
+                            tr.append($('<td></td>').addClass('scheduleData'));
+                        }
+
+                        physiciansList.append(tr);
+                    });
+                }
+            });
+        });
+
+    </script>
     <script>
         $(document).ready(function () {
             $.ajax({
@@ -362,5 +284,6 @@
 
         });
     </script>
+
     </body>
 </html>

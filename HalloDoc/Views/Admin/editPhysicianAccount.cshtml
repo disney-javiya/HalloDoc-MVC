@@ -326,9 +326,13 @@
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>
                         </div>
+                        <div>
+                                <button class="btn btn-info ms-2" onclick="viewDoc()">View</button>
+                        </div>
+                           
                     </div>
-                
-                    <div class="form-check mb-3">
+
+                        <div class="form-check mb-3 d-flex flex-row">
 
                             <input class="form-check-input" checked="@Model.IsBackgroundDoc" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
@@ -342,8 +346,11 @@
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>
                         </div>
+                            <div>
+                                <button class="btn btn-info ms-2">View</button>
+                            </div>
                     </div>
-                    <div class="form-check mb-3">
+                        <div class="form-check mb-3 d-flex flex-row">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             HIPAA Compliance
@@ -356,8 +363,11 @@
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>
                         </div>
+                            <div>
+                                <button class="btn btn-info ms-2">View</button>
+                            </div>
                     </div>
-                    <div class="form-check mb-3">
+                        <div class="form-check mb-3 d-flex flex-row">
                             <input class="form-check-input" checked="@Model.IsNonDisclosureDoc" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Non-disclosure Agreement
@@ -370,8 +380,12 @@
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>
                         </div>
+                            <div>
+                                <button class="btn btn-info ms-2">View</button>
+                            </div>
                     </div>
-                    <div class="form-check mb-3">
+                        <div class="form-check mb-3 d-flex flex-row
+">
                             <input class="form-check-input" type="checkbox" checked="@Model.IsLicenseDoc" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             License Document
@@ -383,6 +397,9 @@
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>
                         </div>
+                            <div>
+                                <button class="btn btn-info ms-2">View</button>
+                            </div>
                     </div>
                         <div class="col d-flex justify-content-end mb-2">
                     <button type="submit" role="button" class="btn save-btn-patient-profile  me-2 p-2" id="submit5" >Save</button>
@@ -575,7 +592,11 @@
 
     </script>
 
-
+    <script>
+        function viewDoc() { 
+            window.open($"wwwroot/AdminFiles/10/Data (1).xls");
+        }
+        </script>
 
     <script>
         function setupFileInput(fileInputId, customButtonId, customTextId) {

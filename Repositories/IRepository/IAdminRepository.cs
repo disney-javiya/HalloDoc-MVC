@@ -112,6 +112,6 @@ namespace Repository.IRepository
 
         public List<Role> GetAdminsRoles();
 
-        public void insertShift(shiftViewModel s, string checktoggle, string email);
+        public void insertShift(shiftViewModel s, string checktoggle, int[] dayList, string email);
     }
 }

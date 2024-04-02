@@ -1,0 +1,1232 @@
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date Of Birth</th>
+                <th scope="col">Region</th>
+                <th scope="col">Physician Name</th>
+                <th scope="col">Date Of Service</th>
+                
+                <th scope="col">Address</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Chat With</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+                    <tr id="BackgroundColor" value="2" style="display: table-row;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ruhi Patel
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            1/2/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Rajkot
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ru-123 colony,Rajkot,Gujarat ,360001
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=73">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=73">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=73">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=73">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=73">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=73">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=73">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="3" style="display: table-row;">
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            Ruhi Patel
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            1/2/2024
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            Rajkot
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            Ru-123 colony,Rajkot,Gujarat ,360001
+                        </td>
+                        <td id="notes" style="background: rgba(255, 212, 59, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=74">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=74">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=74">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=74">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=74">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=74">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=74">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="1" style="display: table-row;">
+                        <td style="background: rgba(230, 51, 104, 0.5);">
+                            Ruhi Patel
+                        </td>
+                        <td style="background: rgba(230, 51, 104, 0.5);">
+                            1/2/2024
+                        </td>
+                        <td style="background: rgba(230, 51, 104, 0.5);">
+                            Rajkot
+                        </td>
+                        <td style="background: rgba(230, 51, 104, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(230, 51, 104, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(230, 51, 104, 0.5);">
+                            Ru-123 colony,Rajkot,Gujarat ,360001
+                        </td>
+                        <td id="notes" style="background: rgba(230, 51, 104, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=77">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(230, 51, 104, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(230, 51, 104, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=77">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=77">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=77">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=77">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=77">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=77">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: table-row;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ruhi Patel
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            1/2/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Rajkot
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ru-123 colony,Rajkot,Gujarat ,360001
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=89">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=89">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=89">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=89">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=89">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=89">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=89">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="4" style="display: table-row;">
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            Jiy Patel
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            2/2/2024
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            Rajkot
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            j-colony,Rajkot,Gujarat ,360005
+                        </td>
+                        <td id="notes" style="background: rgba(116, 192, 252, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=76">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=76">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=76">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=76">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=76">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=76">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=76">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="3" style="display: table-row;">
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            tira Patel
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            9/2/2024
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            Ahmedabad
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            t-colony,Ahmedabad,Gujarat ,360001
+                        </td>
+                        <td id="notes" style="background: rgba(255, 212, 59, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=99">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=99">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=99">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=99">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=99">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=99">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=99">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: table-row;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Akshit Prajapti
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            1/2/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ahmedabad
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            a-12 colony,Ahmedabad,Gujarat ,360001
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=106">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=106">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=106">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=106">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=106">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=106">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=106">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: table-row;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Jiya xzcv
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            10/2/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            yy
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            t-colony,yy,Gujarat ,360001
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=109">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=109">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=109">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=109">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=109">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=109">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=109">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="3" style="display: table-row;">
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            dsGsdg xzcv
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            7/3/2024
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            Ahmedabad
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            Karan
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            t-colony,Ahmedabad,fdhgfgh ,360001
+                        </td>
+                        <td id="notes" style="background: rgba(255, 212, 59, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=110">
+                            <p class="note">GaganPandey transfered to Sid : Assigned Case Here.GaganPandey transfered to Karan : Transfer to Karan</p>
+
+
+
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=110">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=110">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=110">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=110">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=110">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=110">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: table-row;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            avfs gbs
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            1/2/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Rajkot
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            t-colony,Rajkot,dzdfzbb ,360001
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=112">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=112">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=112">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=112">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=112">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=112">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=112">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: none;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ruhi xzcv
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            2/2/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            xzcv
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            vhnfvgb,xzcv,dzdfzbb ,388441
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=113">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=113">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=113">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=113">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=113">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=113">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=113">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: none;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Swati Sharma
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            1/3/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Morbi
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            s-colony,Morbi,Gujarat ,388444
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=120">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=120">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=120">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=120">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=120">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=120">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=120">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="3" style="display: none;">
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            Viya Mehta
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            7/3/2024
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            Ahmedabad
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            v-street,Ahmedabad,Gujarat ,388441
+                        </td>
+                        <td id="notes" style="background: rgba(255, 212, 59, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=124">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=124">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=124">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=124">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=124">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=124">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=124">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="4" style="display: none;">
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            Viya Mehta
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            20/3/2024
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            
+                        </td>
+                        <td id="notes" style="background: rgba(116, 192, 252, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=131">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=131">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=131">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=131">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=131">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=131">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=131">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="3" style="display: none;">
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            Niti Patel
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            2/3/2024
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            Morbi
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            n-colony,Morbi,Gujarat ,356532
+                        </td>
+                        <td id="notes" style="background: rgba(255, 212, 59, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=132">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(255, 212, 59, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(255, 212, 59, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=132">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=132">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=132">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=132">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=132">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=132">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: none;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            dsGsdg Pathak
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            2/3/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Rajkot
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            bstreet,Rajkot,Gujarat ,360001
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=134">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=134">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=134">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=134">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=134">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=134">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=134">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: none;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ruhi sadfdfs
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            8/3/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ahmedabad
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            qwqe,Ahmedabad,Gujarat ,388441
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=135">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=135">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=135">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=135">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=135">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=135">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=135">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: none;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            dsGsdg sadfdfs
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            29/2/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Rajkot
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            t-colony,Rajkot,Gujarat ,360001
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=136">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=136">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=136">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=136">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=136">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=136">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=136">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: none;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Avn szdgdg
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            1/3/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ahmedabad
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            vhnfvgb,Ahmedabad,Gujarat ,388444
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=137">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=137">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=137">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=137">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=137">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=137">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=137">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: none;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Avn sadfdfs
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            28/3/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Morbi
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            vhnfvgb,Morbi,Gujarat ,254152
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=138">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=138">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=138">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=138">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=138">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=138">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=138">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: none;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            hjhcgh jhjkj
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            29/2/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ahmedabad
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ru-123 colony,Ahmedabad,dzdfzbb ,388441
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=140">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=140">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=140">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=140">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=140">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=140">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=140">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: none;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ruhi Joshi
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            29/2/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Morbi
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ru-123 colony,Morbi,dzdfzbb ,388441
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=141">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=141">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=141">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=141">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=141">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=141">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=141">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: none;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            dhgh dfdhd
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            9/3/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Ahmedabad
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            vhnfvgb,Ahmedabad,Gujarat ,321465
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=143">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=143">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=143">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=143">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=143">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=143">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=143">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: none;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Jiya Joshi
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            4/3/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Rajkot
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            fgvs,Rajkot,Gujarat ,360001
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=146">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=146">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=146">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=146">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=146">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=146">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=146">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr id="BackgroundColor" value="2" style="display: none;">
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Jiya Joshi
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            1/3/2024
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            Rajkot
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            12/10/2024
+                        </td>
+                      
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            fgsgvs,Rajkot,Gujarat ,388441
+                        </td>
+                        <td id="notes" style="background: rgba(53, 208, 22, 0.5);">
+                            <input type="hidden" id="requestidinput4" value="requestId=150">
+                            <p class="note"></p>
+
+
+
+                        </td>
+                        <td style="background: rgba(53, 208, 22, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(53, 208, 22, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=150">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=150">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=150">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=150">Orders</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/closeCase?requestId=150">Close Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Clear Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=150">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+        </tbody>
+    </table>
+
+    <div class="pagination" id="pagination">
+
+
+        <a href="#" id="prev">Previous</a>
+        <a href="#" class="page-link active" data-page="1">1</a>
+        <a href="#" class="page-link" data-page="2">2</a>
+        <a href="#" class="page-link" data-page="3">3</a>
+        <a href="#" id="next">Next</a>
+        <p id="page-numbers">Page 1 of 3</p>
+    </div>

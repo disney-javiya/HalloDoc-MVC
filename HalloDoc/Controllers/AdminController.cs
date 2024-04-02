@@ -141,11 +141,12 @@ namespace HalloDoc.Controllers
             List<Region> r = _adminRepository.getAllRegions();
             return r;
         }
-        //[HttpPost]
-        //public FileResult Export(string GridHtml)
-        //{
-        //    return File(Encoding.ASCII.GetBytes(GridHtml), "application/vnd.ms-excel", "Data.xls");
-        //}
+        public List<Physician> GetAllPhysicians()
+        {
+            List<Physician> r = _adminRepository.GetAllPhysicians();
+            return r;
+        }
+       
 
         [HttpPost]
         public FileResult Export(string type, string regionId, string patient_name, string typeid)
@@ -1404,11 +1405,11 @@ namespace HalloDoc.Controllers
         }
         [CustomeAuthorize("Admin")]
         [HttpPost]
-        public IActionResult insertShift(shiftViewModel s, string checktoggle)
+        public IActionResult insertShift(shiftViewModel s, string checktoggle , int[] dayList)
         {
             //string selected = Request.Form["uncheckedCheckboxes"];
             ViewBag.Data = HttpContext.Session.GetString("key");
-            _adminRepository.insertShift(s, checktoggle,ViewBag.Data);
+            _adminRepository.insertShift(s, checktoggle, dayList, ViewBag.Data);
 
             return RedirectToAction("adminScheduling");
         }
