@@ -1,0 +1,72 @@
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date Of Birth</th>
+                <th scope="col">Physician Name</th>
+                <th scope="col">Date Of Service</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+
+                <th scope="col">Chat With</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+                    <tr id="BackgroundColor" value="4" style="display: table-row;">
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            Mona Patel
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            10/2/2024
+                        </td>
+
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            12/10/2024
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            
+                            
+                        </td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            
+                        </td>
+
+                        <td style="background: rgba(116, 192, 252, 0.5);"><a class="table-btn p-1" role="button">Provider</a></td>
+                        <td style="background: rgba(116, 192, 252, 0.5);">
+                            <div class="dropdown">
+                                <a role="button" class="table-btn p-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/Admin/adminViewCase?requestId=105">View Case</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewUploads?requestId=105">View Uploads</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/adminViewNotes?requestId=105">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/sendOrder?requestId=105">Orders</a></li>
+                                    <li><a class="dropdown-item" href="#">Doctors Notes</a></li>
+                                    <li><a class="dropdown-item" href="/Admin/encounterForm?requestId=105">Encounter</a></li>
+                                </ul>
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+        </tbody>
+    </table>
+
+    <div class="pagination" id="pagination">
+
+
+        <a href="#" id="prev">Previous</a>
+        <a href="#" class="page-link active" data-page="1">1</a>
+        <a href="#" class="page-link" data-page="2">2</a>
+        <a href="#" class="page-link" data-page="3">3</a>
+        <a href="#" id="next">Next</a>
+        <p id="page-numbers">Page 1 of 1</p>
+    </div>

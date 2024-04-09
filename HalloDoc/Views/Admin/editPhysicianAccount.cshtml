@@ -51,7 +51,7 @@
                         <div class="form-floating mb-3">
                             <input type="password" name="password" id="password" class="form-control  password-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="password-create-patient-text" for="floatingInput">Password</label>
-
+                            <span id="pwd"></span>
                         </div>
                     </div>
 
@@ -66,15 +66,19 @@
                        
                     </div>
 
-                    <div class="col-md-6 gy-3" style=" color: lightgray;">
-                        <select asp-for="RoleId" class="form-select m-0 p-2 ainfo" aria-label="Default select example" disabled>
-                            <option selected>Role</option>
-                            <option>Master Physician</option>
-                            <option>Physician</option>
-                            
-                        </select>
 
+                    <div class="col-md-4 gy-3 mb-3" style=" color: lightgray;">
+
+                        <select asp-for="RoleId"  id="role" class="form-select m-2 p-2 ainfo" aria-label="Default select example" disabled>
+                            <option selected>@Model.RoleId</option>
+
+
+                        </select>
                     </div>
+
+
+
+
 
                     
                     <div class="col d-flex justify-content-end m-2">
@@ -305,74 +309,104 @@
 
 
                     <hr>
+                <form method="post" class="row row-cols-1 " action="@Url.Action("physicianUpdateUpload", "Admin", new { physicianId =  Context.Request.Query["physicianId"]})" enctype="multipart/form-data">
                <div class="d-flex flex-column justify-content-between">
                     <div class="form-check mb-3 d-flex flex-row">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                          
+                            <input class="form-check-input" checked="@Model.IsAgreementDoc" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Independent Contractor Agreement
                         </label>
 
-                        <input type="file" name="agreementDoc" id="real-file2" hidden="hidden" />
+
+                            <input type="file" name="agreementDoc"  id="real-file2" hidden="hidden" />
                         <div class="input-group mb-3">
+                                <input class="form-control binfo" type="text" id="custom-text2" aria-label="readonly input example" value="Select Agreement" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button2">
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>
                         </div>
+                        <div>
+                                <button class="btn btn-info ms-2" onclick="viewDoc()">View</button>
+                        </div>
+                           
                     </div>
-               
-                    <div class="form-check mb-3">
 
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <div class="form-check mb-3 d-flex flex-row">
+
+                            <input class="form-check-input" checked="@Model.IsBackgroundDoc" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Background Check
                         </label>
 
-                        <input type="file" name="backgroundDoc" id="real-file3" hidden="hidden" />
+                            <input type="file" name="backgroundDoc"  id="real-file3" hidden="hidden" />
                         <div class="input-group mb-3">
+                            <input class="form-control binfo" type="text" id="custom-text3" aria-label="readonly input example" value="Select backgroundDoc" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button3">
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>
                         </div>
+                            <div>
+                                <button class="btn btn-info ms-2">View</button>
+                            </div>
                     </div>
-                    <div class="form-check mb-3">
+                        <div class="form-check mb-3 d-flex flex-row">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             HIPAA Compliance
                         </label>
 
-                        <input type="file" name="hippaDoc" id="real-file4" hidden="hidden" />
+                            <input type="file" name="hippaDoc" id="real-file4" hidden="hidden" />
                         <div class="input-group mb-3">
+                            <input class="form-control binfo" type="text" id="custom-text4" aria-label="readonly input example" value="Select hippaDoc" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button4">
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>
                         </div>
+                            <div>
+                                <button class="btn btn-info ms-2">View</button>
+                            </div>
                     </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <div class="form-check mb-3 d-flex flex-row">
+                            <input class="form-check-input" checked="@Model.IsNonDisclosureDoc" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Non-disclosure Agreement
                         </label>
 
-                        <input type="file" name="disclosureDoc" id="real-file5" hidden="hidden" />
+                            <input type="file" name="disclosureDoc" id="real-file5" hidden="hidden" />
                         <div class="input-group mb-3">
+                            <input class="form-control binfo" type="text" id="custom-text5" aria-label="readonly input example" value="Select disclosureDoc" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button5">
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>
                         </div>
+                            <div>
+                                <button class="btn btn-info ms-2">View</button>
+                            </div>
                     </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <div class="form-check mb-3 d-flex flex-row
+">
+                            <input class="form-check-input" type="checkbox" checked="@Model.IsLicenseDoc" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             License Document
                         </label>
-                        <input type="file" name="licenseDoc" id="real-file6" hidden="hidden" />
+                            <input type="file" name="licenseDoc"  id="real-file6" hidden="hidden" />
                         <div class="input-group mb-3">
+                            <input class="form-control binfo" type="text" id="custom-text6" aria-label="readonly input example" value="Select licenseDoc" readonly disabled>
                             <button class="btn btn-info" type="button" id="custom-button6">
                                 <i class="bi bi-cloud-arrow-up"></i> Upload
                             </button>
                         </div>
+                            <div>
+                                <button class="btn btn-info ms-2">View</button>
+                            </div>
+                    </div>
+                        <div class="col d-flex justify-content-end mb-2">
+                    <button type="submit" role="button" class="btn save-btn-patient-profile  me-2 p-2" id="submit5" >Save</button>
+                            <a role="button" class="btn cancel-btn-patient-profile  me-2 p-2" id="cancel5" href="@Url.Action("deletePhysicianAccount", "Admin", new { physicianId =  Context.Request.Query["physicianId"]})">Delete Account</a>
                     </div>
                </div>
+               </form>
             </div>
         </div>
 
@@ -558,54 +592,11 @@
 
     </script>
 
-@*     <script>
-        let file = document.getElementById("real-file");
-        const customBtn = document.getElementById("custom-button");
-        const customTxt = document.getElementById("custom-text");
-
-        customBtn.addEventListener("click", function () {
-            file.click();
-        });
-
-        file.addEventListener("change", function () {
-            var i;
-            var filename = "";
-            for (i = 0; i < file.files.length; i++) {
-                filename = filename + " " + file.files[i].name;
-            }
-            if (file.files.length) {
-                customTxt.setAttribute("value", filename);
-
-                this.closest('form').submit();
-            } else {
-                customTxt.setAttribute("value", "Select File");
-            }
-        });
-    </script>
     <script>
-        let file1 = document.getElementById("real-file1");
-        const customBtn1 = document.getElementById("custom-button1");
-        const customTxt1 = document.getElementById("custom-text1");
-
-        customBtn1.addEventListener("click", function () {
-            file1.click();
-        });
-
-        file1.addEventListener("change", function () {
-            var i;
-            var filename1 = "";
-            for (i = 0; i < file1.files.length; i++) {
-                filename1 = filename1 + " " + file1.files[i].name;
-            }
-            if (file.files.length) {
-                customTxt1.setAttribute("value", filename1);
-
-                this.closest('form').submit();
-            } else {
-                customTxt.setAttribute("value", "Select File");
-            }
-        });
-    </script> *@
+        function viewDoc() { 
+            window.open($"wwwroot/AdminFiles/10/Data (1).xls");
+        }
+        </script>
 
     <script>
         function setupFileInput(fileInputId, customButtonId, customTextId) {
@@ -633,11 +624,11 @@
 
         setupFileInput("real-file", "custom-button", "custom-text");
         setupFileInput("real-file1", "custom-button1", "custom-text1");
-         setupFileInput("real-file2", "custom-button2", "");
-        setupFileInput("real-file3", "custom-button3", "");
-          setupFileInput("real-file4", "custom-button4", "");
-        setupFileInput("real-file5", "custom-button5", "");
-        setupFileInput("real-file6", "custom-button6", "");
+        setupFileInput("real-file2", "custom-button2", "custom-text2");
+        setupFileInput("real-file3", "custom-button3", "custom-text3");
+        setupFileInput("real-file4", "custom-button4", "custom-text4");
+        setupFileInput("real-file5", "custom-button5", "custom-text5");
+        setupFileInput("real-file6", "custom-button6", "custom-text6");
     </script>
 
     <script>
@@ -653,14 +644,42 @@
             });
 
             $('#uncheckedCheckboxesInput').val(uncheckedCheckboxes);
-         
 
+          
            
 
         });
 
 
     </script>
+
+
+    <script>
+        $(document).ready(function () {
+            
+            $.ajax({
+                url: '/Admin/GetPhysiciansRoles',
+                type: 'GET',
+
+                success: function (data) {
+
+                    var roleDropdown = $('#role');
+                    roleDropdown.empty();
+                    
+                    roleDropdown.append($('<option></option>').text(@Model.RoleId));
+                    $.each(data, function (index, RoleId) {
+
+                        roleDropdown.append($('<option></option>').attr('value', RoleId.roleId).text(RoleId.name));
+                    });
+                }
+            });
+
+
+
+
+        });
+    </script>
+
 
     <script>
 
@@ -671,13 +690,20 @@
             const urlParams = new URLSearchParams(queryString);
             const physicianId = urlParams.get('physicianId');
             const password = $('#password').val();
-            $.ajax({
-                url: '/Admin/physicianUpdatePassword',
-                method: 'POST',
-                data: { 'physicianId': physicianId , 'password': password },
-                success: function (data) {
-                }
-            });
+            if (password == "") {
+                $("#pwd").append("Enter Password First!!").css("color", "red");
+            }
+            if(password != "")
+            {
+                $.ajax({
+                    url: '/Admin/physicianUpdatePassword',
+                    method: 'POST',
+                    data: { 'physicianId': physicianId, 'password': password },
+                    success: function (data) {
+                    }
+                });
+            }
+           
 
 
 

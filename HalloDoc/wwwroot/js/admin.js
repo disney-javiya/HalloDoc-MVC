@@ -1,19 +1,19 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
-    var tabs = document.querySelectorAll('.nav-link');
+﻿//document.addEventListener("DOMContentLoaded", function () {
+//    var tabs = document.querySelectorAll('.nav-link');
 
-    tabs.forEach(function (tab) {
-        tab.addEventListener('click', function () {
-            tabs.forEach(function (t) {
-                t.classList.remove('active');
-            });
+//    tabs.forEach(function (tab) {
+//        tab.addEventListener('click', function () {
+//            tabs.forEach(function (t) {
+//                t.classList.remove('active');
+//            });
 
-            tab.classList.add('active');
-        });
-    });
-    tabs.forEach(function (tab) {
-        tab.classList.remove('active');
-    });
-});
+//            tab.classList.add('active');
+//        });
+//    });
+//    tabs.forEach(function (tab) {
+//        tab.classList.remove('active');
+//    });
+//});
 
 
 

@@ -77,6 +77,7 @@ namespace HalloDoc.Controllers
 
             List<Region> r = new List<Region>();
             r = _adminRepository.getAllRegions();
+           
             return View("adminDashboard", r);
         }
 
@@ -135,11 +136,17 @@ namespace HalloDoc.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public FileResult Export(string GridHtml)
-        //{
-        //    return File(Encoding.ASCII.GetBytes(GridHtml), "application/vnd.ms-excel", "Data.xls");
-        //}
+        public List<Region> getAllRegions()
+        {
+            List<Region> r = _adminRepository.getAllRegions();
+            return r;
+        }
+        public List<Physician> GetAllPhysicians()
+        {
+            List<Physician> r = _adminRepository.GetAllPhysicians();
+            return r;
+        }
+       
 
         [HttpPost]
         public FileResult Export(string type, string regionId, string patient_name, string typeid)
@@ -512,7 +519,7 @@ namespace HalloDoc.Controllers
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
             _adminRepository.adminNotes(requestId, v, ViewBag.Data);
-            return RedirectToAction("adminDashboard");
+            return RedirectToAction("adminViewNotes", new { requestId = requestId });
 
         }
         [CustomeAuthorize("Admin")]
@@ -880,9 +887,9 @@ namespace HalloDoc.Controllers
 
                 client.SendMailAsync(mailMessage);
 
-
-                sendSMS(requestId, mobile);
-
+                TempData["isSentAgreement"] = true;
+                //sendSMS(requestId, mobile);
+                
                 return RedirectToAction("adminDashboard");
             }
             
@@ -980,9 +987,20 @@ namespace HalloDoc.Controllers
             return RedirectToAction("adminProfile");
 
         }
+
         [CustomeAuthorize("Admin")]
         [HttpPost]
-        public IActionResult adminProfile(Admin a , string uncheckedCheckboxes)
+        public IActionResult adminProfileUpdateStatus( Admin a)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+
+            _adminRepository.adminProfileUpdateStatus(ViewBag.Data, a);
+            return RedirectToAction("adminProfile");
+
+        }
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult adminProfile(Admin a , string? uncheckedCheckboxes)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
            
@@ -1105,11 +1123,11 @@ namespace HalloDoc.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult createPhysicianAccount(Physician p, IFormFile photo, string password)
+        public IActionResult createPhysicianAccount(Physician p, IFormFile photo, string password, string role, List<int> region, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            _adminRepository.createPhysicianAccount(p, photo, password, ViewBag.Data);
-            return View();
+            _adminRepository.createPhysicianAccount(p, photo, password, role, region, ViewBag.Data , agreementDoc, backgroundDoc, hippaDoc, disclosureDoc, licenseDoc);
+            return RedirectToAction("providerMenu");
         }
 
 
@@ -1124,7 +1142,7 @@ namespace HalloDoc.Controllers
         public List<Region> getPhysicianRegions(int physicianId)
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            //List<Region> res = new List<Region>();
+          
             var res = _adminRepository.getPhysicianRegions(physicianId);
             return res;
         }
@@ -1190,6 +1208,43 @@ namespace HalloDoc.Controllers
 
 
         }
+
+        [HttpPost]
+        public IActionResult physicianUpdateUpload(int physicianId, Physician p, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.physicianUpdateUpload(ViewBag.Data, physicianId, agreementDoc, backgroundDoc, hippaDoc, disclosureDoc, licenseDoc);
+
+
+
+            return RedirectToAction("editPhysicianAccount", new { physicianId = physicianId });
+
+
+
+
+        }
+        [HttpGet]
+        public List<Role> GetPhysiciansRoles()
+        {
+           List<Role> res = _adminRepository.GetPhysiciansRoles();
+            return res;
+        }
+
+
+        public IActionResult deletePhysicianAccount(int physicianId)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.deletePhysicianAccount(ViewBag.Data, physicianId);
+
+
+
+            return RedirectToAction("providerMenu");
+
+
+
+
+        }
+
 
         public IActionResult contactProvider(string physicianId, string ctype, string messagebody)
         {
@@ -1263,13 +1318,104 @@ namespace HalloDoc.Controllers
         public IActionResult adminAccess()
         {
             ViewBag.Data = HttpContext.Session.GetString("key");
-            //List<Physician> res = new List<Physician>();
-            //res = _adminRepository.GetAllPhysicians();
+            List<Role> res = new List<Role>();
+            res = _adminRepository.GetAllRoles();
+
+            return View(res);
+        }
+        [CustomeAuthorize("Admin")]
+        public IActionResult createRole()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            
 
             return View();
         }
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult createRole(createRole r, List<string> menu)
+        {
+            //string selected = Request.Form["uncheckedCheckboxes"];
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.createRole(r, menu, ViewBag.Data);
+
+            return RedirectToAction("adminAccess");
+        }
+
+        public List<Menu> menuByAccountType(int accountType)
+        {
+            List<Menu> menu = new List<Menu>();
+            menu = _adminRepository.menuByAccountType(accountType);
+            return menu;
+        }
+        public List<int> menuByAccountTypeRoleId(int accountType, int roleId)
+        {
+            List<int> menu = new List<int>();
+            menu = _adminRepository.menuByAccountTypeRoleId(accountType, roleId);
+            return menu;
+        }
+
+        public ActionResult adminDeleteRole(int roleId)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.adminDeleteRole(roleId, ViewBag.Data);
+            return RedirectToAction("adminAccess");
+        }
+        
+        [HttpGet]
+        public IActionResult editRole(int roleId)
+        {
+           Role r =   _adminRepository.getRoleData(roleId);
+            return View(r);
+        }
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult editRole(Role r, List<int> menu, int roleId)
+        {
+            //string selected = Request.Form["uncheckedCheckboxes"];
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.updateRole(r, menu, roleId, ViewBag.Data);
+
+            return RedirectToAction("adminAccess");
+        }
+
+        public IActionResult createAdmin()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            return View();
+        }
+        [HttpGet]
+        public List<Role> GetAdminsRoles()
+        {
+            List<Role> res = _adminRepository.GetAdminsRoles();
+            return res;
+        }
+        [HttpPost]
+        public IActionResult createAdmin(Admin a, string password, List<int> region, string role)
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.createAdmin(a, password, region,role, ViewBag.Data);
+            return RedirectToAction("adminDashboard");
+        }
+
+        public IActionResult adminScheduling()
+        {
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            return View();
+        }
+        [CustomeAuthorize("Admin")]
+        [HttpPost]
+        public IActionResult insertShift(shiftViewModel s, string checktoggle , int[] dayList)
+        {
+            //string selected = Request.Form["uncheckedCheckboxes"];
+            ViewBag.Data = HttpContext.Session.GetString("key");
+            _adminRepository.insertShift(s, checktoggle, dayList, ViewBag.Data);
+
+            return RedirectToAction("adminScheduling");
+        }
         public IActionResult logOut()
         {
+
             Response.Cookies.Delete("jwt");   
             HttpContext.Session.Remove("key");
             return RedirectToAction("Index");

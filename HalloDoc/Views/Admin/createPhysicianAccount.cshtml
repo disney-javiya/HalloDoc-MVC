@@ -58,14 +58,13 @@
 
                    
 
-                    <div class="col-md-4 gy-3" style=" color: lightgray;">
-                        <select  class="form-select m-0 p-2 ainfo" aria-label="Default select example" >
-                            <option selected>Role</option>
-                            <option>Master Physician</option>
-                            <option>Physician</option>
+                    <div class="col-md-4 gy-3 mb-3" style=" color: lightgray;">
+                       
+                        <select name="role" id="role" class="form-select m-2 p-2 ainfo" aria-label="Default select example">
+                            <option selected>Select Role</option>
+
 
                         </select>
-
                     </div>
 
 
@@ -139,10 +138,13 @@
                     </div> *@
 
 
-                  
 
+                    <div class="col-md-12 d-flex flex-row">
+                        <div id="checkbox-container" class="col-md-6 gy-3 ">
+                        <input type="hidden" id="uncheckedCheckboxesInput" name="checkedcheckbox" />
 
-
+                    </div>
+                    </div>
              
 
 
@@ -195,7 +197,7 @@
                     </div>
                     <div class="col-md-6 gy-3 ">
                         <div class="form-floating mb-3">
-                            <input asp-for="AltPhone" class=" form-control contact-create-patient shadow-none info" id="phone1" type="tel" disabled />
+                            <input asp-for="AltPhone" class=" form-control contact-create-patient shadow-none info" id="phone1" type="tel" />
                             <label class="contact-create-patient-text" for="phone1"> </label>
                             <span asp-validation-for="AltPhone" class="text-danger"></span>
                         </div>
@@ -244,83 +246,92 @@
                         </div>
                     </div>
 
-                   
 
+
+
+
+
+
+                    <hr>
                   
-              
+                        <div class="d-flex flex-column justify-content-between">
+                            <div class="form-check mb-3 d-flex flex-row">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Independent Contractor Agreement
+                                </label>
 
 
-                <hr>
-                <div class="d-flex flex-column justify-content-between">
-                    <div class="form-check mb-3 d-flex flex-row">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Independent Contractor Agreement
-                        </label>
+                                <input type="file" name="agreementDoc" id="real-file2" hidden="hidden" />
+                                <div class="input-group mb-3">
+                                    <input class="form-control binfo" type="text" id="custom-text2" aria-label="readonly input example" value="Select Agreement" readonly disabled>
+                                    <button class="btn btn-info" type="button" id="custom-button2">
+                                        <i class="bi bi-cloud-arrow-up"></i> Upload
+                                    </button>
+                                </div>
+                            </div>
 
-                        <input type="file" name="agreementDoc" id="real-file2" hidden="hidden" />
-                        <div class="input-group mb-3">
-                            <button class="btn btn-info" type="button" id="custom-button2">
-                                <i class="bi bi-cloud-arrow-up"></i> Upload
-                            </button>
+                            <div class="form-check mb-3">
+
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Background Check
+                                </label>
+
+                                <input type="file" name="backgroundDoc" id="real-file3" hidden="hidden" />
+                                <div class="input-group mb-3">
+                                    <input class="form-control binfo" type="text" id="custom-text3" aria-label="readonly input example" value="Select backgroundDoc" readonly disabled>
+                                    <button class="btn btn-info" type="button" id="custom-button3">
+                                        <i class="bi bi-cloud-arrow-up"></i> Upload
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    HIPAA Compliance
+                                </label>
+
+                                <input type="file" name="hippaDoc" id="real-file4" hidden="hidden" />
+                                <div class="input-group mb-3">
+                                    <input class="form-control binfo" type="text" id="custom-text4" aria-label="readonly input example" value="Select hippaDoc" readonly disabled>
+                                    <button class="btn btn-info" type="button" id="custom-button4">
+                                        <i class="bi bi-cloud-arrow-up"></i> Upload
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Non-disclosure Agreement
+                                </label>
+
+                                <input type="file" name="disclosureDoc" id="real-file5" hidden="hidden" />
+                                <div class="input-group mb-3">
+                                    <input class="form-control binfo" type="text" id="custom-text5" aria-label="readonly input example" value="Select disclosureDoc" readonly disabled>
+                                    <button class="btn btn-info" type="button" id="custom-button5">
+                                        <i class="bi bi-cloud-arrow-up"></i> Upload
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    License Document
+                                </label>
+                                <input type="file" name="licenseDoc" id="real-file6" hidden="hidden" />
+                                <div class="input-group mb-3">
+                                    <input class="form-control binfo" type="text" id="custom-text6" aria-label="readonly input example" value="Select licenseDoc" readonly disabled>
+                                    <button class="btn btn-info" type="button" id="custom-button6">
+                                        <i class="bi bi-cloud-arrow-up"></i> Upload
+                                    </button>
+                                </div>
+                            </div>
+
+                           
                         </div>
-                    </div>
-
-                    <div class="form-check mb-3">
-
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Background Check
-                        </label>
-
-                        <input type="file" name="backgroundDoc" id="real-file3" hidden="hidden" />
-                        <div class="input-group mb-3">
-                            <button class="btn btn-info" type="button" id="custom-button3">
-                                <i class="bi bi-cloud-arrow-up"></i> Upload
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            HIPAA Compliance
-                        </label>
-
-                        <input type="file" name="hippaDoc" id="real-file4" hidden="hidden" />
-                        <div class="input-group mb-3">
-                            <button class="btn btn-info" type="button" id="custom-button4">
-                                <i class="bi bi-cloud-arrow-up"></i> Upload
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Non-disclosure Agreement
-                        </label>
-
-                        <input type="file" name="disclosureDoc" id="real-file5" hidden="hidden" />
-                        <div class="input-group mb-3">
-                            <button class="btn btn-info" type="button" id="custom-button5">
-                                <i class="bi bi-cloud-arrow-up"></i> Upload
-                            </button>
-                        </div>
-                    </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            License Document
-                        </label>
-                        <input type="file" name="licenseDoc" id="real-file6" hidden="hidden" />
-                        <div class="input-group mb-3">
-                            <button class="btn btn-info" type="button" id="custom-button6">
-                                <i class="bi bi-cloud-arrow-up"></i> Upload
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                    <button role="button" style="height:fit-content;" type="submit" class="create-provider-btn w-25 p-1 ms-auto ">Create Account</button>
+                
+                    <button role="button" style="height:fit-content; border:none;" type="submit" class="create-provider-btn w-25 p-1 ms-auto mb-3">Create Account</button>
             </div>
         </div>
         </form>
@@ -360,6 +371,7 @@
         });
 
     </script>
+
     <script>
         function setupFileInput(fileInputId, customButtonId, customTextId) {
             let fileInput = document.getElementById(fileInputId);
@@ -385,12 +397,72 @@
         }
 
         setupFileInput("real-file", "custom-button", "custom-text");
-        setupFileInput("real-file1", "custom-button1", "custom-text1");
-        setupFileInput("real-file2", "custom-button2", "");
-        setupFileInput("real-file3", "custom-button3", "");
-        setupFileInput("real-file4", "custom-button4", "");
-        setupFileInput("real-file5", "custom-button5", "");
-        setupFileInput("real-file6", "custom-button6", "");
+       
+        setupFileInput("real-file2", "custom-button2", "custom-text2");
+        setupFileInput("real-file3", "custom-button3", "custom-text3");
+        setupFileInput("real-file4", "custom-button4", "custom-text4");
+        setupFileInput("real-file5", "custom-button5", "custom-text5");
+        setupFileInput("real-file6", "custom-button6", "custom-text6");
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $.ajax({
+                url: '/Admin/GetPhysiciansRoles',
+                type: 'GET',
+
+                success: function (data) {
+
+                    var roleDropdown = $('#role');
+                    roleDropdown.empty();
+                    roleDropdown.append($('<option></option>').text("Select Roles"));
+                    $.each(data, function (index, role) {
+                       
+                        roleDropdown.append($('<option></option>').attr('value', role.roleId).text(role.name));
+                    });
+                }
+            });
+
+
+
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            
+            $.ajax({
+                url: '/Admin/getAllRegions',
+                method: 'GET',
+             
+                success: function (data) {
+
+                    $.each(data, function (index, region) {
+
+                        var checkbox = $('<input>').attr({
+                            type: 'checkbox',
+                           name: 'region',
+                            class: 'box',
+                            value: region.regionId
+                        });
+
+                        var label = $('<label>').text(region.name);
+
+                        var container = $('#checkbox-container');
+                        container.append(checkbox).append(" ").append(label).append('<br>');
+                    });
+
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching regions:", xhr.status, xhr.statusText);
+                    console.error("Response body:", xhr.responseText);
+                    alert("Failed to fetch regions. Please try again later.");
+                }
+
+            });
+        });
     </script>
 </body>
 </html>

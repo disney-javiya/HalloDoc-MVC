@@ -20,11 +20,13 @@ using System.Web.Http;
 using System.IO.Compression;
 using System.Web.Helpers;
 using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.ExtendedProperties;
 
 
 namespace Repository
 {
-    public class AdminRepository: IAdminRepository
+    public class AdminRepository : IAdminRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -62,14 +64,14 @@ namespace Repository
 
 
 
-        public viewNotes getNotes(int requestId , string email)
+        public viewNotes getNotes(int requestId, string email)
         {
             var res = _context.RequestNotes.FirstOrDefault(x => x.RequestId == requestId);
             var res1 = _context.RequestStatusLogs.Where(x => x.RequestId == requestId).ToList();
             viewNotes v = new viewNotes();
             if (res == null)
             {
-               
+
                 v.RequestId = requestId;
                 v.AdditionalNote = "";
                 _context.SaveChanges();
@@ -84,32 +86,32 @@ namespace Repository
             {
                 if (row.Status == 3)
                 {
-                    v.AdminCancellationNotes = _context.Requests.Where(x=>x.RequestId == requestId && x.Status == 3).Select(u=>u.CaseTag).FirstOrDefault() + row.Notes;
+                    v.AdminCancellationNotes = "Cancelled: " +   row.Notes;
                 }
-                else if(row.Status == 2)
+                else if (row.Status == 2)
                 {
                     //admin tranfered to some physician
-                    if(row.TransToAdmin == null)
+                    if (row.TransToAdmin == null)
                     {
-                        var adminAspId = _context.Admins.Where(x=>x.AdminId == row.AdminId).Select(u=>u.AspNetUserId).FirstOrDefault();
-                        var adminusername = _context.AspNetUsers.Where(x=>x.Id == adminAspId).Select(u=>u.UserName).FirstOrDefault();
-                        var physicianname = _context.Physicians.Where(x=>x.PhysicianId == row.TransToPhysicianId).Select(u=>u.FirstName).FirstOrDefault();
-                        v.TransferNote = v.TransferNote +  adminusername + " " + "transfered to " + physicianname + " : " + row.Notes;
+                        var adminAspId = _context.Admins.Where(x => x.AdminId == row.AdminId).Select(u => u.AspNetUserId).FirstOrDefault();
+                        var adminusername = _context.AspNetUsers.Where(x => x.Id == adminAspId).Select(u => u.UserName).FirstOrDefault();
+                        var physicianname = _context.Physicians.Where(x => x.PhysicianId == row.TransToPhysicianId).Select(u => u.FirstName).FirstOrDefault();
+                        v.TransferNote = v.TransferNote + adminusername + " " + "transfered to " + physicianname + " : " + row.Notes;
                     }
                     //physician transfered to admin
-                    if(row.TransToPhysicianId == null)
+                    if (row.TransToPhysicianId == null)
                     {
                         var physicianusername = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.UserName).FirstOrDefault();
                         v.TransferNote = physicianusername + "tranfered to" + row.AdminId + ":" + row.Notes;
                     }
                 }
-                else if(row.Status == 7)
+                else if (row.Status == 7)
                 {
                     v.PatientCancellationNotes = _context.RequestStatusLogs.Where(x => x.RequestId == requestId && x.Status == 7).Select(u => u.Notes).FirstOrDefault();
                 }
             }
-            
-            
+
+
             return v;
         }
 
@@ -130,7 +132,7 @@ namespace Repository
             else
             {
 
-              var  r = _context.RequestNotes.Where(u => u.RequestNotesId == res.RequestNotesId).FirstOrDefault();
+                var r = _context.RequestNotes.Where(u => u.RequestNotesId == res.RequestNotesId).FirstOrDefault();
                 r.RequestNotesId = r.RequestNotesId;
                 r.AdminNotes = v.AdditionalNote;
                 r.PhysicianNotes = null;
@@ -146,7 +148,7 @@ namespace Repository
 
                 }
 
-               
+
                 _context.SaveChanges();
 
             }
@@ -183,7 +185,7 @@ namespace Repository
         public string getName(string requestId)
         {
             int reqId = int.Parse(requestId);
-          string name =  _context.RequestClients.Where(x=>x.RequestId == reqId).Select(u=>u.FirstName + " " + u.LastName).FirstOrDefault();
+            string name = _context.RequestClients.Where(x => x.RequestId == reqId).Select(u => u.FirstName + " " + u.LastName).FirstOrDefault();
 
             return name;
         }
@@ -197,22 +199,22 @@ namespace Repository
 
         public List<Physician> GetPhysicians(int regionId)
         {
-          return   _context.Physicians.Where(x=>x.RegionId ==  regionId).ToList();
+            return _context.Physicians.Where(x => x.RegionId == regionId).ToList();
         }
 
 
-        public void adminAssignNote(string requestId, string region,  string physician, string additionalNotesAssign, string email)
+        public void adminAssignNote(string requestId, string region, string physician, string additionalNotesAssign, string email)
         {
             RequestStatusLog rs = new RequestStatusLog();
             Request r = new Request();
             int reqId = int.Parse(requestId);
 
             var res = _context.Requests.Where(x => x.RequestId == reqId).FirstOrDefault();
-            if (res != null && physician != "Select Physician" && region != "Select Region" )
+            if (res != null && physician != "Select Physician" && region != "Select Region")
             {
                 res.Status = 2;
                 res.PhysicianId = int.Parse(physician);
-            
+
                 _context.SaveChanges();
                 rs.RequestId = reqId;
                 rs.Status = 2;
@@ -227,14 +229,14 @@ namespace Repository
             _context.SaveChanges();
         }
 
-        public void adminBlockNote(string requestId,  string additionalNotesBlock, string email)
+        public void adminBlockNote(string requestId, string additionalNotesBlock, string email)
         {
             RequestStatusLog rs = new RequestStatusLog();
             Request r = new Request();
             BlockRequest b = new BlockRequest();
             int reqId = int.Parse(requestId);
             var res = _context.Requests.Where(x => x.RequestId == reqId).FirstOrDefault();
-            if(res != null)
+            if (res != null)
             {
                 rs.RequestId = reqId;
                 res.Status = 11;
@@ -291,7 +293,7 @@ namespace Repository
             RequestStatusLog rs = new RequestStatusLog();
             Request r = new Request();
             int reqId = int.Parse(requestId);
-          
+
             var res = _context.Requests.Where(x => x.RequestId == reqId).FirstOrDefault();
             if (res != null)
             {
@@ -309,18 +311,18 @@ namespace Repository
 
         public List<RequestWiseFile> GetDocumentsByRequestId(int requestId)
         {
-            
-             
-            return _context.RequestWiseFiles.Where(d => d.RequestId == requestId && d.IsDeleted == new BitArray(new bool [] {false})).ToList();
+
+
+            return _context.RequestWiseFiles.Where(d => d.RequestId == requestId && d.IsDeleted == new BitArray(new bool[] { false })).ToList();
         }
 
 
         public List<string> GetNameConfirmation(int requestId)
         {
             List<string> result = new List<string>();
-           string name = _context.RequestClients.Where(x=>x.RequestId == requestId).Select(x=>x.FirstName).ToString();
+            string name = _context.RequestClients.Where(x => x.RequestId == requestId).Select(x => x.FirstName).ToString();
             result.Add(name);
-            string Cnum = _context.Requests.Where(x=>x.RequestId == requestId).Select(x=>x.ConfirmationNumber).ToString();
+            string Cnum = _context.Requests.Where(x => x.RequestId == requestId).Select(x => x.ConfirmationNumber).ToString();
             result.Add(Cnum);
             return result;
         }
@@ -347,7 +349,7 @@ namespace Repository
 
                              patientAddress = x.Client.Address,
                              patientCity = x.Client.City,
-                             physicianName = _context.Physicians.Where(u=>u.PhysicianId == x.Request.PhysicianId).Select(u=>u.FirstName).FirstOrDefault(),
+                             physicianName = _context.Physicians.Where(u => u.PhysicianId == x.Request.PhysicianId).Select(u => u.FirstName).FirstOrDefault(),
                              Status = x.Status,
                              RequestTypeId = x.Request.RequestTypeId,
                              patientEmail = x.Client.Email,
@@ -371,7 +373,7 @@ namespace Repository
             }
             else if (type == 4)
             {
-              
+
                 query = query.Where(req => req.Status == 6);
             }
             else if (type == 5)
@@ -383,12 +385,12 @@ namespace Repository
                 query = query.Where(req => req.Status == 9);
             }
 
-            
+
             return query.ToList();
         }
         public List<Region> getAllRegions()
         {
-           return _context.Regions.ToList();
+            return _context.Regions.ToList();
         }
 
         public List<RequestandRequestClient> getFilterByRegions(IEnumerable<RequestandRequestClient> r, int regionId)
@@ -401,25 +403,25 @@ namespace Repository
             }
             foreach (var r2 in r)
             {
-                if(r2.patientAddress != null)
+                if (r2.patientAddress != null)
                 {
                     if (r2.patientAddress.Contains(region))
                     {
                         s.Add(r2);
                     }
                 }
-                
-               
-               
+
+
+
             }
             return s;
-           
+
         }
 
         public List<RequestandRequestClient> getByRequesttypeId(IEnumerable<RequestandRequestClient> r, int requesttypeId)
         {
             List<RequestandRequestClient> s = new List<RequestandRequestClient>();
-           
+
             foreach (var r2 in r)
             {
                 if (r2.RequestTypeId == requesttypeId)
@@ -435,7 +437,7 @@ namespace Repository
         public List<RequestandRequestClient> getByRequesttypeIdRegionAndName(IEnumerable<RequestandRequestClient> r, int requesttypeId, int? regionId, string? patient_name)
         {
             List<RequestandRequestClient> s = new List<RequestandRequestClient>();
-           
+
             if (regionId == 0 && patient_name != null)
             {
                 foreach (var r2 in r)
@@ -447,9 +449,13 @@ namespace Repository
 
                 }
                 return s;
-                
+
             }
-            else if(patient_name == null && regionId != 0)
+            else if (patient_name == null && regionId == 0)
+            {
+                return getByRequesttypeId(r, requesttypeId);
+            }
+            else if (patient_name == null && regionId != 0)
             {
                 var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();
                 foreach (var r2 in r)
@@ -462,7 +468,7 @@ namespace Repository
                 }
                 return s;
             }
-            
+
             else
             {
                 var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();
@@ -476,28 +482,28 @@ namespace Repository
                 }
                 return s;
             }
-           
-          
+
+
 
         }
         public List<RequestandRequestClient> getFilterByName(IEnumerable<RequestandRequestClient> r, string patient_name)
         {
             List<RequestandRequestClient> s = new List<RequestandRequestClient>();
-            
+
             foreach (var r2 in r)
             {
-                if(patient_name != null)
+                if (patient_name != null)
                 {
                     if (r2.patientName.ToLower().Contains(patient_name.ToLower()))
                     {
                         s.Add(r2);
                     }
                 }
-                if(patient_name == null)
+                if (patient_name == null)
                 {
                     return r.ToList();
                 }
-               
+
 
 
             }
@@ -509,17 +515,17 @@ namespace Repository
         {
             List<RequestandRequestClient> s = new List<RequestandRequestClient>();
             var region = _context.Regions.Where(x => x.RegionId == regionId).Select(u => u.Name).FirstOrDefault();
-            if(regionId == 0 && patient_name == null)
+            if (regionId == 0 && patient_name == null)
             {
                 return r.ToList();
             }
-            if(regionId !=0 && patient_name == null)
+            if (regionId != 0 && patient_name == null)
             {
-               return getFilterByRegions(r,regionId);
+                return getFilterByRegions(r, regionId);
             }
             if (regionId == 0 && patient_name != null)
             {
-              return  getFilterByName(r, patient_name);
+                return getFilterByName(r, patient_name);
             }
             foreach (var r2 in r)
             {
@@ -565,7 +571,7 @@ namespace Repository
                     var filePath = System.IO.Path.Combine("wwwroot/Files", fileName);
                     var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
                     var id = _context.Admins.Where(x => x.AspNetUserId == aspId).Select(u => u.AdminId).FirstOrDefault();
-                    
+
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         file.CopyTo(stream);
@@ -594,9 +600,9 @@ namespace Repository
 
         public void DeleteFile(int fileId)
         {
-          var file =  _context.RequestWiseFiles.Where(f=> f.RequestWiseFileId == fileId).ExecuteUpdate(setters => setters.SetProperty(b => b.IsDeleted, new BitArray(new bool[] {true}) ));
-          
-            _context.SaveChanges();  
+            var file = _context.RequestWiseFiles.Where(f => f.RequestWiseFileId == fileId).ExecuteUpdate(setters => setters.SetProperty(b => b.IsDeleted, new BitArray(new bool[] { true })));
+
+            _context.SaveChanges();
         }
 
         public IEnumerable<RequestWiseFile> GetFilesByRequestId(int requestId)
@@ -606,21 +612,21 @@ namespace Repository
 
         public IEnumerable<RequestWiseFile> GetFilesByIds(List<int> fileIds)
         {
-            return _context.RequestWiseFiles.Where(f => fileIds.Contains(f.RequestWiseFileId) && f.IsDeleted == new BitArray(new bool[] {false})).ToList();
+            return _context.RequestWiseFiles.Where(f => fileIds.Contains(f.RequestWiseFileId) && f.IsDeleted == new BitArray(new bool[] { false })).ToList();
         }
 
 
         public void GetFilesByIdsDelete(List<int> fileIds)
         {
-           
+
             foreach (var id in fileIds)
             {
-              var file =  _context.RequestWiseFiles.Where(f => f.RequestWiseFileId == id);
+                var file = _context.RequestWiseFiles.Where(f => f.RequestWiseFileId == id);
                 file.ExecuteUpdate(setters => setters.SetProperty(b => b.IsDeleted, new BitArray(new bool[] { true })));
                 _context.SaveChanges();
             }
-           
-           
+
+
         }
 
         public void GetFilesByRequestIdDelete(int requestId)
@@ -631,21 +637,21 @@ namespace Repository
                 file.IsDeleted = new BitArray(new bool[] { true });
                 _context.SaveChanges();
             }
-          
-           
+
+
         }
         public string GetPatientEmail(int requestId)
         {
-          string email =  _context.RequestClients.Where(x=>x.RequestId == requestId).Select(f=> f.Email).FirstOrDefault().ToString();
+            string email = _context.RequestClients.Where(x => x.RequestId == requestId).Select(f => f.Email).FirstOrDefault().ToString();
             return email;
         }
 
         public List<string> GetAllFiles(int requestId)
         {
             return _context.RequestWiseFiles.Where(x => x.RequestId == requestId && x.IsDeleted == new BitArray(new bool[] { false })).Select(f => f.FileName).ToList();
-            
+
         }
-       
+
 
         public List<string> GetSelectedFiles(List<int> ids)
         {
@@ -655,7 +661,7 @@ namespace Repository
                 var name = _context.RequestWiseFiles
                                   .Where(x => x.RequestWiseFileId == id && x.IsDeleted == new BitArray(new bool[] { false }))
                                   .Select(x => x.FileName)
-                                  .FirstOrDefault(); 
+                                  .FirstOrDefault();
                 if (name != null)
                 {
                     selectedfilenames.Add(name);
@@ -666,7 +672,7 @@ namespace Repository
         }
         public void sendOrderDetails(int requestId, sendOrder s, string email)
         {
-           OrderDetail o = new OrderDetail();
+            OrderDetail o = new OrderDetail();
             var htype = s.type;
             o.VendorId = s.hname;
             o.RequestId = requestId;
@@ -691,11 +697,11 @@ namespace Repository
         }
         public List<HealthProfessional> GetHealthProfessional(int healthprofessionalId)
         {
-           return  _context.HealthProfessionals.Where(x=>x.Profession == healthprofessionalId).ToList();
+            return _context.HealthProfessionals.Where(x => x.Profession == healthprofessionalId).ToList();
         }
         public HealthProfessional GetProfessionInfo(int vendorId)
         {
-           return  _context.HealthProfessionals.Where(x=>x.VendorId == vendorId).FirstOrDefault();
+            return _context.HealthProfessionals.Where(x => x.VendorId == vendorId).FirstOrDefault();
         }
 
 
@@ -716,10 +722,10 @@ namespace Repository
                 var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
                 var id = _context.Admins.Where(x => x.AspNetUserId == aspId).Select(u => u.AdminId).FirstOrDefault();
                 rs.AdminId = id;
-               
+
                 rs.CreatedDate = DateTime.Now;
 
-               
+
 
 
             }
@@ -732,7 +738,7 @@ namespace Repository
         {
             List<string> res = new List<string>();
             int reqId = int.Parse(requestId);
-            string mob =  _context.RequestClients.Where(x => x.RequestId == reqId).Select(x => x.PhoneNumber).FirstOrDefault();
+            string mob = _context.RequestClients.Where(x => x.RequestId == reqId).Select(x => x.PhoneNumber).FirstOrDefault();
             res.Add(mob);
             string mail = _context.RequestClients.Where(x => x.RequestId == reqId).Select(x => x.Email).FirstOrDefault();
             res.Add(mail);
@@ -748,7 +754,7 @@ namespace Repository
             var res = _context.Requests.Where(x => x.RequestId == requestId).FirstOrDefault();
             if (res != null)
             {
-               
+
                 res.Status = 9;
                 _context.SaveChanges();
                 rs.RequestId = requestId;
@@ -765,13 +771,13 @@ namespace Repository
         {
             int reqId = int.Parse(requestId);
             var res = getNotes(reqId, email);
-           return res.TransferNote;
+            return res.TransferNote;
         }
         public Admin getAdminInfo(string email)
         {
             return _context.Admins.Where(x => x.Email == email).FirstOrDefault();
         }
-        public string adminCreateRequest(createAdminRequest RequestData , string email)
+        public string adminCreateRequest(createAdminRequest RequestData, string email)
         {
             AspNetUser asp = new AspNetUser();
             User data = new User();
@@ -818,7 +824,7 @@ namespace Repository
             data.StrMonth = mn;
             data.IntDate = dy;
 
-            var admin = _context.Admins.Where(x=>x.Email == email).FirstOrDefault();    
+            var admin = _context.Admins.Where(x => x.Email == email).FirstOrDefault();
             data.CreatedBy = admin.FirstName;
             data.CreatedDate = DateTime.Now;
             data.Status = 1;
@@ -837,7 +843,7 @@ namespace Repository
             int c = _context.Users.Where(x => x.CreatedDate.Date == DateTime.Today).Count();
             req.ConfirmationNumber = RequestData.State.Substring(0, 2) + DateTime.Now.ToString().Replace("-", "").Substring(0, 4) + RequestData.LastName.Substring(0, 2) + RequestData.FirstName.Substring(0, 2) + c;
             req.CreatedDate = DateTime.Now;
-           
+
 
 
             _context.Requests.Add(req);
@@ -851,7 +857,7 @@ namespace Repository
             rc.PhoneNumber = RequestData.Mobile;
             rc.Location = RequestData.State;
             rc.Address = RequestData.Street + "," + RequestData.City + "," + RequestData.State + " ," + RequestData.ZipCode;
-           
+
             rc.Email = RequestData.Email;
             rc.StrMonth = mn;
             rc.IntDate = dy;
@@ -898,7 +904,7 @@ namespace Repository
         }
 
 
-       
+
 
 
         public List<Region> getAdminRegions(string email)
@@ -906,7 +912,7 @@ namespace Repository
             var admin = _context.Admins.FirstOrDefault(x => x.Email == email);
             if (admin == null)
             {
-                return new List<Region>(); 
+                return new List<Region>();
             }
 
             var regionIds = _context.AdminRegions
@@ -917,13 +923,13 @@ namespace Repository
             var regions = _context.Regions.Where(x => regionIds.Contains(x.RegionId)).ToList();
             return regions;
         }
-        
+
 
         public void adminProfileUpdatePassword(string email, string password)
         {
             var aspuser = _context.AspNetUsers.Where(x => x.Email == email).First();
 
-            
+
             if (aspuser != null)
             {
                 var plainText = Encoding.UTF8.GetBytes(password);
@@ -932,7 +938,26 @@ namespace Repository
             }
         }
 
-        public void adminUpdateProfile(string email, Admin a , string uncheckedCheckboxes)
+        public void adminProfileUpdateStatus(string email, Admin a)
+        {
+            var admin = _context.Admins.Where(x => x.Email == email).FirstOrDefault();
+
+
+            if (admin != null)
+            {
+
+
+                admin.Status = a.Status;
+                admin.RoleId = a.RoleId;
+                var aid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                admin.ModifiedBy = aid;
+                admin.ModifiedDate = DateTime.Now;
+                _context.SaveChanges();
+
+            }
+        }
+
+        public void adminUpdateProfile(string email, Admin a, string? uncheckedCheckboxes)
         {
 
             var aspId = _context.AspNetUsers.Where(x => x.Email == email).Select(a => a.Id).First();
@@ -940,34 +965,46 @@ namespace Repository
             var admin = _context.Admins.Where(x => x.AspNetUserId == aspId).FirstOrDefault();
             if (admin != null)
             {
-                
+
                 admin.FirstName = a.FirstName;
                 admin.LastName = a.LastName;
                 admin.Email = a.Email;
                 admin.Mobile = a.Mobile;
-               
+
                 admin.ModifiedBy = admin.AspNetUserId;
                 admin.ModifiedDate = DateTime.Now;
-                string[] boxes = uncheckedCheckboxes.Split(','); ;
+                _context.SaveChanges();
 
 
-                if (uncheckedCheckboxes != null)
+                if(uncheckedCheckboxes != null)
                 {
-                    foreach (var box in boxes)
+                    string[] boxes = uncheckedCheckboxes.Split(',');
+
+                    if (boxes != null)
                     {
-                        int regionid = int.Parse(box);
-                        var row = _context.AdminRegions.Where(x => x.AdminId == admin.AdminId && x.RegionId == regionid).FirstOrDefault();
-                        if (row != null)
+                        foreach (var box in boxes)
                         {
-                            _context.AdminRegions.Remove(row);
-                            _context.SaveChanges();
+                            if (box != "")
+                            {
+                                int regionid = int.Parse(box);
+                                var row = _context.AdminRegions.Where(x => x.AdminId == admin.AdminId && x.RegionId == regionid).FirstOrDefault();
+                                if (row != null)
+                                {
+                                    _context.AdminRegions.Remove(row);
+                                    _context.SaveChanges();
+
+                                }
+                            }
 
                         }
-
                     }
                 }
-                _context.SaveChanges();
+
                 
+
+
+                
+
             }
 
 
@@ -985,7 +1022,7 @@ namespace Repository
             if (admin != null)
             {
 
-               
+
                 admin.Address1 = a.Address1;
                 admin.Address2 = a.Address2;
                 admin.City = a.City;
@@ -1004,7 +1041,7 @@ namespace Repository
 
 
         }
-        public void createPhysicianAccount(Physician p, IFormFile photo, string password, string email)
+        public void createPhysicianAccount(Physician p, IFormFile photo, string password, string role, List<int> region, string email, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc)
         {
             AspNetUser asp = new AspNetUser();
             Physician physician = new Physician();
@@ -1015,7 +1052,7 @@ namespace Repository
                 asp.UserName = "MD." + p.LastName + p.FirstName;
                 var plainText = Encoding.UTF8.GetBytes(password);
                 asp.PasswordHash = Convert.ToBase64String(plainText);
-                
+
                 asp.Email = p.Email;
                 asp.PhoneNumber = p.Mobile;
                 asp.CreatedDate = DateTime.Now;
@@ -1033,38 +1070,72 @@ namespace Repository
                 physician.Address1 = p.Address1;
                 physician.Address2 = p.Address2;
                 physician.City = p.City;
-                var rid = _context.Regions.Where(x=>x.Name == p.City).Select(u=>u.RegionId).FirstOrDefault();
+                var rid = _context.Regions.Where(x => x.Name == p.City).Select(u => u.RegionId).FirstOrDefault();
                 physician.RegionId = rid;
                 physician.Zip = p.Zip;
                 physician.AltPhone = p.AltPhone;
-
-                var aspid = _context.AspNetUsers.Where(x=>x.Email == email).Select(u=>u.Id).FirstOrDefault();
+                physician.IsDeleted = new BitArray(new bool[] { false });
+                var aspid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
                 physician.CreatedBy = aspid;
                 physician.Status = 1;
                 physician.BusinessName = p.BusinessName;
                 physician.BusinessWebsite = p.BusinessWebsite;
                 physician.Npinumber = p.Npinumber;
                 physician.CreatedDate = DateTime.Now;
+                int roleid = int.Parse(role);
+                physician.RoleId = roleid;
+                if (photo != null && photo.Length > 0)
+                {
 
+                    string fileName = System.IO.Path.GetFileName(photo.FileName);
+                    string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/AdminFiles");
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    string filePath = System.IO.Path.Combine(path, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        photo.CopyTo(stream);
+                    }
+                    physician.Photo = photo.FileName;
+                }
                 _context.Physicians.Add(physician);
                 _context.SaveChanges();
+                physicianUpdateUpload(email, physician.PhysicianId, agreementDoc, backgroundDoc, hippaDoc, disclosureDoc, licenseDoc);
 
+              
+               
             }
+            if (region != null)
+            {
+               
+                foreach (var a in region)
+                {
+                    PhysicianRegion physicianRegion = new PhysicianRegion();
+                    physicianRegion.PhysicianId = physician.PhysicianId;
+                    physicianRegion.RegionId = a;
+                    _context.PhysicianRegions.Add(physicianRegion);
+
+                }
+                _context.SaveChanges();
+            }
+           
         }
         public List<Physician> GetAllPhysicians()
         {
-            return _context.Physicians.ToList();
+            return _context.Physicians.Where(x=>x.IsDeleted == new BitArray(new bool[] {false})).ToList();
         }
         public Physician getPhysicianDetails(int physicianId)
         {
             //int pid = int.Parse(physicianId);
-           var res = _context.Physicians.Where(x=>x.PhysicianId == physicianId).FirstOrDefault();
+            var res = _context.Physicians.Where(x => x.PhysicianId == physicianId).FirstOrDefault();
             return res;
         }
         public List<Region> getPhysicianRegions(int physicianId)
         {
-            var physician = _context.Physicians.Where(x=>x.PhysicianId == physicianId).ToList();
-            
+            var physician = _context.Physicians.Where(x => x.PhysicianId == physicianId).ToList();
+
             if (physician == null)
             {
                 return new List<Region>();
@@ -1088,6 +1159,7 @@ namespace Repository
 
 
                 physician.Status = p.Status;
+                physician.RoleId = p.RoleId;
                 var aid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
                 physician.ModifiedBy = aid;
                 physician.ModifiedDate = DateTime.Now;
@@ -1095,15 +1167,15 @@ namespace Repository
 
             }
         }
-        public void physicianUpdatePassword(string email,int physicianId, string password)
+        public void physicianUpdatePassword(string email, int physicianId, string password)
         {
-            
 
-            var physicianAspId = _context.Physicians.Where(x => x.PhysicianId == physicianId).Select(u=>u.AspNetUserId).FirstOrDefault();
+
+            var physicianAspId = _context.Physicians.Where(x => x.PhysicianId == physicianId).Select(u => u.AspNetUserId).FirstOrDefault();
             if (physicianAspId != null && password != null)
             {
-                
-               var physician = _context.AspNetUsers.Where(x => x.Id == physicianAspId).FirstOrDefault();
+
+                var physician = _context.AspNetUsers.Where(x => x.Id == physicianAspId).FirstOrDefault();
                 var plainText = Encoding.UTF8.GetBytes(password);
                 physician.PasswordHash = Convert.ToBase64String(plainText);
                 physician.ModifiedDate = DateTime.Now;
@@ -1115,7 +1187,7 @@ namespace Repository
 
             var physician = _context.Physicians.Where(x => x.PhysicianId == physicianId).FirstOrDefault();
 
-          
+
             if (physician != null)
             {
 
@@ -1125,20 +1197,20 @@ namespace Repository
                 physician.Mobile = p.Mobile;
                 physician.MedicalLicense = p.MedicalLicense;
                 physician.Npinumber = p.Npinumber;
-                physician.SyncEmailAddress  = p.SyncEmailAddress;
+                physician.SyncEmailAddress = p.SyncEmailAddress;
                 var aid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
                 physician.ModifiedBy = aid;
                 physician.ModifiedDate = DateTime.Now;
                 _context.SaveChanges();
-                string[] boxes = uncheckedCheckboxes.Split(','); 
+                string[] boxes = uncheckedCheckboxes.Split(',');
 
 
                 if (boxes != null)
                 {
-                   
+
                     foreach (var box in boxes)
                     {
-                        if(box != "")
+                        if (box != "")
                         {
                             int regionid = int.Parse(box);
                             var row = _context.PhysicianRegions.Where(x => x.PhysicianId == physicianId && x.RegionId == regionid).FirstOrDefault();
@@ -1149,21 +1221,21 @@ namespace Repository
 
                             }
                         }
-                      
+
 
                     }
                 }
-                
+
 
             }
         }
 
-        public void physicianUpdateBilling(string email,int physicianId, Physician p)
+        public void physicianUpdateBilling(string email, int physicianId, Physician p)
         {
 
             var physician = _context.Physicians.Where(x => x.PhysicianId == physicianId).FirstOrDefault();
 
-          
+
             if (physician != null)
             {
 
@@ -1188,7 +1260,7 @@ namespace Repository
 
         }
 
-        public void physicianUpdateBusiness(string email, int physicianId, Physician p, IFormFile[] files )
+        public void physicianUpdateBusiness(string email, int physicianId, Physician p, IFormFile[] files)
         {
             var physician = _context.Physicians.Where(x => x.PhysicianId == physicianId).FirstOrDefault();
 
@@ -1231,10 +1303,478 @@ namespace Repository
 
 
 
-          
+
         }
 
-       
+        public void physicianUpdateUpload(string email, int physicianId, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc)
+        {
+            var physician = _context.Physicians.Where(x => x.PhysicianId == physicianId).FirstOrDefault();
+            if( physician != null )
+            {
+                if(agreementDoc != null && agreementDoc.Length > 0)
+                {
+                    string fileName = System.IO.Path.GetFileName(agreementDoc.FileName);
+                    string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/AdminFiles/{physicianId}");
 
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    string filePath = System.IO.Path.Combine(path, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        agreementDoc.CopyTo(stream);
+                    }
+              
+                    physician.IsAgreementDoc = new BitArray(new bool[] { true });
+                }
+                if (backgroundDoc != null && backgroundDoc.Length > 0)
+                {
+                    string fileName = System.IO.Path.GetFileName(backgroundDoc.FileName);
+                    string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/AdminFiles");
+
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    string filePath = System.IO.Path.Combine(path, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        backgroundDoc.CopyTo(stream);
+                    }
+                    physician.IsBackgroundDoc = new BitArray(new bool[] { true });
+                }
+                if (hippaDoc != null && hippaDoc.Length > 0)
+                {
+                    string fileName = System.IO.Path.GetFileName(hippaDoc.FileName);
+                    string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/AdminFiles");
+
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    string filePath = System.IO.Path.Combine(path, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        hippaDoc.CopyTo(stream);
+                    }
+                    
+                }
+                if (disclosureDoc != null && disclosureDoc.Length > 0)
+                {
+                    string fileName = System.IO.Path.GetFileName(disclosureDoc.FileName);
+                    string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/AdminFiles");
+
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    string filePath = System.IO.Path.Combine(path, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        disclosureDoc.CopyTo(stream);
+                    }
+                    physician.IsNonDisclosureDoc = new BitArray(new bool[] { true });
+                }
+                if (licenseDoc != null && licenseDoc.Length > 0)
+                {
+                    string fileName = System.IO.Path.GetFileName(licenseDoc.FileName);
+                    string path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/AdminFiles");
+
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    string filePath = System.IO.Path.Combine(path, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        licenseDoc.CopyTo(stream);
+                    }
+                    physician.IsLicenseDoc = new BitArray(new bool[] { true });
+                }
+                var aid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                if(physician.CreatedBy == null)
+                {
+                    physician.CreatedBy = aid;
+                    physician.CreatedDate = DateTime.Now;
+                }
+                else
+                {
+                    physician.ModifiedBy = aid;
+                    physician.ModifiedDate = DateTime.Now;
+                }
+                
+                _context.SaveChanges();
+
+            }
+           
+        }
+
+        public List<Role> GetPhysiciansRoles()
+        {
+           List<Role> r = _context.Roles.Where(x => x.AccountType == 2).ToList();
+            return r;
+        }
+
+        public void deletePhysicianAccount(string email, int physicianId)
+        {
+         var res =   _context.Physicians.Where(x => x.PhysicianId == physicianId).FirstOrDefault();
+            if(res != null)
+            {
+                res.IsDeleted = new BitArray(new bool[]  { true });
+                var aspid = _context.AspNetUsers.Where(x=>x.Email == email).Select(u=>u.Id).FirstOrDefault();
+                res.ModifiedBy = aspid;
+                res.ModifiedDate = DateTime.Now;
+                _context.SaveChanges();
+            }
+        }
+        public List<Menu> menuByAccountType(int accountType)
+        {
+            if (accountType == 3)
+            {
+                return _context.Menus.ToList();
+            }
+            var m = _context.Menus.Where(x => x.AccountType == accountType).ToList();
+            return m;
+        }
+
+        public List<int> menuByAccountTypeRoleId(int accountType, int roleId)
+        {
+
+
+            List<int> m = _context.RoleMenus.Where(x => x.RoleId == roleId).Select(x => x.MenuId).ToList();
+
+            return m;
+        }
+
+        public void createRole(createRole r, List<string> menu, string email)
+        {
+            Role role = new Role();
+            if (r != null)
+            {
+                role.Name = r.Name;
+                role.AccountType = r.AccountType;
+                var asp_name = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.UserName).FirstOrDefault();
+                role.CreatedBy = asp_name;
+                role.CreatedDate = DateTime.Now;
+                role.IsDeleted = new BitArray(new bool[] { false });
+                _context.Roles.Add(role);
+                _context.SaveChanges();
+
+
+
+
+                if (menu != null)
+                {
+
+                    foreach (var m in menu)
+                    {
+                        if (m != "")
+                        {
+                            RoleMenu roleMenu = new RoleMenu();
+                            int menuId = int.Parse(m);
+                            Menu row = _context.Menus.Where(x => x.MenuId == menuId).FirstOrDefault();
+                            if (row != null)
+                            {
+
+                                roleMenu.MenuId = menuId;
+                                roleMenu.RoleId = role.RoleId;
+
+                            }
+                            _context.RoleMenus.Add(roleMenu);
+
+                        }
+
+                        _context.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        public List<Role> GetAllRoles()
+        {
+            return _context.Roles.Where(x => x.IsDeleted == new BitArray(new bool[] { false })).ToList();
+        }
+
+        public void adminDeleteRole(int roleId, string email)
+        {
+            if (roleId != 0)
+            {
+                List<RoleMenu> rows = _context.RoleMenus.Where(x => x.RoleId == roleId).ToList();
+                foreach (var item in rows)
+                {
+                    _context.RoleMenus.Remove(item);
+                    _context.SaveChanges();
+                }
+
+                Role r = _context.Roles.Where(x => x.RoleId == roleId).FirstOrDefault();
+                if (r != null)
+                {
+                    string username = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.UserName).First();
+                    r.ModifiedBy = username;
+                    r.ModifiedDate = DateTime.Now;
+                    r.IsDeleted = new BitArray(new bool[] { true });
+
+                    _context.SaveChanges();
+                }
+
+            }
+        }
+
+        public Role getRoleData(int roleId)
+        {
+            Role r = _context.Roles.Where(u => u.RoleId == roleId).First();
+            return r;
+        }
+
+        public void updateRole(Role r, List<int> menu, int roleId, string email)
+        {
+            List<int> todelete = new List<int>();
+            List<int> toinsert = new List<int>();
+            var res = _context.Roles.Where(x => x.RoleId == roleId).First();
+            if (res != null)
+            {
+                res.RoleId = res.RoleId;
+                res.Name = r.Name;
+                res.AccountType = r.AccountType;
+                var asp_name = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.UserName).FirstOrDefault();
+                res.ModifiedBy = asp_name;
+                res.ModifiedDate = DateTime.Now;
+                _context.SaveChanges();
+
+            }
+
+
+            if (menu != null)
+            {
+
+                List<int> rm = _context.RoleMenus.Where(x => x.RoleId == roleId).Select(u => u.MenuId).ToList();
+                if (rm != null)
+                {
+                    foreach (var a in rm)
+                    {
+                        if (!menu.Contains(a))
+                        {
+                            todelete.Add(a);
+                        }
+                    }
+                    foreach (var b in menu)
+                    {
+                        if (!rm.Contains(b))
+                        {
+                            toinsert.Add(b);
+                        }
+                    }
+                }
+                foreach (var a in todelete)
+                {
+                   
+                    var row = _context.RoleMenus.Where(x => x.RoleId == roleId && x.MenuId == a).First();
+                    _context.RoleMenus.Remove(row);
+                    _context.SaveChanges(true);
+                }
+                foreach (var a in toinsert)
+                {
+                    RoleMenu roleMenu = new RoleMenu();
+                  
+                    roleMenu.MenuId = a;
+                    roleMenu.RoleId = roleId;
+                    _context.RoleMenus.Add(roleMenu);
+                    _context.SaveChanges();
+                }
+
+
+
+            }
+
+
+        }
+
+        public void createAdmin(Admin a, string password, List<int> region, string role, string email)
+        {
+            AspNetUser asp = new AspNetUser();
+            Admin admin = new Admin();
+            if (a != null)
+            {
+                asp.UserName = a.LastName + a.FirstName;
+                asp.Id = Guid.NewGuid().ToString();
+                var plainText = Encoding.UTF8.GetBytes(password);
+                asp.PasswordHash = Convert.ToBase64String(plainText);
+                asp.Email = a.Email;
+                asp.PhoneNumber = a.Mobile;
+                asp.CreatedDate = DateTime.Now;
+                _context.AspNetUsers.Add(asp);
+                _context.SaveChanges();
+
+
+                admin.AspNetUserId = asp.Id;
+                admin.FirstName = a.FirstName;
+                admin.LastName = a.LastName;
+                admin.Email = a.Email;
+                admin.Mobile = a.Mobile;
+                admin.Address1 = a.Address1;
+                admin.Address2 = a.Address2;
+                admin.City = a.City;
+                var rid = _context.Regions.Where(x => x.Name == a.City).Select(u => u.RegionId).FirstOrDefault();
+                admin.RegionId = rid;
+                admin.Zip = a.Zip;
+                admin.AltPhone = a.AltPhone;
+                var aspid = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).FirstOrDefault();
+                admin.CreatedBy = aspid;
+                admin.CreatedDate = DateTime.Now;
+                int roleid = int.Parse(role);
+                admin.RoleId = roleid;
+
+                _context.Admins.Add(admin);
+                _context.SaveChanges();
+                
+
+            }
+            if (region != null)
+            {
+                
+                foreach (var id in region)
+                {
+                    AdminRegion adminRegion = new AdminRegion();
+                    adminRegion.AdminId = admin.AdminId;
+                    adminRegion.RegionId = id;
+                    _context.AdminRegions.Add(adminRegion);
+
+
+                }
+
+                _context.SaveChanges(true);
+
+            }
+            
+
+
+        }
+
+        public List<Role> GetAdminsRoles()
+        {
+            List<Role> r = _context.Roles.Where(x => x.AccountType == 1).ToList();
+            return r;
+        }
+        public void insertShift(shiftViewModel s, string checktoggle, int[] dayList, string email)
+        {
+            var weekdays = "";
+            foreach (var i in dayList)
+            {
+
+                weekdays += i;
+            }
+            Shift shift = new Shift();
+            shift.PhysicianId = s.PhysicianId;
+           
+            DateOnly testDateOnly = DateOnly.FromDateTime(s.ShiftDate);
+            shift.StartDate = testDateOnly;
+            shift.RepeatUpto = s.RepeatUpto;
+            shift.WeekDays = weekdays;
+            var asp_id = _context.AspNetUsers.Where(x => x.Email == email).Select(u => u.Id).First();
+            shift.CreatedBy = asp_id;
+            shift.CreatedDate = DateTime.Now;
+            if (checktoggle == "on")
+            {
+                shift.IsRepeat = new BitArray(new bool[] { true });
+            }
+            else
+            {
+                shift.IsRepeat = new BitArray(new bool[] { false });
+            }
+            _context.Shifts.Add(shift);
+            _context.SaveChanges();
+
+
+            List<ShiftDetail> shiftDetails = new List<ShiftDetail>();
+            ShiftDetail shiftDetail = new ShiftDetail();
+            shiftDetail.ShiftId = shift.ShiftId;
+            shiftDetail.ShiftDate = s.ShiftDate;
+            shiftDetail.RegionId = s.RegionId;
+            shiftDetail.StartTime = s.StartTime;
+            shiftDetail.EndTime = s.EndTime;
+            shiftDetail.IsDeleted = new BitArray(new bool[] { false });
+            _context.ShiftDetails.Add(shiftDetail);
+            _context.SaveChanges();
+
+
+
+            if (shift.IsRepeat.Get(0) == true )
+            {
+                List<DateOnly> days = new();
+                days.Add(testDateOnly);
+
+                for (var i = 0; i < s.RepeatUpto; i++)
+                {
+                    for (int j = 0; j < dayList.Count(); j++)
+                    {
+
+                        int temp;
+                        switch (dayList[j])
+                        {
+                            case 1:
+                                temp = (int)DayOfWeek.Sunday - (int)DateTime.Parse(days.Last().ToString()).DayOfWeek;
+                                break;
+                            case 2:
+                                temp = (int)DayOfWeek.Monday - (int)DateTime.Parse(days.Last().ToString()).DayOfWeek;
+                                break;
+                            case 3:
+                                temp = (int)DayOfWeek.Tuesday - (int)DateTime.Parse(days.Last().ToString()).DayOfWeek;
+                                break;
+                            case 4:
+                                temp = (int)DayOfWeek.Wednesday - (int)DateTime.Parse(days.Last().ToString()).DayOfWeek;
+                                break;
+                            case 5:
+                                temp = (int)DayOfWeek.Thursday - (int)DateTime.Parse(days.Last().ToString()).DayOfWeek;
+                                break;
+                            case 6:
+                                temp = (int)DayOfWeek.Friday - (int)DateTime.Parse(days.Last().ToString()).DayOfWeek;
+                                break;
+                            default:
+                                temp = (int)DayOfWeek.Saturday - (int)DateTime.Parse(days.Last().ToString()).DayOfWeek;
+                                break;
+                        }
+                        if (temp <= 0)
+                        {
+                            temp += 7;
+                        }
+                        days.Add(days.Last().AddDays(temp));
+                    }
+
+                }
+
+                foreach (var day in days)
+                {
+
+                    ShiftDetail shiftdetail1 = new ShiftDetail();
+
+                    shiftdetail1.ShiftId = shift.ShiftId;
+                    shiftdetail1.ShiftDate = day.ToDateTime(s.StartTime);
+                    shiftdetail1.RegionId = s.RegionId;
+                    shiftdetail1.StartTime = s.StartTime;
+                    shiftdetail1.EndTime = s.EndTime;
+                    shiftdetail1.IsDeleted = new BitArray(new bool[] { true });
+
+
+
+                    var d1 = DateOnly.FromDateTime(shiftDetail.ShiftDate);
+                    var d2 = DateOnly.FromDateTime(shiftdetail1.ShiftDate);
+
+
+
+                    if ( d1 == d2)
+                    {
+                        continue;
+                    }
+                    shiftDetails.Add(shiftdetail1);
+                    _context.ShiftDetails.Add(shiftdetail1);
+                     _context.SaveChanges();
+                }
+            }
+
+
+
+            
+        }
     }
 }

@@ -36,7 +36,7 @@
                         <a class="btn back-btn mt-1" role="button" asp-controller="Admin" asp-action="adminDashboard"> < Back</a>
 
                     </div>
-                     <form method="post" class="row row-cols-1 " asp-controller="Admin" asp-action="adminProfileUpdatePassword" enctype="multipart/form-data">
+                <form method="post" class="row row-cols-1 " action="@Url.Action("adminProfileUpdateStatus", "Admin")" enctype="multipart/form-data">
                     <div class="col">
                         <h5>Account Information</h5>
                     </div>
@@ -49,39 +49,41 @@
                     </div>
                     <div class="col-md-6 gy-3">
                         <div class="form-floating mb-3">
-                            <input  type="password" name="password" class="form-control password-create-patient shadow-none" id="floatingInput" placeholder="" >
+                            <input type="password" name="password" id="password" class="form-control password-create-patient shadow-none" id="floatingInput" placeholder="">
                             <label class="password-create-patient-text" for="floatingInput">Password</label>
-
+                            <span id="pwd"></span>
                         </div>
                     </div>
+                    <div class="col-md-6 gy-3">
+                        <select asp-for="Status" class="form-select m-0 p-2 ainfo" aria-label="Default select example" disabled>
+                            <option selected>Status</option>
+         
+                            <option value="2">Active</option>
+                            <option value="3">Not Active</option>
+                        </select>
 
-                    <div class="col-md-6 gy-3" style=" color: lightgray;">
-                        <div class=" form-floating mb-3 ">
-                            <button class="btn dropdown-toggle  " style="text-align:left; border:none;" type="button" data-bs-toggle="dropdown"  >
-                                Status
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Active</a></li>
-                                <li><a class="dropdown-item" href="#">Not Active</a></li>
-                            </ul>
-                        </div>
                     </div>
 
-                    <div class="col-md-6 gy-3" style=" color: lightgray;  ">
-                        <div class=" form-floating mb-3 ">
-                            <button class="btn  dropdown-toggle  " style="text-align:left; border:none;" type="button" data-bs-toggle="dropdown"  >
-                                Role
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Master Admin</a></li>
-                                <li><a class="dropdown-item" href="#">Admin</a></li>
-                            </ul>
-                        </div>
+                    <div class="col-md-4 gy-3 mb-3" style=" color: lightgray;">
+
+                        <select asp-for="RoleId" id="role" class="form-select m-2 p-2 ainfo" aria-label="Default select example" disabled>
+                           
+
+
+                        </select>
                     </div>
+
+                    <div class="col d-flex justify-content-end m-2">
+
+                    <a role="button" class="btn submit-btn-create-patient me-2 p-2" id="edit3">Edit</a>
+                    <a class="btn back-btn m-2 w-25 ms-auto" role="button" id="reset">Reset Password</a>
+                    <button type="submit" role="button" class="btn save-btn-patient-profile  me-2 p-2" id="submit3" style="display: none;">Save</button>
+                    <a role="button" class="btn cancel-btn-patient-profile  me-2 p-2" id="cancel3" style="display: none;">Cancel</a>
+                    </div>
+                </form>
+          
+            
                    
-
-                    <button class="btn back-btn m-2 w-25 ms-auto" role="button" type="submit" >Reset Password</button>
-                    </form>
                  <form method="post" class="row row-cols-1 " asp-controller="Admin" asp-action="adminProfile" enctype="multipart/form-data">
                     <div class="col">
                         <h5>Administrator Information</h5>
@@ -253,6 +255,30 @@
 
     <script>
         $(document).ready(function () {
+
+            $.ajax({
+                url: '/Admin/GetAdminsRoles',
+                type: 'GET',
+
+                success: function (data) {
+
+                    var roleDropdown = $('#role');
+                    roleDropdown.empty();
+                    roleDropdown.append($('<option></option>').text(@Model.RoleId));
+                    $.each(data, function (index, RoleId) {
+
+                        roleDropdown.append($('<option></option>').attr('value', RoleId.roleId).text(RoleId.name));
+                    });
+                }
+            });
+
+
+
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
           
             $.ajax({
                 url: '/Admin/getAdminRegions',
@@ -325,15 +351,28 @@
         const editBtn2 = document.querySelector("#edit2");
         const saveBtn2 = document.querySelector("#submit2");
         const cancelBtn2 = document.querySelector("#cancel2");
-        const info = document.querySelectorAll(".info");
+        const editBtn3 = document.querySelector("#edit3");
+        const saveBtn3 = document.querySelector("#submit3");
+        const cancelBtn3 = document.querySelector("#cancel3");
+        const ainfo = document.querySelectorAll(".ainfo");
 
         editBtn2.addEventListener("click", function () {
-            info.forEach(field => {
+            
+            .forEach(field => {
                 field.removeAttribute("disabled");
             });
             editBtn2.style.display = "none";
             saveBtn2.style.display = "inline-block";
             cancelBtn2.style.display = "inline-block";
+        });
+
+        editBtn3.addEventListener("click", function () {
+            ainfo.forEach(field => {
+                field.removeAttribute("disabled");
+            });
+            editBtn3.style.display = "none";
+            saveBtn3.style.display = "inline-block";
+            cancelBtn3.style.display = "inline-block";
         });
 
         cancelBtn2.addEventListener("click", function () {
@@ -343,6 +382,14 @@
             editBtn2.style.display = "inline-block";
             saveBtn2.style.display = "none";
             cancelBtn2.style.display = "none";
+        });
+        cancelBtn3.addEventListener("click", function () {
+            ainfo.forEach(field => {
+                field.setAttribute("disabled", true);
+            });
+            editBtn3.style.display = "inline-block";
+            saveBtn3.style.display = "none";
+            cancelBtn3.style.display = "none";
         });
 </script>
 
@@ -359,13 +406,43 @@
 
 
             var uncheckedCheckboxesString = uncheckedCheckboxes.join(',');
-
+           
             $('#uncheckedCheckboxesInput').val(uncheckedCheckboxesString);
 
         });
 
        
 </script>
+
+    <script>
+
+
+        $('#reset').click(function () {
+
+            
+            const password = $('#password').val();
+            if (password == "") {
+                $("#pwd").append("Enter Password First!!").css("color", "red");
+            }
+            alert(password);
+            if (password != "") {
+                $.ajax({
+                    url: '/Admin/adminProfileUpdatePassword',
+                    method: 'POST',
+                    data: {'password': password },
+                    success: function (data) {
+                    }
+                });
+            }
+
+
+
+
+
+        });
+
+
+    </script>
 </body>
 
 </html>

@@ -78,11 +78,11 @@ namespace Repository.IRepository
         public List<Region> getAdminRegions(string email);
 
        
-        public void adminProfileUpdatePassword(string email, string password);
-
+        public void adminProfileUpdatePassword(string email, string password);  
+        public void adminProfileUpdateStatus(string email, Admin a);
         public void adminUpdateProfile(string email, Admin a, string uncheckedCheckboxes);
         public void adminUpdateProfileBilling(string email, Admin a);
-        public void createPhysicianAccount(Physician p, IFormFile photo, string password, string email);
+        public void createPhysicianAccount(Physician p, IFormFile photo, string password, string role, List<int> region, string email, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc);
         public List<Physician> GetAllPhysicians();
         public List<Region> getPhysicianRegions(int physicianId);
         public Physician getPhysicianDetails(int physicianId);
@@ -92,6 +92,26 @@ namespace Repository.IRepository
         public void physicianUpdateBilling(string email, int physicianId, Physician p);
 
         public void physicianUpdateBusiness(string email, int physicianId, Physician p, IFormFile[] files);
+
+        public void physicianUpdateUpload(string email, int physicianId, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc);
+        public List<Role> GetPhysiciansRoles();
+        public void deletePhysicianAccount(string email, int physicianId);
+        public List<Menu> menuByAccountType(int accountType);
         //public void physicianUpdateBusiness(string email, int physicianId, Physician p, IFormFile? profilePhoto, IFormFile? signaturePhoto, IFormFile? agreementDoc, IFormFile? backgroundDoc, IFormFile? hippaDoc, IFormFile? disclosureDoc, IFormFile? licenseDoc);
+
+        public void createRole(createRole r, List<string> menu, string email);
+
+        public List<Role> GetAllRoles();
+        public void adminDeleteRole(int roleId, string email);
+
+        public Role getRoleData(int roleId);
+        public List<int> menuByAccountTypeRoleId(int accountType, int roleId);
+        public void updateRole(Role r, List<int> menu, int roleId, string email);
+
+        public void createAdmin(Admin a, string password, List<int> region, string role, string email);
+
+        public List<Role> GetAdminsRoles();
+
+        public void insertShift(shiftViewModel s, string checktoggle, int[] dayList, string email);
     }
 }
